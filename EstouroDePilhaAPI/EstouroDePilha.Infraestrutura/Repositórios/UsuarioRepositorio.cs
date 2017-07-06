@@ -31,6 +31,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         public void Deletar(Usuario usuario)
         {
             contexto.Usuarios.Remove(usuario);
+            contexto.SaveChanges();
         }
 
         public List<Usuario> Listar()
