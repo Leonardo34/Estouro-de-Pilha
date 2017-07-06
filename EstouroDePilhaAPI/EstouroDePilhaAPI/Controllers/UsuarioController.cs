@@ -26,11 +26,10 @@ namespace EstouroDePilhaAPI.Controllers
         [HttpDelete]
         public HttpResponseMessage Deletar(Usuario usuario)
         {
-            if (repositorio.ObterPorEmail(usuario.Email) ==null)
+            if (repositorio.ObterPorEmail(usuario.Email) == null)
             {
-                throw new Exception();
+                throw new ExcecaoUsuarioNaoExistente();
             }
-
             repositorio.Deletar(usuario);
             return ResponderOK(usuario);
         }
@@ -40,7 +39,7 @@ namespace EstouroDePilhaAPI.Controllers
         {          
             if (!usuario.IsValid())
             {
-                throw new ExcecaoUsuarioNaoExistente();
+                throw new Exception();
             }
             repositorio.Criar(usuario);
             return ResponderOK(usuario);
@@ -53,7 +52,6 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 throw new Exception();
             }
-
             return ResponderOK();    
         }
     }
