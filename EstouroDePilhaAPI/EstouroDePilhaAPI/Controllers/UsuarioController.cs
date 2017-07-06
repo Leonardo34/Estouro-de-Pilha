@@ -25,7 +25,7 @@ namespace EstouroDePilhaAPI.Controllers
         [HttpDelete]
         public HttpResponseMessage Deletar(Usuario usuario)
         {
-            if (repositorio.ObterPorId(usuario.Id) == null)
+            if (repositorio.ObterPorEmail(usuario.Email) == null)
             {
                 return ResponderErro("Tchê, o usuário não existe!");
             }
@@ -43,13 +43,12 @@ namespace EstouroDePilhaAPI.Controllers
         [HttpPut]
         public HttpResponseMessage Alterar(Usuario usuario)
         {
-            if (repositorio.ObterPorId(usuario.Id) == null)
+            if (repositorio.ObterPorEmail(usuario.Email) == null)
             {
                 return ResponderErro("Tchê, o usuário não existe!");
             }
             repositorio.Alterar(usuario);
             return ResponderOK(usuario);
         }
-
     }
 }
