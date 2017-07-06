@@ -12,6 +12,11 @@ angular.module('EstouroPilhaApp').config(function ($routeProvider) {
       templateUrl: 'cadastro/cadastro.html'
     })
 
+    .when('/home', {
+      controller: 'homeController',
+      templateUrl: 'home/home.html'
+    })
+
     .when('/tags', {
       controller: 'tagsController',
       templateUrl: 'tags/tags.html'
@@ -22,5 +27,5 @@ angular.module('EstouroPilhaApp').config(function ($routeProvider) {
       templateUrl: 'cadastroPergunta/cadastroPergunta.html'
     })
 
-    .otherwise({redirectTo: '/cadastro'});
+    .otherwise({redirectTo: '/home'});
 });

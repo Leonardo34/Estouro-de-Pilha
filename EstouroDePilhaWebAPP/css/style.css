@@ -8,7 +8,19 @@
 
 .icon.user,
 .icon.password {
-  margin: 5px 10px 5px 10px;
+  margin: 5px 10px 0 0;
+}
+
+.avatar img {
+  border-radius: 100px;
+  padding: 5px;
+  border: 1px solid #dbdbdb;
+}
+
+.forgot-password a {
+  color: #95A5A6;
+  font-weight: bold;
+  padding-right: 20px;
 }
 
 .login {
