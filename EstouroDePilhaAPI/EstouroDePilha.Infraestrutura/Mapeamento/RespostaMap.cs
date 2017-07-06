@@ -14,8 +14,16 @@ namespace EstouroDePilha.Infraestrutura.Mapeamento
         {
             ToTable("Repostas");
             HasKey(x => x.Id);
-            HasRequired(x => x.Usuario).WithMany();
-            HasRequired(x => x.Pergunta).WithMany();
+
+            /*HasRequired(x => x.Usuario)
+                .WithMany(x => x.Respostas)
+                .Map(x => x.MapKey("IdUsuario"));*/
+
+            HasRequired(x => x.Pergunta)
+                .WithMany(x => x.Respostas)
+                .Map(x => x.MapKey("IdPergunta"))
+                .WillCascadeOnDelete(false); 
+            
         }
     }
 }

@@ -14,7 +14,7 @@ namespace EstouroDePilha.Infraestrutura.Mapeamento
         {
             ToTable("Tag");
 
-            HasMany(x => x.Perguntas)
+            /*HasMany(x => x.Perguntas)
                 .WithMany(x => x.Tags)
                 .Map(x =>
                 {
@@ -22,6 +22,7 @@ namespace EstouroDePilha.Infraestrutura.Mapeamento
                     x.MapRightKey("IdPergunta");
                     x.ToTable("TagPergunta");
                 });
+           */
         }
     }
 }
