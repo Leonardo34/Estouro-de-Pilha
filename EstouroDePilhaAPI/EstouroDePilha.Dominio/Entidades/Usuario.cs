@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EstouroDePilhaAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -13,7 +14,7 @@ namespace EstouroDePilha.Dominio.Entidades
         static readonly int _numeroCaracteresNovaSenha = 10;
 
 
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Endereco { get; set; }
@@ -27,8 +28,7 @@ namespace EstouroDePilha.Dominio.Entidades
         public Usuario(string nome, string email, string senha)
         {
             Nome = nome;
-            Email = email;
-            Id = Guid.NewGuid();
+            Email = email;            
             if (!string.IsNullOrWhiteSpace(senha))
                 Senha = CriptografarSenha(senha);
             Mensagens = new List<string>();
