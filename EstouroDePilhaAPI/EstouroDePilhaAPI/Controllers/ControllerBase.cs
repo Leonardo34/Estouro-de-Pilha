@@ -10,16 +10,19 @@ namespace EstouroDePilhaAPI.Controllers
 {
     public abstract class ControllerBase : ApiController
     {
-        readonly Contexto contexto;
-        public ControllerBase(Contexto contexto)
+        public HttpResponseMessage ResponderOK(object result = null)
         {
-            this.contexto = contexto;
+            return Request.CreateResponse(HttpStatusCode.OK, new { result });
         }
 
-        public void SalvarAlteracoes()
+        public HttpResponseMessage ResponderErro(params string[] errors)
         {
-            this.contexto.SaveChanges();
+            return Request.CreateResponse(HttpStatusCode.BadRequest, new { errors });
         }
 
+        public HttpResponseMessage ResponderErro(IEnumerable<string> errors)
+        {
+            return Request.CreateResponse(HttpStatusCode.BadRequest, new { errors });
+        }
     }
 }
