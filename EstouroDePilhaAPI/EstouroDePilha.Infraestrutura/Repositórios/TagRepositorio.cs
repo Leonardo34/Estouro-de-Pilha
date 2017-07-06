@@ -11,7 +11,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
     {
         private Contexto contexto;
 
-        TagRepositorio(Contexto contexto)
+        public TagRepositorio(Contexto contexto)
         {
             this.contexto = contexto;
         }

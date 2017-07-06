@@ -11,7 +11,5 @@ namespace EstouroDePilha.Dominio.Entidades
         List<String> Mensagens { get; set; }
 
         public abstract bool EhValida();
-
-        public abstract List<String> PegarMensagens();
     }
 }
