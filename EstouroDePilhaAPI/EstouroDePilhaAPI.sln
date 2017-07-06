@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EstouroDePilhaAPI", "EstouroDePilhaAPI\EstouroDePilhaAPI.csproj", "{00BD7674-FF79-439B-9BB3-BFCC89CBACC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EstouroDePilha.Dominio", "EstouroDePilha.Dominio\EstouroDePilha.Dominio.csproj", "{33413FC9-7041-42BA-9F97-8024F15FA690}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{00BD7674-FF79-439B-9BB3-BFCC89CBACC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00BD7674-FF79-439B-9BB3-BFCC89CBACC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00BD7674-FF79-439B-9BB3-BFCC89CBACC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33413FC9-7041-42BA-9F97-8024F15FA690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33413FC9-7041-42BA-9F97-8024F15FA690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33413FC9-7041-42BA-9F97-8024F15FA690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33413FC9-7041-42BA-9F97-8024F15FA690}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
