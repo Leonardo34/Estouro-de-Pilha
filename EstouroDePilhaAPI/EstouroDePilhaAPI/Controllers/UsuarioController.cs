@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Web;
 using System.Web.Http;
 
@@ -64,15 +65,10 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [BasicAuthorization]
-        [HttpPost]
-        public HttpResponseMessage Criar(Usuario usuario)
-        {          
-            if (!usuario.IsValid())
-            {
-                throw new Exception();
-            }
-            repositorio.Criar(usuario);
-            return ResponderOK(usuario);
+        [HttpGet, Route("login")]
+        public HttpResponseMessage FazerLogin()
+        {
+            return ResponderOK(repositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name));
         }
 
         [BasicAuthorization]
