@@ -10,10 +10,9 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
     {
         private Contexto contexto;
 
-        PerguntaRepositorio(Contexto contexto)
+        public PerguntaRepositorio(Contexto contexto)
         {
             this.contexto = contexto;
         }
-
     }
 }
