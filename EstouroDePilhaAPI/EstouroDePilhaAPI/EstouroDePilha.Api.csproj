@@ -152,6 +152,12 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EstouroDePilha.Infraestrutura\EstouroDePilha.Infraestrutura.csproj">
+      <Project>{98548E4D-390D-4707-8FFA-320F4D538FA2}</Project>
+      <Name>EstouroDePilha.Infraestrutura</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
