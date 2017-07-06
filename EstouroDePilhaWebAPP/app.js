@@ -1,6 +1,13 @@
 var app = angular.module("EstouroPilhaApp", ['ngRoute', 'auth']);
 
-
+app.config(function ($routeProvider) {
+    $routeProvider
+    .when('/login', {
+      controller: 'loginController',
+      templateUrl: 'login/login.html'
+    })
+    .otherwise({redirectTo: '/login'});
+});
 
 angular.module('EstouroPilhaApp').constant('authConfig', {
 
