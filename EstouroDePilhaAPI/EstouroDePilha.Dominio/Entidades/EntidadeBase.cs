@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace EstouroDePilha.Dominio.Entidades
 {
-    internal abstract class EntidadeBase
+    public abstract class EntidadeBase
     {
-        List<String> Mensagens { get; set; }
+        public List<String> Mensagens { get; set; }
 
         public abstract bool EhValida();
     }

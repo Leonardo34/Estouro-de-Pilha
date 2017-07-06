@@ -26,7 +26,7 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 usuario = new Usuario(model.Nome, model.Email, model.Senha);
 
-                if (usuario.IsValid())
+                if (usuario.EhValida())
                 {
                     repositorio.Criar(usuario);
                 }
