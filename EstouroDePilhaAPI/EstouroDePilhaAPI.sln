@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EstouroDePilhaTestesUnitari
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EstouroDePilha.Infraestrutura", "EstouroDePilha.Infraestrutura\EstouroDePilha.Infraestrutura.csproj", "{98548E4D-390D-4707-8FFA-320F4D538FA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EstouroDePilha.TestesUnitarios", "EstouroDePilhaTestesUnitarios\EstouroDePilha.TestesUnitarios.csproj", "{95176FED-F51E-4A8A-994D-408E41622526}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EstouroDePilha.Api", "EstouroDePilhaAPI\EstouroDePilha.Api.csproj", "{E4EF4778-A3B0-4982-A788-5BCE1B4A955A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{98548E4D-390D-4707-8FFA-320F4D538FA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98548E4D-390D-4707-8FFA-320F4D538FA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98548E4D-390D-4707-8FFA-320F4D538FA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95176FED-F51E-4A8A-994D-408E41622526}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95176FED-F51E-4A8A-994D-408E41622526}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95176FED-F51E-4A8A-994D-408E41622526}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95176FED-F51E-4A8A-994D-408E41622526}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4EF4778-A3B0-4982-A788-5BCE1B4A955A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4EF4778-A3B0-4982-A788-5BCE1B4A955A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4EF4778-A3B0-4982-A788-5BCE1B4A955A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4EF4778-A3B0-4982-A788-5BCE1B4A955A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

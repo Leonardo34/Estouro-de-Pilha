@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0B0DB9C2-AB70-4DC0-BE5F-013B25D61644}</ProjectGuid>
+    <ProjectGuid>{95176FED-F51E-4A8A-994D-408E41622526}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EstouroDePilhaTestesUnitarios</RootNamespace>
