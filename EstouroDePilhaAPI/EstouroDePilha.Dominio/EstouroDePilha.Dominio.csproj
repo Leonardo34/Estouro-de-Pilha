@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Entidades\Pergunta.cs" />
     <Compile Include="Entidades\Resposta.cs" />
+    <Compile Include="Entidades\Tag.cs" />
     <Compile Include="Entidades\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

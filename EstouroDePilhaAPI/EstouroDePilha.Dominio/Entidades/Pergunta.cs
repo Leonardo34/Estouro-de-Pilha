@@ -14,5 +14,6 @@ namespace EstouroDePilha.Dominio.Entidades
         public string Descricao { get; set; }
         public List<Resposta> Respostas { get; set; }
         public DateTime DataPergunta { get; set; }
+        public List<Tag> Tags { get; set; }
     }
 }
