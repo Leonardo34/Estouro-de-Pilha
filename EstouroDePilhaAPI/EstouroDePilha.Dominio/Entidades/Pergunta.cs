@@ -8,8 +8,10 @@ namespace EstouroDePilha.Dominio.Entidades
 {
     public class Pergunta
     {
+        public int Id { get; set; }
         public Usuario Usuario { get; set; }
         public string Titulo { get; set; }
         public string Descricao { get; set; }
+        public List<Resposta> Respostas { get; set; }
     }
 }
