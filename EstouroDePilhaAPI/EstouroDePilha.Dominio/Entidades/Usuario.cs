@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EstouroDePilha.Dominio.Entidades
 {
-    public class Usuario
+    public class Usuario : EntidadeBase
     {
         static readonly char[] _caracteresNovaSenha = "abcdefghijklmnopqrstuvzwyz1234567890*-_".ToCharArray();
         static readonly int _numeroCaracteresNovaSenha = 10;
@@ -23,7 +23,6 @@ namespace EstouroDePilha.Dominio.Entidades
         public string Senha { get; set; }
         public List<Pergunta> Perguntas { get; set; }
         public List<Resposta> Respostas { get; set; }
-        public List<string> Mensagens { get; set; }
 
         public Usuario(string nome, string email, string senha)
         {
@@ -33,6 +32,10 @@ namespace EstouroDePilha.Dominio.Entidades
             if (!string.IsNullOrWhiteSpace(senha))
                 Senha = CriptografarSenha(senha);
             Mensagens = new List<string>();
+        }
+
+        protected Usuario()
+        {
         }
 
         public string ResetarSenha()
@@ -65,7 +68,7 @@ namespace EstouroDePilha.Dominio.Entidades
             return CriptografarSenha(senha) == Senha;
         }
 
-        public bool Validar()
+        public override bool EhValida()
         {
             Mensagens.Clear();
 
@@ -79,16 +82,6 @@ namespace EstouroDePilha.Dominio.Entidades
                 Mensagens.Add("Senha é inválido.");
 
             return Mensagens.Count == 0;
-        }
-
-        public bool IsValid()
-        {
-            return Mensagens.Count == 0;
-        }
-
-        public void AddMessage(string message)
-        {
-            Mensagens.Add(message);
         }
     }
 }
