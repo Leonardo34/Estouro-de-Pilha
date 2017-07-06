@@ -6,7 +6,7 @@ app.config(function ($routeProvider) {
       controller: 'loginController',
       templateUrl: 'login/login.html'
     })
-    .otherwise({redirectTo: '/login'});
+    .otherwise({redirectTo: '/home'});
 });
 
 angular.module('EstouroPilhaApp').constant('authConfig', {
@@ -22,4 +22,4 @@ angular.module('EstouroPilhaApp').constant('authConfig', {
 
     // Opcional - URL da aplicação para onde será redirecionado (se for informado) após o LOGOUT
     urlLogout: '/login'
-}); 
+});
