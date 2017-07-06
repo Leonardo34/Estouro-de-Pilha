@@ -69,7 +69,9 @@ namespace EstouroDePilhaAPI.Controllers
         [HttpGet, Route("login")]
         public HttpResponseMessage FazerLogin()
         {
-            return ResponderOK(repositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name));
+            Usuario usuario = repositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+
+            return ResponderOK(usuario.converterUsuarioParaUsuarioModel());
         }
 
         [BasicAuthorization]

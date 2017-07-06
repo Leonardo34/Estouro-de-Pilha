@@ -52,9 +52,9 @@
     <Compile Include="Mapeamento\RespostaMap.cs" />
     <Compile Include="Mapeamento\TagMap.cs" />
     <Compile Include="Mapeamento\UsuarioMap.cs" />
-    <Compile Include="Migrations\201707062021400_CriacaoDoBanco.cs" />
-    <Compile Include="Migrations\201707062021400_CriacaoDoBanco.Designer.cs">
-      <DependentUpon>201707062021400_CriacaoDoBanco.cs</DependentUpon>
+    <Compile Include="Migrations\201707062112373_refazerOBanco.cs" />
+    <Compile Include="Migrations\201707062112373_refazerOBanco.Designer.cs">
+      <DependentUpon>201707062112373_refazerOBanco.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,8 +75,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707062021400_CriacaoDoBanco.resx">
-      <DependentUpon>201707062021400_CriacaoDoBanco.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707062112373_refazerOBanco.resx">
+      <DependentUpon>201707062112373_refazerOBanco.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,7 +3,7 @@ namespace EstouroDePilha.Infraestrutura.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CriacaoDoBanco : DbMigration
+    public partial class refazerOBanco : DbMigration
     {
         public override void Up()
         {
@@ -15,7 +15,7 @@ namespace EstouroDePilha.Infraestrutura.Migrations
                         Titulo = c.String(),
                         Descricao = c.String(),
                         DataPergunta = c.DateTime(nullable: false),
-                        IdUsuario = c.Guid(nullable: false),
+                        IdUsuario = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Usuario", t => t.IdUsuario, cascadeDelete: true)
@@ -28,7 +28,7 @@ namespace EstouroDePilha.Infraestrutura.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Descricao = c.String(),
                         DataResposta = c.DateTime(nullable: false),
-                        IdResposta = c.Guid(nullable: false),
+                        IdResposta = c.Int(nullable: false),
                         IdPergunta = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
@@ -41,7 +41,7 @@ namespace EstouroDePilha.Infraestrutura.Migrations
                 "dbo.Usuario",
                 c => new
                     {
-                        Id = c.Guid(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
                         Nome = c.String(),
                         Email = c.String(),
                         Endereco = c.String(),
