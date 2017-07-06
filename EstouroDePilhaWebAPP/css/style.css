@@ -50,3 +50,14 @@
 .nav-center .input{
   border-radius: 20px;
 }
+
+.control .butCadas,
+.butCanc{
+  left: 24%;
+  top: 50%;
+  border-radius: 20px;
+}
+
+.box .label{
+  margin-top: 15px;
+}
