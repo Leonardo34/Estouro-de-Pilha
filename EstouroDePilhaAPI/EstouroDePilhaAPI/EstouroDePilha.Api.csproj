@@ -129,6 +129,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BasicAuthorization.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Global.asax.cs">
@@ -153,6 +154,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EstouroDePilha.Dominio\EstouroDePilha.Dominio.csproj">
+      <Project>{33413FC9-7041-42BA-9F97-8024F15FA690}</Project>
+      <Name>EstouroDePilha.Dominio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EstouroDePilha.Infraestrutura\EstouroDePilha.Infraestrutura.csproj">
       <Project>{98548E4D-390D-4707-8FFA-320F4D538FA2}</Project>
       <Name>EstouroDePilha.Infraestrutura</Name>

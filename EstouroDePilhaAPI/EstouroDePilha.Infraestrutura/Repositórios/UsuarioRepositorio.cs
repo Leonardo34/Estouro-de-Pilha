@@ -43,5 +43,11 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         {
             return contexto.Usuarios.FirstOrDefault(u => u.Id == id);
         }
+
+        public Usuario ObterPorEmail(string email)
+        {
+            return contexto.Usuarios
+                .FirstOrDefault(u => u.Email.Equals(email));
+        }
     }
 }
