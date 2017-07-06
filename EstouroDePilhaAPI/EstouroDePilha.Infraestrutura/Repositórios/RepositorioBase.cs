@@ -10,8 +10,8 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
     {
         void Criar(T entity);
         T ObterPorId(int id);
-        T Alterar(T entity);
-        T Deletar(T entity);
+        void Alterar(T entity);
+        void Deletar(T entity);
         List<T> Listar();
     }
 }
