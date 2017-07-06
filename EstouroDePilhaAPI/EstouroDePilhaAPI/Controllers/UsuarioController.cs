@@ -1,4 +1,5 @@
 ﻿using EstouroDePilha.Dominio.Entidades;
+using EstouroDePilha.Dominio.Excecoes;
 using EstouroDePilha.Infraestrutura;
 using EstouroDePilha.Infraestrutura.Repositórios;
 using System;
@@ -25,12 +26,16 @@ namespace EstouroDePilhaAPI.Controllers
         [HttpDelete]
         public HttpResponseMessage Deletar(Usuario usuario)
         {
-            if (repositorio.ObterPorEmail(usuario.Email) == null)
+            try
             {
-                return ResponderErro("Tchê, o usuário não existe!");
+                repositorio.Deletar(usuario);
+                return ResponderOK(usuario);
             }
-            repositorio.Deletar(usuario);
-            return ResponderOK(usuario);
+            catch (ExcecaoUsuarioNaoExistente excecao)
+            {
+                return ResponderErro(excecao.Message);
+            }
+
         }
 
         [HttpPost]
@@ -43,12 +48,16 @@ namespace EstouroDePilhaAPI.Controllers
         [HttpPut]
         public HttpResponseMessage Alterar(Usuario usuario)
         {
-            if (repositorio.ObterPorEmail(usuario.Email) == null)
+            try
             {
-                return ResponderErro("Tchê, o usuário não existe!");
+                repositorio.Alterar(usuario);
+                return ResponderOK(usuario);
             }
-            repositorio.Alterar(usuario);
-            return ResponderOK(usuario);
+            catch (ExcecaoUsuarioNaoExistente excecao)
+            {
+                return ResponderErro(excecao.Message);
+            }
+
         }
     }
 }
