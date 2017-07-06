@@ -50,6 +50,8 @@
     <Compile Include="Contexto.cs" />
     <Compile Include="Mapeamento\TagMap.cs" />
     <Compile Include="Mapeamento\UsuarioMap.cs" />
+    <Compile Include="Mapeamento\PerguntaMap.cs" />
+    <Compile Include="Mapeamento\RespostaMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
