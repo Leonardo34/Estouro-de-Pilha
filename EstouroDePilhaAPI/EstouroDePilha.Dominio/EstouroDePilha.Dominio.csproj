@@ -52,6 +52,8 @@
     <Compile Include="Entidades\Resposta.cs" />
     <Compile Include="Entidades\Tag.cs" />
     <Compile Include="Entidades\Usuario.cs" />
+    <Compile Include="Excecoes\ExcecaoCampoVazio.cs" />
+    <Compile Include="Excecoes\ExcecaoUsuarioInvalido.cs" />
     <Compile Include="Excecoes\ExcecaoUsuarioNaoExistente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
