@@ -7,71 +7,85 @@
               Te cadastra ai guri!
             </h1>
             <div class="box">
-              <label class="label has-text-centered">Nome</label>
-              <p class="control">
-                <input class="input"
+              <form name="formUsuario" novalidate ng-sumbit="cadastrar(novoUsuario)">
+                <label for="novoUsuario" class="label has-text-centered">Nome</label>
+                <p class="control">
+                  <input class="input"
+                      type="text"
+                      autofocus
+                      required
+                      minlength="3"
+                      maxlength="50"
+                      ng-model="novoUsuario.Nome"
+                      placeholder="Jair Kobe">
+                </p>
+                <label for="novoUsuario" class="label has-text-centered">Apelido</label>
+                <p class="control">
+                  <input class="input"
+                      type="text"
+                      required
+                      minlength="3"
+                      maxlength="20"
+                      ng-model="novoUsuario.Username"
+                      placeholder="GuriDeUruguaiana">
+                </p>
+                <label for="novoUsuario" class="label has-text-centered">Email</label>
+                <p class="control">
+                  <input class="input"
+                      type="email"
+                      required
+                      minlength="3"
+                      maxlength="40"
+                      ng-model="novoUsuario.Email"
+                      placeholder="guriuguaiana@gaucho.mate">
+                </p>
+                <label for="novoUsuario" class="label has-text-centered">Endereço</label>
+                <p class="control">
+                  <input class="input"
+                      type="text"
+                      required
+                      minlength="3"
+                      maxlength="50"
+                      ng-model="novoUsuario.Endereço"
+                      placeholder="Uruguaiana, RS">
+                </p>
+                <label for="novoUsuario" class="label has-text-centered">Tua Foto</label>
+                <p class="control">
+                  <input class="input"
+                      type="url"
+                      required
+                      ng-model="novoUsuario.Foto"
+                      placeholder="https://foto.png">
+                </p>
+                <label for="novoUsuario" class="label has-text-centered">Senha</label>
+                <p class="control">
+                  <input class="input"
+                      type="password"
+                      required
+                      minlength="6"
+                      maxlength="30"
+                      ng-model="novoUsuario.Senha"
+                      placeholder="●●●●●●●">
+                </p>
+                <hr>
+                <label for="novoUsuario" class="label has-text-centered">Descrição</label>
+                <textarea rows="8"
+                    cols="52"
+                    class="textarea"
                     type="text"
-                    autofocus
                     required
-                    ng-model="usuario.Nome"
-                    placeholder="Jair Kobe">
-              </p>
-              <label class="label has-text-centered">Apelido</label>
-              <p class="control">
-                <input class="input"
-                    type="text"
-                    required
-                    ng-model="usuario.Username"
-                    placeholder="GuriDeUruguaiana">
-              </p>
-              <label class="label has-text-centered">Email</label>
-              <p class="control">
-                <input class="input"
-                    type="email"
-                    required
-                    ng-model="usuario.Email"
-                    placeholder="guriuguaiana@gaucho.mate">
-              </p>
-              <label class="label has-text-centered">Endereço</label>
-              <p class="control">
-                <input class="input"
-                    type="text"
-                    required
-                    ng-model="usuario.Endereço"
-                    placeholder="Uruguaiana, RS">
-              </p>
-              <label class="label has-text-centered">Tua Foto</label>
-              <p class="control">
-                <input class="input"
-                    type="url"
-                    required
-                    ng-model="usuario.Foto"
-                    placeholder="https://foto.png">
-              </p>
-              <label class="label has-text-centered">Senha</label>
-              <p class="control">
-                <input class="input"
-                    type="password"
-                    required
-                    ng-model="usuario.Senha"
-                    placeholder="●●●●●●●">
-              </p>
-              <hr>
-              <label class="label has-text-centered">Descrição</label>
-              <textarea rows="8"
-                  cols="52"
-                  class="textarea"
-                  type="text"
-                  required
-                  ng-model="usuario.Descricao"
-                  placeholder="Conta tuas indiada!"></textarea>
-              <hr>
-              <p class="control">
-                <button class="button is-success is-outlined butCadas"
-                    ng-click="cadastro()">Cadastrar</button>
-                <button class="button is-danger is-outlined butCanc"
-                    ng-click="cancelar()">Cancelar</button>
-              </p>
+                    minlength="3"
+                    maxlength="100"
+                    ng-model="novoUsuario.Descricao"
+                    placeholder="Conta tuas indiada!"></textarea>
+                <hr>
+                <p class="control">
+                  <button class="button is-success is-outlined butCadas"
+                      ng-click="cadastro()">Cadastrar</button>
+                  <button class="button is-danger is-outlined butCanc"
+                      ng-click="cancelar()">Cancelar</button>
+                </p>
+              </form>
             </div>
           </div>
         </div>

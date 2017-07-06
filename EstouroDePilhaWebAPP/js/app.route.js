@@ -1,6 +1,5 @@
 angular.module('EstouroPilhaApp').config(function ($routeProvider) {
 
-app.config(function ($routeProvider) {
     $routeProvider
 
     .when('/login', {
@@ -23,5 +22,5 @@ app.config(function ($routeProvider) {
       templateUrl: 'cadastroPergunta/cadastroPergunta.html'
     })
 
-    .otherwise({redirectTo: '/home'});
+    .otherwise({redirectTo: '/cadastro'});
 });
