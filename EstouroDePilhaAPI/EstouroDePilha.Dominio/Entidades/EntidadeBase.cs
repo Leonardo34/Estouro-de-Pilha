@@ -8,10 +8,10 @@ namespace EstouroDePilha.Dominio.Entidades
 {
     internal abstract class EntidadeBase
     {
-        List<String> mensagens { get; set; }
+        List<String> Mensagens { get; set; }
 
         public abstract bool EhValida();
 
-        public abstract List<String> pegarMensagens();
+        public abstract List<String> PegarMensagens();
     }
 }
