@@ -47,17 +47,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Contexto.cs" />
+    <Compile Include="Mapeamento\PerguntaMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Mapeamento\" />
     <Folder Include="Repositórios\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EstouroDePilha.Dominio\EstouroDePilha.Dominio.csproj">
+      <Project>{33413FC9-7041-42BA-9F97-8024F15FA690}</Project>
+      <Name>EstouroDePilha.Dominio</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
