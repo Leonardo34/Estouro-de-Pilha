@@ -2,6 +2,8 @@
 using EstouroDePilha.Dominio.Excecoes;
 using EstouroDePilha.Infraestrutura;
 using EstouroDePilha.Infraestrutura.Repositórios;
+using EstouroDePilhaAPI.App_Start;
+using EstouroDePilhaAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,32 @@ namespace EstouroDePilhaAPI.Controllers
     {
         private UsuarioRepositorio repositorio = new UsuarioRepositorio(Contexto.contexto);
 
+        [HttpPost, Route("registrar")]
+        public HttpResponseMessage Registrar([FromBody]RegistrarUsuarioModel model)
+        {
+            var usuario = repositorio.ObterPorEmail(model.Email);
+            if (usuario == null)
+            {
+                usuario = new Usuario(model.Nome, model.Email, model.Senha);
+
+                if (usuario.IsValid())
+                {
+                    repositorio.Criar(usuario);
+                }
+                else
+                {
+                    return ResponderErro();
+                }
+            }
+            else
+            {
+                return ResponderErro("Usuário já existe.");
+            }
+
+            return ResponderOK(new { usuario.Id });
+        }
+
+        [BasicAuthorization]
         [HttpGet]
         public HttpResponseMessage ListarUsuarios()
         {           
@@ -23,6 +51,7 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(usuarios);    
         }
 
+        [BasicAuthorization]
         [HttpDelete]
         public HttpResponseMessage Deletar(Usuario usuario)
         {
@@ -34,6 +63,7 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(usuario);
         }
 
+        [BasicAuthorization]
         [HttpPost]
         public HttpResponseMessage Criar(Usuario usuario)
         {          
@@ -45,6 +75,7 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(usuario);
         }
 
+        [BasicAuthorization]
         [HttpPut]
         public HttpResponseMessage Alterar(Usuario usuario)
         {
