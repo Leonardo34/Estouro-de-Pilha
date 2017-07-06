@@ -15,3 +15,4 @@ namespace EstouroDePilha.Dominio.Entidades
         public Pergunta Pergunta { get; set;}
     }
 }
+
