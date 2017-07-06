@@ -18,12 +18,15 @@ namespace EstouroDePilha.Infraestrutura
 
         public DbSet<Resposta> Respostas { get; set; }
         public DbSet<Pergunta> Perguntas { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new RespostaMap());
             modelBuilder.Configurations.Add(new PerguntaMap());
+            modelBuilder.Configurations.Add(new UsuarioMap());
+            modelBuilder.Configurations.Add(new TagMap());
         }
-
     }
 }
