@@ -1,21 +1,57 @@
-<form class="formLogin">
-  <div class="box">
-    <h2>Login</h2>
-    <label> Username </label>
-    <input class="email"
-      type="email"
-      name="email"
-      placeholder="username"
-      required
-      autofocus />
-    <label> Senha </label>
-    <input class="email"
-      type="password"
-      name="senha"
-      required
-      placeholder="******" />
-    <a href="#"><div class="btn">Entrar</div></a>
-    <a href="#"><div class="btn2">Cadastrar-se</div></a>
+<div class="login-wrapper columns">
+  <div class="column is-8 is-hidden-mobile hero-banner">
+    <section class="hero is-fullheight is-dark">
+      <div class="hero-body">
+        <div class="container section">
+          <div class="has-text-right">
+            <h1 class="title-is-1">Login</h1>
+            <br>
+            <p class="title-is-3">Te loga ai tchê!</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
-</form>
-<p>Esqueceu tua senha tchê? <u style="color:green;">Clica aqui!</u></p>
+  <div class="column is-4">
+    <section class="hero is-fullheight">
+      <div class="hero-heading">
+        <div class="section has-text-centered">
+          Estouro de pilha
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns">
+            <div class="column is-8 is-offset-2">
+              <div class="login-form">
+                <p class="control has-icon has-icon-right">
+                  <input class="imput email-imput"
+                      type="text"
+                      placeholder="email">
+                  <span class="icon user">
+                    <i class="fa fa-user">
+                    </i>
+                  </span>
+                </p>
+                <p class="control has-icon has-icon-right">
+                  <input class="imput password-imput"
+                      type="password"
+                      placeholder="******">
+                  <span class="icon user">
+                    <i class="fa fa-lock">
+                    </i>
+                  </span>
+                </p>
+                <p class="control login">
+                  <button class="button is-success is-outlined is-large is-fullwidth">
+                    Login
+                  </button>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
