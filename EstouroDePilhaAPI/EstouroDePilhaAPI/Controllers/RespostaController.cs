@@ -1,6 +1,7 @@
 ﻿using EstouroDePilha.Dominio.Entidades;
 using EstouroDePilha.Infraestrutura;
 using EstouroDePilha.Infraestrutura.Repositórios;
+using EstouroDePilhaAPI.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(respostas);
         }
 
+        [BasicAuthorization]
         [HttpDelete]
         public HttpResponseMessage Deletar(Resposta resposta)
         {
@@ -33,13 +35,19 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(resposta);
         }
 
+        [BasicAuthorization]
         [HttpPost]
         public HttpResponseMessage Criar(Resposta resposta)
         {      
+            if (!resposta.EhValida())
+            {
+                throw new Exception();
+            }
             repositorio.Criar(resposta);
             return ResponderOK(resposta);
         }
 
+        [BasicAuthorization]
         [HttpPut]
         public HttpResponseMessage Alterar(Resposta resposta)
         {

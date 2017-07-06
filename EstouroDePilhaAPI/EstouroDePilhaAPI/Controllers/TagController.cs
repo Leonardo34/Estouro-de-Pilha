@@ -1,6 +1,7 @@
 ﻿using EstouroDePilha.Dominio.Entidades;
 using EstouroDePilha.Infraestrutura;
 using EstouroDePilha.Infraestrutura.Repositórios;
+using EstouroDePilhaAPI.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace EstouroDePilhaAPI.Controllers
     {
         private TagRepositorio repositorio = new TagRepositorio(Contexto.contexto);
 
+        [BasicAuthorization]
         [HttpGet]
         public HttpResponseMessage ListarTags()
         {
@@ -22,6 +24,7 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(tags);
         }
 
+        [BasicAuthorization]
         [HttpDelete]
         public HttpResponseMessage Deletar(Tag tag)
         {
@@ -33,13 +36,19 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(tag);
         }
 
+        [BasicAuthorization]
         [HttpPost]
         public HttpResponseMessage Criar(Tag tag)
         {
+            if (!tag.EhValida())
+            {
+                throw new Exception();
+            }
             repositorio.Criar(tag);
             return ResponderOK(tag);
         }
 
+        [BasicAuthorization]
         [HttpPut]
         public HttpResponseMessage Alterar(Tag tag)
         {
