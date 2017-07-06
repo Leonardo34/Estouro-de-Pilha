@@ -83,5 +83,10 @@ namespace EstouroDePilha.Dominio.Entidades
 
             return Mensagens.Count == 0;
         }
+
+        public UsuarioBaseModel converterUsuarioParaUsuarioModel ()
+        {
+            return new UsuarioBaseModel(this.Id, this.Nome, this.Email);
+        }
     }
 }
