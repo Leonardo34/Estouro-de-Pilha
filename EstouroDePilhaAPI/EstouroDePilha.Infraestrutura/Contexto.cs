@@ -17,10 +17,12 @@ namespace EstouroDePilha.Infraestrutura
         }
 
         public DbSet<Resposta> Respostas { get; set; }
+        public DbSet<Pergunta> Perguntas { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new RespostaMap());
+            modelBuilder.Configurations.Add(new PerguntaMap());
         }
 
     }
