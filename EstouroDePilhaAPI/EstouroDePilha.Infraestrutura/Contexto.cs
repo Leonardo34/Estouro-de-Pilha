@@ -11,6 +11,8 @@ namespace EstouroDePilha.Infraestrutura
 {
     public class Contexto : DbContext
     {
+        private static Contexto contexto = new Contexto();
+
         public Contexto() : base("ExemploEFSP")
         {
 

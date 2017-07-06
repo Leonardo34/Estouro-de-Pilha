@@ -53,10 +53,12 @@
     <Compile Include="Mapeamento\PerguntaMap.cs" />
     <Compile Include="Mapeamento\RespostaMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositórios\PerguntaRepositorio.cs" />
+    <Compile Include="Repositórios\RespostaRepositorio.cs" />
+    <Compile Include="Repositórios\TagRepositorio.cs" />
+    <Compile Include="Repositórios\UsuarioRepositorio.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositórios\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
