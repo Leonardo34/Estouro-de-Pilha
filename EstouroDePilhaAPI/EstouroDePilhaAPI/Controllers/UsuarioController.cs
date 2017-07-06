@@ -29,6 +29,7 @@ namespace EstouroDePilhaAPI.Controllers
 
                 if (usuario.EhValida())
                 {
+                    usuario.DataCadastro = DateTime.Now;
                     repositorio.Criar(usuario);
                 }
                 else

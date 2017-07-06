@@ -13,7 +13,7 @@ namespace EstouroDePilha.Infraestrutura.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201707061957125_CriacaoDoBanco"; }
+            get { return "201707062021400_CriacaoDoBanco"; }
         }
         
         string IMigrationMetadata.Source
