@@ -48,11 +48,20 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="PerguntaTestes.cs" />
+    <Compile Include="RespostaTeste.cs" />
+    <Compile Include="TagTestes.cs" />
+    <Compile Include="UsuarioTestes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EstouroDePilha.Dominio\EstouroDePilha.Dominio.csproj">
+      <Project>{33413FC9-7041-42BA-9F97-8024F15FA690}</Project>
+      <Name>EstouroDePilha.Dominio</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

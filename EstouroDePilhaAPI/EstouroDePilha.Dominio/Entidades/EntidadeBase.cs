@@ -10,6 +10,11 @@ namespace EstouroDePilha.Dominio.Entidades
     {
         public List<String> Mensagens { get; set; }
 
+        public EntidadeBase ()
+        {
+            Mensagens = new List<String>();
+        }
+
         public abstract bool EhValida();
     }
 }
