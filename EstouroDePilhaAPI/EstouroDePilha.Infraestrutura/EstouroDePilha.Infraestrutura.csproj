@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Contexto.cs" />
     <Compile Include="Mapeamento\PerguntaMap.cs" />
+    <Compile Include="Mapeamento\RespostaMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
