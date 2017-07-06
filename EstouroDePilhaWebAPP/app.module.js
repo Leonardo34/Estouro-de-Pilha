@@ -1,14 +1,5 @@
 var app = angular.module("EstouroPilhaApp", ['ngRoute', 'auth']);
 
-app.config(function ($routeProvider) {
-    $routeProvider
-    .when('/login', {
-      controller: 'loginController',
-      templateUrl: 'login/login.html'
-    })
-    .otherwise({redirectTo: '/home'});
-});
-
 angular.module('EstouroPilhaApp').constant('authConfig', {
 
     // Obrigatória - URL da API que retorna o usuário
