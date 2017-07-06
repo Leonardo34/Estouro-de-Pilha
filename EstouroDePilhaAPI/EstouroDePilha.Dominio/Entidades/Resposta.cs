@@ -11,6 +11,7 @@ namespace EstouroDePilha.Dominio.Entidades
         public int Id { get; set; }
         public Usuario Usuario { get; set; }
         public String Descricao { get; set; }
-        public DateTime DataResposta { get; set; } 
+        public DateTime DataResposta { get; set; }
+        public Pergunta Pergunta { get; set;}
     }
 }
