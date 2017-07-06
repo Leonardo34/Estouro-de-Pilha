@@ -20,7 +20,7 @@ namespace EstouroDePilha.Infraestrutura.Mapeamento
 
             HasMany(x => x.Respostas)
                 .WithRequired(x => x.Usuario)
-                .Map(x => x.MapKey("IdUsuario"));
+                .Map(x => x.MapKey("IdResposta"));
         }
     }
 }

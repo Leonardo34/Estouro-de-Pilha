@@ -18,11 +18,11 @@ namespace EstouroDePilha.Infraestrutura.Mapeamento
 
             HasRequired(x => x.Usuario)
                 .WithMany()
-                .Map(x => x.MapKey("Id"));
+                .Map(x => x.MapKey("IdUsuario"));
 
             HasMany(x => x.Respostas)
                 .WithRequired(x => x.Pergunta)
-                .Map(x => x.MapKey("Id"));
+                .Map(x => x.MapKey("IdPergunta"));
 
             HasMany(x => x.Tags)
                 .WithMany(x => x.Perguntas)

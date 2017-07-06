@@ -41,7 +41,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 
         public Usuario ObterPorId(int id)
         {
-            return contexto.Usuarios.FirstOrDefault(u => u.Id == id);
+            throw new NotImplementedException();
         }
 
         public Usuario ObterPorEmail(string email)
