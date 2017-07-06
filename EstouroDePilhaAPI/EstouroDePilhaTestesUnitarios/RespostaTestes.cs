@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace EstouroDePilhaTestesUnitarios
 {
     [TestClass]
-    public class RespostaTeste
+    public class RespostaTestes
     {
         [TestMethod]
         public void TestarMetodoEhValidaRespostaSemDescricao()

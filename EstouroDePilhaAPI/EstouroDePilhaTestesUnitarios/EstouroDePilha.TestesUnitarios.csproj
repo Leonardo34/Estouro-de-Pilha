@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PerguntaTestes.cs" />
-    <Compile Include="RespostaTeste.cs" />
+    <Compile Include="RespostaTestes.cs" />
     <Compile Include="TagTestes.cs" />
     <Compile Include="UsuarioTestes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
