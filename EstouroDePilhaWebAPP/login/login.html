@@ -17,7 +17,7 @@
       <div class="hero-heading">
         <div class="section has-text-centered">
           <img src="image/gaucho.png"
-            alt="Boneco"
+            alt="Gaucho"
             width="150px">
         </div>
       </div>
@@ -31,6 +31,7 @@
                       type="text"
                       autofocus
                       required
+                      ng-model="usuario.Email"
                       placeholder="email">
                   <span class="icon user">
                     <i class="fa fa-user"></i>
@@ -41,13 +42,16 @@
                   <input class="input password-input"
                       type="password"
                       required
+                      ng-model="usuario.Senha"
                       placeholder="●●●●●●">
                   <span class="icon user">
                     <i class="fa fa-lock"></i>
                   </span>
                 </p>
                 <p class="control login">
-                  <button class="button is-success is-outlined is-large is-fullwidth">
+                  <button class="button is-success is-outlined is-large is-fullwidth"
+                      type="submit"
+                      ng-click="login()">
                     Login
                   </button>
                 </p>
