@@ -18,29 +18,30 @@ namespace EstouroDePilhaAPI.Controllers
 
         [HttpGet]
         public HttpResponseMessage ListarUsuarios()
-        {
+        {           
             var usuarios = repositorio.Listar();
-            return ResponderOK(usuarios);
+            return ResponderOK(usuarios);    
         }
 
         [HttpDelete]
         public HttpResponseMessage Deletar(Usuario usuario)
         {
-            try
+            if (repositorio.ObterPorEmail(usuario.Email) ==null)
             {
-                repositorio.Deletar(usuario);
-                return ResponderOK(usuario);
-            }
-            catch (ExcecaoUsuarioNaoExistente excecao)
-            {
-                return ResponderErro(excecao.Message);
+                throw new Exception();
             }
 
+            repositorio.Deletar(usuario);
+            return ResponderOK(usuario);
         }
 
         [HttpPost]
         public HttpResponseMessage Criar(Usuario usuario)
-        {
+        {          
+            if (!usuario.IsValid())
+            {
+                throw new ExcecaoUsuarioNaoExistente();
+            }
             repositorio.Criar(usuario);
             return ResponderOK(usuario);
         }
@@ -48,16 +49,12 @@ namespace EstouroDePilhaAPI.Controllers
         [HttpPut]
         public HttpResponseMessage Alterar(Usuario usuario)
         {
-            try
+            if (repositorio.ObterPorEmail(usuario.Email) == null)
             {
-                repositorio.Alterar(usuario);
-                return ResponderOK(usuario);
-            }
-            catch (ExcecaoUsuarioNaoExistente excecao)
-            {
-                return ResponderErro(excecao.Message);
+                throw new Exception();
             }
 
+            return ResponderOK();    
         }
     }
 }
