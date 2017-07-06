@@ -13,5 +13,6 @@ namespace EstouroDePilha.Dominio.Entidades
         public string Descricao { get; set; }
         public string UrlFotoPerfil { get; set; }
         public string Senha { get; set; }
+        public List<Pergunta> Perguntas { get; set; }
     }
 }
