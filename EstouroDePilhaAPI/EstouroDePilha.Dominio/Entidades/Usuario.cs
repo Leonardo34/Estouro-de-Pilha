@@ -34,6 +34,19 @@ namespace EstouroDePilha.Dominio.Entidades
             Mensagens = new List<string>();
         }
 
+        public Usuario(int id, string nome, string senha, string endereco, string descricao, string urlImagemPerfil)
+        {
+            Nome = nome;
+            Email = email;
+            if (!string.IsNullOrWhiteSpace(senha))
+                Senha = CriptografarSenha(senha);
+            Mensagens = new List<string>();
+            this.Id = id;
+            this.Endereco = endereco;
+            this.Descricao = descricao;
+            this.UrlFotoPerfil = urlImagemPerfil;
+        }
+
         protected Usuario()
         {
         }
