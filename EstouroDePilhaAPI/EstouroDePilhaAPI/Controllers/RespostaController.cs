@@ -1,4 +1,5 @@
 ﻿using EstouroDePilha.Dominio.Entidades;
+using EstouroDePilha.Dominio.Excecoes;
 using EstouroDePilha.Dominio.Repositórios;
 using EstouroDePilha.Infraestrutura;
 using EstouroDePilha.Infraestrutura.Repositórios;
@@ -62,6 +63,19 @@ namespace EstouroDePilhaAPI.Controllers
                 throw new Exception();
             }
             return ResponderOK(resposta);
+        }
+
+        [HttpGet, Route("/usuario/{id:int}")]
+        public HttpResponseMessage ObterRespostasUsuarioPorId(int id)
+        {
+            var respostasUsuario = repositorio.ObterRespostasPorUsuarioId(id);
+
+            if(respostasUsuario == null)
+            {
+                throw new ExcecaoUsuarioNaoExistente();
+            }
+
+            return ResponderOK(respostasUsuario);
         }
     }
 }
