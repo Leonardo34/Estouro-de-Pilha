@@ -42,7 +42,9 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 
         public Pergunta ObterPorId(int id)
         {
-            return contexto.Perguntas.FirstOrDefault(p => p.Id == id);
+            return contexto.Perguntas
+                .Include("Usuario")
+                .FirstOrDefault(p => p.Id == id);
         }
     }
 }
