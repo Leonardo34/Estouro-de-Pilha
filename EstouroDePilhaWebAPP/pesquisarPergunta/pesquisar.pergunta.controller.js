@@ -1,4 +1,4 @@
-app.controller('pesquisarPerguntaController', function ($scope, authService, pesquisarPerguntaService){
+angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', function ($scope, authService, pesquisarPerguntaService){
 
   $scope.pesquisar = pesquisar;
 
@@ -7,5 +7,5 @@ app.controller('pesquisarPerguntaController', function ($scope, authService, pes
       $scope.perguntasPesquisadas = response;
     })
   }
-  
+
 });
