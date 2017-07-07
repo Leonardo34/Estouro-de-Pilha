@@ -29,7 +29,7 @@ namespace EstouroDePilhaAPI.Controllers
             this.usuariosRepositorio = usuariosRepositorio;
         }
 
-        [HttpGet]
+        [HttpGet, Route()]
         public HttpResponseMessage ListarRespostas()
         {
             var respostas = respostasRepositorio.Listar();

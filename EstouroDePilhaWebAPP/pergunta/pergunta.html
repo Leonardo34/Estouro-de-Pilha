@@ -42,12 +42,11 @@
           </div>
         </article>
     </div>
-    <div class="box containerPerguntasERespostas">
+    <div class="box containerPerguntasERespostas" ng-repeat="resposta in respostas">
       <div class="descricaoDaResposta">
-        <p>É a versão do framework .NET para o projeto inteiro. Versões mais
-           recentes possuem mais recursos, mais funcionalidades,
-           e a especificação das linguagens, como C#, se torna mais avançada.
-        </p>
+        <p>Usuário: {{resposta.Usuario.Email}}</p>
+        <p>Data da resposta: {{resposta.DataResposta}}</p>
+        <p>Descricão da resposta: {{resposta.Descricao}}</p>
       </div>
     </div>
   </div>

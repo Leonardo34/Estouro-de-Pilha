@@ -9,7 +9,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
   };
 
   function  buscarRespostaPorIdDaPergunta(id){
-    return $http.get(urlResposta + 3);
+    return $http.get(urlResposta+"pergunta/" + 3);
   };
 
   return{

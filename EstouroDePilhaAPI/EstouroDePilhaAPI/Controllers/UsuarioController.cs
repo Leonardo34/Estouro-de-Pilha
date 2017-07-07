@@ -86,13 +86,13 @@ namespace EstouroDePilhaAPI.Controllers
         [HttpPut]
         public HttpResponseMessage Alterar([FromBody]RegistrarUsuarioModel model)
         {
-            var usuario = new Usuario(model.Id, model.Nome,  model.Endereco, model.Senha, model.Descricao, model.UrlImagemPerfil);
-
-            if (repositorio.ObterPorEmail(usuario.Email) == null || !usuario.EhValida())
-            {
-                throw new Exception();
-            }
-            return ResponderOK();    
+            var usuario = repositorio.ObterPorId(model.Id);
+            usuario.Nome = model.Nome;
+            usuario.Endereco = model.Endereco;
+            usuario.Descricao = model.Descricao;
+            usuario.UrlFotoPerfil = model.UrlImagemPerfil;
+            repositorio.Alterar(usuario);
+            return ResponderOK(new { usuario});    
         }
     }
 }
