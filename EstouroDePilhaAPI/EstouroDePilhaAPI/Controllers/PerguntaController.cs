@@ -27,13 +27,21 @@ namespace EstouroDePilhaAPI.Controllers
             this.usuarioRepositorio = usuarioRepositorio;
         }
 
-        [BasicAuthorization]
-        [HttpGet]
-        [Route("")]
+        [HttpGet, Route()]
         public HttpResponseMessage ListarPerguntas()
         {
             var perguntas = perguntasRepositorio.Listar();
-            return ResponderOK(perguntas);
+            List<PerguntaModel> perguntasDto = new List<PerguntaModel>();
+            foreach (var each in perguntas)
+            {
+                var perguntaModel = new PerguntaModel();
+                perguntaModel.Id = each.Id;
+                perguntaModel.Titulo = each.Titulo;
+                perguntaModel.Usuario = each.Usuario.converterUsuarioParaUsuarioModel();
+                perguntaModel.Descricao = each.Descricao;
+                perguntasDto.Add(perguntaModel);
+            }
+            return ResponderOK(perguntasDto);
         }
 
         [BasicAuthorization]
