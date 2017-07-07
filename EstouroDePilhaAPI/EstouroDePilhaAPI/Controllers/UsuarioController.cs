@@ -82,9 +82,11 @@ namespace EstouroDePilhaAPI.Controllers
 
         [BasicAuthorization]
         [HttpPut]
-        public HttpResponseMessage Alterar(Usuario usuario)
+        public HttpResponseMessage Alterar([FromBody]RegistrarUsuarioModel model)
         {
-            if (repositorio.ObterPorEmail(usuario.Email) == null)
+            var usuario = new Usuario(model.Id, model.Nome,  model.Endereco, model.Senha, model.Descricao, model.UrlImagemPerfil);
+
+            if (repositorio.ObterPorEmail(usuario.Email) == null || !usuario.EhValida())
             {
                 throw new Exception();
             }
