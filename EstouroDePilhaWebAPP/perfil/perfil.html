@@ -1,0 +1,82 @@
+<div class="barraDeMenu" ng-include="'home/barra.de.menu.html'"></div>
+
+<section class="hero hero-perfil">
+    <div class="hero-body">
+        <div class="container">
+
+            <div class="columns is-mobile">
+                <section class="column is-narrow">
+                    <figure class="image is-128x128">
+                        <img ng-src="{{usuario.UrlFotoPerfil}}">
+                    </figure>
+                </section>
+
+                <section class="column is-narrow">
+                    <h2 class="title">{{usuario.Nome}}</h2>  
+                    <h1 class="subtitle">{{usuario.Nickname}}</h1>                                                 
+                </section>
+
+                <section class="column is-hidden-mobile is-fullwidth has-text-right">
+                    <p class="perfil-info">{{usuario.Endereco}}</p>
+                    <p class="perfil-info">{{usuario.Email}}</p>
+                    <p class="perfil-info">Desde: {{usuario.DataCadastro}}</p>                
+                </section>                
+            </div>
+
+            <section class="is-fullwidth perfil-descricao">
+                <p class="perfil-info has-text-centered">
+                    {{usuario.Descricao}}
+                </p>
+                
+            </section>
+            <!--Mobile-->
+            <section class="is-hidden-tablet is-fullwidth">
+                <hr>
+                <div class="container">
+                    <section>
+                        <h6>
+                            <b>Endereço:</b> 
+                            {{usuario.Endereco}}
+                        </h6>                                                         
+                    </section>
+
+                    <section>
+                        <h6>
+                            <b>Email:</b>
+                            {{usuario.Email}}
+                        </h6>                               
+                    </section>
+
+                    <section>
+                        <h6>
+                            <b>Usuário desde:</b>
+                            {{usuario.DataCadastro}}
+                        </h6>                                                             
+                    </section>
+                </div>                                                
+            </section>
+
+        </div>
+    </div>
+</section>
+
+<section class="section minhas-perguntas">
+    <div class="container">
+        <h3 class="subtitle">Minhas tags</h3>
+        <hr>
+    </div>
+</section>
+
+<section class="section minhas-perguntas">
+    <div class="container">
+        <h3 class="subtitle">Minhas perguntas</h3>
+        <hr>
+    </div>
+</section>
+
+<section class="section minhas-respostas">
+    <div class="container">
+        <h3 class="subtitle">Minhas perguntas</h3>
+        <hr>
+    </div>
+</section>
