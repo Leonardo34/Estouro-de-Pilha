@@ -1,4 +1,4 @@
-<section class="hero is-fullheight is-dark is-bold">
+<section class="hero is-fullheight is-info is-bold">
   <div class="hero-body">
     <div class="container cont">
       <div class="columns">
@@ -7,7 +7,7 @@
             Te cadastra ai guri!
           </h1>
           <div class="box">
-            <form name="formUsuario" novalidate ng-sumbit="cadastrar(novoUsuario)">
+            <form name="formUsuario" novalidate>
               <label for="novoUsuario" class="label has-text-centered">Nome</label>
               <p class="control">
                 <input class="input"
@@ -81,7 +81,8 @@
               <hr>
               <p class="control">
                 <button class="button is-success is-outlined butCadas"
-                    ng-click="cadastro()">Cadastrar</button>
+                    ng-disabled="cadastroCliente.$invalid"
+                    ng-click="cadastrarUsuario()">Cadastrar</button>
                 <button class="button is-danger is-outlined butCanc"
                     ng-click="cancelar()">Cancelar</button>
               </p>
