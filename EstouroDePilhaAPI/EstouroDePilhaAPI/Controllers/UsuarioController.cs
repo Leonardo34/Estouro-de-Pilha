@@ -52,7 +52,7 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [BasicAuthorization]
-        [HttpGet]
+        [HttpGet, Route("")]
         public HttpResponseMessage ListarUsuarios()
         {           
             var usuarios = repositorio.Listar();
@@ -60,7 +60,7 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [BasicAuthorization]
-        [HttpDelete]
+        [HttpDelete, Route("")]
         public HttpResponseMessage Deletar(Usuario usuario)
         {
             if (repositorio.ObterPorEmail(usuario.Email) == null)
@@ -81,7 +81,7 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [BasicAuthorization]
-        [HttpPut]
+        [HttpPut, Route("")]
         public HttpResponseMessage Alterar(Usuario usuario)
         {
             if (repositorio.ObterPorEmail(usuario.Email) == null)
