@@ -26,7 +26,6 @@
                     required
                     minlength="3"
                     maxlength="20"
-                    ng-model="novoUsuario.Username"
                     placeholder="GuriDeUruguaiana">
               </p>
               <label for="novoUsuario" class="label has-text-centered">Email</label>
@@ -46,7 +45,7 @@
                     required
                     minlength="3"
                     maxlength="50"
-                    ng-model="novoUsuario.Endereço"
+                    ng-model="novoUsuario.Endereco"
                     placeholder="Uruguaiana, RS">
               </p>
               <label for="novoUsuario" class="label has-text-centered">Tua Foto</label>
@@ -76,17 +75,15 @@
                   required
                   minlength="3"
                   maxlength="100"
-                  ng-model="novoUsuario.Descricao"
                   placeholder="Conta tuas indiada!"></textarea>
               <hr>
               <p class="control">
                 <button class="button is-success is-outlined butCadas"
-                    ng-disabled="cadastroCliente.$invalid"
-                    ng-click="cadastrarUsuario()">Cadastrar</button>
-                <button class="button is-danger is-outlined butCanc"
-                    ng-click="cancelar()">Cancelar</button>
-              </p>
+                    ng-disabled="cadastroUsuario.$invalid"
+                    ng-click="cadastrarUsuario(novoUsuario)">Cadastrar</button>
             </form>
+            <a class="button is-danger is-outlined butCanc"
+                ng-href="/#!/home">Voltar</a>
           </div>
         </div>
       </div>

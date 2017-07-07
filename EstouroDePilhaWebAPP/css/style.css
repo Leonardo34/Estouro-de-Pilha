@@ -43,7 +43,11 @@ p {
 
 .login-wrapper {
   margin: -0.75rem;
-  overflow-y: hidden;
+  overflow-x: inherit;
+}
+
+.stack-body{
+  overflow-x: initial;
 }
 
 .hero-banner .hero {
@@ -64,10 +68,22 @@ p {
   border-radius: 20px;
 }
 
-.control .butCadas,
-.butCanc{
-  left: 24%;
+.control .butCadas{
+  margin-top: 30px;
+  left: 50%;
   top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+}
+
+.btnCad{
+  border-radius: 20px;
+}
+
+.butCanc{
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   border-radius: 20px;
 }
 

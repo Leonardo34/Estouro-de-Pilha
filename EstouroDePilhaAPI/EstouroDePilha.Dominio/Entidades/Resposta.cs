@@ -12,7 +12,7 @@ namespace EstouroDePilha.Dominio.Entidades
         public Usuario Usuario { get; set; }
         public String Descricao { get; set; }
         public DateTime DataResposta { get; set; }
-        public Pergunta Pergunta { get; set;}
+        public Pergunta Pergunta { get; set; }
 
         public override bool EhValida()
         {

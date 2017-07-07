@@ -25,13 +25,13 @@
         <div class="container">
           <div class="columns">
             <div class="column is-8 is-offset-2">
-              <div class="login-form">
+              <form class="login-form">
                 <p class="control has-icon has-icon-right">
                   <input class="input email-input"
                       type="text"
                       autofocus
                       required
-                      ng-model="usuario.Email"
+                      ng-model="usuario.email"
                       placeholder="email">
                   <span class="icon user">
                     <i class="fa fa-user"></i>
@@ -42,7 +42,7 @@
                   <input class="input password-input"
                       type="password"
                       required
-                      ng-model="usuario.Senha"
+                      ng-model="usuario.senha"
                       placeholder="●●●●●●">
                   <span class="icon user">
                     <i class="fa fa-lock"></i>
@@ -50,17 +50,14 @@
                 </p>
                 <p class="control login">
                   <button class="button is-success is-outlined is-fullwidth"
-                      type="submit"
+                      ng-disabled="login.$invalid"
                       ng-click="login()">
                     Login
                   </button>
-                  <br>
-                  <button class="button is-success is-outlined is-fullwidth"
-                      type="submit">
-                    Cadastrar-se
-                  </button>
                 </p>
-              </div>
+              </form>
+              <a class="button is-success is-outlined is-fullwidth btnCad"
+                  ng-href="/#!/cadastro">Cadastrar-se</a>
             </div>
           </div>
         </div>

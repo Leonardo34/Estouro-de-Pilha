@@ -37,13 +37,16 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 
         public List<Pergunta> Listar()
         {
-            return contexto.Perguntas.ToList();
+            return contexto.Perguntas
+                .Include("Usuario")
+                .ToList();
         }
 
         public Pergunta ObterPorId(int id)
         {
             return contexto.Perguntas
                 .Include("Usuario")
+                .Include("Tags")
                 .FirstOrDefault(p => p.Id == id);
         }
 

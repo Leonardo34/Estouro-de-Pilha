@@ -20,21 +20,31 @@ namespace EstouroDePilhaAPI.Controllers
     {
         private readonly IPerguntaRepositorio perguntasRepositorio;
         private readonly IUsuarioRepositorio usuarioRepositorio;
+        private readonly ITagRepositorio tagsRepositorio;
 
         public PerguntaController(IPerguntaRepositorio perguntasRepositorio,
-                IUsuarioRepositorio usuarioRepositorio)
+                IUsuarioRepositorio usuarioRepositorio, ITagRepositorio tagsRepositorio)
         {
             this.perguntasRepositorio = perguntasRepositorio;
             this.usuarioRepositorio = usuarioRepositorio;
+            this.tagsRepositorio = tagsRepositorio;
         }
 
-        [BasicAuthorization]
-        [HttpGet]
-        [Route("")]
+        [HttpGet, Route()]
         public HttpResponseMessage ListarPerguntas()
         {
             var perguntas = perguntasRepositorio.Listar();
-            return ResponderOK(perguntas);
+            List<PerguntaModel> perguntasDto = new List<PerguntaModel>();
+            foreach (var each in perguntas)
+            {
+                var perguntaModel = new PerguntaModel();
+                perguntaModel.Id = each.Id;
+                perguntaModel.Titulo = each.Titulo;
+                perguntaModel.Usuario = each.Usuario.converterUsuarioParaUsuarioModel();
+                perguntaModel.Descricao = each.Descricao;
+                perguntasDto.Add(perguntaModel);
+            }
+            return ResponderOK(perguntasDto);
         }
 
         [BasicAuthorization]
@@ -55,10 +65,15 @@ namespace EstouroDePilhaAPI.Controllers
         public HttpResponseMessage Criar(PerguntaModel perguntaModel)
         {
             var pergunta = new Pergunta();
+            pergunta.Tags = new List<Tag>();
             pergunta.Usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             pergunta.DataPergunta = DateTime.Now;
             pergunta.Titulo = perguntaModel.Titulo;
             pergunta.Descricao = perguntaModel.Descricao;
+            foreach (var each in perguntaModel.TagsIds)
+            {
+                pergunta.Tags.Add(tagsRepositorio.ObterPorId(each));
+            }
             if (!pergunta.EhValida())
             {
                 throw new Exception();
@@ -84,6 +99,14 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var pergunta = perguntasRepositorio.ObterPorId(id);
             var perguntaModel = new PerguntaModel();
+            perguntaModel.Tags = new List<TagModel>();
+            foreach (var each in pergunta.Tags)
+            {
+                var tagModel = new TagModel();
+                tagModel.Id = each.Id;
+                tagModel.Descricao = each.Descricao;
+                perguntaModel.Tags.Add(tagModel);
+            }
             perguntaModel.Id = pergunta.Id;
             perguntaModel.Titulo = pergunta.Titulo;
             perguntaModel.Descricao = pergunta.Descricao;

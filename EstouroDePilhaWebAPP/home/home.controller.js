@@ -1,4 +1,4 @@
-app.controller('homeController', function ($scope, authService){
+angular.module('EstouroPilhaApp').controller('homeController', function ($scope, authService){
 
 
 });
