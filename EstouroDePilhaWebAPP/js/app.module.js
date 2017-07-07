@@ -3,7 +3,7 @@ angular.module("EstouroPilhaApp", ['ngRoute', 'auth']);
 angular.module('EstouroPilhaApp').constant('authConfig', {
 
     // Obrigatória - URL da API que retorna o usuário
-    urlUsuario: '...',
+    urlUsuario: 'http://localhost:53986/api/usuarios/login',
 
     // Obrigatória - URL da aplicação que possui o formulário de login
     urlLogin: '/login',
@@ -15,7 +15,7 @@ angular.module('EstouroPilhaApp').constant('authConfig', {
     urlLogout: '/login'
 });
 
-app.directive('ngEnter', function () {
+angular.module('EstouroPilhaApp').directive('ngEnter', function () {
     return function (scope, element, attrs) {
         element.bind("keydown keypress", function (event) {
             if(event.which === 13) {
