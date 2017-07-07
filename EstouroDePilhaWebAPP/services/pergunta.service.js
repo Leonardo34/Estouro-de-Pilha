@@ -1,4 +1,4 @@
-app.factory("perguntaService", function ($http){
+angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
 
   var urlPerguntas = "http://localhost:53986/api/perguntas/"
 

@@ -1,10 +1,12 @@
-app.controller('cadastroController', function($scope, $location, authService) {
-  $scope.url.path = $location.path();
+angular.module('EstouroPilhaApp').controller('cadastroController',
+                      function($scope, $routeParams, $location, cadastroService, authService) {
 
-  $scope.cadastrarUsuario = function() {
-       cadastroService.salvarUsuario($scope.usuario).then(response => {
-           window.alert('foi');
-           delete $scope.usuario;
-       })
-   };
+  $scope.cadastrarUsuario = function(novoUsuario) {
+    cadastroService.cadastrarUsuario(novoUsuario)
+            .then(response => {
+              alert('Cadastrado com sucesso, agora te loga, Tchê')
+            }, error => {
+              alert('Alguma coisa deu errada, tenta de novo, Tchê!');
+            })
+   }
 });

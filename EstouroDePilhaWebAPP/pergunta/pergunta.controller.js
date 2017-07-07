@@ -1,4 +1,4 @@
-app.controller('perguntaController', function ($scope, authService, perguntaService){
+angular.module('EstouroPilhaApp').controller('perguntaController', function ($scope, authService, perguntaService){
 
   buscarPerguntaPorId();
 
