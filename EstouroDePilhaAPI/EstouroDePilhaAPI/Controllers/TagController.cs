@@ -44,7 +44,7 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [BasicAuthorization]
-        [HttpPost]
+        [HttpPost, Route("")]
         public HttpResponseMessage Criar(Tag tag)
         {
             if (!tag.EhValida())

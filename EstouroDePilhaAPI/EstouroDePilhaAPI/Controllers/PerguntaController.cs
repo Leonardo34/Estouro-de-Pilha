@@ -19,12 +19,14 @@ namespace EstouroDePilhaAPI.Controllers
     {
         private readonly IPerguntaRepositorio perguntasRepositorio;
         private readonly IUsuarioRepositorio usuarioRepositorio;
+        private readonly ITagRepositorio tagsRepositorio;
 
         public PerguntaController(IPerguntaRepositorio perguntasRepositorio,
-                IUsuarioRepositorio usuarioRepositorio)
+                IUsuarioRepositorio usuarioRepositorio, ITagRepositorio tagsRepositorio)
         {
             this.perguntasRepositorio = perguntasRepositorio;
             this.usuarioRepositorio = usuarioRepositorio;
+            this.tagsRepositorio = tagsRepositorio;
         }
 
         [HttpGet, Route()]
@@ -62,10 +64,15 @@ namespace EstouroDePilhaAPI.Controllers
         public HttpResponseMessage Criar(PerguntaModel perguntaModel)
         {
             var pergunta = new Pergunta();
+            pergunta.Tags = new List<Tag>();
             pergunta.Usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             pergunta.DataPergunta = DateTime.Now;
             pergunta.Titulo = perguntaModel.Titulo;
             pergunta.Descricao = perguntaModel.Descricao;
+            foreach (var each in perguntaModel.TagsIds)
+            {
+                pergunta.Tags.Add(tagsRepositorio.ObterPorId(each));
+            }
             if (!pergunta.EhValida())
             {
                 throw new Exception();
