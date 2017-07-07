@@ -32,10 +32,12 @@ namespace EstouroDePilhaAPI.Controllers
             if (usuario == null)
             {
                 usuario = new Usuario(model.Nome, model.Email, model.Senha);
-
                 if (usuario.EhValida())
                 {
                     usuario.DataCadastro = DateTime.Now;
+                    usuario.UrlFotoPerfil = model.UrlImagemPerfil;
+                    usuario.Endereco = model.Endereco;
+                    usuario.Descricao = model.Descricao;
                     repositorio.Criar(usuario);
                 }
                 else
