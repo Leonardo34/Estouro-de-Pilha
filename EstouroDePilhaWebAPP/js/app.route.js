@@ -27,5 +27,10 @@ angular.module('EstouroPilhaApp').config(function ($routeProvider) {
       templateUrl: 'cadastroPergunta/cadastroPergunta.html'
     })
 
+    .when('/pergunta', {
+      controller: 'perguntaController',
+      templateUrl: 'pergunta/pergunta.html'
+    })
+
     .otherwise({redirectTo: '/home'});
 });

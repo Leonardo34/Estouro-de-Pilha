@@ -73,3 +73,23 @@
 .box .label{
   margin-top: 15px;
 }
+
+.containerPerguntasERespostas div{
+  margin-top: 10px;
+}
+
+.box{
+  margin-top: 40px;
+}
+
+.perguntasRelacionadas{
+  margin-top: 0%;
+  float: right;
+  width: 20%;
+  margin-right: 5%;
+}
+
+.containerPerguntasERespostas{
+  width: 60%;
+  margin-left: 5%;
+}
