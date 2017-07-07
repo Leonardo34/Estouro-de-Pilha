@@ -44,5 +44,12 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         {
             return contexto.Respostas.FirstOrDefault(r => r.Id == id);
         }
+
+        public List<Resposta> ObterRespostasPeloIdPergunta(int id)
+        {
+            return contexto.Respostas
+                .Where(r => r.Pergunta.Id == id)
+                .ToList();
+        }
     }
 }

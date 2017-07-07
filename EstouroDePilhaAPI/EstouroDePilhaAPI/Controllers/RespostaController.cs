@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Web;
 using System.Web.Http;
 
@@ -15,17 +16,22 @@ namespace EstouroDePilhaAPI.Controllers
     [RoutePrefix("api/respostas")]
     public class RespostaController :ControllerBase
     {
-        private readonly IRespostaRepositorio repositorio;
+        private readonly IRespostaRepositorio respostasRepositorio;
+        private readonly IPerguntaRepositorio perguntasRepositorio;
+        private readonly IUsuarioRepositorio usuariosRepositorio;
 
-        public RespostaController(IRespostaRepositorio repositorio)
+        public RespostaController(IRespostaRepositorio respostasRepositorio,
+            IPerguntaRepositorio perguntasRepositorio, IUsuarioRepositorio usuariosRepositorio)
         {
-            this.repositorio = repositorio;
+            this.perguntasRepositorio = perguntasRepositorio;
+            this.respostasRepositorio = respostasRepositorio;
+            this.usuariosRepositorio = usuariosRepositorio;
         }
 
         [HttpGet]
         public HttpResponseMessage ListarRespostas()
         {
-            var respostas = repositorio.Listar();
+            var respostas = respostasRepositorio.Listar();
             return ResponderOK(respostas);
         }
 
@@ -33,35 +39,45 @@ namespace EstouroDePilhaAPI.Controllers
         [HttpDelete]
         public HttpResponseMessage Deletar(Resposta resposta)
         {
-            if (repositorio.ObterPorId(resposta.Id) == null)
+            if (respostasRepositorio.ObterPorId(resposta.Id) == null)
             {
                 throw new Exception();
             }
-            repositorio.Deletar(resposta);
+            respostasRepositorio.Deletar(resposta);
             return ResponderOK(resposta);
         }
 
         [BasicAuthorization]
-        [HttpPost]
-        public HttpResponseMessage Criar(Resposta resposta)
+        [HttpPost, Route("nova/{idPergunta:int}")]
+        public HttpResponseMessage AdicionarResposta([FromBody]Resposta resposta, int idPergunta)
         {      
             if (!resposta.EhValida())
             {
                 throw new Exception();
             }
-            repositorio.Criar(resposta);
-            return ResponderOK(resposta);
+            resposta.Usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            resposta.Pergunta = perguntasRepositorio.ObterPorId(idPergunta);
+            resposta.DataResposta = DateTime.Now;
+            respostasRepositorio.Criar(resposta);
+            return ResponderOK();
         }
 
         [BasicAuthorization]
         [HttpPut]
         public HttpResponseMessage Alterar(Resposta resposta)
         {
-            if (repositorio.ObterPorId(resposta.Id) == null)
+            if (respostasRepositorio.ObterPorId(resposta.Id) == null)
             {
                 throw new Exception();
             }
             return ResponderOK(resposta);
+        }
+
+        [HttpGet, Route("pergunta/{idPergunta:int}")]
+        public HttpResponseMessage BuscarRespostasPergunta(int idPergunta)
+        {
+            var respostas = respostasRepositorio.ObterRespostasPeloIdPergunta(idPergunta);
+            return ResponderOK(respostas);
         }
     }
 }
