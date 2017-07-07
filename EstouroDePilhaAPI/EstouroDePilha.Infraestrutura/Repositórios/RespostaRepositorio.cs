@@ -10,7 +10,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 {
     public class RespostaRepositorio : IRespostaRepositorio
     {
-        private Contexto contexto;
+        private readonly Contexto contexto;
 
         public RespostaRepositorio(Contexto contexto)
         {

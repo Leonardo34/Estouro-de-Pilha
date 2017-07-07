@@ -10,7 +10,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 {
     public class TagRepositorio : ITagRepositorio
     {
-        private Contexto contexto;
+        private readonly Contexto contexto;
 
         public TagRepositorio(Contexto contexto)
         {
