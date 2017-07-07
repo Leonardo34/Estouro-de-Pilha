@@ -49,5 +49,14 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .Include("Tags")
                 .FirstOrDefault(p => p.Id == id);
         }
+
+        public List<Pergunta> ObterPerguntasPeloTitulo(string titulo)
+        {
+            return contexto.Perguntas
+                .Include("Tags")
+                .Include("Usuario")
+                .Where(p => p.Titulo.Contains(titulo))
+                .ToList();
+        }
     }
 }
