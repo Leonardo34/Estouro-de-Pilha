@@ -46,5 +46,10 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .Include("Usuario")
                 .FirstOrDefault(p => p.Id == id);
         }
+
+        public List<Pergunta> ObterPerguntasUsuarioPorId(int id)
+        {
+            return contexto.Perguntas.Where(p => p.Usuario.Id == id).ToList();
+        }
     }
 }

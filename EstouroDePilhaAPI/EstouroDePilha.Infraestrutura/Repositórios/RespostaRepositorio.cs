@@ -1,10 +1,8 @@
 ﻿using EstouroDePilha.Dominio.Entidades;
 using EstouroDePilha.Dominio.Repositórios;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace EstouroDePilha.Infraestrutura.Repositórios
 {
@@ -43,6 +41,11 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         public Resposta ObterPorId(int id)
         {
             return contexto.Respostas.FirstOrDefault(r => r.Id == id);
+        }
+
+        public List<Resposta> ObterRespostasUsuarioPorId(int id)
+        {
+            return contexto.Respostas.Where(p => p.Usuario.Id == id).ToList();
         }
     }
 }
