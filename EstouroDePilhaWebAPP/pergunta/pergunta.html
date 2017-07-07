@@ -15,8 +15,8 @@
       <div class="descricaoDaPergunta">
          <p>Descrição da pergunta: {{pergunta.Descricao}}</p>
       </div>
-      <div class="tagsDaPergunta">
-        <span class="tag is-light">Java</span>
+      <div class="tagsDaPergunta" >
+        <span class="tag is-light" ng-repeat="tags in pergunta.Tags">{{tags.Descricao}}</span>
       </div>
         <article class="media">
           <div class="media-left">
