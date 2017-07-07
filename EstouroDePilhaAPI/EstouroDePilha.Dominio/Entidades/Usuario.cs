@@ -37,7 +37,6 @@ namespace EstouroDePilha.Dominio.Entidades
         public Usuario(int id, string nome, string senha, string endereco, string descricao, string urlImagemPerfil)
         {
             Nome = nome;
-            Email = email;
             if (!string.IsNullOrWhiteSpace(senha))
                 Senha = CriptografarSenha(senha);
             Mensagens = new List<string>();
