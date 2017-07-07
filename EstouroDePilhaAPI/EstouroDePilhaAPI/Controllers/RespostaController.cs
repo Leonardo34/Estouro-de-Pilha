@@ -1,4 +1,5 @@
 ﻿using EstouroDePilha.Dominio.Entidades;
+using EstouroDePilha.Dominio.Repositórios;
 using EstouroDePilha.Infraestrutura;
 using EstouroDePilha.Infraestrutura.Repositórios;
 using EstouroDePilhaAPI.App_Start;
@@ -14,7 +15,12 @@ namespace EstouroDePilhaAPI.Controllers
     [RoutePrefix("api/respostas")]
     public class RespostaController :ControllerBase
     {
-        private RespostaRepositorio repositorio = new RespostaRepositorio(Contexto.contexto);
+        private readonly IRespostaRepositorio repositorio;
+
+        public RespostaController(IRespostaRepositorio repositorio)
+        {
+            this.repositorio = repositorio;
+        }
 
         [HttpGet]
         public HttpResponseMessage ListarRespostas()

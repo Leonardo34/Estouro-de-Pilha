@@ -1,4 +1,5 @@
 ﻿using EstouroDePilha.Dominio.Entidades;
+using EstouroDePilha.Dominio.Repositórios;
 using EstouroDePilha.Infraestrutura;
 using EstouroDePilha.Infraestrutura.Repositórios;
 using EstouroDePilhaAPI.App_Start;
@@ -14,7 +15,11 @@ namespace EstouroDePilhaAPI.Controllers
     [RoutePrefix("api/perguntas")]
     public class PerguntaController : ControllerBase
     {
-        private PerguntaRepositorio repositorio = new PerguntaRepositorio(Contexto.contexto);
+        private readonly IPerguntaRepositorio repositorio;
+        public PerguntaController(IPerguntaRepositorio repositorio)
+        {
+            this.repositorio = repositorio;
+        }
 
         [HttpGet]
         public HttpResponseMessage ListarPerguntas()

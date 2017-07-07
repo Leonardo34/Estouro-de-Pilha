@@ -1,5 +1,6 @@
 ﻿using EstouroDePilha.Dominio.Entidades;
 using EstouroDePilha.Dominio.Excecoes;
+using EstouroDePilha.Dominio.Repositórios;
 using EstouroDePilha.Infraestrutura;
 using EstouroDePilha.Infraestrutura.Repositórios;
 using EstouroDePilhaAPI.App_Start;
@@ -17,7 +18,12 @@ namespace EstouroDePilhaAPI.Controllers
     [RoutePrefix("api/usuarios")]
     public class UsuarioController : ControllerBase
     {
-        private UsuarioRepositorio repositorio = new UsuarioRepositorio(Contexto.contexto);
+        private readonly IUsuarioRepositorio repositorio;
+
+        public UsuarioController (IUsuarioRepositorio repositorio)
+        {
+            this.repositorio = repositorio;
+        }
 
         [HttpPost, Route("registrar")]
         public HttpResponseMessage Registrar([FromBody]RegistrarUsuarioModel model)
