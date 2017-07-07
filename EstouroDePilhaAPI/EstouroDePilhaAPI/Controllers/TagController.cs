@@ -1,4 +1,5 @@
 ﻿using EstouroDePilha.Dominio.Entidades;
+using EstouroDePilha.Dominio.Repositórios;
 using EstouroDePilha.Infraestrutura;
 using EstouroDePilha.Infraestrutura.Repositórios;
 using EstouroDePilhaAPI.App_Start;
@@ -14,7 +15,13 @@ namespace EstouroDePilhaAPI.Controllers
     [RoutePrefix ("api/tags")]
     public class TagController :ControllerBase 
     {
-        private TagRepositorio repositorio = new TagRepositorio(Contexto.contexto);
+        private readonly ITagRepositorio repositorio;
+
+        public TagController (ITagRepositorio repositorio)
+        {
+            this.repositorio = repositorio;
+        }
+
 
         [BasicAuthorization]
         [HttpGet]

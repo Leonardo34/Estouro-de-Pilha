@@ -9,7 +9,7 @@ namespace EstouroDePilhaAPI.Models
     {       
         public string Senha { get; set; }
 
-        public RegistrarUsuarioModel(int id, string nome, string email, string senha) : base (id,  nome, email)
+        public RegistrarUsuarioModel(int id, string nome, string email, string senha) : base(id, nome, email)
         {
             this.Senha = senha;
         }

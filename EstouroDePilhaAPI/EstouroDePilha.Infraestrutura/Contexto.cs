@@ -15,7 +15,8 @@ namespace EstouroDePilha.Infraestrutura
 
         public Contexto() : base("ExemploEFSP")
         {
-
+            Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Resposta> Respostas { get; set; }
