@@ -90,5 +90,18 @@ namespace EstouroDePilhaAPI.Controllers
             }
             return ResponderOK();    
         }
+
+        [HttpGet, Route("")]
+        public HttpResponseMessage pegarUsuario(int id) 
+        {
+            Usuario usuario = repositorio.ObterPorId(id);
+
+            if(usuario == null)
+            {
+                throw new ExcecaoUsuarioNaoExistente();
+            }
+
+            return ResponderOK(usuario.converterUsuarioParaUsuarioModel());
+        }
     }
 }
