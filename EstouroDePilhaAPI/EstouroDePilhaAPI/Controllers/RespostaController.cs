@@ -1,4 +1,5 @@
 ﻿using EstouroDePilha.Dominio.Entidades;
+using EstouroDePilha.Dominio.Models;
 using EstouroDePilha.Dominio.Repositórios;
 using EstouroDePilha.Infraestrutura;
 using EstouroDePilha.Infraestrutura.Repositórios;
@@ -77,7 +78,17 @@ namespace EstouroDePilhaAPI.Controllers
         public HttpResponseMessage BuscarRespostasPergunta(int idPergunta)
         {
             var respostas = respostasRepositorio.ObterRespostasPeloIdPergunta(idPergunta);
-            return ResponderOK(respostas);
+            List<RespostaModel> respostasDto = new List<RespostaModel>();
+            foreach (var each in respostas)
+            {
+                var resposta = new RespostaModel();
+                resposta.Id = each.Id;
+                resposta.Usuario = each.Usuario.converterUsuarioParaUsuarioModel();
+                resposta.Descricao = each.Descricao;
+                resposta.DataResposta = each.DataResposta;
+                respostasDto.Add(resposta);
+            }
+            return ResponderOK(respostasDto);
         }
     }
 }

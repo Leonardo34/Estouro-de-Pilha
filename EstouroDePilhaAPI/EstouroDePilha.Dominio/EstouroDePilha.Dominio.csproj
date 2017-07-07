@@ -57,6 +57,7 @@
     <Compile Include="Excecoes\ExcecaoUsuarioNaoExistente.cs" />
     <Compile Include="Models\PerguntaModel.cs" />
     <Compile Include="Models\RegistrarUsuarioModel.cs" />
+    <Compile Include="Models\RespostaModel.cs" />
     <Compile Include="Models\UsuarioBaseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositórios\IPerguntaRepositorio.cs" />

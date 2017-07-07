@@ -48,6 +48,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         public List<Resposta> ObterRespostasPeloIdPergunta(int id)
         {
             return contexto.Respostas
+                .Include("Usuario")
                 .Where(r => r.Pergunta.Id == id)
                 .ToList();
         }
