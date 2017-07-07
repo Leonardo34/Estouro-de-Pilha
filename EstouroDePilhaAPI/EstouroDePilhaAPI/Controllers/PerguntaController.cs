@@ -38,7 +38,6 @@ namespace EstouroDePilhaAPI.Controllers
 
         [BasicAuthorization]
         [HttpDelete]
-
         public HttpResponseMessage Deletar(Pergunta pergunta)
         {
             if (perguntasRepositorio.ObterPorId(pergunta.Id) == null)
@@ -54,7 +53,7 @@ namespace EstouroDePilhaAPI.Controllers
         [BasicAuthorization]
         [HttpPost]
         [Route("nova")]
-        public HttpResponseMessage Criar(RegistrarPerguntaModel perguntaModel)
+        public HttpResponseMessage Criar(PerguntaModel perguntaModel)
         {
             var pergunta = new Pergunta();
             pergunta.Usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
