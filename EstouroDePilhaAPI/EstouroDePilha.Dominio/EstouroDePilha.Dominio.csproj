@@ -55,6 +55,7 @@
     <Compile Include="Excecoes\ExcecaoCampoVazio.cs" />
     <Compile Include="Excecoes\ExcecaoUsuarioInvalido.cs" />
     <Compile Include="Excecoes\ExcecaoUsuarioNaoExistente.cs" />
+    <Compile Include="Models\PerguntaModel.cs" />
     <Compile Include="Models\RegistrarPerguntaModel.cs" />
     <Compile Include="Models\RegistrarUsuarioModel.cs" />
     <Compile Include="Models\UsuarioBaseModel.cs" />

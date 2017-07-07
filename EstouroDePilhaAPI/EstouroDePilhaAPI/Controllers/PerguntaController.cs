@@ -85,7 +85,12 @@ namespace EstouroDePilhaAPI.Controllers
         public HttpResponseMessage ObterPorId(int id)
         {
             var pergunta = perguntasRepositorio.ObterPorId(id);
-            return ResponderOK(new { descricao = pergunta.Descricao, idUsuario = pergunta.Usuario.Id });
+            var perguntaModel = new PerguntaModel();
+            perguntaModel.Id = pergunta.Id;
+            perguntaModel.Titulo = pergunta.Titulo;
+            perguntaModel.Descricao = pergunta.Descricao;
+            perguntaModel.Usuario = pergunta.Usuario.converterUsuarioParaUsuarioModel();
+            return ResponderOK(perguntaModel);
         }
     }
 }
