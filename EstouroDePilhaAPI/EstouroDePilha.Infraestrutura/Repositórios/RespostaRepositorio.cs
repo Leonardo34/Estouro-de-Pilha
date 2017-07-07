@@ -1,4 +1,5 @@
 ﻿using EstouroDePilha.Dominio.Entidades;
+using EstouroDePilha.Dominio.Repositórios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EstouroDePilha.Infraestrutura.Repositórios
 {
-    public class RespostaRepositorio : RepositorioBase<Resposta>
+    public class RespostaRepositorio : IRespostaRepositorio
     {
         private Contexto contexto;
 
