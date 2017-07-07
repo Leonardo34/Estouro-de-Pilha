@@ -29,6 +29,7 @@ namespace EstouroDePilhaAPI.Controllers
 
         [BasicAuthorization]
         [HttpGet]
+        [Route("")]
         public HttpResponseMessage ListarPerguntas()
         {
             var perguntas = perguntasRepositorio.Listar();
