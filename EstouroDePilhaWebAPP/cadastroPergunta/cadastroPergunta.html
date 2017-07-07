@@ -1,0 +1,28 @@
+<div class="barraDeMenu" ng-include="'home/barra.de.menu.html'"></div>
+  <section class="container is-fullheight is-info is-bold">
+    <div class="hero-body">
+      <div class="container cont">
+        <div class="columns">
+          <div class="column is-8 is-offset-2">
+            <h1 class="title has-text-centered">
+              Pergunta ai guri!
+            </h1>
+            <div class="box">
+              <label for="tituloPergunta" class="label has-text-centered">Título da tua pergunta</label>
+              <textarea rows="2"
+                  cols="20"
+                  class="textarea"
+                  type="text"
+                  autofocus
+                  required
+                  minlength="3"
+                  maxlength="50"
+                  ng-model="pergunta.Titulo"
+                  placeholder="O que perguntar?">
+              </textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
