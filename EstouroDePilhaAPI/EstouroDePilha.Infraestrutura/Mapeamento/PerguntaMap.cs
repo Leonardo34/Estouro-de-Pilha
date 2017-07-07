@@ -25,7 +25,7 @@ namespace EstouroDePilha.Infraestrutura.Mapeamento
                 .Map(x => x.MapKey("IdPergunta"));
 
             HasMany(x => x.Tags)
-                .WithMany(x => x.Perguntas)
+                .WithMany()
                 .Map(x =>
                 {
                     x.MapLeftKey("IdPergunta");
