@@ -32,5 +32,10 @@ angular.module('EstouroPilhaApp').config(function ($routeProvider) {
       templateUrl: 'pergunta/pergunta.html'
     })
 
+    .when('/perfil/:id', {
+      controller: 'perfilController',
+      templateUrl: 'perfil/perfil.html'
+    })
+
     .otherwise({redirectTo: '/home'});
 });
