@@ -4,6 +4,7 @@ app.controller('perguntaController', function ($scope, authService, perguntaServ
 
   function buscarPerguntaPorId(id){
     perguntaService.buscarPerguntaPorId(id).then(function (response){
+      console.log(response);
       $scope.pergunta = response.data.result;
     })
   }
