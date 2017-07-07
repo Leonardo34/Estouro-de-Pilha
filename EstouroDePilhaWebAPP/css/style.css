@@ -1,3 +1,7 @@
+p {
+  word-break: break-all;
+}
+
 .email-input,
 .password-input {
   border-radius: 40px;
@@ -89,4 +93,16 @@
 .containerPerguntasERespostas{
   width: 60%;
   margin-left: 5%;
+}
+
+.stack-body {
+  overflow-x: initial;
+}
+
+.hero-perfil {
+  background: #4caf50;
+}
+
+.perfil-info {
+  font-size: 1.2rem;
 }
