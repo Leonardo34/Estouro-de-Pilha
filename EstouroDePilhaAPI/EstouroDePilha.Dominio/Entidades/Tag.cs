@@ -6,10 +6,20 @@ using System.Threading.Tasks;
 
 namespace EstouroDePilha.Dominio.Entidades
 {
-    public class Tag
+    public class Tag : EntidadeBase
     {
         public int Id { get; set; }
         public string Descricao { get; set; }
         public List<Pergunta> Perguntas { get; set; }
+
+        public override bool EhValida()
+        {
+            Mensagens.Clear();
+
+            if (string.IsNullOrWhiteSpace(Descricao))
+                Mensagens.Add("Descrição é inválido.");
+
+            return Mensagens.Count == 0;
+        }
     }
 }

@@ -43,9 +43,17 @@ namespace EstouroDePilhaAPI.Controllers
         [Route("nova")]
         public HttpResponseMessage Criar(Pergunta pergunta)
         {
+
             pergunta.Usuario = 
                 usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             perguntasRepositorio.Criar(pergunta);
+
+            if (!pergunta.EhValida())
+            {
+                throw new Exception();
+            }
+            repositorio.Criar(pergunta);
+
             return ResponderOK(pergunta);
         }
 
