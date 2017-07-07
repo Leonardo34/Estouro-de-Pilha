@@ -94,11 +94,18 @@ namespace EstouroDePilhaAPI.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-
         public HttpResponseMessage ObterPorId(int id)
         {
             var pergunta = perguntasRepositorio.ObterPorId(id);
             var perguntaModel = new PerguntaModel();
+            perguntaModel.Tags = new List<TagModel>();
+            foreach (var each in pergunta.Tags)
+            {
+                var tagModel = new TagModel();
+                tagModel.Id = each.Id;
+                tagModel.Descricao = each.Descricao;
+                perguntaModel.Tags.Add(tagModel);
+            }
             perguntaModel.Id = pergunta.Id;
             perguntaModel.Titulo = pergunta.Titulo;
             perguntaModel.Descricao = pergunta.Descricao;

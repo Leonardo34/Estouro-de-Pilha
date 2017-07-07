@@ -46,6 +46,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         {
             return contexto.Perguntas
                 .Include("Usuario")
+                .Include("Tags")
                 .FirstOrDefault(p => p.Id == id);
         }
     }
