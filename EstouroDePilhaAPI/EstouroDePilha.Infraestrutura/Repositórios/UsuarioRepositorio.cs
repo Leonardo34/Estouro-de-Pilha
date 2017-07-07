@@ -1,15 +1,17 @@
 ﻿using EstouroDePilha.Dominio.Entidades;
+using EstouroDePilha.Dominio.Repositórios;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EstouroDePilha.Infraestrutura.Repositórios
 {
-    public class UsuarioRepositorio : RepositorioBase<Usuario>
+    public class UsuarioRepositorio : IUsuarioRepositorio
     {
-        private Contexto contexto;
+        private readonly Contexto contexto;
 
         public UsuarioRepositorio(Contexto contexto)
         {
