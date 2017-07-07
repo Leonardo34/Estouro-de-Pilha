@@ -1,8 +1,9 @@
-ugnamespace EstouroDePilha.Infraestrutura.Migrations
+using System;
+using System.Data.Entity.Migrations;
+
+namespace EstouroDePilha.Infraestrutura.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
+  
     public partial class UpdateDb : DbMigration
     {
         public override void Up()

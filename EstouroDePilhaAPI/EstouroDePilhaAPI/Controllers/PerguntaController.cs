@@ -17,10 +17,13 @@ namespace EstouroDePilhaAPI.Controllers
     public class PerguntaController : ControllerBase
     {
     
-        private readonly IPerguntaRepositorio repositorio;
-        public PerguntaController(IPerguntaRepositorio repositorio)
+        private readonly IPerguntaRepositorio perguntasRepositorio;
+        private readonly IUsuarioRepositorio usuarioRepositorio;
+        public PerguntaController(IPerguntaRepositorio perguntasRepositorio, 
+                IUsuarioRepositorio usuarioRepositorio)
         {
-            this.repositorio = repositorio;
+            this.perguntasRepositorio = perguntasRepositorio;
+            this.usuarioRepositorio = usuarioRepositorio;
         }
 
 
@@ -58,7 +61,7 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 throw new Exception();
             }
-            repositorio.Criar(pergunta);
+            perguntasRepositorio.Criar(pergunta);
 
             return ResponderOK(pergunta);
         }
