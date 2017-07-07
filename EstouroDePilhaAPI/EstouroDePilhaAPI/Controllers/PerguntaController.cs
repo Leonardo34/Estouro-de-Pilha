@@ -1,4 +1,5 @@
 ﻿using EstouroDePilha.Dominio.Entidades;
+using EstouroDePilha.Dominio.Excecoes;
 using EstouroDePilha.Dominio.Models;
 using EstouroDePilha.Dominio.Repositórios;
 using EstouroDePilha.Infraestrutura;
@@ -88,6 +89,20 @@ namespace EstouroDePilhaAPI.Controllers
             perguntaModel.Descricao = pergunta.Descricao;
             perguntaModel.Usuario = pergunta.Usuario.converterUsuarioParaUsuarioModel();
             return ResponderOK(perguntaModel);
+        }
+
+        [HttpGet]
+        [Route("/usuario/{id:int}")]
+        public HttpResponseMessage ObterPerguntasPorUsuarioId (int id)
+        {
+            var perguntasUsuario = perguntasRepositorio.ObterPerguntasUsuarioPorId(id);
+
+            if(perguntasUsuario == null)
+            {
+                throw new ExcecaoUsuarioNaoExistente();
+            }
+
+            return ResponderOK(perguntasUsuario);
         }
     }
 }
