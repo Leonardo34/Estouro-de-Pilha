@@ -1,4 +1,5 @@
 ﻿using EstouroDePilha.Dominio.Entidades;
+using EstouroDePilha.Dominio.Models;
 using EstouroDePilha.Infraestrutura;
 using EstouroDePilha.Infraestrutura.Repositórios;
 using EstouroDePilhaAPI.App_Start;
@@ -41,20 +42,20 @@ namespace EstouroDePilhaAPI.Controllers
         [BasicAuthorization]
         [HttpPost]
         [Route("nova")]
-        public HttpResponseMessage Criar(Pergunta pergunta)
+        public HttpResponseMessage Criar(RegistrarPerguntaModel perguntaModel)
         {
-
-            pergunta.Usuario = 
-                usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
-            perguntasRepositorio.Criar(pergunta);
-
+            var pergunta = new Pergunta();
+            pergunta.Usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            pergunta.DataPergunta = DateTime.Now;
+            pergunta.Titulo = perguntaModel.Titulo;
+            pergunta.Descricao = perguntaModel.Descricao;
             if (!pergunta.EhValida())
             {
                 throw new Exception();
             }
-            repositorio.Criar(pergunta);
+            perguntasRepositorio.Criar(pergunta);
 
-            return ResponderOK(pergunta);
+            return ResponderOK(new { id = pergunta.Id });
         }
 
         [BasicAuthorization]

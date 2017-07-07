@@ -1,4 +1,4 @@
-ugnamespace EstouroDePilha.Infraestrutura.Migrations
+namespace EstouroDePilha.Infraestrutura.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
