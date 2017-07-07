@@ -23,7 +23,7 @@ namespace EstouroDePilhaAPI
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
-            container.Register<DbContext, Contexto>(Lifestyle.Scoped);
+            container.Register<Contexto, Contexto>(Lifestyle.Scoped);
             container.Register<IPerguntaRepositorio, PerguntaRepositorio>(Lifestyle.Scoped);
             container.Register<IRespostaRepositorio, RespostaRepositorio>(Lifestyle.Scoped);
             container.Register<ITagRepositorio, TagRepositorio>(Lifestyle.Scoped);
