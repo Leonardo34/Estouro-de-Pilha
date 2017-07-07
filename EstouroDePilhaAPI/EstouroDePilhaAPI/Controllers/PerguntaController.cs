@@ -38,7 +38,6 @@ namespace EstouroDePilhaAPI.Controllers
 
         [BasicAuthorization]
         [HttpDelete]
-
         public HttpResponseMessage Deletar(Pergunta pergunta)
         {
             if (perguntasRepositorio.ObterPorId(pergunta.Id) == null)
@@ -49,12 +48,10 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(pergunta);
         }
 
-
-
         [BasicAuthorization]
         [HttpPost]
         [Route("nova")]
-        public HttpResponseMessage Criar(RegistrarPerguntaModel perguntaModel)
+        public HttpResponseMessage Criar(PerguntaModel perguntaModel)
         {
             var pergunta = new Pergunta();
             pergunta.Usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
@@ -82,11 +79,15 @@ namespace EstouroDePilhaAPI.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-        [BasicAuthorization]
         public HttpResponseMessage ObterPorId(int id)
         {
             var pergunta = perguntasRepositorio.ObterPorId(id);
-            return ResponderOK(new { descricao = pergunta.Descricao, idUsuario = pergunta.Usuario.Id });
+            var perguntaModel = new PerguntaModel();
+            perguntaModel.Id = pergunta.Id;
+            perguntaModel.Titulo = pergunta.Titulo;
+            perguntaModel.Descricao = pergunta.Descricao;
+            perguntaModel.Usuario = pergunta.Usuario.converterUsuarioParaUsuarioModel();
+            return ResponderOK(perguntaModel);
         }
     }
 }
