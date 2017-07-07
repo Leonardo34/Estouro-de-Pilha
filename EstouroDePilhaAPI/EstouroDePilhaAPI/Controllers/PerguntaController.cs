@@ -48,8 +48,6 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(pergunta);
         }
 
-
-
         [BasicAuthorization]
         [HttpPost]
         [Route("nova")]
@@ -81,7 +79,6 @@ namespace EstouroDePilhaAPI.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-        [BasicAuthorization]
         public HttpResponseMessage ObterPorId(int id)
         {
             var pergunta = perguntasRepositorio.ObterPorId(id);
