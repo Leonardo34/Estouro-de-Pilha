@@ -10,10 +10,10 @@
     </div>
     <div class="box containerPerguntasERespostas">
       <div class="tituloPergunta">
-        <label class="label">Pergunta do bagual :{{pergunta.titulo}}</label>
+        <label class="label">Pergunta do bagual : {{pergunta.Titulo}}</label>
       </div>
       <div class="descricaoDaPergunta">
-         <p>Descrição da pergunta: {{pergunta.descricao}}</p>
+         <p>Descrição da pergunta: {{pergunta.Descricao}}</p>
       </div>
       <div class="tagsDaPergunta">
         <span class="tag is-light">Java</span>
@@ -21,11 +21,11 @@
         <article class="media">
           <div class="media-left">
             <figure class="image is-64x64">
-              <img src="https://pbs.twimg.com/profile_images/1157372685/gaucho_400x400.jpg" alt="Image">
+          <!--  <img src="https://pbs.twimg.com/profile_images/1157372685/gaucho_400x400.jpg" alt="Image">-->
             </figure>
           </div>
           <div class="media-content">
-            <p><strong>guri2017uruguaiana</strong></p>
+            <p><strong>{{pergunta.Usuario.Nome}}</strong></p>
             <nav class="level is-mobile">
               <div class="level-left">
                 <a class="level-item">
