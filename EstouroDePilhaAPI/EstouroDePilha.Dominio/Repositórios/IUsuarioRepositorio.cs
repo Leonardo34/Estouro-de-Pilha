@@ -2,6 +2,9 @@
 
 namespace EstouroDePilha.Dominio.Repositórios
 {
-    public interface IUsuarioRepositorio : IRepositorioGenerico<Usuario> { }
+    public interface IUsuarioRepositorio : IRepositorioGenerico<Usuario>
+    {
+        Usuario ObterPorEmail(string email);
 
+    }
 }
