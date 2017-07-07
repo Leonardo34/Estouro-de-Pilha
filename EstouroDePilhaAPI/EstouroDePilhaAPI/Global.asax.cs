@@ -9,6 +9,8 @@ using SimpleInjector.Lifestyles;
 using SimpleInjector.Integration.WebApi;
 using EstouroDePilha.Dominio.Repositórios;
 using EstouroDePilha.Infraestrutura.Repositórios;
+using EstouroDePilha.Infraestrutura;
+using System.Data.Entity;
 
 namespace EstouroDePilhaAPI
 {
@@ -21,6 +23,7 @@ namespace EstouroDePilhaAPI
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
+            container.Register<DbContext, Contexto>(Lifestyle.Scoped);
             container.Register<IPerguntaRepositorio, PerguntaRepositorio>(Lifestyle.Scoped);
             container.Register<IRespostaRepositorio, RespostaRepositorio>(Lifestyle.Scoped);
             container.Register<ITagRepositorio, TagRepositorio>(Lifestyle.Scoped);
