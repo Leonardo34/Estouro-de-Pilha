@@ -1,4 +1,4 @@
-var app = angular.module("EstouroPilhaApp", ['ngRoute', 'auth']);
+angular.module("EstouroPilhaApp", ['ngRoute', 'auth']);
 
 angular.module('EstouroPilhaApp').constant('authConfig', {
 
