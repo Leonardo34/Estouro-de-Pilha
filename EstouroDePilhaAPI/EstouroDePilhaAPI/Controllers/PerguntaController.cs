@@ -82,7 +82,7 @@ namespace EstouroDePilhaAPI.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-        [BasicAuthorization]
+        //[BasicAuthorization]
         public HttpResponseMessage ObterPorId(int id)
         {
             var pergunta = perguntasRepositorio.ObterPorId(id);
