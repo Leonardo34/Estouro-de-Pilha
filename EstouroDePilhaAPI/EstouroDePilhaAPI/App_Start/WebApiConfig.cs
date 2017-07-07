@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace EstouroDePilhaAPI
 {
@@ -13,6 +14,8 @@ namespace EstouroDePilhaAPI
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
