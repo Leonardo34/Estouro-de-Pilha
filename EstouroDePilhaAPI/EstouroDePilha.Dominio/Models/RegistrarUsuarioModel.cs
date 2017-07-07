@@ -8,12 +8,10 @@ namespace EstouroDePilhaAPI.Models
     public class RegistrarUsuarioModel : UsuarioBaseModel
     {       
         public string Senha { get; set; }
-        public string UrlImagemPerfil { get; set; }
-
-        public RegistrarUsuarioModel(int id, string nome, string email, string senha, string urlImagemPerfil) : base(id, nome, email)
+        
+        public RegistrarUsuarioModel(int id, string nome, string email, string senha, string urlImagemPerfil) : base(id, nome, email, urlImagemPerfil)
         {
-            this.Senha = senha;
-            this.UrlImagemPerfil = urlImagemPerfil;
+            this.Senha = senha;            
         }
     }
 }

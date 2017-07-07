@@ -10,12 +10,14 @@ namespace EstouroDePilhaAPI.Models
         public int Id { get; private set; }
         public string Nome { get; private set; }
         public string Email { get; private set; }
+        public String UrlImagemPerfil { get; private set; }
 
-        public UsuarioBaseModel(int id, string nome, string email)
+        public UsuarioBaseModel(int id, string nome, string email, string urlImagemPerfil)
         {
             this.Id = id;
             this.Nome = nome;
             this.Email = email;
+            this.UrlImagemPerfil = urlImagemPerfil;
         }
     }
 }

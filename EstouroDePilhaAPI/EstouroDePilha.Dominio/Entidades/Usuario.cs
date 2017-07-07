@@ -86,7 +86,7 @@ namespace EstouroDePilha.Dominio.Entidades
 
         public UsuarioBaseModel converterUsuarioParaUsuarioModel ()
         {
-            return new UsuarioBaseModel(this.Id, this.Nome, this.Email);
+            return new UsuarioBaseModel(this.Id, this.Nome, this.Email, this.UrlFotoPerfil);
         }
     }
 }
