@@ -2,7 +2,7 @@
 using EstouroDePilha.Dominio.Repositórios;
 using System.Collections.Generic;
 using System.Linq;
-
+using System;
 
 namespace EstouroDePilha.Infraestrutura.Repositórios
 {
@@ -43,9 +43,10 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
             return contexto.Respostas.FirstOrDefault(r => r.Id == id);
         }
 
-        public List<Resposta> ObterRespostasUsuarioPorId(int id)
+        public List<Resposta> ObterRespostasPorUsuarioId(int id)
         {
             return contexto.Respostas.Where(p => p.Usuario.Id == id).ToList();
         }
+
     }
 }

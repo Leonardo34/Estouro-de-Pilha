@@ -65,7 +65,7 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(resposta);
         }
 
-        [HttpGet, Route("/usuario/{id:int}")]
+        [HttpGet, Route("usuario/{id:int}")]
         public HttpResponseMessage ObterRespostasUsuarioPorId(int id)
         {
             var respostasUsuario = repositorio.ObterRespostasPorUsuarioId(id);

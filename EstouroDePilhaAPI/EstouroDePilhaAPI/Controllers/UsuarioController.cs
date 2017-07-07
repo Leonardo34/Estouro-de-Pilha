@@ -91,7 +91,7 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK();    
         }
 
-        [HttpGet, Route("")]
+        [HttpGet, Route("{id:int}")]
         public HttpResponseMessage pegarUsuario(int id) 
         {
             Usuario usuario = repositorio.ObterPorId(id);

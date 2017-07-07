@@ -92,7 +92,7 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [HttpGet]
-        [Route("/usuario/{id:int}")]
+        [Route("usuario/{id:int}")]
         public HttpResponseMessage ObterPerguntasPorUsuarioId (int id)
         {
             var perguntasUsuario = perguntasRepositorio.ObterPerguntasUsuarioPorId(id);
