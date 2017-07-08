@@ -16,10 +16,10 @@
           <h1 class="subtitle">{{usuario.Nickname}}</h1>
 
           <a class="button is-link" ng-click="abrirFecharModalEdicao()" ng-show="logado">
-                        <span class="icon">
-                            <i class="fa fa-pencil"></i>
-                        </span>                        
-                    </a>
+            <span class="icon">
+                <i class="fa fa-pencil"></i>
+            </span>                        
+          </a>
         </section>
 
         <section class="column is-hidden-mobile is-fullwidth has-text-right">
@@ -78,7 +78,6 @@
     <h3 class="subtitle">Minhas perguntas</h3>
     <hr>
     <p ng-hide="usuario.respostas.length > 0">Opa! parece que {{usuario.Nome}} não perguntou nada ainda.</p>
-
   </div>
 </section>
 
@@ -123,7 +122,6 @@
               <i class="fa fa-user"></i>
             </span>
             <input type="text" class="input" name="usuarioNome" ng-model="usuario.Nome" required>
-
           </p>
           <p ng-show="formEdicao.usuarioNome.$invalid" class="help is-danger">Insira um nome</p>
         </div>
@@ -134,24 +132,20 @@
             <input type="text" class="input" name="usuarioEndereco" ng-model="usuario.Endereco" required>
           </p>
           <p ng-show="formEdicao.usuarioEndereco.$invalid" class="help is-danger">Insira um endereço</p>
-
         </div>
 
         <div class="field">
           <label class="label">Descrição</label>
           <p class="control">
             <textarea class="input" name="usuarioDescricao" ng-model="usuario.Descricao" rows="5" cols="10" required></textarea>
-
           </p>
           <p ng-show="formEdicao.usuarioDescricao.$invalid" class="help is-danger">Insira a tua descrição ai tchê</p>
-
         </div>
 
         <div class="field">
           <label class="label">Foto de perfil</label>
           <p class="control">
             <input type="text" class="input" name="usuario.urlImagemPerfil" ng-model="usuario.UrlImagemPerfil" required>
-
           </p>
         </div>
 
