@@ -22,7 +22,11 @@ namespace EstouroDePilha.Infraestrutura.Mapeamento
             HasRequired(x => x.Pergunta)
                 .WithMany()
                 .Map(x => x.MapKey("IdPergunta"))
-                .WillCascadeOnDelete(false);     
+                .WillCascadeOnDelete(false);
+
+            HasMany(x => x.UpVotes)
+                .WithRequired(x => x.Resposta)
+                .Map(x => x.MapKey("IdResposta"));
         }
     }
 }

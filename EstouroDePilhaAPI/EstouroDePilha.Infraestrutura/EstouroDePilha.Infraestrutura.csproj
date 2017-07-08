@@ -54,9 +54,9 @@
     <Compile Include="Mapeamento\TagMap.cs" />
     <Compile Include="Mapeamento\UpVoteRespostaMap.cs" />
     <Compile Include="Mapeamento\UsuarioMap.cs" />
-    <Compile Include="Migrations\201707080116421_AdicionarVotosEmRespostas.cs" />
-    <Compile Include="Migrations\201707080116421_AdicionarVotosEmRespostas.Designer.cs">
-      <DependentUpon>201707080116421_AdicionarVotosEmRespostas.cs</DependentUpon>
+    <Compile Include="Migrations\201707080216007_FixUpVotesDependencyInPergunta.cs" />
+    <Compile Include="Migrations\201707080216007_FixUpVotesDependencyInPergunta.Designer.cs">
+      <DependentUpon>201707080216007_FixUpVotesDependencyInPergunta.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,8 +76,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707080116421_AdicionarVotosEmRespostas.resx">
-      <DependentUpon>201707080116421_AdicionarVotosEmRespostas.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707080216007_FixUpVotesDependencyInPergunta.resx">
+      <DependentUpon>201707080216007_FixUpVotesDependencyInPergunta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
