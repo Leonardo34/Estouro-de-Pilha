@@ -46,7 +46,11 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 
         public Resposta ObterPorId(int id)
         {
-            return contexto.Respostas.FirstOrDefault(r => r.Id == id);
+            return contexto.Respostas
+                .Include("Usuario")
+                .Include("UpVotes")
+                .Include("DownVotes")
+                .FirstOrDefault(r => r.Id == id);
         }
 
         public List<Resposta> ObterRespostasPeloIdPergunta(int id)

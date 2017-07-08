@@ -91,16 +91,28 @@ namespace EstouroDePilhaAPI.Controllers
         [HttpPost, Route("{idResposta:int}/upvote")]
         public HttpResponseMessage AdicionarUpvoteResposta(int idResposta)
         {
+            var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            var resposta = respostasRepositorio.ObterPorId(idResposta);
+            if (resposta.UsuarioJaInteragiuComResposta(usuario))
+            {
+                return ResponderErro("Você não pode mais dar UpVote nesta resposta");
+            }
             var upvote = new UpVoteResposta();
-            upvote.Usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
-            upvote.Resposta = respostasRepositorio.ObterPorId(idResposta);
+            upvote.Usuario = usuario;
+            upvote.Resposta = resposta;
             respostasRepositorio.AdicionarUpvote(upvote);
-            return ResponderOK(new { Ud = upvote.Id });
+            return ResponderOK(new { Id = upvote.Id });
         }        [BasicAuthorization]
         [HttpPost, Route("{idResposta:int}/downvote")]        public HttpResponseMessage AdicionarDownvoteResposta(int idResposta)        {
+            var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            var resposta = respostasRepositorio.ObterPorId(idResposta);
+            if (resposta.UsuarioJaInteragiuComResposta(usuario))
+            {
+                return ResponderErro("Você não pode mais dar DownVote nesta resposta");
+            }
             var downvote = new DownVoteResposta();
-            downvote.Usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
-            downvote.Resposta = respostasRepositorio.ObterPorId(idResposta);
+            downvote.Usuario = usuario;
+            downvote.Resposta = resposta;
             respostasRepositorio.AdicionarDownvote(downvote);
             return ResponderOK(new { Id = downvote.Id });
         }
