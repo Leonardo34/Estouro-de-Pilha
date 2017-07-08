@@ -1,52 +1,110 @@
 <div class="barraDeMenu" ng-include="'home/barra.de.menu.html'"><br></div>
-  <div>
-    <div class="box perguntasRelacionadas">
-      <div class="descricaoDaResposta">
-        <p><strong>Perguntas Frequentes</strong></p>
-        <p>Como eu resolvo um favicon.error??</p>
-        <p>Como eu faço um target 0?</p>
-        <p>O que vocêm acham do Entity Framework?</p>
-      </div>
-    </div>
-    <div class="box containerPerguntasERespostas">
-      <div class="tituloPergunta">
-        <label class="label">Pergunta do bagual : {{pergunta.Titulo}}</label>
-      </div>
-      <div class="descricaoDaPergunta">
-         <p>Descrição da pergunta: {{pergunta.Descricao}}</p>
-      </div>
-      <div class="tagsDaPergunta" >
-        <span class="tag is-light" ng-repeat="tags in pergunta.Tags">{{tags.Descricao}}</span>
-      </div>
-        <article class="media">
+
+<div class="container">
+
+  <section class="columns is-multiline">
+
+  <div class="box column is-8">
+    <section class="columns is-mobile is-multiline">
+      <div class="column is-10">
+
+        <div class="tituloPergunta">
+          <label class="label">Pergunta do bagual : "{{pergunta.Titulo}}"</label>
+        </div>
+        <div class="descricaoDaPergunta">
+          <p>{{pergunta.Descricao}}</p>
+        </div>
+        <div class="tagsDaPergunta">
+          <span class="tag is-light" ng-repeat="tags in pergunta.Tags">{{tags.Descricao}}</span>
+        </div>
+        <article class="media margin-top">
           <div class="media-left">
-            <figure class="image is-64x64">
-          <!--  <img src="https://pbs.twimg.com/profile_images/1157372685/gaucho_400x400.jpg" alt="Image">-->
+            <figure class="image is-64x64 is-square">
+              <img ng-src="{{pergunta.Usuario.UrlImagemPerfil}}">
             </figure>
           </div>
           <div class="media-content">
-            <p><strong>{{pergunta.Usuario.Nome}}</strong></p>
+
+            <a ng-href="/#!/perfil/{{pergunta.Usuario.Id}}">
+              <p>
+                <b>{{pergunta.Usuario.Nome}}</b>
+              </p>
+            </a>
+            
             <nav class="level is-mobile">
               <div class="level-left">
                 <a class="level-item">
-                  <span class="tag is-warning"></span>
+                  <span class="tag is-warning">32</span>
                 </a>
                 <a class="level-item">
-                  <span class="tag is-light"></span>
+                  <span class="tag is-light">7</span>
                 </a>
                 <a class="level-item">
-                  <span class="tag is-danger"></span>
+                  <span class="tag is-danger">4</span>
                 </a>
               </div>
             </nav>
           </div>
         </article>
-    </div>
-    <div class="box containerPerguntasERespostas" ng-repeat="resposta in respostas">
-      <div class="descricaoDaResposta">
-        <p>Usuário: {{resposta.Usuario.Email}}</p>
-        <p>Data da resposta: {{resposta.DataResposta}}</p>
-        <p>Descricão da resposta: {{resposta.Descricao}}</p>
+
       </div>
+
+      <div class="column">
+        <small class="pull-right">{{pergunta.DataPergunta | date: 'dd/MM/yyyy'}}</small>
+        <!--aqui irá a seção de upvote da pergunta-->
+      </div>
+    </section>
+
+  </div>
+
+  <div class="box column">
+    <div class="descricaoDaResposta">
+      <p><strong>Perguntas Frequentes</strong></p>
+      <p>Como eu resolvo um favicon.error??</p>
+      <p>Como eu faço um target 0?</p>
+      <p>O que vocêm acham do Entity Framework?</p>
     </div>
   </div>
+
+</section>
+
+  <div class="box column is-8" ng-repeat="resposta in respostas">
+    <div class="descricaoDaResposta">
+      <section class="level usuario-resposta-info">
+        <div class="level-left upvote">
+          <!-- aqui vai o upvote -->
+        </div>
+        <a ng-href="/#!/perfil/{{resposta.Usuario.Id}}">
+          <div class="level-right">
+            <img ng-src="{{resposta.Usuario.UrlImagemPerfil}}" class="image is-24x24">
+
+            <p class="resposta-usuario-nick is-inline">
+              <b>
+                  <!-- trocar para o nickname apos implementação -->
+                  {{resposta.Usuario.Nome}}
+                </b>
+            </p>
+            <p class="is-inline">
+              <small class="resposta-usuario-data">
+                  às {{resposta.DataResposta | date:'dd/MM/yyyy HH:mm'}}
+              </small>
+            </p>
+          </div>
+        </a>
+        
+
+      </section>
+
+      <article class="resposta-descricao">
+        <!--implementar markdown-->
+        <p>
+          <pre>{{resposta.Descricao}}</pre>
+        </p>
+      </article>
+
+    </div>
+  </div>
+
+</div> 
+  
+
