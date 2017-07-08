@@ -7,5 +7,8 @@ namespace EstouroDePilha.Dominio.Repositórios
     {
         List<Resposta> ObterRespostasPeloIdPergunta(int id);
         void AdicionarUpvote(UpVoteResposta upvote);
+        List<Resposta> ObterRespostasPorUsuarioId (int id);
+       
     }
+
 }

@@ -11,7 +11,6 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
     public class RespostaRepositorio : IRespostaRepositorio
     {
         private readonly Contexto contexto;
-
         public RespostaRepositorio(Contexto contexto)
         {
             this.contexto = contexto;
@@ -33,7 +32,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         {
             contexto.Respostas.Remove(resposta);
             contexto.SaveChanges();
-        }
+        }        
 
         public List<Resposta> Listar()
         {
@@ -49,6 +48,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         }
 
         public List<Resposta> ObterRespostasPeloIdPergunta(int id)
+
         {
             return contexto.Respostas
                 .Include("Usuario")
@@ -58,9 +58,13 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         }
 
         public void AdicionarUpvote(UpVoteResposta upvote)
+
         {
             contexto.UpVotesResposta.Add(upvote);
             contexto.SaveChanges();
         }
+
+        public List<Resposta> ObterRespostasPorUsuarioId(int id)        {            return contexto.Respostas.Where(p => p.Usuario.Id == id).ToList();        }
     }
 }
+

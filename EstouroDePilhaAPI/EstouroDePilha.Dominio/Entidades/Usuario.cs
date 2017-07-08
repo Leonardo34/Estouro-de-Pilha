@@ -34,6 +34,7 @@ namespace EstouroDePilha.Dominio.Entidades
             Mensagens = new List<string>();
         }
 
+      
         public Usuario(int id, string nome, string senha, string endereco, string descricao, string urlImagemPerfil)
         {
             Nome = nome;
@@ -98,7 +99,7 @@ namespace EstouroDePilha.Dominio.Entidades
 
         public UsuarioBaseModel converterUsuarioParaUsuarioModel ()
         {
-            return new UsuarioBaseModel(this.Id, this.Nome, this.Email, this.UrlFotoPerfil);
+            return new UsuarioBaseModel(this.Id, this.Nome, this.Email, this.UrlFotoPerfil, this.Endereco, this.DataCadastro, this.Descricao);
         }
     }
 }

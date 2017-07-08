@@ -8,16 +8,15 @@
         <p>O que vocêm acham do Entity Framework?</p>
       </div>
     </div>
-    <div class="box containerPerguntasERespostas">
+    <div class="box containerPerguntasERespostas" ng-repeat = "pergunta in perguntasPesquisadas">
       <div class="tituloPergunta">
-        <label class="label">Pergunta do bagual : Alguém ja usou SpringBoot?</label>
+        <a ng-href="#!/pergunta/{{pergunta.Id}}">Pergunta do bagual : {{pergunta.Titulo}}</a>
       </div>
       <div class="descricaoDaPergunta">
-         <p>Descrição da pergunta: </p>
+         <p>Descrição da pergunta: {{pergunta.Descricao}} </p>
       </div>
       <div class="tagsDaPergunta">
-        <span class="tag is-light">Java</span>
+        <span class="tag is-light" ng-repeat="tags in pergunta.Tags">{{tags.Descricao}}</span>
       </div>
     </div>
   </div>
-{{perguntaPesquisada}}

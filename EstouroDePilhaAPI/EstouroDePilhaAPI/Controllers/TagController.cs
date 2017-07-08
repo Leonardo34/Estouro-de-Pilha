@@ -22,6 +22,12 @@ namespace EstouroDePilhaAPI.Controllers
             this.repositorio = repositorio;
         }
 
+        [HttpGet, Route("usuario/{id:int}")]
+        public HttpResponseMessage pegarTagsUsuarioPorId(int id)
+        {
+            var tags = repositorio.BuscarTagsUsuarioPorId(id);
+            return ResponderOK(tags);
+        }
 
         [BasicAuthorization]
         [HttpGet]
@@ -65,5 +71,6 @@ namespace EstouroDePilhaAPI.Controllers
             }
             return ResponderOK(tag);
         }
+       
     }
 }
