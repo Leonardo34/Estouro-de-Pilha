@@ -55,7 +55,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
             return contexto.Perguntas
                 .Include("Tags")
                 .Include("Usuario")
-                .Where(p => p.Titulo.Contains(titulo))
+                .Where(p => p.Titulo.Contains(titulo)).OrderByDescending(p => p.DataPergunta)
                 .ToList();
         }
     }

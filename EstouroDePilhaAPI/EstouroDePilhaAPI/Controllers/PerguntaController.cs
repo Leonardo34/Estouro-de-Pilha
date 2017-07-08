@@ -33,16 +33,7 @@ namespace EstouroDePilhaAPI.Controllers
         public HttpResponseMessage ListarPerguntas()
         {
             var perguntas = perguntasRepositorio.Listar();
-            List<PerguntaModel> perguntasDto = new List<PerguntaModel>();
-            foreach (var each in perguntas)
-            {
-                var perguntaModel = new PerguntaModel();
-                perguntaModel.Id = each.Id;
-                perguntaModel.Titulo = each.Titulo;
-                perguntaModel.Usuario = each.Usuario.converterUsuarioParaUsuarioModel();
-                perguntaModel.Descricao = each.Descricao;
-                perguntasDto.Add(perguntaModel);
-            }
+            var perguntasDto = CriarPerguntasDto(perguntas);
             return ResponderOK(perguntasDto);
         }
 
@@ -111,6 +102,31 @@ namespace EstouroDePilhaAPI.Controllers
             perguntaModel.Descricao = pergunta.Descricao;
             perguntaModel.Usuario = pergunta.Usuario.converterUsuarioParaUsuarioModel();
             return ResponderOK(perguntaModel);
+        }
+
+        [HttpGet]
+        [Route("pesquisa/{titulo}")]
+        public HttpResponseMessage ObterPerguntasPeloTitulo(string titulo)
+        {
+            var perguntasPorTitulo = perguntasRepositorio.ObterPerguntasPeloTitulo(titulo);
+            var perguntasDto = CriarPerguntasDto(perguntasPorTitulo);
+            return ResponderOK(perguntasDto);
+        }
+
+        private List<PerguntaModel> CriarPerguntasDto(List <Pergunta> perguntas)
+        {
+            List<PerguntaModel> perguntasDto = new List<PerguntaModel>();
+            foreach (var each in perguntas)
+            {
+                var perguntaModel = new PerguntaModel();
+                perguntaModel.Id = each.Id;
+                perguntaModel.Titulo = each.Titulo;
+                perguntaModel.Usuario = each.Usuario.converterUsuarioParaUsuarioModel();
+                perguntaModel.Descricao = each.Descricao;
+                perguntaModel.DataPergunta = each.DataPergunta;
+                perguntasDto.Add(perguntaModel);
+            }
+            return perguntasDto;
         }
     }
 }
