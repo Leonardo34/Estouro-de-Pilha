@@ -1,5 +1,10 @@
-angular.module('EstouroPilhaApp').controller('perfilController', function ($scope, $routeParams, perfilService, perguntaService, tagService){
+angular.module('EstouroPilhaApp').controller('perfilController', function ($scope, $routeParams, perfilService, perguntaService, tagService, authService){
     let id = $routeParams.id;
+
+    $scope.logado = authService.isAutenticado();
+    $scope.salvarEdicao = salvarEdicao;
+    $scope.abrirFecharModalEdicao = abrirFecharModalEdicao;
+    $scope.alternarModal = false;
 
     pegarUsuario();
     pegarRespostas();
@@ -40,5 +45,8 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
         }, fail => {
                 console.log(fail.data);
         })
+    }
+    function abrirFecharModalEdicao() {
+        $scope.alternarModal = !$scope.alternarModal;       
     }
 });
