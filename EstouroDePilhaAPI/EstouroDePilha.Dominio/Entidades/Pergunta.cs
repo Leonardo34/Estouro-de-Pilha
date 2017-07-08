@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EstouroDePilha.Dominio.Entidades
 {
-    public class Pergunta :EntidadeBase
+    public class Pergunta : EntidadeBase
     {
         public int Id { get; set; }
         public Usuario Usuario { get; set; }
