@@ -1,19 +1,20 @@
-angular.module('EstouroPilhaApp').controller('perguntaController', function ($scope, authService, perguntaService){
+angular.module('EstouroPilhaApp').controller('perguntaController', function ($scope, $routeParams, authService, perguntaService){
 
-  buscarPerguntaPorId();
-  buscarRespostaPorIdDaPergunta();
-  function buscarPerguntaPorId(id){
-    perguntaService.buscarPerguntaPorId(id).then(function (response){
-      console.log(response);
+  var idDaPergunta = $routeParams.id;
+
+  buscarPerguntaPorId(idDaPergunta);
+  buscarRespostaPorIdDaPergunta(idDaPergunta);
+
+  function buscarPerguntaPorId(idDaPergunta){
+    console.log(idDaPergunta);
+    perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response){
       $scope.pergunta = response.data.result;
     })
   }
 
-  function buscarRespostaPorIdDaPergunta(id){
-    perguntaService.buscarRespostaPorIdDaPergunta(id).then(function (response){
-
+  function buscarRespostaPorIdDaPergunta(idDaPergunta){
+    perguntaService.buscarRespostaPorIdDaPergunta(idDaPergunta).then(function (response){
       $scope.respostas = response.data.result;
-          console.log($scope.respostas);
     })
   }
 
