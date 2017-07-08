@@ -25,6 +25,13 @@ namespace EstouroDePilha.Dominio.Entidades
 
             return Mensagens.Count == 0;
         }
+
+        public bool UsuarioJaInteragiuComResposta(Usuario usuario)
+        {
+            return usuario.Id == Usuario.Id
+                || UpVotes.Any(u => u.Usuario.Id == usuario.Id)
+                || DownVotes.Any(d => d.Usuario.Id == usuario.Id);            
+        }
     }
 }
 

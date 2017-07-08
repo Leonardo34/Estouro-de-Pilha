@@ -19,6 +19,7 @@ namespace EstouroDePilhaAPI.Controllers
         private readonly IRespostaRepositorio respostasRepositorio;
         private readonly IPerguntaRepositorio perguntasRepositorio;
         private readonly IUsuarioRepositorio usuariosRepositorio;
+
         public RespostaController(IRespostaRepositorio respostasRepositorio,
             IPerguntaRepositorio perguntasRepositorio, IUsuarioRepositorio usuariosRepositorio)
         {
@@ -29,7 +30,7 @@ namespace EstouroDePilhaAPI.Controllers
         [HttpGet, Route()]
         public HttpResponseMessage ListarRespostas()
         {
-            var respostas = respostasRepositorio.Listar();
+            var respostas = respostasRepositorio.Listar();
             return ResponderOK(respostas);
         }
         [BasicAuthorization]
@@ -39,8 +40,8 @@ namespace EstouroDePilhaAPI.Controllers
             if (respostasRepositorio.ObterPorId(resposta.Id) == null)
             {
                 throw new Exception();
-            }
-            respostasRepositorio.Deletar(resposta);
+            }
+            respostasRepositorio.Deletar(resposta);
             return ResponderOK(resposta);
         }
 
@@ -51,11 +52,11 @@ namespace EstouroDePilhaAPI.Controllers
             if (!resposta.EhValida())
             {
                 throw new Exception();
-            }
+            }
             resposta.Usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             resposta.Pergunta = perguntasRepositorio.ObterPorId(idPergunta);
             resposta.DataResposta = DateTime.Now;
-            respostasRepositorio.Criar(resposta);
+            respostasRepositorio.Criar(resposta);
             return ResponderOK();
         }
         [BasicAuthorization]
@@ -65,7 +66,7 @@ namespace EstouroDePilhaAPI.Controllers
             if (respostasRepositorio.ObterPorId(resposta.Id) == null)
             {
                 throw new Exception();
-            }
+            }
             return ResponderOK(resposta);
         }
 
@@ -73,38 +74,55 @@ namespace EstouroDePilhaAPI.Controllers
         public HttpResponseMessage BuscarRespostasPergunta(int idPergunta)
         {
             var respostas = respostasRepositorio.ObterRespostasPeloIdPergunta(idPergunta);
-            List<RespostaModel> respostasDto = new List<RespostaModel>();            foreach (var each in respostas)
+            List<RespostaModel> respostasDto = new List<RespostaModel>();            foreach (var each in respostas)
             {
-                var resposta = new RespostaModel();
+                var resposta = new RespostaModel();
                 resposta.Id = each.Id;
                 resposta.Usuario = each.Usuario.converterUsuarioParaUsuarioModel();
                 resposta.Descricao = each.Descricao;
                 resposta.DataResposta = each.DataResposta;
                 resposta.QuantidadeUpVotes = each.UpVotes.Count;
+                resposta.QuantidadeDownVotes = each.DownVotes.Count;
                 respostasDto.Add(resposta);
-            }
+            }
             return ResponderOK(respostasDto);
         }
-
         [BasicAuthorization]
         [HttpPost, Route("{idResposta:int}/upvote")]
         public HttpResponseMessage AdicionarUpvoteResposta(int idResposta)
         {
+            var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            var resposta = respostasRepositorio.ObterPorId(idResposta);
+            if (resposta.UsuarioJaInteragiuComResposta(usuario))
+            {
+                return ResponderErro("Você não pode mais dar UpVote nesta resposta");
+            }
             var upvote = new UpVoteResposta();
-
-            upvote.Usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
-            upvote.Resposta = respostasRepositorio.ObterPorId(idResposta);
-            respostasRepositorio.AdicionarUpvote(upvote);
-            return ResponderOK(new { id = upvote.Id });
+            upvote.Usuario = usuario;
+            upvote.Resposta = resposta;
+            respostasRepositorio.AdicionarUpvote(upvote);
+            return ResponderOK(new { Id = upvote.Id });
+        }        [BasicAuthorization]
+        [HttpPost, Route("{idResposta:int}/downvote")]        public HttpResponseMessage AdicionarDownvoteResposta(int idResposta)        {
+            var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            var resposta = respostasRepositorio.ObterPorId(idResposta);
+            if (resposta.UsuarioJaInteragiuComResposta(usuario))
+            {
+                return ResponderErro("Você não pode mais dar DownVote nesta resposta");
+            }
+            var downvote = new DownVoteResposta();
+            downvote.Usuario = usuario;
+            downvote.Resposta = resposta;
+            respostasRepositorio.AdicionarDownvote(downvote);
+            return ResponderOK(new { Id = downvote.Id });
         }
         [HttpGet, Route("usuario/{id:int}")]        public HttpResponseMessage ObterRespostasUsuarioPorId(int id)
         {
-            var respostasUsuario = respostasRepositorio.ObterRespostasPorUsuarioId(id);
+            var respostasUsuario = respostasRepositorio.ObterRespostasPorUsuarioId(id);
             if (respostasUsuario == null)
             {
                 throw new ExcecaoUsuarioNaoExistente();
             }
-
             return ResponderOK(respostasUsuario);
         }
     }

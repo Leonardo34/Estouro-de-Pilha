@@ -21,10 +21,10 @@ namespace EstouroDePilhaAPI.Controllers
         private readonly IPerguntaRepositorio perguntasRepositorio;
         private readonly IUsuarioRepositorio usuarioRepositorio;
         private readonly ITagRepositorio tagsRepositorio;
+
         public PerguntaController(IPerguntaRepositorio perguntasRepositorio,
                 IUsuarioRepositorio usuarioRepositorio, ITagRepositorio tagsRepositorio)
         {
-
             this.perguntasRepositorio = perguntasRepositorio;
             this.usuarioRepositorio = usuarioRepositorio;
             this.tagsRepositorio = tagsRepositorio;
@@ -47,7 +47,6 @@ namespace EstouroDePilhaAPI.Controllers
                 throw new Exception();
             }
             perguntasRepositorio.Deletar(pergunta);
-
             return ResponderOK(pergunta);
         }
 
@@ -58,23 +57,22 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var pergunta = new Pergunta();
             pergunta.Tags = new List<Tag>();
-            pergunta.Usuario = 
+            pergunta.Usuario =
                 usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             pergunta.DataPergunta = DateTime.Now;
             pergunta.Titulo = perguntaModel.Titulo;
             pergunta.Descricao = perguntaModel.Descricao;
-
             perguntaModel.TagsIds
-                .ForEach(tag => pergunta.Tags.Add
-                                    (tagsRepositorio.ObterPorId(tag)));           
-
+                .ForEach(tag => pergunta.Tags.Add(
+                        tagsRepositorio.ObterPorId(tag)
+                    )
+                );    
+            
             if (!pergunta.EhValida())
             {
                 throw new Exception();
             }
-
             perguntasRepositorio.Criar(pergunta);
-
             return ResponderOK(new { id = pergunta.Id });
         }
 
@@ -86,7 +84,6 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 throw new Exception();
             }
-
             return ResponderOK(pergunta);
         }
 
@@ -97,7 +94,6 @@ namespace EstouroDePilhaAPI.Controllers
             var pergunta = perguntasRepositorio.ObterPorId(id);
             var perguntaModel = new PerguntaModel();
             perguntaModel.Tags = new List<TagModel>();
-
             foreach (var each in pergunta.Tags)
             {
                 var tagModel = new TagModel();
@@ -105,34 +101,12 @@ namespace EstouroDePilhaAPI.Controllers
                 tagModel.Descricao = each.Descricao;
                 perguntaModel.Tags.Add(tagModel);
             }
-
             perguntaModel.Id = pergunta.Id;
             perguntaModel.Titulo = pergunta.Titulo;
             perguntaModel.Descricao = pergunta.Descricao;
-            perguntaModel.Usuario = 
+            perguntaModel.Usuario =
                 pergunta.Usuario.converterUsuarioParaUsuarioModel();
-
             return ResponderOK(perguntaModel);
-        }
-
-        [HttpGet]
-        [Route("pesquisa/{titulo}")]
-        public HttpResponseMessage ObterPerguntasPeloTitulo(string titulo)
-        {
-            var perguntasPorTitulo = perguntasRepositorio.ObterPerguntasPeloTitulo(titulo);
-            var perguntasDto = CriarPerguntasDto(perguntasPorTitulo);
-
-            return ResponderOK(perguntasDto);
-        }
-
-
-        [HttpGet]
-        [Route("pesquisa/{titulo}")]
-        public HttpResponseMessage ObterPerguntasPeloTitulo(string titulo)
-        {
-            var perguntasPorTitulo = perguntasRepositorio.ObterPerguntasPeloTitulo(titulo);
-            var perguntasDto = CriarPerguntasDto(perguntasPorTitulo);
-            return ResponderOK(perguntasDto);
         }
 
         [HttpGet]
@@ -145,17 +119,16 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [HttpGet]
-        [Route("pesquisa/numeroderesultados{titulo}/")]
+        [Route("pesquisa/numeroderesultados/{titulo}")]
         public HttpResponseMessage NumeroDeResultadosDaPesquisa(string titulo)
         {
             int NumeroDeResultadosDaPesquisa = perguntasRepositorio.NumeroDeResultadosDaPesquisa(titulo);
             return ResponderOK(NumeroDeResultadosDaPesquisa);
         }
 
-        private List<PerguntaModel> CriarPerguntasDto(List <Pergunta> perguntas)
+        private List<PerguntaModel> CriarPerguntasDto(List<Pergunta> perguntas)
         {
             List<PerguntaModel> perguntasDto = new List<PerguntaModel>();
-
             foreach (var each in perguntas)
             {
                 var perguntaModel = new PerguntaModel();
@@ -168,13 +141,13 @@ namespace EstouroDePilhaAPI.Controllers
             }
             return perguntasDto;
         }
-    
+
         [HttpGet]
         [Route("usuario/{id:int}")]
-        public HttpResponseMessage ObterPerguntasPorUsuarioId (int id)
+        public HttpResponseMessage ObterPerguntasPorUsuarioId(int id)
         {
             var perguntasUsuario = perguntasRepositorio.ObterPerguntasUsuarioPorId(id);
-            if(perguntasUsuario == null)
+            if (perguntasUsuario == null)
             {
                 throw new ExcecaoUsuarioNaoExistente();
             }
