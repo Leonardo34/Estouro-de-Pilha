@@ -59,12 +59,10 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .ToList();
         }
 
-        public List<Pergunta> Paginacao(int quantidadePular)
+        public List<Pergunta> Paginacao(string titulo, int quantidadePular)
         {
-            return contexto.Perguntas
-               .Include("Tags")
-               .Include("Usuario")
-               .Skip(quantidadePular).Take(10)
+            return ObterPerguntasPeloTitulo(titulo)
+               .Skip(quantidadePular*10).Take(10)
                .ToList();
         }
     }

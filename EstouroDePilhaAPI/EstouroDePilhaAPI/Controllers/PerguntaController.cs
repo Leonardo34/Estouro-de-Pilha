@@ -114,10 +114,10 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [HttpGet]
-        [Route("paginacao/{quantidadePular:int}")]
-        public HttpResponseMessage PaginacaoDePerguntas(int quantidadePular)
+        [Route("paginacaoPesquisa/{titulo}/{quantidadePular:int}")]
+        public HttpResponseMessage PaginacaoDePerguntas(string titulo, int quantidadePular)
         {
-            var perguntasPaginadas = perguntasRepositorio.Paginacao(quantidadePular);
+            var perguntasPaginadas = perguntasRepositorio.Paginacao(titulo, quantidadePular);
             var perguntasDto = CriarPerguntasDto(perguntasPaginadas);
             return ResponderOK(perguntasDto);
         }
