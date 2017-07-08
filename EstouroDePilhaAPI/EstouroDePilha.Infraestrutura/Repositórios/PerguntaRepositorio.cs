@@ -38,7 +38,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         public List<Pergunta> Listar()
         {
             return contexto.Perguntas
-                .Include("Usuario")
+                //.Include("Usuario")
                 .ToList();
         }
 
@@ -57,6 +57,15 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .Include("Usuario")
                 .Where(p => p.Titulo.Contains(titulo)).OrderByDescending(p => p.DataPergunta)
                 .ToList();
+        }
+
+        public List<Pergunta> Paginacao(int quantidadePular)
+        {
+            return contexto.Perguntas
+               .Include("Tags")
+               .Include("Usuario")
+               .Skip(quantidadePular).Take(10)
+               .ToList();
         }
     }
 }

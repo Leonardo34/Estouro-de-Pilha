@@ -113,7 +113,16 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(perguntasDto);
         }
 
-        private List<PerguntaModel> CriarPerguntasDto(List <Pergunta> perguntas)
+        [HttpGet]
+        [Route("paginacao/{quantidadePular:int}")]
+        public HttpResponseMessage PaginacaoDePerguntas(int quantidadePular)
+        {
+            var perguntasPaginadas = perguntasRepositorio.Paginacao(quantidadePular);
+            var perguntasDto = CriarPerguntasDto(perguntasPaginadas);
+            return ResponderOK(perguntasDto);
+        }
+
+        private List<PerguntaModel> CriarPerguntasDto(List<Pergunta> perguntas)
         {
             List<PerguntaModel> perguntasDto = new List<PerguntaModel>();
             foreach (var each in perguntas)

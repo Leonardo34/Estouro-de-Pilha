@@ -4,10 +4,13 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
 
   function pesquisar (perguntaPesquisada){
     pesquisarPerguntaService.pesquisar(perguntaPesquisada).then(function (response){
-        console.log(response.data);
       $scope.perguntasPesquisadas = response.data.result;
-
     })
   }
 
+  function paginacao (pagina){
+    pesquisarPerguntaService.paginacao(pagina).then(function (response)
+
+  )}
+  
 });
