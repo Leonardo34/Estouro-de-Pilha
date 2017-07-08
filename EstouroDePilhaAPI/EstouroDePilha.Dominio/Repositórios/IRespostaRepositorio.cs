@@ -6,6 +6,7 @@ namespace EstouroDePilha.Dominio.Repositórios
     public interface IRespostaRepositorio : IRepositorioGenerico<Resposta>
     {
         List<Resposta> ObterRespostasPorUsuarioId (int id);
+        List<Resposta> ObterRespostasPeloIdPergunta(int idPergunta);
     }
 
 }
