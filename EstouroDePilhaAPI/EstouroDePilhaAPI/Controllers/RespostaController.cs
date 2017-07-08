@@ -11,10 +11,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Web;
-using System.Web.Http;
+using System.Web.Http;
+
 namespace EstouroDePilhaAPI.Controllers
 {
-    [RoutePrefix("api/respostas")]    public class RespostaController : ControllerBase
+    [RoutePrefix("api/respostas")]
+    public class RespostaController : ControllerBase
     {
         private readonly IRespostaRepositorio respostasRepositorio;
         private readonly IPerguntaRepositorio perguntasRepositorio;
@@ -26,13 +28,15 @@ namespace EstouroDePilhaAPI.Controllers
             this.perguntasRepositorio = perguntasRepositorio;
             this.respostasRepositorio = respostasRepositorio;
             this.usuariosRepositorio = usuariosRepositorio;
-        }
+        }
+
         [HttpGet, Route()]
         public HttpResponseMessage ListarRespostas()
         {
             var respostas = respostasRepositorio.Listar();
             return ResponderOK(respostas);
-        }
+        }
+
         [BasicAuthorization]
         [HttpDelete]
         public HttpResponseMessage Deletar(Resposta resposta)
@@ -58,7 +62,8 @@ namespace EstouroDePilhaAPI.Controllers
             resposta.DataResposta = DateTime.Now;
             respostasRepositorio.Criar(resposta);
             return ResponderOK();
-        }
+        }
+
         [BasicAuthorization]
         [HttpPut]
         public HttpResponseMessage Alterar(Resposta resposta)
@@ -74,7 +79,8 @@ namespace EstouroDePilhaAPI.Controllers
         public HttpResponseMessage BuscarRespostasPergunta(int idPergunta)
         {
             var respostas = respostasRepositorio.ObterRespostasPeloIdPergunta(idPergunta);
-            List<RespostaModel> respostasDto = new List<RespostaModel>();            foreach (var each in respostas)
+            List<RespostaModel> respostasDto = new List<RespostaModel>();
+            foreach (var each in respostas)
             {
                 var resposta = new RespostaModel();
                 resposta.Id = each.Id;
@@ -83,10 +89,12 @@ namespace EstouroDePilhaAPI.Controllers
                 resposta.DataResposta = each.DataResposta;
                 resposta.QuantidadeUpVotes = each.UpVotes.Count;
                 resposta.QuantidadeDownVotes = each.DownVotes.Count;
+                resposta.EhRespostaCorreta = each.EhRespostaCorreta;
                 respostasDto.Add(resposta);
             }
             return ResponderOK(respostasDto);
-        }
+        }
+
         [BasicAuthorization]
         [HttpPost, Route("{idResposta:int}/upvote")]
         public HttpResponseMessage AdicionarUpvoteResposta(int idResposta)
@@ -102,8 +110,12 @@ namespace EstouroDePilhaAPI.Controllers
             upvote.Resposta = resposta;
             respostasRepositorio.AdicionarUpvote(upvote);
             return ResponderOK(new { Id = upvote.Id });
-        }        [BasicAuthorization]
-        [HttpPost, Route("{idResposta:int}/downvote")]        public HttpResponseMessage AdicionarDownvoteResposta(int idResposta)        {
+        }
+
+        [BasicAuthorization]
+        [HttpPost, Route("{idResposta:int}/downvote")]
+        public HttpResponseMessage AdicionarDownvoteResposta(int idResposta)
+        {
             var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var resposta = respostasRepositorio.ObterPorId(idResposta);
             if (resposta.UsuarioJaInteragiuComResposta(usuario))
@@ -115,8 +127,10 @@ namespace EstouroDePilhaAPI.Controllers
             downvote.Resposta = resposta;
             respostasRepositorio.AdicionarDownvote(downvote);
             return ResponderOK(new { Id = downvote.Id });
-        }
-        [HttpGet, Route("usuario/{id:int}")]        public HttpResponseMessage ObterRespostasUsuarioPorId(int id)
+        }
+
+        [HttpGet, Route("usuario/{id:int}")]
+        public HttpResponseMessage ObterRespostasUsuarioPorId(int id)
         {
             var respostasUsuario = respostasRepositorio.ObterRespostasPorUsuarioId(id);
             if (respostasUsuario == null)
@@ -124,6 +138,20 @@ namespace EstouroDePilhaAPI.Controllers
                 throw new ExcecaoUsuarioNaoExistente();
             }
             return ResponderOK(respostasUsuario);
+        }
+
+        [BasicAuthorization]
+        [HttpPost, Route("{idResposta:int}/{idPergunta:int}/correta")]
+        public HttpResponseMessage SelecionarRespostaCorreta(int idResposta, int idPergunta)
+        {
+            var pergunta = perguntasRepositorio.ObterPorId(idPergunta);
+            var resposta = respostasRepositorio.ObterPorId(idResposta);
+            if (pergunta.SelecionarRespostaCorreta(resposta))
+            {
+                respostasRepositorio.Alterar(resposta);
+                return ResponderOK();
+            }
+            return ResponderErro("Você não pode marcar esta resposta como correta");
         }
     }
 }

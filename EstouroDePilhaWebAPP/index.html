@@ -1,22 +1,18 @@
 <!DOCTYPE html>
-<html ng-app="EstouroPilhaApp">
-    <link rel="icon"
-        type="image/png"
-        href="image/EstouroDePilha.png" />
+<html lang="pt-BR">
+  <head>
+    <title>Estouro de Pilha</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bulma.css">    
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="image/EstouroDePilha.png"/>   
+  </head>
+  <body class="stack-body" ng-app="EstouroPilhaApp">
 
-    <link rel="icon"
-          type="image/png"
-          href="image/EstouroDePilha.png" />    
-    <body class="stack-body">
-      <div>
-        <ng-view>
-
-        </ng-view>
-      </div>
-
+    <section ng-view></section>
+    <!--scripts-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js" type="text/javascript"></script>
@@ -30,12 +26,10 @@
 
     <script src="cadastroPergunta/cadastro.pergunta.controller.js"></script>
     <script src="cadastroPergunta/cadastro.pergunta.service.js"></script>
-
-    <script src="pergunta/pergunta.html"></script>
+    
     <script src="pergunta/pergunta.service.js"></script>
     <script src="pergunta/pergunta.controller.js"></script>
 
-    <script src="pesquisarPergunta/pesquisar.pergunta.html"></script>
     <script src="pesquisarPergunta/pesquisar.pergunta.service.js"></script>
     <script src="pesquisarPergunta/pesquisar.pergunta.controller.js"></script>
 
@@ -47,6 +41,6 @@
     <script src="cadastro/cadastro.controller.js" type="text/javascript"></script>
 
     <script src="tags/tags.service.js" type="text/javascript"></script>
-
+    
     </body>
 </html>

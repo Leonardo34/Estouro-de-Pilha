@@ -62,6 +62,14 @@
     <Compile Include="Migrations\201707081442095_MapearDownVotesNaResposta.Designer.cs">
       <DependentUpon>201707081442095_MapearDownVotesNaResposta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707081738553_MapearFlagDeRespostaCorreta.cs" />
+    <Compile Include="Migrations\201707081738553_MapearFlagDeRespostaCorreta.Designer.cs">
+      <DependentUpon>201707081738553_MapearFlagDeRespostaCorreta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707081831468_FixBooleanToNullable.cs" />
+    <Compile Include="Migrations\201707081831468_FixBooleanToNullable.Designer.cs">
+      <DependentUpon>201707081831468_FixBooleanToNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositórios\PerguntaRepositorio.cs" />
@@ -85,6 +93,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707081442095_MapearDownVotesNaResposta.resx">
       <DependentUpon>201707081442095_MapearDownVotesNaResposta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707081738553_MapearFlagDeRespostaCorreta.resx">
+      <DependentUpon>201707081738553_MapearFlagDeRespostaCorreta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707081831468_FixBooleanToNullable.resx">
+      <DependentUpon>201707081831468_FixBooleanToNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
