@@ -35,6 +35,8 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
   function pesquisarTrazerResultados() {
     pesquisarPerguntaService.pesquisarTrazerResultados(pergunta, paginaAtual).then(function (response){
       $scope.perguntasPesquisadas = response.data.result;
+
+ 
     })
   }
 

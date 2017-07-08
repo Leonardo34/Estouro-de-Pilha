@@ -1,3 +1,4 @@
+
 ﻿using EstouroDePilha.Dominio.Entidades;
 using EstouroDePilha.Dominio.Repositórios;
 using System;
@@ -29,6 +30,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
             contexto.SaveChanges();
         }
 
+
         public void Deletar(Pergunta pergunta)
         {
             contexto.Perguntas.Remove(pergunta);
@@ -38,7 +40,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         public List<Pergunta> Listar()
         {
             return contexto.Perguntas
-                //.Include("Usuario")
+                .Include("Usuario")
                 .ToList();
         }
 
@@ -58,6 +60,20 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .Where(p => p.Titulo.Contains(titulo)).OrderByDescending(p => p.DataPergunta)
                 .ToList();
         }
+        
+        public List<Pergunta> ObterPerguntasUsuarioPorId(int id)
+        {
+            return contexto.Perguntas.Where(p => p.Usuario.Id == id).ToList();
+        }
+        
+          public List<Pergunta> ObterPerguntasPeloTitulo(string titulo)
+        {
+            return contexto.Perguntas
+                .Include("Tags")
+                .Include("Usuario")
+                .Where(p => p.Titulo.Contains(titulo)).OrderByDescending(p => p.DataPergunta)
+                .ToList();
+        }
 
         public List<Pergunta> Paginacao(string titulo, int quantidadePular)
         {
@@ -70,6 +86,5 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         {
             return ObterPerguntasPeloTitulo(titulo).Count;
         }
-
     }
 }
