@@ -48,13 +48,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexto.cs" />
+    <Compile Include="Mapeamento\DownVoteRespostaMap.cs" />
     <Compile Include="Mapeamento\PerguntaMap.cs" />
     <Compile Include="Mapeamento\RespostaMap.cs" />
     <Compile Include="Mapeamento\TagMap.cs" />
+    <Compile Include="Mapeamento\UpVoteRespostaMap.cs" />
     <Compile Include="Mapeamento\UsuarioMap.cs" />
-    <Compile Include="Migrations\201707070046577_UpdateDb.cs" />
-    <Compile Include="Migrations\201707070046577_UpdateDb.Designer.cs">
-      <DependentUpon>201707070046577_UpdateDb.cs</DependentUpon>
+    <Compile Include="Migrations\201707080116421_AdicionarVotosEmRespostas.cs" />
+    <Compile Include="Migrations\201707080116421_AdicionarVotosEmRespostas.Designer.cs">
+      <DependentUpon>201707080116421_AdicionarVotosEmRespostas.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,8 +76,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707070046577_UpdateDb.resx">
-      <DependentUpon>201707070046577_UpdateDb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707080116421_AdicionarVotosEmRespostas.resx">
+      <DependentUpon>201707080116421_AdicionarVotosEmRespostas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,13 +7,13 @@ namespace EstouroDePilha.Infraestrutura.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-beta1-60406")]
-    public sealed partial class UpdateDb : IMigrationMetadata
+    public sealed partial class AdicionarVotosEmRespostas : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateDb));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AdicionarVotosEmRespostas));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707070046577_UpdateDb"; }
+            get { return "201707080116421_AdicionarVotosEmRespostas"; }
         }
         
         string IMigrationMetadata.Source
