@@ -15,7 +15,9 @@ namespace EstouroDePilha.Infraestrutura.Mapeamento
             ToTable("Repostas");
             HasKey(x => x.Id);
 
-           HasRequired(x => x.Usuario)
+            Property(x => x.EhRespostaCorreta);
+
+            HasRequired(x => x.Usuario)
                 .WithMany()
                 .Map(x => x.MapKey("IdUsuario"));
 
