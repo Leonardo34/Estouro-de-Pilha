@@ -5,10 +5,10 @@ namespace EstouroDePilha.Dominio.Repositórios
 {
     public interface IRespostaRepositorio : IRepositorioGenerico<Resposta>
     {
-        List<Resposta> ObterRespostasPeloIdPergunta(int id);
-        void AdicionarUpvote(UpVoteResposta upvote);
+        List<Resposta> ObterRespostasPeloIdPergunta(int id);
+        void AdicionarUpvote(UpVoteResposta upvote);
         List<Resposta> ObterRespostasPorUsuarioId (int id);
-        List<Resposta> ObterRespostasPeloIdPergunta(int idPergunta);
+       
     }
 
 }
