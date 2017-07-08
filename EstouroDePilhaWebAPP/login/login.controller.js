@@ -8,5 +8,5 @@ angular.module('EstouroPilhaApp').controller('loginController', function($scope,
           alert('Desculpa tchê, mas alguma coisa ta errada!');
       })
       console.log($scope.usuario);
-  }
+  } 
 });
