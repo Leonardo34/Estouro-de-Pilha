@@ -37,7 +37,10 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 
         public List<Resposta> Listar()
         {
-            return contexto.Respostas.ToList();
+            return contexto.Respostas
+                .Include("Usuario")
+                .Include("UpVotes")
+                .ToList();
         }
 
         public Resposta ObterPorId(int id)
@@ -49,8 +52,15 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         {
             return contexto.Respostas
                 .Include("Usuario")
+                .Include("UpVotes")
                 .Where(r => r.Pergunta.Id == id)
                 .ToList();
+        }
+
+        public void AdicionarUpvote(UpVoteResposta upvote)
+        {
+            contexto.UpVotesResposta.Add(upvote);
+            contexto.SaveChanges();
         }
     }
 }
