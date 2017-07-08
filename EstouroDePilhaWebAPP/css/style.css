@@ -138,3 +138,14 @@ pre code {
 .margin-top {
   margin-top: 1rem;
 }
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.is-active {
+    animation: fadein 1s;
+}
+
+
