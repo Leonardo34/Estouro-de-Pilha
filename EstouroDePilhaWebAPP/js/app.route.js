@@ -20,7 +20,7 @@ angular.module('EstouroPilhaApp').config(function ($routeProvider) {
       controller: 'cadastroPerguntaController',
       templateUrl: 'cadastroPergunta/cadastroPergunta.html'
     })
-    .when('/pergunta', {
+    .when('/pergunta/:id', {
       controller: 'perguntaController',
       templateUrl: 'pergunta/pergunta.html'
     })

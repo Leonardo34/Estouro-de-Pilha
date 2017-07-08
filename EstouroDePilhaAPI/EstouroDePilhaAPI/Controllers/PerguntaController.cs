@@ -11,7 +11,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Web;
-using System.Web.Http;
+using System.Web.Http;
+
 namespace EstouroDePilhaAPI.Controllers
 {
     [RoutePrefix("api/perguntas")]
@@ -29,13 +30,16 @@ namespace EstouroDePilhaAPI.Controllers
             this.tagsRepositorio = tagsRepositorio;
         }
 
-        [HttpGet, Route()]        public HttpResponseMessage ListarPerguntas()
+        [HttpGet, Route()]
+        public HttpResponseMessage ListarPerguntas()
         {
             var perguntas = perguntasRepositorio.Listar();
             var perguntasDto = CriarPerguntasDto(perguntas);
             return ResponderOK(perguntasDto);
-        }
-        [BasicAuthorization]        [HttpDelete]
+        }
+
+        [BasicAuthorization]
+        [HttpDelete]
         public HttpResponseMessage Deletar(Pergunta pergunta)
         {
             if (perguntasRepositorio.ObterPorId(pergunta.Id) == null)
@@ -44,7 +48,8 @@ namespace EstouroDePilhaAPI.Controllers
             }
             perguntasRepositorio.Deletar(pergunta);
             return ResponderOK(pergunta);
-        }
+        }
+
         [BasicAuthorization]
         [HttpPost]
         [Route("nova")]
@@ -52,7 +57,8 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var pergunta = new Pergunta();
             pergunta.Tags = new List<Tag>();
-            pergunta.Usuario =                 usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            pergunta.Usuario =
+                usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             pergunta.DataPergunta = DateTime.Now;
             pergunta.Titulo = perguntaModel.Titulo;
             pergunta.Descricao = perguntaModel.Descricao;
@@ -68,7 +74,8 @@ namespace EstouroDePilhaAPI.Controllers
             }
             perguntasRepositorio.Criar(pergunta);
             return ResponderOK(new { id = pergunta.Id });
-        }
+        }
+
         [BasicAuthorization]
         [HttpPut]
         public HttpResponseMessage Alterar(Pergunta pergunta)
@@ -78,7 +85,8 @@ namespace EstouroDePilhaAPI.Controllers
                 throw new Exception();
             }
             return ResponderOK(pergunta);
-        }
+        }
+
         [HttpGet]
         [Route("{id:int}")]
         public HttpResponseMessage ObterPorId(int id)
@@ -96,16 +104,26 @@ namespace EstouroDePilhaAPI.Controllers
             perguntaModel.Id = pergunta.Id;
             perguntaModel.Titulo = pergunta.Titulo;
             perguntaModel.Descricao = pergunta.Descricao;
-            perguntaModel.Usuario =                 pergunta.Usuario.converterUsuarioParaUsuarioModel();
+            perguntaModel.Usuario =
+                pergunta.Usuario.converterUsuarioParaUsuarioModel();
             return ResponderOK(perguntaModel);
-        }
+        }
+
         [HttpGet]
-        [Route("pesquisa/{titulo}")]
-        public HttpResponseMessage ObterPerguntasPeloTitulo(string titulo)
+        [Route("paginacaoPesquisa/{titulo}/{quantidadePular:int}")]
+        public HttpResponseMessage PaginacaoDePerguntas(string titulo, int quantidadePular)
         {
-            var perguntasPorTitulo = perguntasRepositorio.ObterPerguntasPeloTitulo(titulo);
-            var perguntasDto = CriarPerguntasDto(perguntasPorTitulo);
+            var perguntasPaginadas = perguntasRepositorio.Paginacao(titulo, quantidadePular);
+            var perguntasDto = CriarPerguntasDto(perguntasPaginadas);
             return ResponderOK(perguntasDto);
+        }
+
+        [HttpGet]
+        [Route("pesquisa/numeroderesultados{titulo}/")]
+        public HttpResponseMessage NumeroDeResultadosDaPesquisa(string titulo)
+        {
+            int NumeroDeResultadosDaPesquisa = perguntasRepositorio.NumeroDeResultadosDaPesquisa(titulo);
+            return ResponderOK(NumeroDeResultadosDaPesquisa);
         }
 
         private List<PerguntaModel> CriarPerguntasDto(List<Pergunta> perguntas)
@@ -122,17 +140,18 @@ namespace EstouroDePilhaAPI.Controllers
                 perguntasDto.Add(perguntaModel);
             }
             return perguntasDto;
-        }        
+        }
+
         [HttpGet]
         [Route("usuario/{id:int}")]
-        public HttpResponseMessage ObterPerguntasPorUsuarioId (int id)
+        public HttpResponseMessage ObterPerguntasPorUsuarioId(int id)
         {
             var perguntasUsuario = perguntasRepositorio.ObterPerguntasUsuarioPorId(id);
-            if(perguntasUsuario == null)
+            if (perguntasUsuario == null)
             {
                 throw new ExcecaoUsuarioNaoExistente();
             }
             return ResponderOK(perguntasUsuario);
         }
-    }
+    }
 }
