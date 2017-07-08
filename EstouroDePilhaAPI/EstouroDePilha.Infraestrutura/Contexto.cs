@@ -23,6 +23,8 @@ namespace EstouroDePilha.Infraestrutura
         public DbSet<Pergunta> Perguntas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<UpVoteResposta> UpVotesResposta { get; set; }
+        public DbSet<DownVoteResposta> DownVotesResposta { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -30,6 +32,8 @@ namespace EstouroDePilha.Infraestrutura
             modelBuilder.Configurations.Add(new PerguntaMap());
             modelBuilder.Configurations.Add(new UsuarioMap());
             modelBuilder.Configurations.Add(new TagMap());
+            modelBuilder.Configurations.Add(new UpVoteRespostaMap());
+            modelBuilder.Configurations.Add(new DownVoteRespostaMap());
         }
     }
 }

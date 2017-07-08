@@ -13,5 +13,7 @@ namespace EstouroDePilha.Dominio.Models
         public UsuarioBaseModel Usuario { get; set; }
         public String Descricao { get; set; }
         public DateTime DataResposta { get; set; }
+        public int QuantidadeUpVotes { get; set; }
+        public int QuantidadeDownVotes { get; set; }
     }
 }

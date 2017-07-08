@@ -86,9 +86,21 @@ namespace EstouroDePilhaAPI.Controllers
                 resposta.Usuario = each.Usuario.converterUsuarioParaUsuarioModel();
                 resposta.Descricao = each.Descricao;
                 resposta.DataResposta = each.DataResposta;
+                resposta.QuantidadeUpVotes = each.UpVotes.Count;
                 respostasDto.Add(resposta);
             }
             return ResponderOK(respostasDto);
+        }
+
+        [BasicAuthorization]
+        [HttpPost, Route("{idResposta:int}/upvote")]
+        public HttpResponseMessage AdicionarUpvoteResposta(int idResposta)
+        {
+            var upvote = new UpVoteResposta();
+            upvote.Usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            upvote.Resposta = respostasRepositorio.ObterPorId(idResposta);
+            respostasRepositorio.AdicionarUpvote(upvote);
+            return ResponderOK(new { id = upvote.Id });
         }
     }
 }
