@@ -122,6 +122,14 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(perguntasDto);
         }
 
+        [HttpGet]
+        [Route("pesquisa/numeroderesultados{titulo}/")]
+        public HttpResponseMessage NumeroDeResultadosDaPesquisa(string titulo)
+        {
+            int NumeroDeResultadosDaPesquisa = perguntasRepositorio.NumeroDeResultadosDaPesquisa(titulo);
+            return ResponderOK(NumeroDeResultadosDaPesquisa);
+        }
+
         private List<PerguntaModel> CriarPerguntasDto(List<Pergunta> perguntas)
         {
             List<PerguntaModel> perguntasDto = new List<PerguntaModel>();
