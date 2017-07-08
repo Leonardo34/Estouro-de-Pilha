@@ -12,8 +12,7 @@ angular.module('EstouroPilhaApp').factory('pesquisarPerguntaService', function (
   };
 
   return{
-    pesquisar : buscarPerguntaPorTitulo,
-    pesquisasPaginada : buscarPerguntaPorTitulo,
+    pesquisarTrazerResultados : buscarPerguntaPorTitulo,
     numeroDeResultadosDaPesquisa : numeroDeResultadosDaPesquisa
   }
 });

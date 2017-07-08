@@ -12,7 +12,7 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
       return;
     }
     paginaAtual = paginaAtual -1;
-    pesquisasPaginada ();
+    pesquisarTrazerResultados();
   }
 
   function proxima(){
@@ -21,34 +21,29 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
       return;
     }
     paginaAtual = paginaAtual +1;
-    pesquisasPaginada ();
+    pesquisarTrazerResultados();
   }
 
   function pesquisar (perguntaPesquisada){
     paginaAtual = 0;
     pergunta = perguntaPesquisada;
-    numeroDeResultadosDaPesquisa (pergunta);
-    pesquisarPerguntaService.pesquisar(pergunta, paginaAtual).then(function (response){
+    pesquisarTrazerResultados();
+    numeroDeResultadosDaPesquisa ();
+    $scope.mostrarPaginacao = false;
+  }
+
+  function pesquisarTrazerResultados() {
+    pesquisarPerguntaService.pesquisarTrazerResultados(pergunta, paginaAtual).then(function (response){
       $scope.perguntasPesquisadas = response.data.result;
     })
   }
 
-  function pesquisasPaginada (perguntaPesquisada){
-    pesquisarPerguntaService.pesquisasPaginada(pergunta, paginaAtual).then(function (response){
-      $scope.perguntasPesquisadas = response.data.result;
-    })
-  }
-
-  function numeroDeResultadosDaPesquisa (pergunta){
+  function numeroDeResultadosDaPesquisa (){
     pesquisarPerguntaService.numeroDeResultadosDaPesquisa(pergunta).then(function (response){
       $scope.numeroDeResultadosDaPesquisa = response.data.result;
       if ($scope.numeroDeResultadosDaPesquisa > 10)
       {
         $scope.mostrarPaginacao = true;
-      }
-      else
-      {
-        $scope.mostrarPaginacao = false;
       }
     })
   }
