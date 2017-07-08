@@ -1,5 +1,21 @@
-p {
+p{
   word-break: break-all;
+}
+
+pre {
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  background: none;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+pre code {
+  background: whitesmoke;
+  color: #ff3860;
 }
 
 .email-input,
@@ -91,24 +107,8 @@ p {
   margin-top: 15px;
 }
 
-.containerPerguntasERespostas div{
-  margin-top: 10px;
-}
-
 .box{
   margin-top: 40px;
-}
-
-.perguntasRelacionadas{
-  margin-top: 0%;
-  float: right;
-  width: 20%;
-  margin-right: 5%;
-}
-
-.containerPerguntasERespostas{
-  width: 60%;
-  margin-left: 5%;
 }
 
 .stack-body {
@@ -125,4 +125,16 @@ p {
 
 .tag {
   margin: 0 0.3rem 0 0.3rem;
+}
+
+.resposta-usuario-nick, .resposta-usuario-data {
+  margin-left: 0.2rem;
+}
+
+.box{
+  margin: 1.3rem;
+}
+
+.margin-top {
+  margin-top: 1rem;
 }
