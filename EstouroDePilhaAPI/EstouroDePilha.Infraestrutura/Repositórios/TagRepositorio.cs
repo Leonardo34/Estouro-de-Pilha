@@ -22,6 +22,28 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
             contexto.Entry(tag).State = System.Data.Entity.EntityState.Modified;
         }
 
+        public HashSet<Tag> BuscarTagsUsuarioPorId(int id)
+        {
+            var tagsUnicas = new HashSet<Tag>();
+
+            var listaTagsEmPerguntas = contexto.Perguntas
+                .Where(p => p.Usuario.Id == id)
+                .Select(p => p.Tags).ToList();
+
+            var listaTagsEmRespostas = contexto.Respostas
+                .Where(r => r.Usuario.Id == id)
+                .Select(r => r.Pergunta.Tags).ToList();
+
+            listaTagsEmPerguntas
+                .Union(listaTagsEmRespostas)
+                .ToList()
+                .ForEach
+                (listaTag => listaTag.ForEach
+                    (tag => tagsUnicas.Add(tag)));
+
+            return tagsUnicas;
+        }
+
         public void Criar(Tag tag)
         {
             contexto.Tags.Add(tag);
