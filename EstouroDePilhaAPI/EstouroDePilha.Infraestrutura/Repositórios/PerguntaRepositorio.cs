@@ -1,4 +1,3 @@
-
 using EstouroDePilha.Dominio.Entidades;
 using EstouroDePilha.Dominio.Repositórios;
 using System;
@@ -29,7 +28,6 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
             contexto.Perguntas.Add(pergunta);
             contexto.SaveChanges();
         }
-
 
         public void Deletar(Pergunta pergunta)
         {
