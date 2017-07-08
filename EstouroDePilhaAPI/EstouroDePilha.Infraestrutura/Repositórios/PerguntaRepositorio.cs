@@ -76,5 +76,13 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         {
             return ObterPerguntasPeloTitulo(titulo).Count;
         }
+
+        public List<Pergunta> ObterPerguntas(string inputBusca, string tags)
+        {
+            var conteudo = inputBusca.ToLower();
+            var perguntasPorTags = contexto.Perguntas.Where(p => p.Tags.Any(t => t.Descricao.Contains(tags))).ToList();
+            var perguntas= perguntasPorTags.Where(p => p.Titulo.ToLower().Contains(conteudo) || p.Descricao.ToLower().Contains(conteudo)).ToList();
+            return perguntas;
+        }
     }
 }

@@ -153,5 +153,12 @@ namespace EstouroDePilhaAPI.Controllers
             }
             return ResponderOK(perguntasUsuario);
         }
+
+        [HttpGet]
+        [Route("pesquisa/perguntar/{busca}/{pergunta}")]
+        public HttpResponseMessage NumeroDeRsa(string busca, string pergunta)
+        {      
+             return ResponderOK(perguntasRepositorio.ObterPerguntas(busca, pergunta));
+        }
     }
 }
