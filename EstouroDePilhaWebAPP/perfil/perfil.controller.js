@@ -1,13 +1,34 @@
-app.controller('perfilController', function ($scope, $routeParams, perfilService){
-    
-    pegarUsuario();
+angular.module('EstouroPilhaApp').controller('perfilController', function ($scope, $routeParams, perfilService, perguntaService){
+    let id = $routeParams.id;
 
+    pegarUsuario();
+    pegarRespostas();
+    pegarPerguntas();
+    
     function pegarUsuario(){
-        perfilService.pegarUsuario($routeParams.id)
+        perfilService.pegarUsuario(id)
             .then(response => {
                 $scope.usuario = response.data.result;
         },  fail => {
                 console.log(fail.data)
         });
+    }
+
+    function pegarRespostas () {
+        perguntaService.pegarRespostasDoUsuario(id)
+            .then(response => {
+                $scope.usuario.respostas = response.data.result;
+        }, fail =>{
+                console.log(fail.data);
+        });
+    }
+
+    function pegarPerguntas () {
+        perguntaService.pegarPerguntasDoUsuario(id)
+            .then(response => {
+                $scope.usuario.perguntas = response.data.result;
+        },  fail => {
+                console.log(fail.data);
+        })
     }
 });
