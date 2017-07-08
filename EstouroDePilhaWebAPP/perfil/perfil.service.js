@@ -5,7 +5,10 @@ function perfilService ($http){
 
     var pegarUsuario = (id) => $http.get(`${url}/${id}`, id);
 
+    var editarUsuario = (usuario) => $http.put(`${url}`, usuario);
+
     return {
-        pegarUsuario: pegarUsuario
+        pegarUsuario: pegarUsuario,
+        editarUsuario: editarUsuario
     }
 };

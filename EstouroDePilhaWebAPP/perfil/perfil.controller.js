@@ -46,6 +46,18 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
                 console.log(fail.data);
         })
     }
+
+    function salvarEdicao() {
+        if($scope.formEdicao.$valid){
+            perfilService.editarUsuario($scope.usuario)
+                .then(response => {
+                    console.log(response.data);
+                }, fail => {
+                    console.log(fail.data);
+                });
+        }
+    }
+
     function abrirFecharModalEdicao() {
         $scope.alternarModal = !$scope.alternarModal;       
     }
