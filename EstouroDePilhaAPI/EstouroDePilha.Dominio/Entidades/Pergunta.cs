@@ -28,5 +28,27 @@ namespace EstouroDePilha.Dominio.Entidades
 
             return Mensagens.Count == 0;
         }
+
+        public bool ExisteRespostaCorreta()
+        {
+            return Respostas.Any(r => r.EhRespostaCorreta == true);
+        }
+
+        public bool SelecionarRespostaCorreta(Resposta resposta)
+        {
+            if (ExisteRespostaCorreta()
+                    || !ExisteRespostaComId(resposta.Id)
+                    || Usuario.Id == resposta.Usuario.Id)
+            {
+                return false;
+            }
+            resposta.EhRespostaCorreta = true;
+            return true;
+        }
+
+        public bool ExisteRespostaComId(int id)
+        {
+            return Respostas.Any(r => r.Id == id);
+        }
     }
 }

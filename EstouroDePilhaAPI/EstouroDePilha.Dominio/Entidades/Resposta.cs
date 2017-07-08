@@ -13,6 +13,7 @@ namespace EstouroDePilha.Dominio.Entidades
         public String Descricao { get; set; }
         public DateTime DataResposta { get; set; }
         public Pergunta Pergunta { get; set; }
+        public bool? EhRespostaCorreta { get; set; }
         public List<UpVoteResposta> UpVotes { get; set; }
         public List<DownVoteResposta> DownVotes { get; set; }
 

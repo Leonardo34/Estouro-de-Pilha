@@ -50,5 +50,92 @@ namespace EstouroDePilhaTestesUnitarios
 
             Assert.IsTrue(pergunta.EhValida());
         }
+
+        [TestMethod]
+        public void ExisteRespostaCorretaComRespostasVaziasDeveSerFalso()
+        {
+            Pergunta pergunta = new Pergunta();
+            pergunta.Respostas = new List<Resposta>();
+
+            Assert.IsFalse(pergunta.ExisteRespostaCorreta());
+        }
+
+        [TestMethod]
+        public void ExisteRespostaCorretaComRespostasNaoCorretas()
+        {
+            Pergunta pergunta = new Pergunta();
+            pergunta.Respostas = new List<Resposta>();
+            Resposta resposta1 = new Resposta();
+            resposta1.EhRespostaCorreta = false;
+            Resposta resposta2 = new Resposta();
+            resposta2.EhRespostaCorreta = false;
+            pergunta.Respostas.Add(resposta1);
+            pergunta.Respostas.Add(resposta2);
+
+            Assert.IsFalse(pergunta.ExisteRespostaCorreta());
+        }
+
+        [TestMethod]
+        public void ExisteRespostaCorretaComUmaRespostaCorreta()
+        {
+            Pergunta pergunta = new Pergunta();
+            pergunta.Respostas = new List<Resposta>();
+            Resposta resposta1 = new Resposta();
+            resposta1.EhRespostaCorreta = false;
+            Resposta resposta2 = new Resposta();
+            resposta2.EhRespostaCorreta = true;
+            pergunta.Respostas.Add(resposta1);
+            pergunta.Respostas.Add(resposta2);
+
+            Assert.IsTrue(pergunta.ExisteRespostaCorreta());
+        }
+
+        [TestMethod]
+        public void ExisteRespostaCorretaComApenasUmRespostaPopuladaSendoElaCorreta()
+        {
+            Pergunta pergunta = new Pergunta();
+            pergunta.Respostas = new List<Resposta>();
+            Resposta resposta1 = new Resposta();
+            resposta1.EhRespostaCorreta = true;
+            pergunta.Respostas.Add(resposta1);
+
+            Assert.IsTrue(pergunta.ExisteRespostaCorreta());
+        }
+
+        [TestMethod]
+        public void SelecionarRespostaCorretaApenasUmaRespostaCadastradaComUsuarioCorreto()
+        {
+            Usuario usuario = new Usuario("Leonardo", "teste@hotmail.com", "123");
+            usuario.Id = 1;
+            Pergunta pergunta = new Pergunta();
+            pergunta.Usuario = usuario;
+            pergunta.Respostas = new List<Resposta>();
+            Resposta resposta1 = new Resposta();
+            resposta1.Usuario = new Usuario("Leonardo", "teste@hotmail.com", "123"); 
+            resposta1.EhRespostaCorreta = false;
+            pergunta.Respostas.Add(resposta1);
+
+            Assert.IsTrue(pergunta.SelecionarRespostaCorreta(resposta1));
+            Assert.IsTrue((bool)resposta1.EhRespostaCorreta);
+            Assert.IsTrue(pergunta.ExisteRespostaCorreta());
+        }
+
+        [TestMethod]
+        public void SelecionarRespostaCorretaEntreTresRespostasCadastradasComUsuarioIgual()
+        {
+            Usuario usuario = new Usuario("Leonardo", "teste@hotmail.com", "123");
+            usuario.Id = 1;
+            Pergunta pergunta = new Pergunta();
+            pergunta.Usuario = usuario;
+            pergunta.Respostas = new List<Resposta>();
+            Resposta resposta1 = new Resposta();
+            resposta1.EhRespostaCorreta = false;
+            resposta1.Usuario = usuario;
+            pergunta.Respostas.Add(resposta1);
+
+            Assert.IsFalse(pergunta.SelecionarRespostaCorreta(resposta1));
+            Assert.IsFalse((bool)resposta1.EhRespostaCorreta);
+            Assert.IsFalse(pergunta.ExisteRespostaCorreta());
+        }
     }
 }
