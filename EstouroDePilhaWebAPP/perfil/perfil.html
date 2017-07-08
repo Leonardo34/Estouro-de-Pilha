@@ -1,96 +1,169 @@
 <div class="barraDeMenu" ng-include="'home/barra.de.menu.html'"></div>
 
 <section class="hero hero-perfil">
-    <div class="hero-body">
+  <div class="hero-body">
+    <div class="container">
+
+      <div class="columns is-mobile">
+        <section class="column is-narrow">
+          <figure class="image is-128x128">
+
+          </figure>
+        </section>
+
+        <section class="column is-narrow">
+          <h2 class="title">{{usuario.Nome}}</h2>
+          <h1 class="subtitle">{{usuario.Nickname}}</h1>
+
+          <a class="button is-link" ng-click="abrirFecharModalEdicao()">
+                        <span class="icon">
+                            <i class="fa fa-pencil"></i>
+                        </span>                        
+                    </a>
+        </section>
+
+        <section class="column is-hidden-mobile is-fullwidth has-text-right">
+          <p class="perfil-info">{{usuario.Endereco}}</p>
+          <p class="perfil-info">{{usuario.Email}}</p>
+          <p class="perfil-info">Desde: {{usuario.DataCadastro | date:'dd/MM/yyyy'}}</p>
+
+        </section>
+      </div>
+
+      <section class="is-fullwidth perfil-descricao">
+        <p class="perfil-info has-text-centered">
+          {{usuario.Descricao}}
+        </p>
+
+      </section>
+      <!--Mobile-->
+      <section class="is-hidden-tablet is-fullwidth">
+        <hr>
         <div class="container">
+          <section>
+            <h6>
+              <b>Endereço:</b> {{usuario.Endereco}}
+            </h6>
+          </section>
 
-            <div class="columns is-mobile">
-                <section class="column is-narrow">
-                    <figure class="image is-128x128">
-                        <img ng-src="{{usuario.UrlImagemPerfil}}">
-                    </figure>
-                </section>
+          <section>
+            <h6>
+              <b>Email:</b> {{usuario.Email}}
+            </h6>
+          </section>
 
-                <section class="column is-narrow">
-                    <h2 class="title">{{usuario.Nome}}</h2>
-                    <h1 class="subtitle">{{usuario.Nickname}}</h1>
-                </section>
-
-                <section class="column is-hidden-mobile is-fullwidth has-text-right">
-                    <p class="perfil-info">{{usuario.Endereco}}</p>
-                    <p class="perfil-info">{{usuario.Email}}</p>
-                    <p class="perfil-info">Desde: {{usuario.DataCadastro | date:'dd/MM/yyyy'}}</p>
-                </section>
-            </div>
-
-            <section class="is-fullwidth perfil-descricao">
-                <p class="perfil-info has-text-centered">
-                    {{usuario.Descricao}}
-                </p>
-
-            </section>
-            <!--Mobile-->
-            <section class="is-hidden-tablet is-fullwidth">
-                <hr>
-                <div class="container">
-                    <section>
-                        <h6>
-                            <b>Endereço:</b> {{usuario.Endereco}}
-                        </h6>
-                    </section>
-
-                    <section>
-                        <h6>
-                            <b>Email:</b> {{usuario.Email}}
-                        </h6>
-                    </section>
-
-                    <section>
-                        <h6>
-                            <b>Usuário desde:</b> {{usuario.DataCadastro}}
-                        </h6>
-                    </section>
-                </div>
-            </section>
-
+          <section>
+            <h6>
+              <b>Usuário desde:</b> {{usuario.DataCadastro}}
+            </h6>
+          </section>
         </div>
+      </section>
+
     </div>
+  </div>
 </section>
 
 <section class="section minhas-perguntas">
-    <div class="container">
-        <h3 class="subtitle">Minhas tags</h3>
-        <hr>
-        <p ng-hide="usuario.respostas.length > 0">Opa! parece que {{usuario.Nome}} não possui tags.</p>
-        <span class="tag is-primary is-medium" ng-repeat="tag in usuario.tags">{{tag.Descricao}}</span>
-    </div>
+  <div class="container">
+    <h3 class="subtitle">Minhas tags</h3>
+    <hr>
+    <p ng-hide="usuario.respostas.length > 0">Opa! parece que {{usuario.Nome}} não possui tags.</p>
+    <span class="tag is-primary is-medium" ng-repeat="tag in usuario.tags">{{tag.Descricao}}</span>
+  </div>
 </section>
 
 <section class="section minhas-perguntas">
-    <div class="container">
-        <h3 class="subtitle">Minhas perguntas</h3>
-        <hr>
-        <p ng-hide="usuario.respostas.length > 0">Opa! parece que {{usuario.Nome}} não perguntou nada ainda.</p>
-        
-    </div>
+  <div class="container">
+    <h3 class="subtitle">Minhas perguntas</h3>
+    <hr>
+    <p ng-hide="usuario.respostas.length > 0">Opa! parece que {{usuario.Nome}} não perguntou nada ainda.</p>
+
+  </div>
 </section>
 
 <section class="section minhas-respostas">
-    <div class="container">
-        <h3 class="subtitle">Minhas respostas</h3>
-        <hr>      
-        <p ng-hide="usuario.respostas.length > 0">Opa! parece que {{usuario.Nome}} não respondeu nada ainda.</p>
-        <div class="card" ng-repeat="resposta in usuario.respostas">
-            <header class="card-header">
-                <p class="card-header-title">
-                    Pergunta:  <!-- adicionar aqui o nome da pergunta -->
-                </p>               
-            </header>
-            <div class="card-content">
-                <div class="content">
-                    <p>"{{resposta.Descricao}}"</p>                                   
-                    <small>{{resposta.DataResposta | date:'dd/MM/yyyy'}}</small>
-                </div>
-            </div>
+  <div class="container">
+    <h3 class="subtitle">Minhas respostas</h3>
+    <hr>
+    <p ng-hide="usuario.respostas.length > 0">Opa! parece que {{usuario.Nome}} não respondeu nada ainda.</p>
+    <div class="card" ng-repeat="resposta in usuario.respostas">
+      <header class="card-header">
+        <p class="card-header-title">
+          Pergunta:
+          <!-- adicionar aqui o nome da pergunta -->
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <p>"{{resposta.Descricao}}"</p>
+          <small>{{resposta.DataResposta | date:'dd/MM/yyyy'}}</small>
         </div>
+      </div>
+    </div>
 </section>
+
+<!--Modal de edição-->
+
+<div class="modal" ng-class="{'is-active': alternarModal}">
+  <div class="modal-background"></div>
+  <section class="modal-content">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Editar perfil</p>
+    </header>
+    <section class="modal-card-body">
+
+      <form novalidate name="formEdicao">
+
+        <div class="field">
+
+          <label class="label">Nome</label>
+          <p class="control has-icons-left">
+            <span class="icon is-small is-left">
+              <i class="fa fa-user"></i>
+            </span>
+            <input type="text" class="input" name="usuarioNome" ng-model="usuario.Nome" required>
+
+          </p>
+          <p ng-show="formEdicao.usuarioNome.$invalid" class="help is-danger">Insira um nome</p>
+        </div>
+
+        <div class="field">
+          <label class="label">Endereço</label>
+          <p class="control">
+            <input type="text" class="input" name="usuarioEndereco" ng-model="usuario.Endereco" required>
+          </p>
+          <p ng-show="formEdicao.usuarioEndereco.$invalid" class="help is-danger">Insira um endereço</p>
+
+        </div>
+
+        <div class="field">
+          <label class="label">Descrição</label>
+          <p class="control">
+            <textarea class="input" name="usuarioDescricao" ng-model="usuario.Descricao" rows="5" cols="10" required></textarea>
+
+          </p>
+          <p ng-show="formEdicao.usuarioDescricao.$invalid" class="help is-danger">Insira a tua descrição ai tchê</p>
+
+        </div>
+
+        <div class="field">
+          <label class="label">Foto de perfil</label>
+          <p class="control">
+            <input type="text" class="input" name="usuario.urlImagemPerfil" ng-model="usuario.UrlImagemPerfil" required>
+
+          </p>
+        </div>
+
+      </form>
+      
+    </section>
+
+    <footer class="modal-card-foot">
+      <a class="button is-success" ng-click="salvarEdicao()">Salvar</a>
+      <a class="button" ng-click="abrirFecharModalEdicao()">Cancelar</a>
+    </footer>
+
+  </section>
+  <button class="modal-close is-large" ng-click="abrirFecharModalEdicao()"></button>
+</div>
