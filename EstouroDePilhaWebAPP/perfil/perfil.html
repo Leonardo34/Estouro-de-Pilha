@@ -62,7 +62,7 @@
         <h3 class="subtitle">Minhas tags</h3>
         <hr>
         <p ng-hide="usuario.respostas.length > 0">Opa! parece que {{usuario.Nome}} não possui tags.</p>
-        
+        <span class="tag is-primary is-medium" ng-repeat="tag in usuario.tags">{{tag.Descricao}}</span>
     </div>
 </section>
 

@@ -122,3 +122,7 @@ p {
 .perfil-info {
   font-size: 1.2rem;
 }
+
+.tag {
+  margin: 0 0.3rem 0 0.3rem;
+}
