@@ -1,14 +1,14 @@
 angular.module('EstouroPilhaApp').factory('pesquisarPerguntaService', function ($http){
 
-  var urlPerguntas = "http://localhost:53986/api/perguntas/paginacaopesquisa/"
-  var urlNumeroderesultados = "http://localhost:53986/api/perguntas/pesquisa/numeroderesultados/"
+  var urlPerguntas = "http://localhost:53986/api/perguntas/pesquisa/paginada/"
+  var urlNumeroderesultados = "http://localhost:53986/api/perguntas/pesquisa/"
 
-  function   buscarPerguntaPorTitulo(perguntaPesquisada, paginaAtual){
-    return $http.get(urlPerguntas + perguntaPesquisada + "/" + paginaAtual);
+  function   buscarPerguntaPorTitulo(    paginaAtual, conteudo, tags){
+    return $http.get(urlPerguntas  + paginaAtual + "/" + encodeURIComponent(conteudo) +"/" + encodeURIComponent(tags));
   };
 
-  function    numeroDeResultadosDaPesquisa(perguntaPesquisada){
-    return $http.get(urlNumeroderesultados  + perguntaPesquisada);
+  function    numeroDeResultadosDaPesquisa(conteudo, tags){
+    return $http.get(urlNumeroderesultados +encodeURIComponent(conteudo) +"/" + encodeURIComponent(tags));
   };
 
   return{

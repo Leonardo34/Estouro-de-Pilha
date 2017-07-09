@@ -6,7 +6,6 @@ angular.module('EstouroPilhaApp').controller('perguntaController', function ($sc
   buscarRespostaPorIdDaPergunta(idDaPergunta);
 
   function buscarPerguntaPorId(idDaPergunta){
-    console.log(idDaPergunta);
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response){
       $scope.pergunta = response.data.result;
     })
