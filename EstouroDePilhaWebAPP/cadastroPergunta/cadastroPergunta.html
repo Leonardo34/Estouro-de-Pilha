@@ -34,40 +34,38 @@
                   
                   <div class="box descricao-box">
 
-
-
                     <nav class="botoes-desc">
-                      <a class="button is-link sem-underline">
+                      <a class="button is-link sem-underline" ng-click="adicionarMarkdown('B')">
                           <span class="icon">
                              <i class=" fa fa-bold"></i>
                           </span>
                         </a>
                      
-                        <a class="button is-link sem-underline">
+                        <a class="button is-link sem-underline"  ng-click="adicionarMarkdown('I')">
                           <span class="icon">
                              <i class=" fa fa-italic"></i>
                           </span>
                         </a>
                       
-                        <a class="button is-link sem-underline">
+                        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('OL')">
                           <span class="icon">
                              <i class=" fa fa-list-ol"></i>
                           </span>
                         </a>
                       
-                        <a class="button is-link sem-underline">
+                        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('UL')">
                           <span class="icon">
                              <i class=" fa fa-list-ul"></i>
                           </span>
                         </a>
                      
-                        <a class="button is-link sem-underline">
+                        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('C')">
                           <span class="icon">
                              <i class=" fa fa-code"></i>
                           </span>
                         </a>
                      
-                        <a class="button is-link sem-underline">
+                        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('H')">
                           <span class="icon">
                              <i class=" fa fa-font"></i>
                           </span>
@@ -76,6 +74,7 @@
                     </nav>
                       
                   <textarea rows="8"
+                      id="descricao"
                       cols="52"
                       class="textarea"
                       type="textarea"
