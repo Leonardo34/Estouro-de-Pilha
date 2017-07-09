@@ -1,0 +1,70 @@
+<div class="barraDeMenu" ng-include="'home/barra.de.menu.html'">
+</div>
+<br>
+<div class="columns is-mobile">
+  <div class="column is-half is-offset-one-quarter">
+    <nav class="pagination">
+        <a class="pagination-previous" ng-click="paginaAnterior()" ng-class="{'link-disabled' : pagina == 0}">Previous</a>
+        <a class="pagination-next" ng-click="proximaPagina()">Next page</a>
+        <ul class="pagination-list is-hidden-touch">
+            <li>
+              <a class="pagination-link">{{pagina + 1}}</a>
+            </li>
+            <li>
+              <a class="pagination-link">{{pagina + 2}}</a>
+            </li>
+            <li>
+              <a class="pagination-link">{{pagina + 3}}</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="box column" ng-repeat="each in perguntas">
+      <div class="columns">
+        <div class="column is-8">
+
+          <div class="tituloPergunta">
+            <label class="label"><a href="/#!/pergunta/{{each.Id}}">{{each.Titulo}}</label>
+          </div>
+          <div class="tagsDaPergunta">
+            <span class="tag is-light" ng-repeat="tags in each.Tags">{{tags.Descricao}}</span>
+          </div>
+          <article class="media margin-top">
+            <div class="media-left">
+              <figure class="image is-64x64 is-square">
+                <img ng-src="{{each.Usuario.UrlImagemPerfil}}">
+              </figure>
+            </div>
+            <div class="media-content">
+
+              <a ng-href="/#!/perfil/{{each.Usuario.Id}}">
+                <p>
+                  <b>{{each.Usuario.Nome}}</b>
+                </p>
+              </a>
+                
+              <nav class="level is-mobile">
+                <!--trocar os numeros pelos numeros de badges do usuario-->
+                <div class="level-left">
+                  <a class="level-item">
+                    <span class="tag is-warning">32</span>
+                  </a>
+                  <a class="level-item">
+                    <span class="tag is-light">7</span>
+                  </a>
+                  <a class="level-item">
+                    <span class="tag is-danger">4</span>
+                  </a>
+                </div>
+              </nav>
+            </div>
+          </article>
+        </div>
+        <div class="column">
+          <small class="pull-right">{{each.DataPergunta | date: 'dd/MM/yyyy'}}</small>
+          <!--aqui irá a seção de upvote da pergunta-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -31,9 +31,9 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [HttpGet, Route()]
-        public HttpResponseMessage ListarPerguntas()
+        public HttpResponseMessage ListarPerguntas(int skip, int take)
         {
-            var perguntas = perguntasRepositorio.Listar();
+            var perguntas = perguntasRepositorio.ListarPaginado(skip, take);
             var perguntasDto = CriarPerguntasDto(perguntas);
             return ResponderOK(perguntasDto);
         }
@@ -129,6 +129,18 @@ namespace EstouroDePilhaAPI.Controllers
                 perguntaModel.Usuario = each.Usuario.converterUsuarioParaUsuarioModel();
                 perguntaModel.Descricao = each.Descricao;
                 perguntaModel.DataPergunta = each.DataPergunta;
+                perguntaModel.Tags = new List<TagModel>();
+                var tags = each.Tags;
+                if (tags != null)
+                {
+                    foreach (var tag in tags)
+                    {
+                        var tagModel = new TagModel();
+                        tagModel.Id = tag.Id;
+                        tagModel.Descricao = tag.Descricao;
+                        perguntaModel.Tags.Add(tagModel);
+                    }
+                }
                 perguntasDto.Add(perguntaModel);
                 perguntaModel.Tags = new List<TagModel>();
                 foreach (var tag in each.Tags)
