@@ -153,5 +153,18 @@ namespace EstouroDePilhaAPI.Controllers
             }
             return ResponderErro("Você não pode marcar esta resposta como correta");
         }
+
+        [BasicAuthorization]
+        [HttpPut, Route("correta/{idResposta:int}")]
+        public HttpResponseMessage MarcarComoCorreta(int idResposta)
+        {
+            Resposta resposta = respostasRepositorio.ObterPorId(idResposta);
+            if (resposta == null)
+            {
+                throw new Exception();
+            }
+            respostasRepositorio.MarcarComoCorreta(idResposta);
+            return ResponderOK();
+        }
     }
 }

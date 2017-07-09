@@ -28,12 +28,19 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
             contexto.Respostas.Add(resposta);
             contexto.SaveChanges();
         }
+        public void MarcarComoCorreta(int id)
+        {
+            Resposta resposta = ObterPorId(id);
+            resposta.MarcarComoCorreta();
+            contexto.Entry(resposta).State = System.Data.Entity.EntityState.Modified;
+            contexto.SaveChanges();
+        }
 
         public void Deletar(Resposta resposta)
         {
             contexto.Respostas.Remove(resposta);
             contexto.SaveChanges();
-        }        
+        }
 
         public List<Resposta> Listar()
         {
