@@ -32,39 +32,47 @@
     </nav>
 
     <div class="box column is-centered" ng-repeat="each in perguntas">
-        <div class="descricaoDaResposta">
-        <section class="level usuario-resposta-info">
-            <div class="level-left upvote">
-                </div>
-                <a ng-href="/#!/perfil/{{each.Usuario.Id}}">
-                <div class="level-right">
-                    <img ng-src="{{each.Usuario.UrlImagemPerfil}}" class="image is-24x24">
+        <div class="column is-10">
 
-                    <p class="resposta-usuario-nick is-inline">
-                    <b>
-                        <!-- trocar para o nickname apos implementação -->
-                        {{each.Usuario.Nome}}
-                        </b>
-                    </p>
-                    <p class="is-inline">
-                    <small class="resposta-usuario-data">
-                        às {{each.DataPergunta | date:'dd/MM/yyyy HH:mm'}}
-                    </small>
-                    </p>
-                </div>
-                </a>
-                
-
-            </section>
-
-            <article class="resposta-descricao">
-                <!--implementar markdown-->
-                <p>
-                <pre>{{each.Descricao}}</pre>
-                </p>
-            </article>
-
+        <div class="tituloPergunta">
+          <label class="label"><a href="/#!/pergunta/{{each.Id}}">{{each.Titulo}}</label>
         </div>
+        <div class="tagsDaPergunta">
+          <span class="tag is-light" ng-repeat="tags in each.Tags">{{tags.Descricao}}</span>
+        </div>
+        <article class="media margin-top">
+          <div class="media-left">
+            <figure class="image is-64x64 is-square">
+              <img ng-src="{{each.Usuario.UrlImagemPerfil}}">
+            </figure>
+          </div>
+          <div class="media-content">
+
+            <a ng-href="/#!/perfil/{{each.Usuario.Id}}">
+              <p>
+                <b>{{each.Usuario.Nome}}</b>
+              </p>
+            </a>
+            
+            <nav class="level is-mobile">
+              <!--trocar os numeros pelos numeros de badges do usuario-->
+              <div class="level-left">
+                <a class="level-item">
+                  <span class="tag is-warning">32</span>
+                </a>
+                <a class="level-item">
+                  <span class="tag is-light">7</span>
+                </a>
+                <a class="level-item">
+                  <span class="tag is-danger">4</span>
+                </a>
+              </div>
+            </nav>
+          </div>
+        </article>
+
+      </div>
+
     </div>
   </div>
 </div>
