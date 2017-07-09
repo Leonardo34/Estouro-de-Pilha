@@ -6,13 +6,13 @@
 
   <div class="box column is-8">
     <section class="columns is-mobile is-multiline">
-      <div class="column is-10">
+      <div class="column is-10 is-12-mobile">
 
         <div class="tituloPergunta">
           <label class="label">Pergunta do bagual : "{{pergunta.Titulo}}"</label>
         </div>
         <div class="descricaoDaPergunta">
-          <p>{{pergunta.Descricao}}</p>
+          <pre><p id="pergunta" btf-markdown="pergunta.Descricao"></p></pre>
         </div>
         <div class="tagsDaPergunta">
           <span class="tag is-light" ng-repeat="tags in pergunta.Tags">{{tags.Descricao}}</span>
