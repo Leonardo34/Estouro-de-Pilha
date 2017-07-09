@@ -17,5 +17,4 @@ angular.module('EstouroPilhaApp').controller('perguntaController', function ($sc
       $scope.respostas = response.data.result;
     })
   }
-
 });
