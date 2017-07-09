@@ -130,6 +130,14 @@ namespace EstouroDePilhaAPI.Controllers
                 perguntaModel.Descricao = each.Descricao;
                 perguntaModel.DataPergunta = each.DataPergunta;
                 perguntasDto.Add(perguntaModel);
+                perguntaModel.Tags = new List<TagModel>();
+                foreach (var tag in each.Tags)
+                {
+                    var tagModel = new TagModel();
+                    tagModel.Id = tag.Id;
+                    tagModel.Descricao = tag.Descricao;
+                    perguntaModel.Tags.Add(tagModel);
+                }
             }
             return perguntasDto;
         }
