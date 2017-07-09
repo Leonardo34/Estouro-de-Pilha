@@ -138,3 +138,9 @@ pre code {
 .margin-top {
   margin-top: 1rem;
 }
+
+.link-disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: grey;
+}
