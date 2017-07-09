@@ -142,3 +142,12 @@ pre code {
 .containerBuscar{
   margin-top: 40px;
 }
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.is-active {
+    animation: fadein 1s;
+}
+
