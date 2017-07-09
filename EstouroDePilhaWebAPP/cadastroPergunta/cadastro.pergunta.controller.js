@@ -17,10 +17,10 @@ function cadastrarPerguntaController($scope, $routeParams, authService, cadastro
 
   function adicionarMarkdown (tipo) {
     let texto = angular.copy($scope.novaPergunta.Descricao);
-    let novoTexto = "";
     let selecao = window.getSelection().toString().trim();
-    let resultado = "";
-    let textarea = angular.element(document.getElementById("descricao"));
+    let novoTexto = "";
+    let resultado = "";    
+    
     switch(tipo) {
       case 'B':
         resultado = `**${selecao}**`;
