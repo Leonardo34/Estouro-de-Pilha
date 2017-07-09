@@ -88,7 +88,7 @@ namespace EstouroDePilhaAPI.Controllers
 
 
         [BasicAuthorization]
-        [HttpPut]
+        [HttpPut, Route("")]
         public HttpResponseMessage Alterar([FromBody]RegistrarUsuarioModel model)
         {
             var usuario = repositorio.ObterPorId(model.Id);

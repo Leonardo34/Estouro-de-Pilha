@@ -6,13 +6,13 @@
 
   <div class="box column is-8">
     <section class="columns is-mobile is-multiline">
-      <div class="column is-10">
+      <div class="column is-10 is-12-mobile">
 
         <div class="tituloPergunta">
           <label class="label">Pergunta do bagual : "{{pergunta.Titulo}}"</label>
         </div>
         <div class="descricaoDaPergunta">
-          <p>{{pergunta.Descricao}}</p>
+          <pre><p id="pergunta" btf-markdown="pergunta.Descricao"></p></pre>
         </div>
         <div class="tagsDaPergunta">
           <span class="tag is-light" ng-repeat="tags in pergunta.Tags">{{tags.Descricao}}</span>
@@ -30,7 +30,6 @@
                 <b>{{pergunta.Usuario.Nome}}</b>
               </p>
             </a>
-            
             <nav class="level is-mobile">
               <!--trocar os numeros pelos numeros de badges do usuario-->
               <div class="level-left">
@@ -92,20 +91,14 @@
             </p>
           </div>
         </a>
-        
+
 
       </section>
 
-      <article class="resposta-descricao">
-        <!--implementar markdown-->
-        <p>
-          <pre>{{resposta.Descricao}}</pre>
-        </p>
+      <article class="resposta-descricao">        
+        <pre><p btf-markdown="resposta.Descricao"></p></pre>        
       </article>
 
     </div>
   </div>
-
 </div> 
-  
-
