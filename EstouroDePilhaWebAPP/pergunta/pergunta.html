@@ -89,16 +89,21 @@
                   às {{resposta.DataResposta | date:'dd/MM/yyyy HH:mm'}}
               </small>
             </p>
+            <span class="icon">
+              <a class="button is-primary" ng-if = "usuarioLogado()" ng-click = "marcarComoCorreta(resposta.Id)" name="button">Marcar como correta
+                <i class="fa fa-check is-pulled-right"  aria-hidden="true"></i>
+              </a>
+            </span>
           </div>
         </a>
 
 
       </section>
 
-      <article class="resposta-descricao">        
-        <pre><p btf-markdown="resposta.Descricao"></p></pre>        
+      <article class="resposta-descricao">
+        <pre><p btf-markdown="resposta.Descricao"></p></pre>
       </article>
 
     </div>
   </div>
-</div> 
+</div>
