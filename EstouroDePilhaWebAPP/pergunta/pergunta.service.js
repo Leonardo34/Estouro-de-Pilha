@@ -1,14 +1,13 @@
 angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
 
   var urlPerguntas = "http://localhost:53986/api/perguntas/"
-
   var urlResposta = "http://localhost:53986/api/respostas/"
 
-  function   buscarPerguntaPorId(idDaPergunta){
+  function buscarPerguntaPorId(idDaPergunta) {
     return $http.get(urlPerguntas + idDaPergunta);
   };
 
-  function  buscarRespostaPorIdDaPergunta(idDaPergunta){
+  function buscarRespostaPorIdDaPergunta(idDaPergunta) {
     return $http.get(urlResposta+"pergunta/" + idDaPergunta);
   };
 
@@ -19,11 +18,17 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
   function pegarRespostasDoUsuario(id) {
     return $http.get(`${urlResposta}/usuario/${id}`)
   }
+
+  function buscarPerguntasPaginadas(skip, take) {
+    return $http.get(`${urlPerguntas}?skip=` + skip + '&take=' + take);
+  }
+
   return{
     buscarPerguntaPorId : buscarPerguntaPorId,
     buscarRespostaPorIdDaPergunta : buscarRespostaPorIdDaPergunta,
-    pegarPerguntasDoUsuario: pegarPerguntasDoUsuario,
-    pegarRespostasDoUsuario: pegarRespostasDoUsuario
+    pegarPerguntasDoUsuario : pegarPerguntasDoUsuario,
+    pegarRespostasDoUsuario : pegarRespostasDoUsuario,
+    buscarPerguntasPaginadas : buscarPerguntasPaginadas
   }
 
 });
