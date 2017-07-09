@@ -37,17 +37,16 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
     pesquisarPerguntaService.pesquisarTrazerResultados(
       paginaAtual, pergunta.conteudo, pergunta.tags).then(function (response){
         $scope.perguntasPesquisadas = response.data.result;
-        pergunta.conteudo = undefined;
-        pergunta.tags = undefined;
     })
   }
 
   function numeroDeResultadosDaPesquisa (){
     pesquisarPerguntaService.numeroDeResultadosDaPesquisa(pergunta.conteudo, pergunta.tags).then(function (response){
       $scope.numeroDeResultadosDaPesquisa = response.data.result;
-      if ($scope.numeroDeResultadosDaPesquisa > 10) {
-        $scope.mostrarPaginacao = true;
-      }
+      if ($scope.numeroDeResultadosDaPesquisa > 10)
+       {
+          $scope.mostrarPaginacao = true;
+       }
     })
   }
 });
