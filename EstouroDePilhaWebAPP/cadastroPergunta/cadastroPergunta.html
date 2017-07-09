@@ -10,7 +10,7 @@
                 Pergunta ai guri!
               </h1>
               <div class="box pergunta">
-                </form>
+                </form name="formPergunta" novalidate>
                   <label for="tituloPergunta" class="label has-text-centered">Título da tua pergunta</label>
                   <input class="input"
                       type="text"
@@ -19,7 +19,7 @@
                       minlength="3"
                       maxlength="50"
                       ng-model="novaPergunta.Titulo"
-                      placeholder="Faz tua pergunta ai, Tchê!">
+                      placeholder="Título da tua pergunta, Tchê!">
                   </input>
                   <label for="tagsPergunta" class="label has-text-centered">Tags da tua pergunta</label>
                   <input class="input"
@@ -28,7 +28,6 @@
                       required
                       minlength="3"
                       maxlength="80"
-                      ng-model="novaPergunta.Tags"
                       placeholder="Tags da tua pergunta, Tchê!">
                   </input>
                   <label for="descricaoPergunta" class="label has-text-centered">Descrição da tua pergunta</label>
