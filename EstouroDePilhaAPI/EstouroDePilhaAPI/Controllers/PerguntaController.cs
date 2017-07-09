@@ -148,7 +148,7 @@ namespace EstouroDePilhaAPI.Controllers
 
         [HttpGet]
         [Route("pesquisa/paginada/{quantidadePular:int}/{conteudo}/{tags}")]
-        public HttpResponseMessage NumeroDeRsa(int quantidadePular, string conteudo, string tags)
+        public HttpResponseMessage NumeroDePerguntasDaBusca(int quantidadePular, string conteudo, string tags)
         {
             var perguntasPaginadas = perguntasRepositorio.Paginacao(quantidadePular, conteudo, tags);
             var perguntasDto = CriarPerguntasDto(perguntasPaginadas);
