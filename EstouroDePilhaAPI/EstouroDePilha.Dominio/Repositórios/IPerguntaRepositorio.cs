@@ -9,6 +9,7 @@ namespace EstouroDePilha.Dominio.Repositórios
         List<Pergunta> Paginacao(int quantidadePular, string conteudoDaBusca, string tags);
         int  NumeroDeResultadosDaPesquisa(string conteudoDaBusca, string tags);
         List<Pergunta> ObterPerguntasUsuarioPorId(int id);
+        List<Pergunta> ListarPaginado(int skip, int take);
         List<Pergunta> BuscaPerguntasPorTags(string tags);
         List<Pergunta> BuscaPerguntasPorTituloEDescricao(string conteudo);
     }

@@ -177,9 +177,16 @@ ol, ul {
   margin-top: 1rem;
 }
 
-.containerBuscar{
+.link-disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: grey;
+}
+
+.containerBuscar {
   margin-top: 40px;
 }
+
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
@@ -188,4 +195,3 @@ ol, ul {
 .is-active {
     animation: fadein 1s;
 }
-

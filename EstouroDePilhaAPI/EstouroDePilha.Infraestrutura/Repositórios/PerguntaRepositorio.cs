@@ -42,6 +42,17 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .ToList();
         }
 
+        public List<Pergunta> ListarPaginado(int skip, int take)
+        {
+            return contexto.Perguntas
+                .Include("Usuario")
+                .Include("Tags")
+                .OrderByDescending(p => p.DataPergunta)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
+        }
+
         public Pergunta ObterPorId(int id)
         {
             return contexto.Perguntas
@@ -53,7 +64,6 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 
         public List<Pergunta> ObterTodasAsPerguntasDaPesquisa(string conteudo, string tags)
         {
-
             if (conteudo.Contains("undefined"))
             {
                 return BuscaPerguntasPorTags(tags);
@@ -97,7 +107,5 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         {
             return ObterTodasAsPerguntasDaPesquisa(conteudoDaBusca, tags).Count();
         }
-
-
     }
 }
