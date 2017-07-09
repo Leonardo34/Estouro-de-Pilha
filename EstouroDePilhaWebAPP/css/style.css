@@ -139,6 +139,9 @@ pre code {
   margin-top: 1rem;
 }
 
+.containerBuscar{
+  margin-top: 40px;
+}
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
@@ -147,5 +150,4 @@ pre code {
 .is-active {
     animation: fadein 1s;
 }
-
 

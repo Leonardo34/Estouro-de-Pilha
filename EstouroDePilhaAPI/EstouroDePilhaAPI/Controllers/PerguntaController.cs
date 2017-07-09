@@ -66,8 +66,8 @@ namespace EstouroDePilhaAPI.Controllers
                 .ForEach(tag => pergunta.Tags.Add(
                         tagsRepositorio.ObterPorId(tag)
                     )
-                );    
-            
+                );
+
             if (!pergunta.EhValida())
             {
                 throw new Exception();
@@ -109,20 +109,12 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(perguntaModel);
         }
 
-        [HttpGet]
-        [Route("paginacaoPesquisa/{titulo}/{quantidadePular:int}")]
-        public HttpResponseMessage PaginacaoDePerguntas(string titulo, int quantidadePular)
-        {
-            var perguntasPaginadas = perguntasRepositorio.Paginacao(titulo, quantidadePular);
-            var perguntasDto = CriarPerguntasDto(perguntasPaginadas);
-            return ResponderOK(perguntasDto);
-        }
 
         [HttpGet]
-        [Route("pesquisa/numeroderesultados/{titulo}")]
-        public HttpResponseMessage NumeroDeResultadosDaPesquisa(string titulo)
+        [Route("pesquisa/{conteudo}/{tags}")]
+        public HttpResponseMessage NumeroDeResultadosDaPesquisa(string conteudo, string tags)
         {
-            int NumeroDeResultadosDaPesquisa = perguntasRepositorio.NumeroDeResultadosDaPesquisa(titulo);
+            int NumeroDeResultadosDaPesquisa = perguntasRepositorio.NumeroDeResultadosDaPesquisa(conteudo, tags);
             return ResponderOK(NumeroDeResultadosDaPesquisa);
         }
 
@@ -152,6 +144,15 @@ namespace EstouroDePilhaAPI.Controllers
                 throw new ExcecaoUsuarioNaoExistente();
             }
             return ResponderOK(perguntasUsuario);
+        }
+
+        [HttpGet]
+        [Route("pesquisa/paginada/{quantidadePular:int}/{conteudo}/{tags}")]
+        public HttpResponseMessage NumeroDePerguntasDaBusca(int quantidadePular, string conteudo, string tags)
+        {
+            var perguntasPaginadas = perguntasRepositorio.Paginacao(quantidadePular, conteudo, tags);
+            var perguntasDto = CriarPerguntasDto(perguntasPaginadas);
+            return ResponderOK(perguntasDto);
         }
     }
 }

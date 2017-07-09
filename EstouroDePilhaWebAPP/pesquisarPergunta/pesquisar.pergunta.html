@@ -1,22 +1,44 @@
 <div class="barraDeMenu" ng-include="'home/barra.de.menu.html'"><br></div>
-  <div>
-    <div class="box perguntasRelacionadas">
-      <div class="descricaoDaResposta">
-        <p><strong>Perguntas Frequentes</strong></p>
-        <p>Como eu resolvo um favicon.error??</p>
-        <p>Como eu faço um target 0?</p>
-        <p>O que vocêm acham do Entity Framework?</p>
+  <div class="containerBuscar">
+    <section class="columns is-multiline">
+      <div class="box column is-8">
+        <section class="columns is-mobile is-multiline">
+          <div class="column is-10">
+            <div class="field">
+              <label class="label">Busca Aí!</label>
+                <p class="control">
+                  <input class="input" type="text" placeholder="conteúdo" ng-model = "pergunta.conteudo">
+                </p>
+                <label class="label">Digita as tags, guri!</label>
+                <p class="control">
+                   <input class="input" type="text" placeholder="tags" ng-model = "pergunta.tags">
+                </p>
+            </div>
+            <p class="control">
+              <button class="button is-primary" ng-click = "pesquisar(pergunta)">Buscar</button>
+            </p>
+          </div>
+        </section>
       </div>
-    </div>
+      <div class="box column">
+        <div class="">
+          <p>
+            <strong>Importante!</strong>
+          </p>
+          <p>Tchê, a busca por conteudo, procura
+            por perguntas que contenham a palavara busca
+            no título ou na descrição da pergunta</p>
+          <p>Tu pode buscar por tag, também!</p>
+          <p>Tchê, tu ainda pode buscar  por conteudo e Tag!</p>
+        </div>
+      </div>
+    </section>
     <div class="box containerPerguntasERespostas" ng-repeat = "pergunta in perguntasPesquisadas">
       <div class="tituloPergunta">
         <a ng-href="#!/pergunta/{{pergunta.Id}}">Pergunta do bagual : {{pergunta.Titulo}}</a>
       </div>
       <div class="descricaoDaPergunta">
-         <p>Descrição da pergunta: {{pergunta.Descricao}} </p>
-      </div>
-      <div class="tagsDaPergunta">
-        <span class="tag is-light" ng-repeat="tags in pergunta.Tags">{{tags.Descricao}}</span>
+        <p>Descrição da pergunta: {{pergunta.Descricao}} </p>
       </div>
     </div>
   </div>
@@ -24,4 +46,3 @@
     <a class="pagination-previous is-centered" title="This is the first page"  ng-click = "anterior()" disabled>Anterior</a>
     <a class="pagination-next is-centered" ng-click = "proxima()">Próxima</a>
   </nav>
-
