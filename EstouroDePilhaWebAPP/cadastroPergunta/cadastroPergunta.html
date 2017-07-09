@@ -1,28 +1,96 @@
-<div class="barraDeMenu" ng-include="'home/barra.de.menu.html'"></div>
-  <section class="container is-fullheight is-info is-bold">
-    <div class="hero-body">
-      <div class="container cont">
-        <div class="columns">
-          <div class="column is-8 is-offset-2">
-            <h1 class="title has-text-centered">
-              Pergunta ai guri!
-            </h1>
-            <div class="box">
-              <label for="tituloPergunta" class="label has-text-centered">Título da tua pergunta</label>
-              <textarea rows="2"
-                  cols="20"
-                  class="textarea"
-                  type="text"
-                  autofocus
-                  required
-                  minlength="3"
-                  maxlength="50"
-                  ng-model="pergunta.Titulo"
-                  placeholder="O que perguntar?">
-              </textarea>
+<div class="barraDeMenu" ng-include="'home/barra.de.menu.html'"><br></div>
+  <div class="login-wrapper columns">
+    <div class="column is-8 is-hidden-mobile">
+      <section class="hero is-fullheight">
+        <div class="hero-body">
+          <div class="container cont">
+            <div class="columns">
+              <div class="column is-10 is-offset-1">
+              <h1 class="title has-text-centered">
+                Pergunta ai guri!
+              </h1>
+              <div class="box pergunta">
+                </form>
+                  <label for="tituloPergunta" class="label has-text-centered">Título da tua pergunta</label>
+                  <input class="input"
+                      type="text"
+                      autofocus
+                      required
+                      minlength="3"
+                      maxlength="50"
+                      ng-model="novaPergunta.Titulo"
+                      placeholder="Faz tua pergunta ai, Tchê!">
+                  </input>
+                  <label for="tagsPergunta" class="label has-text-centered">Tags da tua pergunta</label>
+                  <input class="input"
+                      type="text"
+                      autofocus
+                      required
+                      minlength="3"
+                      maxlength="80"
+                      ng-model="novaPergunta.Tags"
+                      placeholder="Tags da tua pergunta, Tchê!">
+                  </input>
+                  <label for="descricaoPergunta" class="label has-text-centered">Descrição da tua pergunta</label>
+                  <textarea rows="8"
+                      cols="52"
+                      class="textarea"
+                      type="textarea"
+                      autofocus
+                      required
+                      minlength="3"
+                      maxlength="100"
+                      ng-model="novaPergunta.Descricao"
+                      placeholder="Descrição da tua pergunta, Tchê!">
+                  </textarea>
+                  <p class="control login">
+                  <button class="button is-warning is-fullwidth"
+                      ng-disabled="novaPergunta.$invalid"
+                      ng-click="cadastrarPergunta(novaPergunta)">
+                    Cadastrar
+                  </button>
+                  </p>
+                  </form>
+                  <a class="button is-danger is-fullwidth btnCad"
+                    ng-href="/#!/home">Voltar</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="column is-4">
+    <section class="hero is-fullheight">
+      <div class="hero-heading">
+        <div class="section has-text-centered">
+          <img src="image/gaucho.png"
+            alt="Gaucho"
+            width="150px">
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns">
+            <div class="column is-10 is-offset-1">
+              <h1 class="title has-text-centered">Aqui temos regras, Tchê!</h1>
+                <p>
+                  <ul>
+                    <li>Pesquisa primeiro pra ver se já não foi perguntado!</li>
+                    <br>
+                    <li>Pesquisa primeiro pra ver se já não foi perguntado!</li>
+                    <br>
+                    <li>Pesquisa primeiro pra ver se já não foi perguntado!</li>
+                    <br>
+                    <li>Pesquisa primeiro pra ver se já não foi perguntado!</li>
+                    <br>
+                    <li>Pesquisa primeiro pra ver se já não foi perguntado!</li>
+                  </ul>
+              </p>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
+  </div>

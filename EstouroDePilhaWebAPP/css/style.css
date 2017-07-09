@@ -55,6 +55,9 @@ ol, ul {
   margin-top: -.8rem;
 }
 
+.hero-body .pergunta{
+  background-color: lightgreen;
+}
 
 .email-input,
 .password-input {
@@ -122,6 +125,9 @@ ol, ul {
   border-radius: 20px;
 }
 
+.login-wrapper .hero-body .li{
+  margin-top: 20px;
+}
 .control .butCadas{
   margin-top: 30px;
   left: 50%;
