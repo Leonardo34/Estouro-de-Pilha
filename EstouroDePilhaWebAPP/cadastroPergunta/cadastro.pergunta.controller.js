@@ -15,7 +15,9 @@ function cadastrarPerguntaController($scope, $routeParams, authService, cadastro
       })
   } 
 
-  function adicionarMarkdown (tipo) {
+  function adicionarMarkdown (tipo) {    
+    if(typeof $scope.novaPergunta.Descricao === 'undefined') return;
+
     let texto = angular.copy($scope.novaPergunta.Descricao);
     let selecao = window.getSelection().toString().trim();
     let novoTexto = "";
