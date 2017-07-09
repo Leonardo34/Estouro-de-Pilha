@@ -73,6 +73,18 @@
       <section class="level usuario-resposta-info">
         <div class="level-left upvote">
           <!-- aqui vai o upvote -->
+          <a class="level-item">
+            <span class="quantidade-reacoes">
+              {{resposta.QuantidadeUpVotes}}
+            </span>
+            <span class="icon is-small"><i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i></span>
+          </a>
+          <a class="level-item">
+            <span class="quantidade-reacoes">
+              {{resposta.QuantidadeDownVotes}}
+            </span>
+            <span class="icon is-small"><i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true"></i></span>
+          </a>
         </div>
         <a ng-href="/#!/perfil/{{resposta.Usuario.Id}}">
           <div class="level-right">

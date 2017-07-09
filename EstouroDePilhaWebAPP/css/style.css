@@ -208,3 +208,7 @@ ol, ul {
   line-height: 0;
   padding: 0;
 }
+
+.quantidade-reacoes {
+  margin-left: 5px;
+}
