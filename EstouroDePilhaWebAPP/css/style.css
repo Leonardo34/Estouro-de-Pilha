@@ -12,11 +12,49 @@ pre {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-
 pre code {
   background: whitesmoke;
   color: #ff3860;
 }
+
+h1, h2, h3, h4, h5, h6 { 
+  font-weight: 400;
+  margin: .02rem;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+h5 {
+  font-size: 1.1rem;
+}
+
+h6 {
+  font-size: 1.075rem;
+}
+
+p {
+  margin: .3rem;
+}
+
+ol, ul {
+  line-height: .7rem;
+  margin-top: -.8rem;
+}
+
 
 .email-input,
 .password-input {
