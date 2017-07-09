@@ -42,6 +42,17 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .ToList();
         }
 
+        public List<Pergunta> ListarPaginado(int skip, int take)
+        {
+            return contexto.Perguntas
+                .Include("Usuario")
+                .Include("Tags")
+                .OrderByDescending(p => p.DataPergunta)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
+        }
+
         public Pergunta ObterPorId(int id)
         {
             return contexto.Perguntas
@@ -56,7 +67,8 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
             return contexto.Perguntas
                 .Include("Tags")
                 .Include("Usuario")
-                .Where(p => p.Titulo.Contains(titulo)).OrderByDescending(p => p.DataPergunta)
+                .Where(p => p.Titulo.Contains(titulo))
+                .OrderByDescending(p => p.DataPergunta)
                 .ToList();
         }
 
