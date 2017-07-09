@@ -1,0 +1,70 @@
+<div class="barraDeMenu" ng-include="'home/barra.de.menu.html'">
+</div>
+<br>
+<div class="columns is-mobile">
+  <div class="column is-half is-offset-one-quarter">
+    <nav class="pagination">
+        <a class="pagination-previous">Previous</a>
+        <a class="pagination-next">Next page</a>
+        <ul class="pagination-list is-hidden-touch">
+            <li>
+            <a class="pagination-link">1</a>
+            </li>
+            <li>
+            <span class="pagination-ellipsis">&hellip;</span>
+            </li>
+            <li>
+            <a class="pagination-link">45</a>
+            </li>
+            <li>
+            <a class="pagination-link is-current">46</a>
+            </li>
+            <li>
+            <a class="pagination-link">47</a>
+            </li>
+            <li>
+            <span class="pagination-ellipsis">&hellip;</span>
+            </li>
+            <li>
+            <a class="pagination-link">86</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="box column is-centered" ng-repeat="each in perguntas">
+        <div class="descricaoDaResposta">
+        <section class="level usuario-resposta-info">
+            <div class="level-left upvote">
+                </div>
+                <a ng-href="/#!/perfil/{{each.Usuario.Id}}">
+                <div class="level-right">
+                    <img ng-src="{{each.Usuario.UrlImagemPerfil}}" class="image is-24x24">
+
+                    <p class="resposta-usuario-nick is-inline">
+                    <b>
+                        <!-- trocar para o nickname apos implementação -->
+                        {{each.Usuario.Nome}}
+                        </b>
+                    </p>
+                    <p class="is-inline">
+                    <small class="resposta-usuario-data">
+                        às {{each.DataPergunta | date:'dd/MM/yyyy HH:mm'}}
+                    </small>
+                    </p>
+                </div>
+                </a>
+                
+
+            </section>
+
+            <article class="resposta-descricao">
+                <!--implementar markdown-->
+                <p>
+                <pre>{{each.Descricao}}</pre>
+                </p>
+            </article>
+
+        </div>
+    </div>
+  </div>
+</div>
