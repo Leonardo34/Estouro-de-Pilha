@@ -22,6 +22,14 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
   function buscarPerguntasPaginadas(skip, take) {
     return $http.get(`${urlPerguntas}?skip=` + skip + '&take=' + take);
   }
+  
+  function upvoteResposta (idResposta) {
+    return $http.post(`${urlResposta}/${idResposta}/upvote`, {});
+  }
+
+  function downvoteResposta (idResposta) {
+    return $http.post(`${urlResposta}/${idResposta}/downvote`, {});
+  }
 
   return{
     buscarPerguntaPorId : buscarPerguntaPorId,
