@@ -4,34 +4,22 @@
 <div class="columns is-mobile">
   <div class="column is-half is-offset-one-quarter">
     <nav class="pagination">
-        <a class="pagination-previous" ng-click="paginaAnterior()">Previous</a>
+        <a class="pagination-previous" ng-click="paginaAnterior()" ng-class="{'link-disabled' : pagina == 0}">Previous</a>
         <a class="pagination-next" ng-click="proximaPagina()">Next page</a>
         <ul class="pagination-list is-hidden-touch">
             <li>
-            <a class="pagination-link">1</a>
+              <a class="pagination-link">{{pagina + 1}}</a>
             </li>
             <li>
-            <span class="pagination-ellipsis">&hellip;</span>
+              <a class="pagination-link">{{pagina + 2}}</a>
             </li>
             <li>
-            <a class="pagination-link">45</a>
-            </li>
-            <li>
-            <a class="pagination-link is-current">46</a>
-            </li>
-            <li>
-            <a class="pagination-link">47</a>
-            </li>
-            <li>
-            <span class="pagination-ellipsis">&hellip;</span>
-            </li>
-            <li>
-            <a class="pagination-link">86</a>
+              <a class="pagination-link">{{pagina + 3}}</a>
             </li>
         </ul>
     </nav>
 
-    <div class="box column is-centered" ng-repeat="each in perguntas">
+    <div class="box column" ng-repeat="each in perguntas">
       <div class="columns">
         <div class="column is-8">
 
