@@ -33,11 +33,6 @@ namespace EstouroDePilha.Dominio.Entidades
                 || UpVotes.Any(u => u.Usuario.Id == usuario.Id)
                 || DownVotes.Any(d => d.Usuario.Id == usuario.Id);            
         }
-
-        public void MarcarComoCorreta()
-        {
-            this.EhRespostaCorreta = true;
-        }
     }
 }
 

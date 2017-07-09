@@ -141,30 +141,18 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [BasicAuthorization]
-        [HttpPost, Route("{idResposta:int}/{idPergunta:int}/correta")]
-        public HttpResponseMessage SelecionarRespostaCorreta(int idResposta, int idPergunta)
+        [HttpPut, Route("correta/{idResposta:int}")]
+        public HttpResponseMessage SelecionarRespostaCorreta(int idResposta)
         {
-            var pergunta = perguntasRepositorio.ObterPorId(idPergunta);
             var resposta = respostasRepositorio.ObterPorId(idResposta);
+            int idPergunta = resposta.Pergunta.Id;
+            var pergunta = perguntasRepositorio.ObterPorId(idPergunta);
             if (pergunta.SelecionarRespostaCorreta(resposta))
             {
                 respostasRepositorio.Alterar(resposta);
                 return ResponderOK();
             }
             return ResponderErro("Você não pode marcar esta resposta como correta");
-        }
-
-        [BasicAuthorization]
-        [HttpPut, Route("correta/{idResposta:int}")]
-        public HttpResponseMessage MarcarComoCorreta(int idResposta)
-        {
-            Resposta resposta = respostasRepositorio.ObterPorId(idResposta);
-            if (resposta == null)
-            {
-                throw new Exception();
-            }
-            respostasRepositorio.MarcarComoCorreta(idResposta);
-            return ResponderOK();
         }
     }
 }
