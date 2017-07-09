@@ -1,4 +1,4 @@
-angular.module("EstouroPilhaApp", ['ngRoute', 'auth']);
+angular.module("EstouroPilhaApp", ['ngRoute', 'auth', 'btford.markdown']);
 
 angular.module('EstouroPilhaApp').constant('authConfig', {
 

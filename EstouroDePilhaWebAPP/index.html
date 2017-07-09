@@ -5,25 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/bulma.css">    
+    <link rel="stylesheet" href="css/bulma.min.css">    
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="image/EstouroDePilha.png"/>   
+    <link rel="icon" type="image/png" href="image/EstouroDePilha.png"/>  
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+     
   </head>
   <body class="stack-body" ng-app="EstouroPilhaApp">
-
     <section ng-view></section>
     <!--scripts-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js" type="text/javascript"></script>
-
+    
     <script src="https://rawgit.com/cwi-crescer-2017-1/instrutores/master/modulo-05-angularjs/auth/auth.module.js" type="text/javascript"></script>
+        
+    <script src="js/showdown.min.js"></script>
 
     <script src="js/app.module.js"></script>
     <script src="js/app.route.js"></script>
 
+    <script src="js/markdown.min.js"></script>
     <script src="home/home.controller.js"></script>
-
+    
     <script src="cadastroPergunta/cadastro.pergunta.controller.js"></script>
     <script src="cadastroPergunta/cadastro.pergunta.service.js"></script>
 
