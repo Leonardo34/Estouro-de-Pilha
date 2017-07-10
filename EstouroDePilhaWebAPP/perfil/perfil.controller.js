@@ -1,7 +1,7 @@
 angular.module('EstouroPilhaApp').controller('perfilController', function ($scope, $routeParams, $location, perfilService, perguntaService, tagService, authService){
     let id = $routeParams.id;
 
-    $scope.logado = authService.isAutenticado();
+    $scope.logado = authService.isAutenticado() && authService.getUsuario().Id === Number($routeParams.id);
     $scope.salvarEdicao = salvarEdicao;
     $scope.abrirFecharModalEdicao = abrirFecharModalEdicao;
     $scope.alternarModal = false;
@@ -24,6 +24,7 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
         perguntaService.pegarRespostasDoUsuario(id)
             .then(response => {
                 $scope.usuario.respostas = response.data.result;
+                $scope.existeRespostas = $scope.usuario.respostas.length > 0;
         }, fail =>{
                 console.log(fail.data);
         });
@@ -33,6 +34,7 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
         perguntaService.pegarPerguntasDoUsuario(id)
             .then(response => {
                 $scope.usuario.perguntas = response.data.result;
+                $scope.existePerguntas = $scope.usuario.perguntas.length > 0;
         },  fail => {
                 console.log(fail.data);
         })
@@ -42,6 +44,7 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
         tagService.pegarTagsDoUsuario(id)
             .then(response => {
                 $scope.usuario.tags = response.data.result;
+                $scope.existeTags = $scope.usuario.tags.length > 0;
         }, fail => {
                 console.log(fail.data);
         })
