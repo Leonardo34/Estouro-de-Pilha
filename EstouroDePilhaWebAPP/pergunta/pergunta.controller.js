@@ -1,5 +1,6 @@
 
-angular.module('EstouroPilhaApp').controller('perguntaController', function ($scope, $routeParams, authService, perguntaService){
+angular.module('EstouroPilhaApp').controller('perguntaController', 
+    function ($scope, $routeParams, authService, perguntaService, tagService) {
   var email;
   var idDaPergunta = $routeParams.id;
   
@@ -19,22 +20,22 @@ angular.module('EstouroPilhaApp').controller('perguntaController', function ($sc
   $scope.usuario = authService.getUsuario();
   buscarRespostaPorIdDaPergunta();
 
-  function buscarPerguntaPorId(idDaPergunta){
+  function buscarPerguntaPorId() {
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response) {
       $scope.pergunta = response.data.result;
       email =   $scope.pergunta.Usuario.Email;
     })
   }
 
-  function buscarRespostaPorIdDaPergunta(idDaPergunta) {
-    perguntaService.buscarRespostaPorIdDaPergunta(idDaPergunta).then(function (response) {
+  function buscarRespostaPorIdDaPergunta() {
+    perguntaService.buscarRespostaPorIdDaPergunta($scope.pagina, idDaPergunta).then(function (response) {
       $scope.respostas = response.data.result;
       buscarQuantidadeDeRespostasPorIdDaPergunta();
       usuarioLogado();
     })
   }
 
-  function buscarQuantidadeDeRespostasPorIdDaPergunta(){
+  function buscarQuantidadeDeRespostasPorIdDaPergunta() {
     perguntaService. buscarQuantidadeDeRespostasPorIdDaPergunta(idDaPergunta).then(function(response){
       $scope.totalDeRespostas = response.data.result;
 
@@ -43,14 +44,13 @@ angular.module('EstouroPilhaApp').controller('perguntaController', function ($sc
 
   function usuarioLogado() {
     var jaFoiEscolhiaUmaRepostaCorreta =   $scope.respostas.filter(function (resposta) {return resposta.EhRespostaCorreta ==true}).length>0
-    if (email === authService.getUsuario().Email && !jaFoiEscolhiaUmaRepostaCorreta)
-    {
+    if (email === authService.getUsuario().Email && !jaFoiEscolhiaUmaRepostaCorreta) {
       return true
     }
   }
 
-  function marcarComoCorreta(idDaResposta){
-    perguntaService. marcarComoCorreta(idDaResposta).then(function (response){
+  function marcarComoCorreta(idDaResposta) {
+    perguntaService.marcarComoCorreta(idDaResposta).then(function (response) {
       buscarRespostaPorIdDaPergunta(idDaPergunta)
     })
   };
