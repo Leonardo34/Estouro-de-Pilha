@@ -73,13 +73,13 @@
       <section class="level usuario-resposta-info">
         <div class="level-left upvote">
           <!-- aqui vai o upvote -->
-          <a class="level-item">
+          <a class="level-item" ng-click="upvoteResposta(resposta)">
             <span class="quantidade-reacoes">
               {{resposta.QuantidadeUpVotes}}
             </span>
             <span class="icon is-small"><i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i></span>
           </a>
-          <a class="level-item">
+          <a class="level-item" ng-click="downvoteResposta(resposta)">
             <span class="quantidade-reacoes">
               {{resposta.QuantidadeDownVotes}}
             </span>
