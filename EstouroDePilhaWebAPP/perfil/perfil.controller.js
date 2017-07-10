@@ -51,8 +51,9 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
         if($scope.formEdicao.$valid){
             perfilService.editarUsuario($scope.usuario)
                 .then(response => {
-                    $location.path("/perfil/" + $scope.Usuario.Id)
+                    $location.path("/perfil/" + $scope.usuario.Id);
                     console.log(response.data);
+                    abrirFecharModalEdicao();
                 }, fail => {
                     console.log(fail.data);
                 });
