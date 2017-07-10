@@ -5,6 +5,8 @@ function cadastrarPerguntaController($scope, $routeParams, authService, cadastro
   $scope.cadastrarPergunta = cadastrarPergunta;
   $scope.adicionarMarkdown = adicionarMarkdown;
   
+  //verifica se o browser é compativel com toString
+  if (!document.getSelection().toString()) listenerMudanca();
 
   function cadastrarPergunta(novaPergunta) {
     cadastroPerguntaService.cadastrarPergunta(novaPergunta)
@@ -55,5 +57,16 @@ function cadastrarPerguntaController($scope, $routeParams, authService, cadastro
 
     novoTexto = texto.replace(selecao, resultado);
     $scope.novaPergunta.Descricao = novoTexto;
+  }
+
+  function listenerMudanca() {
+    let input = document.getElementById("descricao");
+    input.addEventListener('select', function () { 
+      //verifica se algo foi selecionado para atualizar o valor    
+      if (input.selectionStart !== input.selectionEnd) {
+        window.selecao =
+          input.value.substring(input.selectionStart, input.selectionEnd);
+      }
+    });
   }
 }
