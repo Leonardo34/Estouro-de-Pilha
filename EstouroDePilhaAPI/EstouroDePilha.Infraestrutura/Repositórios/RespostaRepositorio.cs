@@ -54,6 +54,18 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .FirstOrDefault(r => r.Id == id);
         }
 
+        public List<Resposta> PaginacaoRespostas(int quantidadePular, int idPergunta)
+        {
+            return ObterRespostasPeloIdPergunta(idPergunta).OrderByDescending(r => r.UpVotes.Count() + r.DownVotes.Count())
+                .Skip(quantidadePular)
+                .Take(10).ToList();                         
+        }
+
+        public int NumeroDeRespostasPorPergunta(int idPergunta)
+        {
+            return ObterRespostasPeloIdPergunta(idPergunta).Count();
+        }
+
         public List<Resposta> ObterRespostasPeloIdPergunta(int id)
         {
             return contexto.Respostas

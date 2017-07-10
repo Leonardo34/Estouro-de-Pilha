@@ -75,10 +75,10 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(resposta);
         }
 
-        [HttpGet, Route("pergunta/{idPergunta:int}")]
-        public HttpResponseMessage BuscarRespostasPergunta(int idPergunta)
+        [HttpGet, Route("pergunta/{quantidadePular:int}/{idPergunta:int}")]
+        public HttpResponseMessage BuscarRespostasPergunta(int quantidadePular, int idPergunta)
         {
-            var respostas = respostasRepositorio.ObterRespostasPeloIdPergunta(idPergunta);
+            var respostas = respostasRepositorio.PaginacaoRespostas(quantidadePular, idPergunta);
             List<RespostaModel> respostasDto = new List<RespostaModel>();
             foreach (var each in respostas)
             {
@@ -94,6 +94,7 @@ namespace EstouroDePilhaAPI.Controllers
             }
             return ResponderOK(respostasDto);
         }
+
 
         [BasicAuthorization]
         [HttpPost, Route("{idResposta:int}/upvote")]
@@ -153,6 +154,14 @@ namespace EstouroDePilhaAPI.Controllers
                 return ResponderOK();
             }
             return ResponderErro("Você não pode marcar esta resposta como correta");
+        }
+
+        [HttpGet]
+        [Route("numeroDeRespostasDaPergunta/{idPergunta:int}")]
+        public HttpResponseMessage NumeroDeResultadosDaPesquisa(int idPergunta)
+        {
+            int NumeroDeRespostasDaPergunta = respostasRepositorio.NumeroDeRespostasPorPergunta(idPergunta);
+            return ResponderOK(NumeroDeRespostasDaPergunta);
         }
     }
 }

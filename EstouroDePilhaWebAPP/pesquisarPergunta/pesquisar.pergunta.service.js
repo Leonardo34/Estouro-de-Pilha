@@ -7,8 +7,6 @@ angular.module('EstouroPilhaApp').factory('pesquisarPerguntaService', function (
     return $http.get(`${urlPerguntas}${encodeURIComponent(paginaAtual)}/${encodeURIComponent(conteudo)}/${tags}`);
   };
 
-
-
   function    numeroDeResultadosDaPesquisa(conteudo, tags){
     return $http.get(`${urlNumeroderesultados}${encodeURIComponent(conteudo)}/${encodeURIComponent(tags)}`);
   };
