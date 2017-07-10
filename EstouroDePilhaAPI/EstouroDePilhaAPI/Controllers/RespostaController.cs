@@ -177,8 +177,9 @@ namespace EstouroDePilhaAPI.Controllers
         [Route("numeroDeRespostasDaPergunta/{idPergunta:int}")]
         public HttpResponseMessage NumeroDeResultadosDaPesquisa(int idPergunta)
         {
-            int NumeroDeRespostasDaPergunta = respostasRepositorio.NumeroDeRespostasPorPergunta(idPergunta);
-            return ResponderOK(NumeroDeRespostasDaPergunta);
+            int numeroDeRespostasDaPergunta = respostasRepositorio.NumeroDeRespostasPorPergunta(idPergunta);
+            bool temRespostaCorreta = respostasRepositorio.VerificaSeTemRespostaCorretaPorIdPergunta(idPergunta);
+            return ResponderOk(numeroDeRespostasDaPergunta, temRespostaCorreta);
         }
     }
 }

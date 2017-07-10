@@ -63,7 +63,8 @@ namespace EstouroDePilhaAPI.Controllers
             pergunta.Titulo = perguntaModel.Titulo;
             pergunta.Descricao = perguntaModel.Descricao;
             if (perguntaModel.TagsIds != null)
-            { 
+            {
+
                 perguntaModel.TagsIds
                     .ForEach(tag => pergunta.Tags.Add(
                             tagsRepositorio.ObterPorId(tag)

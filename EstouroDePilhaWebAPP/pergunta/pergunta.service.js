@@ -19,6 +19,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     return $http.get(`${urlPerguntas}/usuario/${id}`);
   }
 
+
   function marcarComoCorreta(id) {
     return $http.put(`${urlResposta}correta/${id}`)
   }
@@ -26,7 +27,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
   function buscarPerguntasPaginadas(skip, take) {
     return $http.get(`${urlPerguntas}?skip=` + skip + '&take=' + take);
   }
-  
+
   function upvoteResposta (idResposta) {
     return $http.post(`${urlResposta}/${idResposta}/upvote`, {});
   }
