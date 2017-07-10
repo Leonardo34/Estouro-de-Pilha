@@ -1,5 +1,6 @@
 
-angular.module('EstouroPilhaApp').controller('perguntaController', function ($scope, $routeParams, authService, perguntaService){
+angular.module('EstouroPilhaApp').controller('perguntaController', 
+    function ($scope, $routeParams, authService, perguntaService, tagService) {
   var email;
   var idDaPergunta = $routeParams.id;
   var data;
@@ -22,7 +23,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController', function ($sc
   buscarRespostaPorIdDaPergunta();
   $scope.podeEditarPergunta = podeEditarPergunta;
 
-  function buscarPerguntaPorId(idDaPergunta){
+  function buscarPerguntaPorId() {
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response) {
       $scope.pergunta = response.data.result;
       data  = $scope.pergunta.DataPergunta;
@@ -42,7 +43,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController', function ($sc
     })
   }
 
-  function buscarQuantidadeDeRespostasPorIdDaPergunta(){
+  function buscarQuantidadeDeRespostasPorIdDaPergunta() {
     perguntaService. buscarQuantidadeDeRespostasPorIdDaPergunta(idDaPergunta).then(function(response){
       $scope.totalDeRespostas = response.data.dados;
       temRespostaCorreta = response.data.outrosDados;
@@ -65,7 +66,6 @@ angular.module('EstouroPilhaApp').controller('perguntaController', function ($sc
       buscarQuantidadeDeRespostasPorIdDaPergunta()
       usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta()
       buscarRespostaPorIdDaPergunta(idDaPergunta)
-
     })
   };
 

@@ -30,7 +30,7 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [BasicAuthorization]
-        [HttpGet]
+        [HttpGet, Route()]
         public HttpResponseMessage ListarTags()
         {
             var tags = repositorio.Listar();
