@@ -33,7 +33,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         {
             contexto.Respostas.Remove(resposta);
             contexto.SaveChanges();
-        }        
+        }
 
         public List<Resposta> Listar()
         {
@@ -50,7 +50,20 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .Include("Usuario")
                 .Include("UpVotes")
                 .Include("DownVotes")
+                .Include("Pergunta")
                 .FirstOrDefault(r => r.Id == id);
+        }
+
+        public List<Resposta> ObterRespostasPaginadas(int quantidadePular, int idPergunta)
+        {
+            return ObterRespostasPeloIdPergunta(idPergunta).OrderByDescending(r => r.UpVotes.Count() + r.DownVotes.Count())
+                .Skip(quantidadePular*5)
+                .Take(5).ToList();                         
+        }
+
+        public int NumeroDeRespostasPorPergunta(int idPergunta)
+        {
+            return ObterRespostasPeloIdPergunta(idPergunta).Count();
         }
 
         public List<Resposta> ObterRespostasPeloIdPergunta(int id)

@@ -31,7 +31,50 @@
                       placeholder="Tags da tua pergunta, Tchê!">
                   </input>
                   <label for="descricaoPergunta" class="label has-text-centered">Descrição da tua pergunta</label>
+                  
+                  <div class="box descricao-box">
+
+                    <nav class="botoes-desc">
+                      <a class="button is-link sem-underline" ng-click="adicionarMarkdown('B')">
+                          <span class="icon">
+                             <i class=" fa fa-bold"></i>
+                          </span>
+                        </a>
+                     
+                        <a class="button is-link sem-underline"  ng-click="adicionarMarkdown('I')">
+                          <span class="icon">
+                             <i class=" fa fa-italic"></i>
+                          </span>
+                        </a>
+                      
+                        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('OL')">
+                          <span class="icon">
+                             <i class=" fa fa-list-ol"></i>
+                          </span>
+                        </a>
+                      
+                        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('UL')">
+                          <span class="icon">
+                             <i class=" fa fa-list-ul"></i>
+                          </span>
+                        </a>
+                     
+                        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('C')">
+                          <span class="icon">
+                             <i class=" fa fa-code"></i>
+                          </span>
+                        </a>
+                     
+                        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('H')">
+                          <span class="icon">
+                             <i class=" fa fa-font"></i>
+                          </span>
+                        </a>
+                      
+                    </nav>
+                      
                   <textarea rows="8"
+                      id="descricao"
                       cols="52"
                       class="textarea"
                       type="textarea"
@@ -40,8 +83,20 @@
                       minlength="3"
                       maxlength="100"
                       ng-model="novaPergunta.Descricao"
+                      onselect="window.selecionado=this"
+                      permitir-tab
+                      ng-trim="false"
                       placeholder="Descrição da tua pergunta, Tchê!">
                   </textarea>
+
+                  </div>
+                  
+
+                  <p>Tchê, a descrição vai ficar mais ou menos assim:</p>
+                  <pre><div class="box descricao-box" btf-markdown="novaPergunta.Descricao"></div></pre>
+
+
+
                   <p class="control login">
                   <button class="button is-warning is-fullwidth"
                       ng-disabled="novaPergunta.$invalid"

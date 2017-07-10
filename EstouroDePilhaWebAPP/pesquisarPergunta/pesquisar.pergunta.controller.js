@@ -3,45 +3,56 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
   $scope.pesquisar = pesquisar;
   $scope.anterior = anterior;
   $scope.proxima = proxima;
-  var paginaAtual = 0;
-  var pergunta;
+  $scope.pagina = 0;
+  var perguntaBuscada;
 
   function anterior(){
-    if (paginaAtual == 0) {
+    if ($scope.pagina == 0)
+    {
       return;
     }
-    paginaAtual = paginaAtual -1;
-    pesquisarTrazerResultados();
+    $scope.pagina = $scope.pagina -1;
+    pesquisarTrazerResultados(perguntaBuscada);
   }
 
   function proxima(){
-    if ((10 * paginaAtual)/$scope.numeroDeResultadosDaPesquisa > 0) {
+    if ((10 * ($scope.pagina +1))/$scope.numeroDeResultadosDaPesquisa > 1) {
       return;
     }
-    paginaAtual = paginaAtual +1;
-    pesquisarTrazerResultados();
+    $scope.pagina = $scope.pagina +1;
+    pesquisarTrazerResultados(perguntaBuscada);
   }
 
-  function pesquisar (perguntaPesquisada){
-    paginaAtual = 0;
-    pergunta = perguntaPesquisada;
-    if (typeof pergunta === 'undefined') {
+  function pesquisar (busca){
+    $scope.pagina = 0;
+    perguntaBuscada = busca;
+    if (typeof perguntaBuscada === 'undefined')
+    {
        return;
     }
-    pesquisarTrazerResultados();
-    numeroDeResultadosDaPesquisa ();
+    if (perguntaBuscada.tags === '')
+    {
+       perguntaBuscada.tags = undefined;
+    }
+    if (perguntaBuscada.conteudo === '')
+    {
+       perguntaBuscada.conteudo = undefined;
+    }
+    pesquisarTrazerResultados(perguntaBuscada);
+    numeroDeResultadosDaPesquisa (perguntaBuscada);
     $scope.mostrarPaginacao = false;
   }
 
-  function pesquisarTrazerResultados() {
+  function pesquisarTrazerResultados(perguntaBuscada) {
     pesquisarPerguntaService.pesquisarTrazerResultados(
-      paginaAtual, pergunta.conteudo, pergunta.tags).then(function (response){
+      $scope.pagina, perguntaBuscada.conteudo, perguntaBuscada.tags).then(function (response){
         $scope.perguntasPesquisadas = response.data.result;
+        $scope.busca =undefined;
     })
   }
 
-  function numeroDeResultadosDaPesquisa (){
-    pesquisarPerguntaService.numeroDeResultadosDaPesquisa(pergunta.conteudo, pergunta.tags).then(function (response){
+  function numeroDeResultadosDaPesquisa (perguntaBuscada){
+    pesquisarPerguntaService.numeroDeResultadosDaPesquisa(perguntaBuscada.conteudo, perguntaBuscada.tags).then(function (response){
       $scope.numeroDeResultadosDaPesquisa = response.data.result;
       if ($scope.numeroDeResultadosDaPesquisa > 10)
        {

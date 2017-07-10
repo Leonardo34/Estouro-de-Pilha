@@ -9,6 +9,7 @@ namespace EstouroDePilha.Dominio.Repositórios
         void AdicionarUpvote(UpVoteResposta upvote);
         List<Resposta> ObterRespostasPorUsuarioId (int id);
         void AdicionarDownvote(DownVoteResposta downvote);
+        List<Resposta> ObterRespostasPaginadas(int quantidadePular, int idPergunta);
+        int NumeroDeRespostasPorPergunta(int idPergunta);
     }
-
 }

@@ -7,15 +7,15 @@
            <div class="field">
              <label class="label">Busca Aí!</label>
                <p class="control">
-                 <input class="input" type="text" placeholder="conteúdo" ng-model = "pergunta.conteudo">
+                 <input class="input" type="text" placeholder="conteúdo" ng-model = "busca.conteudo">
                </p>
              <label class="label">Digita as tags, guri!</label>
                <p class="control">
-                 <input class="input" type="text" placeholder="tags" ng-model = "pergunta.tags">
+                 <input class="input" type="text" placeholder="tags" ng-model = "busca.tags">
                </p>
            </div>
            <p class="control">
-             <button class="button is-primary" ng-click = "pesquisar(pergunta)">Buscar</button>
+             <button class="button is-primary" ng-click = "pesquisar(busca)">Buscar</button>
            </p>
          </div>
        </section>
@@ -80,4 +80,11 @@
        </div>
     </section>
   </div>
+  <nav class="containerPerguntasERespostas nav-center"  ng-if = "mostrarPaginacao">
+    <a class="pagination-previous is-centered" title="This is the first page"  ng-click = "anterior()" disabled>Anterior</a>
+    <a class="pagination-next is-centered" ng-click = "proxima()">Próxima</a>
+  </nav>
+  <nav class="containerPerguntasERespostas nav-center" ng-if = "numeroDeResultadosDaPesquisa >0">
+    <a class="pagination-link">{{numeroDeResultadosDaPesquisa}} perguntas encontradas</a>
+  </nav>
 </div>
