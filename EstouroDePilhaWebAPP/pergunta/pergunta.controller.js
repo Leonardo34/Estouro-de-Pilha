@@ -1,10 +1,13 @@
 angular.module('EstouroPilhaApp').controller('perguntaController', function ($scope, $routeParams, authService, perguntaService){
   var email;
   var idDaPergunta = $routeParams.id;
+  var pagina = 0;
+  $scope.proxima = proxima;
+  $scope.anterior = anterior;
   $scope.usuarioLogado = usuarioLogado;
   $scope.marcarComoCorreta = marcarComoCorreta;
   buscarPerguntaPorId(idDaPergunta);
-  buscarRespostaPorIdDaPergunta(idDaPergunta);
+  buscarRespostaPorIdDaPergunta();
 
   function buscarPerguntaPorId(idDaPergunta){
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response){
@@ -13,12 +16,19 @@ angular.module('EstouroPilhaApp').controller('perguntaController', function ($sc
     })
    }
 
-  function buscarRespostaPorIdDaPergunta(idDaPergunta){
-    perguntaService.buscarRespostaPorIdDaPergunta(idDaPergunta).then(function (response){
-      $scope.respostas = response.data.result;
-    })
-   }
 
+  function buscarRespostaPorIdDaPergunta(){
+    perguntaService.buscarRespostaPorIdDaPergunta(pagina, idDaPergunta).then(function (response){
+      $scope.respostas = response.data.result;
+      buscarQuanditadeDeRespostasPorIdDaPergunta()
+    })
+  }
+
+  function buscarQuanditadeDeRespostasPorIdDaPergunta(){
+    perguntaService. buscarQuanditadeDeRespostasPorIdDaPergunta(idDaPergunta).then(function(response){
+      $scope.totalDeRespostas = response.data.result
+    })
+}
   function usuarioLogado() {
     var jaFoiEscolhiaUmaRepostaCorreta =   $scope.respostas.filter(function (resposta) {return resposta.EhRespostaCorreta ==true}).length>0
     if (email === authService.getUsuario().Email && !jaFoiEscolhiaUmaRepostaCorreta)
@@ -32,5 +42,22 @@ angular.module('EstouroPilhaApp').controller('perguntaController', function ($sc
       buscarRespostaPorIdDaPergunta(idDaPergunta)
     })
    };
+
+   function anterior(){
+     if (pagina == 0)
+     {
+       return;
+     }
+     pagina = pagina-1;
+     buscarRespostaPorIdDaPergunta()
+    }
+
+   function proxima(){
+     if ((5 * pagina)/$scope.numeroDeResultadosDaPesquisa > 0) {
+       return;
+     }
+     pagina = pagina +1;
+     buscarRespostaPorIdDaPergunta()
+   }
 
 });

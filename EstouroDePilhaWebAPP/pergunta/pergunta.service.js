@@ -8,8 +8,12 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     return $http.get(urlPerguntas + idDaPergunta);
   };
 
-  function  buscarRespostaPorIdDaPergunta(idDaPergunta){
-    return $http.get(urlResposta+"pergunta/" + idDaPergunta);
+  function  buscarRespostaPorIdDaPergunta(pagina, idDaPergunta){
+    return $http.get(`${urlResposta}pergunta/${pagina}/${idDaPergunta}`);
+  };
+
+  function  buscarQuanditadeDeRespostasPorIdDaPergunta(idDaPergunta){
+    return $http.get(`${urlResposta}numeroDeRespostasDaPergunta/${idDaPergunta}`);
   };
 
   function pegarPerguntasDoUsuario(id) {
@@ -34,7 +38,8 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     pegarPerguntasDoUsuario: pegarPerguntasDoUsuario,
     pegarRespostasDoUsuario: pegarRespostasDoUsuario,
     buscarPerguntasPaginadas : buscarPerguntasPaginadas,
-    marcarComoCorreta : marcarComoCorreta
+    marcarComoCorreta : marcarComoCorreta,
+    buscarQuanditadeDeRespostasPorIdDaPergunta : buscarQuanditadeDeRespostasPorIdDaPergunta
   }
 
 });
