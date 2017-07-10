@@ -1,4 +1,4 @@
-angular.module('EstouroPilhaApp').controller('perfilController', function ($scope, $routeParams, perfilService, perguntaService, tagService, authService){
+angular.module('EstouroPilhaApp').controller('perfilController', function ($scope, $location, $routeParams, perfilService, perguntaService, tagService, authService){
     let id = $routeParams.id;
 
     $scope.logado = authService.isAutenticado() && authService.getUsuario().Id === Number($routeParams.id);
