@@ -22,14 +22,21 @@
                       placeholder="Título da tua pergunta, Tchê!">
                   </input>
                   <label for="tagsPergunta" class="label has-text-centered">Tags da tua pergunta</label>
-                  <input class="input"
+                  <angucomplete-alt ng-enter="adicionarTag(teste.title)"
+                      class="input"
                       type="text"
-                      autofocus
                       required
-                      minlength="3"
+                      minlength="1"
                       maxlength="80"
-                      placeholder="Tags da tua pergunta, Tchê!">
-                  </input>
+                      placeholder="Tags da tua pergunta, Tchê!"
+                      id="autocomplete-form"
+                      selected-object="teste"
+                      local-data="tags"
+                      local-search="autocompleteTag"
+                      title-field="Descricao"
+                      input-class="form-control form-control-small"
+                      match-class="highlight">
+                  </angucomplete-alt>
                   <label for="descricaoPergunta" class="label has-text-centered">Descrição da tua pergunta</label>
                   
                   <div class="box descricao-box">
