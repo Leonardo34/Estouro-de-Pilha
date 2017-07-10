@@ -45,14 +45,18 @@
               </div>
             </nav>
           </div>
+
         </article>
 
       </div>
 
       <div class="column">
         <small class="pull-right">{{pergunta.DataPergunta | date: 'dd/MM/yyyy'}}</small>
+
         <!--aqui irá a seção de upvote da pergunta-->
+        <a class="button is-primary pull-right" ng-if = "editarPergunta()" >Editar</a>
       </div>
+
     </section>
 
   </div>
@@ -73,18 +77,6 @@
       <section class="level usuario-resposta-info">
         <div class="level-left upvote">
           <!-- aqui vai o upvote -->
-          <a class="level-item" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmResposta(resposta)}" ng-click="upvoteResposta(resposta)">
-            <span class="quantidade-reacoes">
-              {{resposta.QuantidadeUpVotes}}
-            </span>
-            <span class="icon is-small"><i class="fa fa-thumbs-o-up fa-2x" ng-class="{'fa fa-thumbs-up fa-2x' : usuarioDeuUpvoteResposta(resposta)}" aria-hidden="true"></i></span>
-          </a>
-          <a class="level-item" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmResposta(resposta)}" ng-click="downvoteResposta(resposta)">
-            <span class="quantidade-reacoes">
-              {{resposta.QuantidadeDownVotes}}
-            </span>
-            <span class="icon is-small"><i class="fa fa-thumbs-o-down fa-2x" ng-class="{'fa fa-thumbs-down fa-2x' : usuarioDeuDownvoteResposta(resposta)}" aria-hidden="true"></i></span>
-          </a>
         </div>
         <a ng-href="/#!/perfil/{{resposta.Usuario.Id}}">
           <div class="level-right">
@@ -102,7 +94,7 @@
               </small>
             </p>
             <span class="icon">
-              <a class="button is-primary" ng-if = "usuarioLogado()" ng-click = "marcarComoCorreta(resposta.Id)" name="button">Marcar como correta
+              <a class="button is-primary" ng-if = "usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta()" ng-click = "marcarComoCorreta(resposta.Id)" name="button">Marcar como correta
                 <i class="fa fa-check is-pulled-right"  aria-hidden="true"></i>
               </a>
             </span>
