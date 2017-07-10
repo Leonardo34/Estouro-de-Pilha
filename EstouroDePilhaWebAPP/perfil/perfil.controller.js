@@ -1,4 +1,4 @@
-angular.module('EstouroPilhaApp').controller('perfilController', function ($scope, $routeParams, perfilService, perguntaService, tagService, authService){
+angular.module('EstouroPilhaApp').controller('perfilController', function ($scope, $routeParams, $location, perfilService, perguntaService, tagService, authService){
     let id = $routeParams.id;
 
     $scope.logado = authService.isAutenticado();
@@ -51,6 +51,7 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
         if($scope.formEdicao.$valid){
             perfilService.editarUsuario($scope.usuario)
                 .then(response => {
+                    $location.path("/perfil/" + $scope.Usuario.Id)
                     console.log(response.data);
                 }, fail => {
                     console.log(fail.data);

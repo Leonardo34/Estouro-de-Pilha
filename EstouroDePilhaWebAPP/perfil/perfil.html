@@ -145,8 +145,9 @@
         <div class="field">
           <label class="label">Foto de perfil</label>
           <p class="control">
-            <input type="text" class="input" name="usuario.urlImagemPerfil" ng-model="usuario.UrlImagemPerfil" required>
+            <input type="text" class="input" name="usuarioUrlImagemPerfil" ng-model="usuario.UrlImagemPerfil" required>
           </p>
+          <p ng-show="formEdicao.usuarioUrlImagemPerfil.$invalid" class="help is-danger">Insira uma Url para foto</p>
         </div>
 
       </form>
