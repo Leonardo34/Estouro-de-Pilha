@@ -21,7 +21,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.usuarioDeuDownvoteResposta = usuarioDeuDownvoteResposta;
   $scope.usuario = authService.getUsuario();
   buscarRespostaPorIdDaPergunta();
-  $scope.editarPergunta = editarPergunta;
+  $scope.podeEditarPergunta = podeEditarPergunta;
 
   function buscarPerguntaPorId() {
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response) {
@@ -31,7 +31,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
     })
   }
 
-  function editarPergunta(){
+  function podeEditarPergunta(){
     if ((Date.parse(new Date()) - Date.parse(data))/(1000*3600*24)>=7 && email === authService.getUsuario().Email){
       return true;
     }
@@ -109,5 +109,11 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
 
   function usuarioDeuUpvoteResposta(resposta) {
     return resposta.UpVotes.some(u => u.Id == authService.getUsuario().Id);
+  }
+
+  function editarPergunta(pergunta) {
+      perguntaService.editarPergunta(pergunta).then(function (response){
+       buscarPerguntaPorId(idDaPergunta);
+    })
   }
 });

@@ -54,8 +54,9 @@
         <small class="pull-right">{{pergunta.DataPergunta | date: 'dd/MM/yyyy'}}</small>
 
         <!--aqui irá a seção de upvote da pergunta-->
-        <a class="button is-primary pull-right" ng-if = "editarPergunta()" >Editar</a>
+        <a class="button is-primary pull-right" ng-if = "podeEditarPergunta()" >Editar</a>
       </div>
+
 
     </section>
 

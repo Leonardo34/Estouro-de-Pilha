@@ -50,16 +50,12 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(pergunta);
         }
 
-        [BasicAuthorization]
-        [HttpPost]
-        [Route("nova")]
-        public HttpResponseMessage Criar(PerguntaModel perguntaModel)
+        private Pergunta SalvarPergunta(PerguntaModel perguntaModel)
         {
             var pergunta = new Pergunta();
             pergunta.Tags = new List<Tag>();
             pergunta.Usuario =
                 usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
-            pergunta.DataPergunta = DateTime.Now;
             pergunta.Titulo = perguntaModel.Titulo;
             pergunta.Descricao = perguntaModel.Descricao;
             if (perguntaModel.TagsIds != null)
@@ -75,18 +71,27 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 throw new Exception();
             }
+            return pergunta;
+        }
+
+        [BasicAuthorization]
+        [HttpPost]
+        [Route("nova")]
+        public HttpResponseMessage Criar(PerguntaModel perguntaModel)
+        {
+            var pergunta =  SalvarPergunta(perguntaModel);
+            pergunta.DataPergunta = DateTime.Now;
             perguntasRepositorio.Criar(pergunta);
             return ResponderOK(new { id = pergunta.Id });
         }
 
         [BasicAuthorization]
         [HttpPut]
-        public HttpResponseMessage Alterar(Pergunta pergunta)
+        [Route()]
+        public HttpResponseMessage Alterar([FromBody]PerguntaModel perguntaModel)
         {
-            if (perguntasRepositorio.ObterPorId(pergunta.Id) == null)
-            {
-                throw new Exception();
-            }
+            var pergunta = SalvarPergunta(perguntaModel);
+            perguntasRepositorio.Alterar(pergunta);
             return ResponderOK(pergunta);
         }
 

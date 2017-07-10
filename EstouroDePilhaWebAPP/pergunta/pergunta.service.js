@@ -37,7 +37,11 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
   }
 
   function pegarRespostasDoUsuario(id) {
-    return $http.get(`${urlResposta}/usuario/${id}`)
+    return $http.get(`${urlResposta}/usuario/${id}`);
+  }
+
+  function editarPergunta (pergunta){
+    return   $http.put(`${urlPerguntas}`, pergunta);
   }
 
   return{
@@ -49,6 +53,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     marcarComoCorreta : marcarComoCorreta,
     buscarQuantidadeDeRespostasPorIdDaPergunta : buscarQuantidadeDeRespostasPorIdDaPergunta,
     upvoteResposta : upvoteResposta,
-    downvoteResposta : downvoteResposta
+    downvoteResposta : downvoteResposta,
+    editarPergunta : editarPergunta
   }
 });
