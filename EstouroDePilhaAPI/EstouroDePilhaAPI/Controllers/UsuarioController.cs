@@ -82,7 +82,7 @@ namespace EstouroDePilhaAPI.Controllers
         {
             Usuario usuario = repositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
 
-            return ResponderOK(usuario.converterUsuarioParaUsuarioModel());
+            return ResponderLogin(usuario.converterUsuarioParaUsuarioModel());
         }
 
 

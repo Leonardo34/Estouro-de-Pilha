@@ -24,5 +24,10 @@ namespace EstouroDePilhaAPI.Controllers
         {
             return Request.CreateResponse(HttpStatusCode.BadRequest, new { errors });
         }
+
+        public HttpResponseMessage ResponderLogin(object dados = null)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, new { dados });
+        }
     }
 }
