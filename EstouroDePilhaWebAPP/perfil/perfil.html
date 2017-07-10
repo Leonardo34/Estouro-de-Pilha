@@ -66,9 +66,9 @@
 
 <section class="section minhas-perguntas">
   <div class="container">
-    <h3 class="subtitle">Minhas tags</h3>
+    <h3 class="subtitle">Tags em que participei</h3>
     <hr>
-    <p ng-hide="usuario.respostas.length > 0">Opa! parece que {{usuario.Nome}} não possui tags.</p>
+    <p ng-hide="existeTags">Opa! parece que {{usuario.Nome}} não possui tags.</p>
     <span class="tag is-primary is-medium" ng-repeat="tag in usuario.tags">{{tag.Descricao}}</span>
   </div>
 </section>
@@ -77,7 +77,7 @@
   <div class="container">
     <h3 class="subtitle">Minhas perguntas</h3>
     <hr>
-    <p ng-hide="usuario.respostas.length > 0">Opa! parece que {{usuario.Nome}} não perguntou nada ainda.</p>
+    <p ng-hide="existePerguntas">Opa! parece que {{usuario.Nome}} não perguntou nada ainda.</p>
   </div>
 </section>
 
@@ -85,7 +85,7 @@
   <div class="container">
     <h3 class="subtitle">Minhas respostas</h3>
     <hr>
-    <p ng-hide="usuario.respostas.length > 0">Opa! parece que {{usuario.Nome}} não respondeu nada ainda.</p>
+    <p ng-hide="existeRespostas">Opa! parece que {{usuario.Nome}} não respondeu nada ainda.</p>
     <div class="card" ng-repeat="resposta in usuario.respostas">
       <header class="card-header">
         <p class="card-header-title">
