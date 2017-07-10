@@ -56,14 +56,35 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 
         public List<Resposta> ObterRespostasPaginadas(int quantidadePular, int idPergunta)
         {
-            return ObterRespostasPeloIdPergunta(idPergunta).OrderByDescending(r => r.UpVotes.Count() + r.DownVotes.Count())
-                .Skip(quantidadePular*5)
-                .Take(5).ToList();                         
+            var quantidadeBuscar = 5;
+            List<Resposta> respostas = new List<Resposta>();
+            var respostaCerta = BuscaRespostaCorretaPorIdDaPergunta(idPergunta);
+            if (respostaCerta != null && quantidadePular == 0)
+            {
+                respostas.Add(respostaCerta);
+                quantidadeBuscar = 4;
+            }
+            var respostasOrdenadasPorVotos = ObterRespostasPeloIdPergunta(idPergunta)
+                 .Except(respostas).OrderByDescending(r => (r.UpVotes.Count() - r.DownVotes.Count()) > 0)
+                 .Skip(quantidadePular * 5)
+                 .Take(quantidadeBuscar).ToList();
+            respostas.AddRange(respostasOrdenadasPorVotos);
+            return respostas;
+        }
+
+        public Resposta BuscaRespostaCorretaPorIdDaPergunta(int idPergunta)
+        {
+            return ObterRespostasPeloIdPergunta(idPergunta).FirstOrDefault(c => c.EhRespostaCorreta == true);
         }
 
         public int NumeroDeRespostasPorPergunta(int idPergunta)
         {
             return ObterRespostasPeloIdPergunta(idPergunta).Count();
+        }
+
+        public bool VerificaSeTemRespostaCorretaPorIdPergunta(int idPergunta)
+        {
+            return BuscaRespostaCorretaPorIdDaPergunta(idPergunta) != null;
         }
 
         public List<Resposta> ObterRespostasPeloIdPergunta(int id)
