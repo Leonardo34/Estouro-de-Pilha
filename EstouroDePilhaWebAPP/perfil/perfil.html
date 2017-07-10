@@ -78,6 +78,15 @@
     <h3 class="subtitle">Minhas perguntas</h3>
     <hr>
     <p ng-hide="existePerguntas">Opa! parece que {{usuario.Nome}} não perguntou nada ainda.</p>
+    <div class="card" ng-repeat="pergunta in usuario.perguntas">
+      <header class="card-header">
+        <a ng-href="/#!/pergunta/{{pergunta.Id}}">
+        <p class="card-header-title">
+          Pergunta: {{pergunta.Titulo}}
+          
+        </p></a>
+      </header>      
+    </div>
   </div>
 </section>
 
