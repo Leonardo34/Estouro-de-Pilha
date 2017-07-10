@@ -92,20 +92,7 @@ namespace EstouroDePilhaAPI.Controllers
         public HttpResponseMessage ObterPorId(int id)
         {
             var pergunta = perguntasRepositorio.ObterPorId(id);
-            var perguntaModel = new PerguntaModel();
-            perguntaModel.Tags = new List<TagModel>();
-            foreach (var each in pergunta.Tags)
-            {
-                var tagModel = new TagModel();
-                tagModel.Id = each.Id;
-                tagModel.Descricao = each.Descricao;
-                perguntaModel.Tags.Add(tagModel);
-            }
-            perguntaModel.Id = pergunta.Id;
-            perguntaModel.Titulo = pergunta.Titulo;
-            perguntaModel.Descricao = pergunta.Descricao;
-            perguntaModel.Usuario =
-                pergunta.Usuario.converterUsuarioParaUsuarioModel();
+            var perguntaModel = CriarModelPergunta(pergunta);
             return ResponderOK(perguntaModel);
         }
 
@@ -122,33 +109,7 @@ namespace EstouroDePilhaAPI.Controllers
             List<PerguntaModel> perguntasDto = new List<PerguntaModel>();
             foreach (var each in perguntas)
             {
-                var perguntaModel = new PerguntaModel();
-                perguntaModel.Id = each.Id;
-                perguntaModel.Titulo = each.Titulo;
-                perguntaModel.Usuario = each.Usuario.converterUsuarioParaUsuarioModel();
-                perguntaModel.Descricao = each.Descricao;
-                perguntaModel.DataPergunta = each.DataPergunta;
-                perguntaModel.Tags = new List<TagModel>();
-                var tags = each.Tags;
-                if (tags != null)
-                {
-                    foreach (var tag in tags)
-                    {
-                        var tagModel = new TagModel();
-                        tagModel.Id = tag.Id;
-                        tagModel.Descricao = tag.Descricao;
-                        perguntaModel.Tags.Add(tagModel);
-                    }
-                }
-                perguntasDto.Add(perguntaModel);
-                perguntaModel.Tags = new List<TagModel>();
-                foreach (var tag in each.Tags)
-                {
-                    var tagModel = new TagModel();
-                    tagModel.Id = tag.Id;
-                    tagModel.Descricao = tag.Descricao;
-                    perguntaModel.Tags.Add(tagModel);
-                }
+                perguntasDto.Add(CriarModelPergunta(each));
             }
             return perguntasDto;
         }
@@ -172,6 +133,29 @@ namespace EstouroDePilhaAPI.Controllers
             var perguntasPaginadas = perguntasRepositorio.Paginacao(quantidadePular, conteudo, tags);
             var perguntasDto = CriarPerguntasDto(perguntasPaginadas);
             return ResponderOK(perguntasDto);
+        }
+
+        private PerguntaModel CriarModelPergunta(Pergunta entidadePergunta)
+        {
+            var perguntaModel = new PerguntaModel();
+            perguntaModel.Id = entidadePergunta.Id;
+            perguntaModel.Titulo = entidadePergunta.Titulo;
+            perguntaModel.Usuario = entidadePergunta.Usuario.converterUsuarioParaUsuarioModel();
+            perguntaModel.Descricao = entidadePergunta.Descricao;
+            perguntaModel.DataPergunta = entidadePergunta.DataPergunta;
+            perguntaModel.Tags = new List<TagModel>();
+            var tags = entidadePergunta.Tags;
+            if (tags != null)
+            {
+                foreach (var tag in tags)
+                {
+                    var tagModel = new TagModel();
+                    tagModel.Id = tag.Id;
+                    tagModel.Descricao = tag.Descricao;
+                    perguntaModel.Tags.Add(tagModel);
+                }
+            }
+            return perguntaModel;
         }
     }
 }
