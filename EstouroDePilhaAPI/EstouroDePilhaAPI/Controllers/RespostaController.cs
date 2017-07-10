@@ -1,4 +1,4 @@
-﻿using EstouroDePilha.Dominio.Entidades;
+using EstouroDePilha.Dominio.Entidades;
 using EstouroDePilha.Dominio.Models;
 using EstouroDePilha.Dominio.Excecoes;
 using EstouroDePilha.Dominio.Repositórios;
@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Web;
 using System.Web.Http;
+using EstouroDePilhaAPI.Models;
 
 namespace EstouroDePilhaAPI.Controllers
 {
@@ -82,15 +83,7 @@ namespace EstouroDePilhaAPI.Controllers
             List<RespostaModel> respostasDto = new List<RespostaModel>();
             foreach (var each in respostas)
             {
-                var resposta = new RespostaModel();
-                resposta.Id = each.Id;
-                resposta.Usuario = each.Usuario.converterUsuarioParaUsuarioModel();
-                resposta.Descricao = each.Descricao;
-                resposta.DataResposta = each.DataResposta;
-                resposta.QuantidadeUpVotes = each.UpVotes.Count;
-                resposta.QuantidadeDownVotes = each.DownVotes.Count;
-                resposta.EhRespostaCorreta = each.EhRespostaCorreta;
-                respostasDto.Add(resposta);
+                respostasDto.Add(CriarModelResposta(each));
             }
             return ResponderOK(respostasDto);
         }
@@ -154,6 +147,29 @@ namespace EstouroDePilhaAPI.Controllers
                 return ResponderOK();
             }
             return ResponderErro("Você não pode marcar esta resposta como correta");
+        }
+
+        public RespostaModel CriarModelResposta(Resposta entidadeResposta)
+        {
+            var respostaModel = new RespostaModel();
+            respostaModel.Id = entidadeResposta.Id;
+            respostaModel.Usuario = entidadeResposta.Usuario.converterUsuarioParaUsuarioModel();
+            respostaModel.Descricao = entidadeResposta.Descricao;
+            respostaModel.DataResposta = entidadeResposta.DataResposta;
+            respostaModel.QuantidadeUpVotes = entidadeResposta.UpVotes.Count;
+            respostaModel.QuantidadeDownVotes = entidadeResposta.DownVotes.Count;
+            respostaModel.EhRespostaCorreta = entidadeResposta.EhRespostaCorreta;
+            respostaModel.DownVotes = new List<UsuarioBaseModel>();
+            foreach (var downvote in entidadeResposta.DownVotes)
+            {
+                respostaModel.DownVotes.Add(downvote.Usuario.converterUsuarioParaUsuarioModel());
+            }
+            respostaModel.UpVotes = new List<UsuarioBaseModel>();
+            foreach (var upvote in entidadeResposta.UpVotes)
+            {
+                respostaModel.UpVotes.Add(upvote.Usuario.converterUsuarioParaUsuarioModel());
+            }
+            return respostaModel;
         }
 
         [HttpGet]

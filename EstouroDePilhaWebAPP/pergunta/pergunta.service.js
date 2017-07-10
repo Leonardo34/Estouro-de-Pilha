@@ -26,6 +26,14 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
   function buscarPerguntasPaginadas(skip, take) {
     return $http.get(`${urlPerguntas}?skip=` + skip + '&take=' + take);
   }
+  
+  function upvoteResposta (idResposta) {
+    return $http.post(`${urlResposta}/${idResposta}/upvote`, {});
+  }
+
+  function downvoteResposta (idResposta) {
+    return $http.post(`${urlResposta}/${idResposta}/downvote`, {});
+  }
 
   function pegarRespostasDoUsuario(id) {
     return $http.get(`${urlResposta}/usuario/${id}`)
@@ -38,6 +46,8 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     pegarRespostasDoUsuario: pegarRespostasDoUsuario,
     buscarPerguntasPaginadas : buscarPerguntasPaginadas,
     marcarComoCorreta : marcarComoCorreta,
-    buscarQuantidadeDeRespostasPorIdDaPergunta : buscarQuantidadeDeRespostasPorIdDaPergunta
+    buscarQuantidadeDeRespostasPorIdDaPergunta : buscarQuantidadeDeRespostasPorIdDaPergunta,
+    upvoteResposta : upvoteResposta,
+    downvoteResposta : downvoteResposta
   }
 });

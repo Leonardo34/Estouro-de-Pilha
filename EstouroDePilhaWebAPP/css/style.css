@@ -213,6 +213,10 @@ ol, ul {
   padding: 0;
 }
 
+.quantidade-reacoes {
+  margin-right: 5px;
+}
+
 .descricao-box {
    margin: 0;
    margin-top: .5rem;

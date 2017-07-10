@@ -71,7 +71,9 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
             return contexto.Respostas
                 .Include("Usuario")
                 .Include("UpVotes")
+                .Include("UpVotes.Usuario")
                 .Include("DownVotes")
+                .Include("DownVotes.Usuario")
                 .Where(r => r.Pergunta.Id == id)
                 .ToList();
         }
