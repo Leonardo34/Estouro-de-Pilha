@@ -49,7 +49,9 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
             return contexto.Respostas
                 .Include("Usuario")
                 .Include("UpVotes")
+                .Include("Upvotes.Usuario")
                 .Include("DownVotes")
+                .Include("DownVotes.Usuario")
                 .Include("Pergunta")
                 .FirstOrDefault(r => r.Id == id);
         }
