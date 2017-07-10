@@ -109,7 +109,6 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(perguntaModel);
         }
 
-
         [HttpGet]
         [Route("pesquisa/{conteudo}/{tags}")]
         public HttpResponseMessage NumeroDeResultadosDaPesquisa(string conteudo, string tags)

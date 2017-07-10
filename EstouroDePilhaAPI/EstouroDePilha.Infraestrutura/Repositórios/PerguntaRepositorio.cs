@@ -97,7 +97,5 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         {
             return ObterTodasAsPerguntasDaPesquisa(conteudoDaBusca, tags).Count();
         }
-
-
     }
 }
