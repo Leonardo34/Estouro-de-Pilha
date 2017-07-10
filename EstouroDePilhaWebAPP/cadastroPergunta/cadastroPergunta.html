@@ -83,7 +83,7 @@
                       minlength="3"
                       maxlength="100"
                       ng-model="novaPergunta.Descricao"
-                      onselect="window.selecionado=this"
+                      onselect="window.listenerMudanca(this)"
                       permitir-tab
                       ng-trim="false"
                       placeholder="Descrição da tua pergunta, Tchê!">
