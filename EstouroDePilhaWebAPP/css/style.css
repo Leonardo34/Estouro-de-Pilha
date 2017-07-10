@@ -59,6 +59,10 @@ ol, ul {
   background-color: lightgreen;
 }
 
+.is-link.sem-underline {
+  text-decoration: none;
+}
+
 .email-input,
 .password-input {
   border-radius: 40px;
@@ -207,4 +211,14 @@ ol, ul {
   margin: 0;
   line-height: 0;
   padding: 0;
+}
+
+.descricao-box {
+   margin: 0;
+   margin-top: .5rem;
+}
+
+.botoes-desc {
+  display: flex;
+  justify-content: space-between;  
 }
