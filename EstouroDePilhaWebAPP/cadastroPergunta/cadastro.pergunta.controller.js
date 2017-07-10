@@ -25,7 +25,9 @@ function cadastrarPerguntaController($scope, $routeParams, authService, cadastro
     if(document.getSelection().toString())
       selecao = document.getSelection().toString();
     else {
-      selecao = document.getElementById("descricao").value;  
+      let inicio = window.selecionado.selectionStart;      
+      let final = window.selecionado.selectionEnd;      
+      selecao = window.selecionado.substring(inicio, final);       
     }   
     selecao.trim();    
     switch(tipo) {
