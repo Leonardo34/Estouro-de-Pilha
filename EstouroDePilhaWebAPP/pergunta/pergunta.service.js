@@ -36,7 +36,9 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     buscarRespostaPorIdDaPergunta : buscarRespostaPorIdDaPergunta,
     pegarPerguntasDoUsuario : pegarPerguntasDoUsuario,
     pegarRespostasDoUsuario : pegarRespostasDoUsuario,
-    buscarPerguntasPaginadas : buscarPerguntasPaginadas
+    buscarPerguntasPaginadas : buscarPerguntasPaginadas,
+    upvoteResposta : upvoteResposta,
+    downvoteResposta : downvoteResposta
   }
 
 });
