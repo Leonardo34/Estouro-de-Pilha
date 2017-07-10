@@ -19,10 +19,15 @@ function cadastrarPerguntaController($scope, $routeParams, authService, cadastro
     if(typeof $scope.novaPergunta.Descricao === 'undefined') return;
 
     let texto = angular.copy($scope.novaPergunta.Descricao);
-    let selecao = window.getSelection().toString().trim();
     let novoTexto = "";
-    let resultado = "";    
-    
+    let resultado = ""; 
+    let selecao;
+    if(document.getSelection().toString())
+      selecao = document.getSelection().toString();
+    else {
+      selecao = document.getElementById("descricao").value;  
+    }   
+    selecao.trim();    
     switch(tipo) {
       case 'B':
         resultado = `**${selecao}**`;
