@@ -64,5 +64,4 @@ angular.module('EstouroPilhaApp').controller('perguntaController', function ($sc
     $scope.pagina =$scope.pagina +1;
     buscarRespostaPorIdDaPergunta()
   }
-
 });

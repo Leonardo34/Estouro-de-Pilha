@@ -55,6 +55,13 @@ ol, ul {
   margin-top: -.8rem;
 }
 
+.hero-body .pergunta{
+  background-color: lightgreen;
+}
+
+.is-link.sem-underline {
+  text-decoration: none;
+}
 
 .email-input,
 .password-input {
@@ -122,6 +129,9 @@ ol, ul {
   border-radius: 20px;
 }
 
+.login-wrapper .hero-body .li{
+  margin-top: 20px;
+}
 .control .butCadas{
   margin-top: 30px;
   left: 50%;
@@ -177,9 +187,16 @@ ol, ul {
   margin-top: 1rem;
 }
 
-.containerBuscar{
+.link-disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: grey;
+}
+
+.containerBuscar {
   margin-top: 40px;
 }
+
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
@@ -189,3 +206,19 @@ ol, ul {
     animation: fadein 1s;
 }
 
+.pagination-list {
+  list-style: none;
+  margin: 0;
+  line-height: 0;
+  padding: 0;
+}
+
+.descricao-box {
+   margin: 0;
+   margin-top: .5rem;
+}
+
+.botoes-desc {
+  display: flex;
+  justify-content: space-between;  
+}
