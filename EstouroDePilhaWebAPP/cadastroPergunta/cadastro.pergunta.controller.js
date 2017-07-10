@@ -1,7 +1,7 @@
 angular.module('EstouroPilhaApp')
   .controller('cadastrarPerguntaController', cadastrarPerguntaController);
 
-function cadastrarPerguntaController($scope, $routeParams, authService, cadastroPerguntaService, tagService) {
+function cadastrarPerguntaController($scope, $location, $routeParams, authService, cadastroPerguntaService, tagService) {
   $scope.cadastrarPergunta = cadastrarPergunta;
   $scope.adicionarMarkdown = adicionarMarkdown;
   $scope.tagsSelecionadas = [];
@@ -19,8 +19,14 @@ function cadastrarPerguntaController($scope, $routeParams, authService, cadastro
     cadastroPerguntaService.cadastrarPergunta(novaPergunta)
       .then(response => {
         alert('Pergunta cadastrada com sucesso, Tchê!');
+        $location.path('/pergunta/' + response.data.result.id)
       }, error => {
-        alert('Alguma coisa deu errada, tenta de novo, Tchê!');
+        if($scope.novaPergunta.Titulo == null){
+          alert('Pergunta sem titulo, tenta de novo, Tchê!');
+        }
+        if($scope.novaPergunta.Descricao == null){
+          alert('Pergunta sem descrição, tenta de novo, Tchê')
+        }
       })
   }
 

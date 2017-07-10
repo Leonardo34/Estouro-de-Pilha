@@ -4,7 +4,7 @@ angular.module('EstouroPilhaApp').controller('cadastroController',
   $scope.cadastrarUsuario = function(novoUsuario) {
     cadastroService.cadastrarUsuario(novoUsuario)
       .then(response => {
-        alert('Cadastrado com sucesso, agora te loga, Tchê');
+        alert('Cadastrado com sucesso, Tchê');
         $location.path('/home');
       }, error => {
         if($scope.novoUsuario.Nome == null){
