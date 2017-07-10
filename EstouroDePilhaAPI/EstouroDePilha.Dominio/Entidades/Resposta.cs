@@ -29,8 +29,7 @@ namespace EstouroDePilha.Dominio.Entidades
 
         public bool UsuarioJaInteragiuComResposta(Usuario usuario)
         {
-            return usuario.Id == Usuario.Id
-                || UpVotes.Any(u => u.Usuario.Id == usuario.Id)
+            return UpVotes.Any(u => u.Usuario.Id == usuario.Id)
                 || DownVotes.Any(d => d.Usuario.Id == usuario.Id);            
         }
     }

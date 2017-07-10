@@ -301,3 +301,7 @@ ol, ul {
   width: 300px;
   font-size: 1rem;
 }
+
+.tags-selected {
+  position: absolute;
+}
