@@ -50,7 +50,7 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(pergunta);
         }
 
-        private Pergunta CriarPergunta(PerguntaModel perguntaModel)
+        private Pergunta SalvarPergunta(PerguntaModel perguntaModel)
         {
             var pergunta = new Pergunta();
             pergunta.Tags = new List<Tag>();
@@ -79,7 +79,7 @@ namespace EstouroDePilhaAPI.Controllers
         [Route("nova")]
         public HttpResponseMessage Criar(PerguntaModel perguntaModel)
         {
-            var pergunta =  CriarPergunta(perguntaModel);
+            var pergunta =  SalvarPergunta(perguntaModel);
             pergunta.DataPergunta = DateTime.Now;
             perguntasRepositorio.Criar(pergunta);
             return ResponderOK(new { id = pergunta.Id });
@@ -90,7 +90,7 @@ namespace EstouroDePilhaAPI.Controllers
         [Route()]
         public HttpResponseMessage Alterar([FromBody]PerguntaModel perguntaModel)
         {
-            var pergunta = CriarPergunta(perguntaModel);
+            var pergunta = SalvarPergunta(perguntaModel);
             perguntasRepositorio.Alterar(pergunta);
             return ResponderOK(pergunta);
         }
