@@ -16,5 +16,7 @@ namespace EstouroDePilha.Dominio.Models
         public bool? EhRespostaCorreta { get; set; }
         public int QuantidadeUpVotes { get; set; }
         public int QuantidadeDownVotes { get; set; }
+        public List<UsuarioBaseModel> UpVotes { get; set; }
+        public List<UsuarioBaseModel> DownVotes { get; set; }
     }
 }
