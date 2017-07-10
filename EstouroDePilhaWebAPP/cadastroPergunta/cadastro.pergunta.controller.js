@@ -1,10 +1,10 @@
 angular.module('EstouroPilhaApp')
   .controller('cadastrarPerguntaController', cadastrarPerguntaController);
 
-function cadastrarPerguntaController($scope, $routeParams, authService, cadastroPerguntaService) { 
+function cadastrarPerguntaController($scope, $routeParams, authService, cadastroPerguntaService) {
   $scope.cadastrarPergunta = cadastrarPergunta;
   $scope.adicionarMarkdown = adicionarMarkdown;
-  
+
   //verifica se o browser é compativel com toString
   if (!document.getSelection().toString()) listenerMudanca();
 
@@ -15,24 +15,23 @@ function cadastrarPerguntaController($scope, $routeParams, authService, cadastro
       }, error => {
         alert('Alguma coisa deu errada, tenta de novo, Tchê!');
       })
-  } 
+  }
 
-  function adicionarMarkdown (tipo) {    
-    if(typeof $scope.novaPergunta.Descricao === 'undefined') return;
+  function adicionarMarkdown(tipo) {
+    if (typeof $scope.novaPergunta.Descricao === 'undefined') return;
 
     let texto = angular.copy($scope.novaPergunta.Descricao);
     let novoTexto = "";
-    let resultado = ""; 
+    let resultado = "";
     let selecao;
-    if(document.getSelection().toString())
+
+    if (document.getSelection().toString())
       selecao = document.getSelection().toString();
-    else {
-      let inicio = window.selecionado.selectionStart;      
-      let final = window.selecionado.selectionEnd;      
-      selecao = window.selecionado.substring(inicio, final);       
-    }   
-    selecao.trim();    
-    switch(tipo) {
+    else
+      selecao = window.selecao;
+
+    selecao.trim();
+    switch (tipo) {
       case 'B':
         resultado = `**${selecao}**`;
         break;
@@ -46,13 +45,13 @@ function cadastrarPerguntaController($scope, $routeParams, authService, cadastro
         resultado = `\n* ${selecao}`;
         break;
       case 'C':
-        resultado = '``'+ selecao + '``';
+        resultado = '``' + selecao + '``';
         break;
-      case 'H':       
-        resultado = 
-        selecao.charAt(1) === ' '  || selecao.charAt(1) === '#'  ? 
-              `#${selecao}` : `# ${selecao}`;
-        break;      
+      case 'H':
+        resultado =
+          selecao.charAt(1) === ' ' || selecao.charAt(1) === '#' ?
+          `#${selecao}` : `# ${selecao}`;
+        break;
     }
 
     novoTexto = texto.replace(selecao, resultado);
