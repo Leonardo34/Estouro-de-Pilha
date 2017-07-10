@@ -4,9 +4,8 @@ angular.module('EstouroPilhaApp')
 function cadastrarPerguntaController($scope, $routeParams, authService, cadastroPerguntaService) {
   $scope.cadastrarPergunta = cadastrarPergunta;
   $scope.adicionarMarkdown = adicionarMarkdown;
-
-  //verifica se o browser é compativel com toString
-  if (!document.getSelection().toString()) listenerMudanca();
+  
+  listenerMudanca();
 
   function cadastrarPergunta(novaPergunta) {
     cadastroPerguntaService.cadastrarPergunta(novaPergunta)
@@ -23,14 +22,9 @@ function cadastrarPerguntaController($scope, $routeParams, authService, cadastro
     let texto = angular.copy($scope.novaPergunta.Descricao);
     let novoTexto = "";
     let resultado = "";
-    let selecao;
+    let selecao;    
+    selecao = window.selecao.trim();
 
-    if (document.getSelection().toString())
-      selecao = document.getSelection().toString();
-    else
-      selecao = window.selecao;
-
-    selecao.trim();
     switch (tipo) {
       case 'B':
         resultado = `**${selecao}**`;
@@ -53,8 +47,10 @@ function cadastrarPerguntaController($scope, $routeParams, authService, cadastro
           `#${selecao}` : `# ${selecao}`;
         break;
     }
-
-    novoTexto = texto.replace(selecao, resultado);
+    let parteInicial = texto.substring(0, window.inicioSelecao);
+    let parteComMarkdown = texto.substring(window.inicioSelecao).replace(selecao, resultado);
+    novoTexto =  parteInicial + parteComMarkdown;
+        
     $scope.novaPergunta.Descricao = novoTexto;
   }
 
@@ -65,6 +61,7 @@ function cadastrarPerguntaController($scope, $routeParams, authService, cadastro
       if (input.selectionStart !== input.selectionEnd) {
         window.selecao =
           input.value.substring(input.selectionStart, input.selectionEnd);
+        window.inicioSelecao = input.selectionStart;
       }
     });
   }
