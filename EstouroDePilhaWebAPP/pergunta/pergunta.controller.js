@@ -3,16 +3,16 @@ angular.module('EstouroPilhaApp').controller('perguntaController', function ($sc
   var email;
   var idDaPergunta = $routeParams.id;
   var data;
+  var temRespostaCorreta;
   $scope.proxima = proxima;
   $scope.anterior = anterior;
   $scope.usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta = usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta;
   $scope.marcarComoCorreta = marcarComoCorreta;
   $scope.pagina = 0;
-
+  buscarQuantidadeDeRespostasPorIdDaPergunta();
   buscarPerguntaPorId(idDaPergunta);
   buscarRespostaPorIdDaPergunta(idDaPergunta);
 
-console.log("Oi");
   $scope.upvoteResposta = upvoteResposta;
   $scope.downvoteResposta = downvoteResposta;
   $scope.usuarioVotouEmResposta = usuarioVotouEmResposta;
@@ -39,14 +39,13 @@ console.log("Oi");
   function buscarRespostaPorIdDaPergunta() {
     perguntaService.buscarRespostaPorIdDaPergunta($scope.pagina, idDaPergunta).then(function (response) {
       $scope.respostas = response.data.result;
-      buscarQuantidadeDeRespostasPorIdDaPergunta();
     })
   }
 
   function buscarQuantidadeDeRespostasPorIdDaPergunta(){
     perguntaService. buscarQuantidadeDeRespostasPorIdDaPergunta(idDaPergunta).then(function(response){
-      $scope.totalDeRespostas = response.data.result;
-
+      $scope.totalDeRespostas = response.data.dados;
+      temRespostaCorreta = response.data.outrosDados;
     })
   }
 
@@ -54,20 +53,19 @@ console.log("Oi");
       if (authService.getUsuario() === undefined){
         return false
       }
-      return true;
+      return (authService.getUsuario().Email == email)
     }
 
     function usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta(){
-        return  (usuarioLogado() &&  temRespostaCorreta());
-    }
-
-    function temRespostaCorreta(){
-       return (!$scope.respostas.some(r => r.EhRespostaCorreta))
+        return  (usuarioLogado() &&  !temRespostaCorreta);
     }
 
    function marcarComoCorreta(idDaResposta){
      perguntaService. marcarComoCorreta(idDaResposta).then(function (response){
-       buscarRespostaPorIdDaPergunta(idDaPergunta)
+      buscarQuantidadeDeRespostasPorIdDaPergunta()
+      usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta()
+      buscarRespostaPorIdDaPergunta(idDaPergunta)
+
     })
   };
 
