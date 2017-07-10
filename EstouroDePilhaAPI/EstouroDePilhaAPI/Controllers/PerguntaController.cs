@@ -62,12 +62,15 @@ namespace EstouroDePilhaAPI.Controllers
             pergunta.DataPergunta = DateTime.Now;
             pergunta.Titulo = perguntaModel.Titulo;
             pergunta.Descricao = perguntaModel.Descricao;
-            perguntaModel.TagsIds
-                .ForEach(tag => pergunta.Tags.Add(
-                        tagsRepositorio.ObterPorId(tag)
-                    )
-                );
+            if (perguntaModel.TagsIds != null)
+            {
 
+                perguntaModel.TagsIds
+                    .ForEach(tag => pergunta.Tags.Add(
+                            tagsRepositorio.ObterPorId(tag)
+                        )
+                    );
+            }
             if (!pergunta.EhValida())
             {
                 throw new Exception();

@@ -1,4 +1,4 @@
-using EstouroDePilha.Dominio.Entidades;
+﻿using EstouroDePilha.Dominio.Entidades;
 using EstouroDePilha.Dominio.Models;
 using EstouroDePilha.Dominio.Excecoes;
 using EstouroDePilha.Dominio.Repositórios;
@@ -61,6 +61,7 @@ namespace EstouroDePilhaAPI.Controllers
             resposta.Usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             resposta.Pergunta = perguntasRepositorio.ObterPorId(idPergunta);
             resposta.DataResposta = DateTime.Now;
+            resposta.EhRespostaCorreta = false;
             respostasRepositorio.Criar(resposta);
             return ResponderOK();
         }
@@ -176,8 +177,9 @@ namespace EstouroDePilhaAPI.Controllers
         [Route("numeroDeRespostasDaPergunta/{idPergunta:int}")]
         public HttpResponseMessage NumeroDeResultadosDaPesquisa(int idPergunta)
         {
-            int NumeroDeRespostasDaPergunta = respostasRepositorio.NumeroDeRespostasPorPergunta(idPergunta);
-            return ResponderOK(NumeroDeRespostasDaPergunta);
+            int numeroDeRespostasDaPergunta = respostasRepositorio.NumeroDeRespostasPorPergunta(idPergunta);
+            bool temRespostaCorreta = respostasRepositorio.VerificaSeTemRespostaCorretaPorIdPergunta(idPergunta);
+            return ResponderOk(numeroDeRespostasDaPergunta, temRespostaCorreta);
         }
     }
 }

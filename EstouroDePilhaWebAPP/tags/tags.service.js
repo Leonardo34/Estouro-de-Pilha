@@ -5,7 +5,10 @@ function tagService ($http) {
 
     var pegarTagsDoUsuario = (id) => $http.get(`${url}/usuario/${id}`, id);
 
+    var pegarTodasTags = () => $http.get(`${url}`);
+
     return {
-        pegarTagsDoUsuario: pegarTagsDoUsuario
+        pegarTagsDoUsuario : pegarTagsDoUsuario,
+        pegarTodasTags : pegarTodasTags
     } 
 }
