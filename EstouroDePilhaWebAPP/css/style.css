@@ -12,6 +12,10 @@ pre {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.data-home{
+  float: right;
+}
+
 pre code {
   background: whitesmoke;
   color: #ff3860;
@@ -225,4 +229,10 @@ ol, ul {
 .botoes-desc {
   display: flex;
   justify-content: space-between;  
+}
+
+@media screen and (max-width:768px){
+  .data-home{
+    float: none;
+  }
 }
