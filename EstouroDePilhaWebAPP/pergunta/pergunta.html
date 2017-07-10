@@ -89,16 +89,29 @@
                   às {{resposta.DataResposta | date:'dd/MM/yyyy HH:mm'}}
               </small>
             </p>
+            <span class="icon">
+              <a class="button is-primary" ng-if = "usuarioLogado()" ng-click = "marcarComoCorreta(resposta.Id)" name="button">Marcar como correta
+                <i class="fa fa-check is-pulled-right"  aria-hidden="true"></i>
+              </a>
+            </span>
+            <span class="icon  is-success" ng-if ="resposta.EhRespostaCorreta">
+              <i class="fa fa-check is-pulled-right"  aria-hidden="true"></i>
+            </span>
           </div>
         </a>
-
-
       </section>
 
-      <article class="resposta-descricao">        
-        <pre><p btf-markdown="resposta.Descricao"></p></pre>        
+      <article class="resposta-descricao">
+        <pre><p btf-markdown="resposta.Descricao"></p></pre>
       </article>
 
     </div>
   </div>
-</div> 
+  <nav class="containerPerguntasERespostas nav-center" ng-if = "totalDeRespostas > 5 ">
+    <a class="pagination-previous is-centered" title="This is the first page"  ng-click = "anterior()" disabled>Anterior</a>
+    <a class="pagination-next is-centered" ng-click = "proxima()">Próxima</a>
+  </nav>
+  <nav class="containerPerguntasERespostas nav-center" ng-if = "totalDeRespostas >0">
+    <a class="pagination-link">{{totalDeRespostas}} respostas encontradas</a>
+  </nav>
+</div>
