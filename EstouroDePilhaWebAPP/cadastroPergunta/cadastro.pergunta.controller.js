@@ -1,14 +1,14 @@
 angular.module('EstouroPilhaApp')
   .controller('cadastrarPerguntaController', cadastrarPerguntaController);
 
-function cadastrarPerguntaController($scope, $location, $routeParams, authService, cadastroPerguntaService, tagService) {
+function cadastrarPerguntaController($scope, $routeParams, $location,authService, cadastroPerguntaService, tagService) {
   $scope.cadastrarPergunta = cadastrarPergunta;
   $scope.adicionarMarkdown = adicionarMarkdown;
   $scope.tagsSelecionadas = [];
 
   buscarTags();
 
-  function adicionarMarkdown (tipo){
+  function adicionarMarkdown (tipo) {
     $scope.novaPergunta.Descricao = 
       window.adicionarMarkdown(tipo, $scope.novaPergunta.Descricao);
   } 
@@ -18,15 +18,9 @@ function cadastrarPerguntaController($scope, $location, $routeParams, authServic
     console.log(novaPergunta);
     cadastroPerguntaService.cadastrarPergunta(novaPergunta)
       .then(response => {
-        alert('Pergunta cadastrada com sucesso, Tchê!');
         $location.path('/pergunta/' + response.data.result.id)
       }, error => {
-        if($scope.novaPergunta.Titulo == null){
-          alert('Pergunta sem titulo, tenta de novo, Tchê!');
-        }
-        if($scope.novaPergunta.Descricao == null){
-          alert('Pergunta sem descrição, tenta de novo, Tchê')
-        }
+        alert('Alguma coisa deu errada, tenta de novo, Tchê!');
       })
   }
 
@@ -52,5 +46,10 @@ function cadastrarPerguntaController($scope, $location, $routeParams, authServic
       $scope.tagsSelecionadas.push(nomeTag);
       console.log($scope.tagsSelecionadas);
     } 
+  }
+
+  $scope.removeTag = function(nomeTag) {
+    let index = $scope.tagsSelecionadas.indexOf(nomeTag);
+    $scope.tagsSelecionadas.splice(index, 1);
   }
 }
