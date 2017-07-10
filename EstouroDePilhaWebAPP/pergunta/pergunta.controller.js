@@ -35,7 +35,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController', function ($sc
   }
 
   function buscarQuantidadeDeRespostasPorIdDaPergunta(){
-    perguntaService.buscarQuantidadeDeRespostasPorIdDaPergunta(idDaPergunta).then(function(response){
+    perguntaService. buscarQuantidadeDeRespostasPorIdDaPergunta(idDaPergunta).then(function(response){
       $scope.totalDeRespostas = response.data.result;
 
     })
