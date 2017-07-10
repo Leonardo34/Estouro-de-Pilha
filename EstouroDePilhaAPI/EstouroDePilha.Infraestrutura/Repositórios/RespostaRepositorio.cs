@@ -58,7 +58,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         {
             return ObterRespostasPeloIdPergunta(idPergunta).OrderByDescending(r => r.UpVotes.Count() + r.DownVotes.Count())
                 .Skip(quantidadePular*5)
-                .Take(10).ToList();                         
+                .Take(5).ToList();                         
         }
 
         public int NumeroDeRespostasPorPergunta(int idPergunta)

@@ -3,28 +3,28 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
   $scope.pesquisar = pesquisar;
   $scope.anterior = anterior;
   $scope.proxima = proxima;
-  var paginaAtual = 0;
+  $scope.pagina = 0;
   var perguntaBuscada;
 
   function anterior(){
-    if (paginaAtual == 0)
+    if ($scope.pagina == 0)
     {
       return;
     }
-    paginaAtual = paginaAtual -1;
+    $scope.pagina = $scope.pagina -1;
     pesquisarTrazerResultados(perguntaBuscada);
   }
 
   function proxima(){
-    if ((10 * paginaAtual)/$scope.numeroDeResultadosDaPesquisa > 0) {
+    if ((10 * ($scope.pagina +1))/$scope.numeroDeResultadosDaPesquisa > 1) {
       return;
     }
-    paginaAtual = paginaAtual +1;
+    $scope.pagina = $scope.pagina +1;
     pesquisarTrazerResultados(perguntaBuscada);
   }
 
   function pesquisar (busca){
-    paginaAtual = 0;
+    $scope.pagina = 0;
     perguntaBuscada = busca;
     if (typeof perguntaBuscada === 'undefined')
     {
@@ -45,7 +45,7 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
 
   function pesquisarTrazerResultados(perguntaBuscada) {
     pesquisarPerguntaService.pesquisarTrazerResultados(
-      paginaAtual, perguntaBuscada.conteudo, perguntaBuscada.tags).then(function (response){
+      $scope.pagina, perguntaBuscada.conteudo, perguntaBuscada.tags).then(function (response){
         $scope.perguntasPesquisadas = response.data.result;
         $scope.busca =undefined;
     })

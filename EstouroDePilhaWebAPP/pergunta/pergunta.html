@@ -107,8 +107,11 @@
 
     </div>
   </div>
-  <nav class="containerPerguntasERespostas nav-center">
+  <nav class="containerPerguntasERespostas nav-center" ng-if = "totalDeRespostas > 5 ">
     <a class="pagination-previous is-centered" title="This is the first page"  ng-click = "anterior()" disabled>Anterior</a>
     <a class="pagination-next is-centered" ng-click = "proxima()">Próxima</a>
+  </nav>
+  <nav class="containerPerguntasERespostas nav-center" ng-if = "totalDeRespostas >0">
+    <a class="pagination-link">{{totalDeRespostas}} respostas encontradas</a>
   </nav>
 </div>
