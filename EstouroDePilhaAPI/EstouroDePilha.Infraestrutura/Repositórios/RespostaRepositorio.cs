@@ -54,7 +54,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .FirstOrDefault(r => r.Id == id);
         }
 
-        public List<Resposta> PaginacaoRespostas(int quantidadePular, int idPergunta)
+        public List<Resposta> ObterRespostasPaginadas(int quantidadePular, int idPergunta)
         {
             return ObterRespostasPeloIdPergunta(idPergunta).OrderByDescending(r => r.UpVotes.Count() + r.DownVotes.Count())
                 .Skip(quantidadePular*5)

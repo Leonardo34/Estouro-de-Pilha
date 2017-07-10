@@ -78,7 +78,7 @@ namespace EstouroDePilhaAPI.Controllers
         [HttpGet, Route("pergunta/{quantidadePular:int}/{idPergunta:int}")]
         public HttpResponseMessage BuscarRespostasPergunta(int quantidadePular, int idPergunta)
         {
-            var respostas = respostasRepositorio.PaginacaoRespostas(quantidadePular, idPergunta);
+            var respostas = respostasRepositorio.ObterRespostasPaginadas(quantidadePular, idPergunta);
             List<RespostaModel> respostasDto = new List<RespostaModel>();
             foreach (var each in respostas)
             {
