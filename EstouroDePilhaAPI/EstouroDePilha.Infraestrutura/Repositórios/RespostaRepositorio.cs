@@ -67,7 +67,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 quantidadeBuscar = 4;
             }
             var respostasOrdenadasPorVotos = ObterRespostasPeloIdPergunta(idPergunta)
-                 .Except(respostas).OrderByDescending(r => (r.UpVotes.Count() - r.DownVotes.Count()) > 0)
+                 .Except(respostas).OrderByDescending(r => (r.UpVotes.Count() - r.DownVotes.Count()))
                  .Skip(quantidadePular * 5)
                  .Take(quantidadeBuscar).ToList();
             respostas.AddRange(respostasOrdenadasPorVotos);
