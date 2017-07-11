@@ -116,7 +116,7 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [HttpGet]
-        [Route("pesquisa/{conteudo}/{tags}")]
+        [Route("numeroDeResultadosDaBusca/{conteudo}/{tags}")]
         public HttpResponseMessage NumeroDeResultadosDaPesquisa(string conteudo, string tags)
         {
             int NumeroDeResultadosDaPesquisa = perguntasRepositorio.NumeroDeResultadosDaPesquisa(conteudo, tags);
@@ -146,10 +146,10 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [HttpGet]
-        [Route("pesquisa/paginada/{quantidadePular:int}/{conteudo}/{tags}")]
-        public HttpResponseMessage NumeroDePerguntasDaBusca(int quantidadePular, string conteudo, string tags)
+        [Route("pesquisa/{quantidadePular:int}/{conteudo}/{tags}")]
+        public HttpResponseMessage ObterResultadosDaBuscaPaginados(int quantidadePular, string conteudo, string tags)
         {
-            var perguntasPaginadas = perguntasRepositorio.Paginacao(quantidadePular, conteudo, tags);
+            var perguntasPaginadas = perguntasRepositorio.ObterResultadosDaBuscaPaginados(quantidadePular, conteudo, tags);
             var perguntasDto = CriarPerguntasDto(perguntasPaginadas);
             return ResponderOK(perguntasDto);
         }

@@ -98,7 +98,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
             return contexto.Perguntas.Where(p => p.Usuario.Id == id).ToList();
         }
 
-        public List<Pergunta> Paginacao(int quantidadePular, string conteudoDaBusca, string tags)
+        public List<Pergunta> ObterResultadosDaBuscaPaginados(int quantidadePular, string conteudoDaBusca, string tags)
         {
             return ObterTodasAsPerguntasDaPesquisa(conteudoDaBusca, tags)
                .Skip(quantidadePular * 10).Take(10)
