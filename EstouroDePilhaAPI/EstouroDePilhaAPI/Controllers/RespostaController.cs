@@ -67,14 +67,22 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [BasicAuthorization]
-        [HttpPut]
-        public HttpResponseMessage Alterar(Resposta resposta)
+        [HttpPut, Route("editar/{idResposta:int}")]
+        public HttpResponseMessage Alterar([FromBody]RespostaModel respostaModel, int idResposta)
         {
-            if (respostasRepositorio.ObterPorId(resposta.Id) == null)
+            var resposta = respostasRepositorio.ObterPorId(idResposta);
+            var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            if (resposta == null)
             {
-                throw new Exception();
+                return ResponderErro("Pergunta não existe");
             }
-            return ResponderOK(resposta);
+            if (!resposta.UsuarioPodeEditar(usuario))
+            {
+                return ResponderErro("Você não pode editar esta resposta");
+            }
+            resposta.Descricao = respostaModel.Descricao;
+            respostasRepositorio.Alterar(resposta);
+            return ResponderOK(CriarModelResposta(resposta));
         }
 
         [HttpGet, Route("pergunta/{idPergunta:int}")]

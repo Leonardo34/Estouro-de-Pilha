@@ -19,7 +19,6 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     return $http.get(`${urlPerguntas}/usuario/${id}`);
   }
 
-
   function marcarComoCorreta(id) {
     return $http.put(`${urlResposta}correta/${id}`)
   }
