@@ -40,8 +40,8 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     return $http.get(`${urlResposta}/usuario/${id}`);
   }
 
-  function editarPergunta (pergunta){
-    return   $http.put(`${urlPerguntas}/editar`, pergunta);
+  function editarPergunta (perguntaModel){
+    return   $http.put(`${urlPerguntas}/editar`, perguntaModel);
   }
 
   return{

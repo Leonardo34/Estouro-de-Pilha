@@ -1,5 +1,5 @@
 
-angular.module('EstouroPilhaApp').controller('perguntaController', 
+angular.module('EstouroPilhaApp').controller('perguntaController',
     function ($scope, $routeParams, authService, perguntaService, tagService) {
   var email;
   var idDaPergunta = $routeParams.id;
@@ -16,7 +16,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   buscarQuantidadeDeRespostasPorIdDaPergunta();
   buscarPerguntaPorId(idDaPergunta);
   buscarRespostaPorIdDaPergunta(idDaPergunta);
-
+  $scope.editarPergunta = editarPergunta;
   $scope.upvoteResposta = upvoteResposta;
   $scope.downvoteResposta = downvoteResposta;
   $scope.usuarioVotouEmResposta = usuarioVotouEmResposta;
@@ -118,8 +118,9 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   }
 
   function editarPergunta(pergunta) {
-      abrirFecharEdicao();
-      perguntaService.editarPergunta(pergunta).then(function (response){
+    abrirFecharEdicao();
+    var perguntaModel = {Titulo:pergunta.Titulo, Descricao:pergunta.Descricao, TagsIds:pergunta.TagsIds, Id:pergunta.Id};
+    perguntaService.editarPergunta(perguntaModel).then(function (response){
        buscarPerguntaPorId(idDaPergunta);
     })
   }
@@ -131,7 +132,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
 
     if(!edicaoAberta){
       div.style.height = '0';
-      form.style.opacity = '0';    
+      form.style.opacity = '0';
     } else {
       div.style.height = '65vh';
       form.style.opacity = '1';
@@ -144,9 +145,9 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   }
 
   function adicionarMarkdown (tipo) {
-    $scope.pergunta.Descricao = 
+    $scope.pergunta.Descricao =
       window.adicionarMarkdown(tipo, $scope.pergunta.Descricao);
-  } 
+  }
 
-  
+
 });
