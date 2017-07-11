@@ -13,5 +13,6 @@ namespace EstouroDePilha.Dominio.Repositórios
         List<Pergunta> BuscaPerguntasPorTags(string tags);
         List<Pergunta> BuscaPerguntasPorTituloEDescricao(string conteudo);
         int TotalPerguntasCadastradas();
+        List<Pergunta> RetornarPerguntasOrdenadasPorMaiorNumeroDeUpVotes(List<Pergunta> perguntas);
     }
 }
