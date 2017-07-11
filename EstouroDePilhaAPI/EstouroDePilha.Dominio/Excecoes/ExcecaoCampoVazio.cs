@@ -8,7 +8,7 @@ namespace EstouroDePilha.Dominio.Excecoes
 {
     public class ExcecaoCampoVazio : Exception
     {
-        public ExcecaoCampoVazio() { }
+        public ExcecaoCampoVazio() : base("Algum campo está vazio!") { }
         public ExcecaoCampoVazio(string mensagem) : base(mensagem) { }
         public ExcecaoCampoVazio(string mensagem, Exception excecaoInterna)
             : base(mensagem, excecaoInterna) { }

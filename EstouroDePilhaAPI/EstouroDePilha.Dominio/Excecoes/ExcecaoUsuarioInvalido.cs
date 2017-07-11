@@ -8,7 +8,7 @@ namespace EstouroDePilha.Dominio.Excecoes
 {
     public class ExcecaoUsuarioInvalido : Exception
     {
-        public ExcecaoUsuarioInvalido() { }
+        public ExcecaoUsuarioInvalido() : base("Usuário inválido") { }
         public ExcecaoUsuarioInvalido(string mensagem) : base(mensagem) { }
         public ExcecaoUsuarioInvalido(string mensagem, Exception excecaoInterna)
             : base(mensagem, excecaoInterna) { }

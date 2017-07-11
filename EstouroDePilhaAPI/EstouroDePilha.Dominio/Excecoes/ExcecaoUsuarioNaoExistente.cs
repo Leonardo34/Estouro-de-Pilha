@@ -8,7 +8,7 @@ namespace EstouroDePilha.Dominio.Excecoes
 {
     public class ExcecaoUsuarioNaoExistente : Exception
     {
-        public ExcecaoUsuarioNaoExistente() { }
+        public ExcecaoUsuarioNaoExistente() : base("O usuário não existe!"){ }
         public ExcecaoUsuarioNaoExistente(string mensagem) : base(mensagem) { }
         public ExcecaoUsuarioNaoExistente(string mensagem, Exception excecaoInterna)
             : base(mensagem, excecaoInterna) { }
