@@ -25,6 +25,8 @@ namespace EstouroDePilha.Infraestrutura
         public DbSet<Tag> Tags { get; set; }
         public DbSet<UpVoteResposta> UpVotesResposta { get; set; }
         public DbSet<DownVoteResposta> DownVotesResposta { get; set; }
+        public DbSet<DownVotePergunta> DownVotesPerguntas { get; set; }
+        public DbSet<UpVotePergunta> UpVotesPerguntas { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

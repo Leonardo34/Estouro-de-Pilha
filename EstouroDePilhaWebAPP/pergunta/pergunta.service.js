@@ -17,7 +17,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
 
   function buscarTotalPerguntasCadastradas() {
     return $http.get(`${urlPerguntas}total`);
-  }
+  };
 
   function pegarPerguntasDoUsuario(id) {
     return $http.get(`${urlPerguntas}/usuario/${id}`);

@@ -48,10 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexto.cs" />
+    <Compile Include="Mapeamento\DownVotePerguntaMap.cs" />
     <Compile Include="Mapeamento\DownVoteRespostaMap.cs" />
     <Compile Include="Mapeamento\PerguntaMap.cs" />
     <Compile Include="Mapeamento\RespostaMap.cs" />
     <Compile Include="Mapeamento\TagMap.cs" />
+    <Compile Include="Mapeamento\UpVotePerguntaMap.cs" />
     <Compile Include="Mapeamento\UpVoteRespostaMap.cs" />
     <Compile Include="Mapeamento\UsuarioMap.cs" />
     <Compile Include="Migrations\201707080216007_FixUpVotesDependencyInPergunta.cs" />
@@ -69,6 +71,10 @@
     <Compile Include="Migrations\201707081831468_FixBooleanToNullable.cs" />
     <Compile Include="Migrations\201707081831468_FixBooleanToNullable.Designer.cs">
       <DependentUpon>201707081831468_FixBooleanToNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707111726062_AdicionarUpDownVotesNaPergunta.cs" />
+    <Compile Include="Migrations\201707111726062_AdicionarUpDownVotesNaPergunta.Designer.cs">
+      <DependentUpon>201707111726062_AdicionarUpDownVotesNaPergunta.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707081831468_FixBooleanToNullable.resx">
       <DependentUpon>201707081831468_FixBooleanToNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707111726062_AdicionarUpDownVotesNaPergunta.resx">
+      <DependentUpon>201707111726062_AdicionarUpDownVotesNaPergunta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

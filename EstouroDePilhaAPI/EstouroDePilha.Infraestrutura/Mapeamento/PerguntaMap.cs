@@ -32,6 +32,14 @@ namespace EstouroDePilha.Infraestrutura.Mapeamento
                     x.MapRightKey("IdTag");
                     x.ToTable("TagPergunta");
                 });
+
+            HasMany(x => x.UpVotes)
+                .WithRequired(x => x.Pergunta)
+                .Map(x => x.MapKey("IdPergunta"));
+
+            HasMany(x => x.DownVotes)
+                .WithRequired(x => x.Pergunta)
+                .Map(x => x.MapKey("IdPergunta"));
         }
     }
 }

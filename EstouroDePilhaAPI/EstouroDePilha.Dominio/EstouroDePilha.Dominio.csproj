@@ -47,11 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entidades\DownVotePergunta.cs" />
     <Compile Include="Entidades\DownVoteResposta.cs" />
     <Compile Include="Entidades\EntidadeBase.cs" />
     <Compile Include="Entidades\Pergunta.cs" />
     <Compile Include="Entidades\Resposta.cs" />
     <Compile Include="Entidades\Tag.cs" />
+    <Compile Include="Entidades\UpVotePergunta.cs" />
     <Compile Include="Entidades\UpVoteResposta.cs" />
     <Compile Include="Entidades\Usuario.cs" />
     <Compile Include="Excecoes\ExcecaoCampoVazio.cs" />
