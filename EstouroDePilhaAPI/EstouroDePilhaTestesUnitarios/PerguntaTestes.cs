@@ -137,5 +137,59 @@ namespace EstouroDePilhaTestesUnitarios
             Assert.IsFalse((bool)resposta1.EhRespostaCorreta);
             Assert.IsFalse(pergunta.ExisteRespostaCorreta());
         }
+
+        [TestMethod]
+        public void EditarPerguntaEmMenosDeSeteDias()
+        {
+            Pergunta pergunta = new Pergunta();
+            pergunta.DataPergunta = DateTime.Now.AddDays(-6);
+
+            Assert.IsTrue(pergunta.PodeEditar());
+        }
+
+        [TestMethod]
+        public void EditarPerguntaEmMenosDeUmaHoraAntesDeCompletarSeteDias()
+        {
+            Pergunta pergunta = new Pergunta();
+            pergunta.DataPergunta = DateTime.Now.AddDays(-6).AddHours(23);
+
+            Assert.IsTrue(pergunta.PodeEditar());
+        }
+
+        [TestMethod]
+        public void EditarPerguntaEmMenosDeUmMinutoAntesDeCompletarSeteDias()
+        {
+            Pergunta pergunta = new Pergunta();
+            pergunta.DataPergunta = DateTime.Now.AddDays(-6).AddHours(-23).AddMinutes(-59);
+
+            Assert.IsTrue(pergunta.PodeEditar());
+        }
+
+        [TestMethod]
+        public void EditarPerguntaEmMenosDeUmSegundooAntesDeCompletarSeteDias()
+        {
+            Pergunta pergunta = new Pergunta();
+            pergunta.DataPergunta = DateTime.Now.AddDays(-6).AddHours(-23).AddMinutes(-59).AddSeconds(-59);
+
+            Assert.IsTrue(pergunta.PodeEditar());
+        }
+
+        [TestMethod]
+        public void EditarPerguntaEmExatos7Dias()
+        {
+            Pergunta pergunta = new Pergunta();
+            pergunta.DataPergunta = DateTime.Now.AddDays(-6).AddHours(-23).AddMinutes(-59).AddSeconds(-60);
+
+            Assert.IsTrue(pergunta.PodeEditar());
+        }
+
+        [TestMethod]
+        public void EditarPerguntaDepoisDeUmSegundoPassado7Dias()
+        {
+            Pergunta pergunta = new Pergunta();
+            pergunta.DataPergunta = DateTime.Now.AddDays(-7).AddSeconds(-1);
+
+            Assert.IsFalse(pergunta.PodeEditar());
+        }
     }
 }

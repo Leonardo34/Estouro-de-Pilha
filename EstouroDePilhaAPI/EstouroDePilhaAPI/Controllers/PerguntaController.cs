@@ -55,7 +55,7 @@ namespace EstouroDePilhaAPI.Controllers
             var pergunta = new Pergunta();
             pergunta.Tags = new List<Tag>();
             pergunta.Usuario =
-                usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+               usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             pergunta.Titulo = perguntaModel.Titulo;
             pergunta.Descricao = perguntaModel.Descricao;
             if (perguntaModel.TagsIds != null)
@@ -87,12 +87,24 @@ namespace EstouroDePilhaAPI.Controllers
 
         [BasicAuthorization]
         [HttpPut]
-        [Route()]
+        [Route("editar")]
         public HttpResponseMessage Alterar([FromBody]PerguntaModel perguntaModel)
         {
+            var  usuarioLogado =  Thread.CurrentPrincipal.Identity.Name;
+            var perguntaBuscada = perguntasRepositorio.ObterPorId(perguntaModel.Id);
+            if (perguntaBuscada == null || (usuarioLogado != perguntaBuscada.Usuario.Email))
+            {
+                throw new Exception();
+            }
             var pergunta = SalvarPergunta(perguntaModel);
+            pergunta.DataPergunta = perguntaBuscada.DataPergunta;
+            pergunta.Id = perguntaModel.Id;
+            if (!pergunta.PodeEditar())
+            {
+                throw new Exception();
+            }
             perguntasRepositorio.Alterar(pergunta);
-            return ResponderOK(pergunta);
+            return ResponderOK();
         }
 
         [HttpGet]
@@ -105,7 +117,7 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [HttpGet]
-        [Route("pesquisa/{conteudo}/{tags}")]
+        [Route("numeroDeResultadosDaBusca/{conteudo}/{tags}")]
         public HttpResponseMessage NumeroDeResultadosDaPesquisa(string conteudo, string tags)
         {
             int NumeroDeResultadosDaPesquisa = perguntasRepositorio.NumeroDeResultadosDaPesquisa(conteudo, tags);
@@ -135,10 +147,10 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [HttpGet]
-        [Route("pesquisa/paginada/{quantidadePular:int}/{conteudo}/{tags}")]
-        public HttpResponseMessage NumeroDePerguntasDaBusca(int quantidadePular, string conteudo, string tags)
+        [Route("pesquisa/{quantidadePular:int}/{conteudo}/{tags}")]
+        public HttpResponseMessage ObterResultadosDaBuscaPaginados(int quantidadePular, string conteudo, string tags)
         {
-            var perguntasPaginadas = perguntasRepositorio.Paginacao(quantidadePular, conteudo, tags);
+            var perguntasPaginadas = perguntasRepositorio.ObterResultadosDaBuscaPaginados(quantidadePular, conteudo, tags);
             var perguntasDto = CriarPerguntasDto(perguntasPaginadas);
             return ResponderOK(perguntasDto);
         }

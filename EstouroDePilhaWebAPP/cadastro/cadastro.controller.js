@@ -1,6 +1,6 @@
 angular.module('EstouroPilhaApp').controller('cadastroController',
-                      function($scope, $routeParams, $location, cadastroService, authService) {
-
+ function($scope, $routeParams, $location, cadastroService, authService) {
+  $scope.logout = authService.logout;
   $scope.cadastrarUsuario = function(novoUsuario) {
     cadastroService.cadastrarUsuario(novoUsuario)
       .then(response => {
@@ -11,7 +11,7 @@ angular.module('EstouroPilhaApp').controller('cadastroController',
         authService.login(usuario)
           .then(response => {
              $location.path('/home');
-          })       
+          })
       }, error => {
         if($scope.novoUsuario.Nome == null){
           alert('Nome do usuario não preenchido, tenta de novo, Tchê!');

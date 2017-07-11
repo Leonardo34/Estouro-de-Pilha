@@ -50,5 +50,10 @@ namespace EstouroDePilha.Dominio.Entidades
         {
             return Respostas.Any(r => r.Id == id);
         }
+
+        public bool PodeEditar()
+        {
+            return (DateTime.Now - this.DataPergunta).TotalDays <=7;
+        }
     }
 }

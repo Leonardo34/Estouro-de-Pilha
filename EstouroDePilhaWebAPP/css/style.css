@@ -17,7 +17,7 @@ pre code {
   color: #ff3860;
 }
 
-h1, h2, h3, h4, h5, h6 { 
+h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   margin: .02rem;
 }
@@ -224,7 +224,7 @@ ol, ul {
 
 .botoes-desc {
   display: flex;
-  justify-content: space-between;  
+  justify-content: space-between;
 }
 
 .angucomplete-holder {
@@ -304,4 +304,40 @@ ol, ul {
 
 .tags-selected {
   position: absolute;
+}
+
+#div-edicao {
+  position: fixed;
+  bottom: 0;
+  right: 10%;
+  height: 0;
+  width: 40vw;
+  transition: height 1s;
+  background: whitesmoke;
+  border: gray solid 1px;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+#form-edicao {
+  opacity: 0;
+  transition: all 1s ease-in-out;
+}
+
+.zero-radius {
+  border-radius: 0;
+}
+
+@media screen and (max-width: 1000px){
+  #div-edicao{
+    left: 16.5%;
+    width: 66.6vw;
+  }
+}
+
+.descricaoPergunta {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
