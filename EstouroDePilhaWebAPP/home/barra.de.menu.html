@@ -4,14 +4,14 @@
             <a class="nav-item">
                 <img src="image/EstouroDePilha.png">
             </a>
-            <a class="nav-item is-tab is-hidden-mobile is-active"  href="#!/home">Estouro de Pilha</a>
-            <a class="nav-item is-tab is-hidden-mobile"  >Perguntas</a>
+            <a class="nav-item is-tab is-hidden-mobile is-active" ng-href="#!/home">Estouro de Pilha</a>
+            <a class="nav-item is-tab is-hidden-mobile" ng-href="#!/cadastroPergunta">Perguntar</a>
             <a class="nav-item is-tab is-hidden-mobile">Tags</a>
         </div>
         <div class="nav-right nav-menu">
-            <a class="nav-item is-tab" href="#!/pesquisarPergunta">Pesquisar</a>
-            <a class="nav-item is-tab"  href="#!/cadastroPergunta">Perguntar</a>
-            <a class="nav-item is-tab" ng-click="logout()">Log out</a>
+            <a class="nav-item is-tab" ng-href="#!/pesquisarPergunta">Pesquisar</a>
+            <a class="nav-item is-tab" ng-href="#!/cadastro">Cadastrar-se</a>
+            <a class="nav-item is-tab" ng-click="logout()" ng-href="#!/login">Log out</a>
         </div>
     </div>
 </nav>
