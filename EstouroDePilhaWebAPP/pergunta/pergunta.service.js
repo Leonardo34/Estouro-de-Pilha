@@ -40,20 +40,25 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     return $http.get(`${urlResposta}/usuario/${id}`);
   }
 
-  function editarPergunta (perguntaModel){
-    return   $http.put(`${urlPerguntas}/editar`, perguntaModel);
+  function editarPergunta(perguntaModel) {
+    return $http.put(`${urlPerguntas}/editar`, perguntaModel);
   }
 
-  return{
+  function editarResposta(respostaModel) {
+    return $http.put(`${urlRespostas}/editar/${respostaModel.Id}`, respostaModel);
+  }
+
+  return {
     buscarPerguntaPorId : buscarPerguntaPorId,
     buscarRespostaPorIdDaPergunta : buscarRespostaPorIdDaPergunta,
-    pegarPerguntasDoUsuario: pegarPerguntasDoUsuario,
-    pegarRespostasDoUsuario: pegarRespostasDoUsuario,
+    pegarPerguntasDoUsuario : pegarPerguntasDoUsuario,
+    pegarRespostasDoUsuario : pegarRespostasDoUsuario,
     buscarPerguntasPaginadas : buscarPerguntasPaginadas,
     marcarComoCorreta : marcarComoCorreta,
     buscarQuantidadeDeRespostasPorIdDaPergunta : buscarQuantidadeDeRespostasPorIdDaPergunta,
     upvoteResposta : upvoteResposta,
     downvoteResposta : downvoteResposta,
-    editarPergunta : editarPergunta
+    editarPergunta : editarPergunta,
+    editarResposta : editarResposta
   }
 });
