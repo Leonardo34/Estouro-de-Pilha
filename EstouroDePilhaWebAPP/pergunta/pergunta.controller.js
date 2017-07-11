@@ -38,8 +38,8 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
     })
   }
 
-  function podeEditarPergunta(){
-    if ((Date.parse(new Date()) - Date.parse(data))/(1000*3600*24) <= 7 && email === authService.getUsuario().Email){
+  function podeEditarPergunta() {
+    if ((Date.parse(new Date()) - Date.parse(data))/(1000*3600*24) <= 7 && email === authService.getUsuario().Email) {
       return true;
     }
   }
@@ -58,40 +58,38 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   }
 
   function usuarioLogado() {
-      if (authService.getUsuario() === undefined){
-        return false
-      }
-      return (authService.getUsuario().Email == email)
+    if (authService.getUsuario() === undefined) {
+      return false
     }
+    return authService.getUsuario().Email == email;
+  }
 
-    function usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta(){
-        return  (usuarioLogado() &&  !temRespostaCorreta);
-    }
+  function usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta() {
+    return usuarioLogado() && !temRespostaCorreta;
+  }
 
-   function marcarComoCorreta(idDaResposta){
-     perguntaService. marcarComoCorreta(idDaResposta).then(function (response){
+  function marcarComoCorreta(idDaResposta){
+     perguntaService. marcarComoCorreta(idDaResposta).then(function (response) {
       buscarQuantidadeDeRespostasPorIdDaPergunta()
       usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta()
       buscarRespostaPorIdDaPergunta(idDaPergunta)
     })
   };
 
-  function anterior(){
-    if ($scope.pagina == 0)
-    {
+  function anterior() {
+    if ($scope.pagina == 0) {
       return;
     }
-    $scope.pagina = $scope.pagina-1;
+    $scope.pagina = $scope.pagina- 1;
     buscarRespostaPorIdDaPergunta()
   }
 
-  function proxima(){
-    if ((5 * ($scope.pagina +1))/$scope.totalDeRespostas >=1)
-    {
+  function proxima() {
+    if ((5 * ($scope.pagina +1)) / $scope.totalDeRespostas >= 1) {
       return;
     }
-    $scope.pagina =$scope.pagina +1;
-    buscarRespostaPorIdDaPergunta()
+    $scope.pagina =$scope.pagina + 1;
+    buscarRespostaPorIdDaPergunta();
   }
 
   function upvoteResposta(resposta) {
@@ -126,12 +124,12 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
     })
   }
 
-  function abrirFecharEdicao ()  {
+  function abrirFecharEdicao() {
     let div = document.getElementById("div-edicao");
     let form = document.getElementById("form-edicao");
     edicaoAberta = !edicaoAberta;
 
-    if(!edicaoAberta){
+    if (!edicaoAberta) {
       div.style.height = '0';
       form.style.opacity = '0';
     } else {
@@ -140,15 +138,13 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
     }
   }
 
-  function cancelarEdicao(){
+  function cancelarEdicao() {
     $scope.pergunta = angular.copy(copiaPergunta);
     abrirFecharEdicao();
   }
 
-  function adicionarMarkdown (tipo) {
+  function adicionarMarkdown(tipo) {
     $scope.pergunta.Descricao =
       window.adicionarMarkdown(tipo, $scope.pergunta.Descricao);
   }
-
-
 });
