@@ -4,6 +4,7 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
     $scope.logado = authService.isAutenticado() && authService.getUsuario().Id === Number($routeParams.id);
     $scope.salvarEdicao = salvarEdicao;
     $scope.abrirFecharModalEdicao = abrirFecharModalEdicao;
+    $scope.usuario = [];
     $scope.alternarModal = false;
 
     pegarUsuario();
@@ -16,7 +17,13 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
             .then(response => {
                 $scope.usuario = response.data.result;
         },  fail => {
-                console.log(fail.data)
+            $location.path("/home");
+            new Noty({
+                type: 'error',
+                timeout: 2000,
+                text:  fail.data.ExceptionMessage                
+            }).show();
+             
         });
     }
 
