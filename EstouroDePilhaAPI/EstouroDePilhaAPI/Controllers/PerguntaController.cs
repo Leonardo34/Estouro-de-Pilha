@@ -38,6 +38,12 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(perguntasDto);
         }
 
+        [HttpGet, Route("total")]
+        public HttpResponseMessage TotalDePerguntasCadastradas()
+        {
+            return ResponderOK(perguntasRepositorio.TotalPerguntasCadastradas());
+        }
+
         [BasicAuthorization]
         [HttpDelete]
         public HttpResponseMessage Deletar(Pergunta pergunta)

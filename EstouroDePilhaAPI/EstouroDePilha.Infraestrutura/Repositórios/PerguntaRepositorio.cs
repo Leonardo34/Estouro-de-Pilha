@@ -109,5 +109,10 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         {
             return ObterTodasAsPerguntasDaPesquisa(conteudoDaBusca, tags).Count();
         }
+
+        public int TotalPerguntasCadastradas()
+        {
+            return contexto.Perguntas.Count();
+        }
     }
 }
