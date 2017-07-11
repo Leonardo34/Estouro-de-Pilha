@@ -342,7 +342,7 @@ ol, ul {
   width: initial;
 }
 
-#div-edicao {
+#div-edicao, #div-responder, #div-comentar {
   position: fixed;
   bottom: 0;
   right: 10%;
@@ -355,7 +355,7 @@ ol, ul {
   padding-right: 3rem;
 }
 
-#form-edicao {
+#form-edicao, #form-responder, #form-comentar {
   opacity: 0;
   transition: all 1s ease-in-out;
 }
@@ -365,7 +365,7 @@ ol, ul {
 }
 
 @media screen and (max-width: 1000px){
-  #div-edicao{
+  #div-edicao, #div-responder, #div-comentar{
     left: 16.5%;
     width: 66.6vw;
   }

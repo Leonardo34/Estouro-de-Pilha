@@ -51,6 +51,10 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     return $http.put(`${urlResposta}/editar/${respostaModel.Id}`, respostaModel);
   }
 
+  function responderPergunta(respostaModel, idPergunta) {
+    return $http.post(`${urlResposta}/nova/${idPergunta}`, respostaModel);
+  }
+  
   function upvotePergunta (idPergunta) {
     return $http.post(`${urlPerguntas}${idPergunta}/upvote`, {});
   }
@@ -72,6 +76,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     editarPergunta : editarPergunta,
     editarResposta : editarResposta,
     buscarTotalPerguntasCadastradas : buscarTotalPerguntasCadastradas,
+    responderPergunta: responderPergunta
     upvotePergunta : upvotePergunta,
     downvotePergunta : downvotePergunta
   }
