@@ -42,7 +42,7 @@
                 <a class="level-item">
                   <span class="tag is-danger">4</span>
                 </a>
-              </div>              
+              </div>
             </nav>
           </div>
 
@@ -72,7 +72,11 @@
   </div>
 
 </section>
-
+  <div class="box column is-8">
+  <nav class="containerPerguntasERespostas nav-center">
+    <a class="pagination-link">{{totalDeRespostas}} respostas encontradas</a>
+  </nav>
+</div>
   <div class="box column is-8" ng-repeat="resposta in respostas">
     <div class="descricaoDaResposta">
       <section class="level usuario-resposta-info">
@@ -126,9 +130,6 @@
     <a class="pagination-previous is-centered" title="This is the first page"  ng-click = "anterior()" disabled>Anterior</a>
     <a class="pagination-next is-centered" ng-click = "proxima()">Próxima</a>
   </nav>
-  <nav class="containerPerguntasERespostas nav-center" ng-if = "totalDeRespostas >0">
-    <a class="pagination-link">{{totalDeRespostas}} respostas encontradas</a>
-  </nav>
 </div>
 
 
@@ -155,41 +156,41 @@
               <i class=" fa fa-bold"></i>
           </span>
         </a>
-        
+
         <a class="button is-link sem-underline"  ng-click="adicionarMarkdown('I')">
           <span class="icon">
               <i class=" fa fa-italic"></i>
           </span>
         </a>
-        
+
         <a class="button is-link sem-underline" ng-click="adicionarMarkdown('OL')">
           <span class="icon">
               <i class=" fa fa-list-ol"></i>
           </span>
         </a>
-      
+
         <a class="button is-link sem-underline" ng-click="adicionarMarkdown('UL')">
           <span class="icon">
               <i class=" fa fa-list-ul"></i>
           </span>
         </a>
-      
+
         <a class="button is-link sem-underline" ng-click="adicionarMarkdown('C')">
           <span class="icon">
               <i class=" fa fa-code"></i>
           </span>
         </a>
-      
+
         <a class="button is-link sem-underline" ng-click="adicionarMarkdown('H')">
           <span class="icon">
               <i class=" fa fa-font"></i>
           </span>
         </a>
-        
+
       </nav>
-        
+
       <textarea
-          id="descricao"          
+          id="descricao"
           class="textarea"
           type="textarea"
           required
@@ -200,15 +201,15 @@
           onselect="window.listenerMudanca(this)"
           permitir-tab
           ng-trim="false">
-      </textarea>    
+      </textarea>
       <p ng-show="formEdicao.perguntaDescricao.$invalid" class="help is-danger">Me coloca aí a descrição guri</p>
-      
-      
+
+
     </div>
     <div class="level">
-      <a class="button is-success zero-radius level-item" ng-click"editarPergunta(pergunta)">Salvar</a>
+      <a class="button is-success zero-radius level-item" ng-click ="editarPergunta(pergunta)">Salvar</a>
       <a class="button is-danger zero-radius level-item" ng-click="cancelarEdicao()">Cancelar</a>
     </div>
-    
+
   </form>
 </div>

@@ -85,7 +85,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   }
 
   function proxima(){
-    if ((5 * ($scope.pagina +1))/$scope.totalDeRespostas >1)
+    if ((5 * ($scope.pagina +1))/$scope.totalDeRespostas >=1)
     {
       return;
     }

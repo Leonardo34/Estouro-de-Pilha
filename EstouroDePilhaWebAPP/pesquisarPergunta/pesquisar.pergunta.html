@@ -33,6 +33,11 @@
        </div>
      </div>
    </section>
+   <div class="box column is-8">
+     <nav class="containerPerguntasERespostas nav-center" ng-if = "numeroDeResultadosDaPesquisa >=0">
+       <a class="pagination-link">{{numeroDeResultadosDaPesquisa}} perguntas encontradas</a>
+     </nav>
+   </div>
    <div class="box column is-8" ng-repeat= "pergunta in perguntasPesquisadas">
      <section class="columns is-mobile is-multiline">
        <div class="column is-10">
@@ -83,8 +88,5 @@
   <nav class="containerPerguntasERespostas nav-center"  ng-if = "mostrarPaginacao">
     <a class="pagination-previous is-centered" title="This is the first page"  ng-click = "anterior()" disabled>Anterior</a>
     <a class="pagination-next is-centered" ng-click = "proxima()">Próxima</a>
-  </nav>
-  <nav class="containerPerguntasERespostas nav-center" ng-if = "numeroDeResultadosDaPesquisa >0">
-    <a class="pagination-link">{{numeroDeResultadosDaPesquisa}} perguntas encontradas</a>
   </nav>
 </div>

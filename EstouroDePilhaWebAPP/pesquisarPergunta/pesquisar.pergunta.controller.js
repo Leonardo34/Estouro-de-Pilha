@@ -16,7 +16,7 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
   }
 
   function proxima(){
-    if ((10 * ($scope.pagina +1))/$scope.numeroDeResultadosDaPesquisa > 1) {
+    if ((10 * ($scope.pagina +1))/$scope.numeroDeResultadosDaPesquisa >= 1) {
       return;
     }
     $scope.pagina = $scope.pagina +1;
