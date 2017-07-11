@@ -305,3 +305,32 @@ ol, ul {
 .tags-selected {
   position: absolute;
 }
+
+#div-edicao {
+  position: fixed;
+  bottom: 0;
+  right: 10%;
+  height: 0;
+  width: 40vw;
+  transition: height 1s;
+  background: whitesmoke;
+  border: gray solid 1px;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+#form-edicao { 
+  opacity: 0;
+  transition: all 1s ease-in-out;
+}
+
+.zero-radius {
+  border-radius: 0;
+}
+
+@media screen and (max-width: 1000px){
+  #div-edicao{
+    left: 16.5%;
+    width: 66.6vw;
+  }
+}
