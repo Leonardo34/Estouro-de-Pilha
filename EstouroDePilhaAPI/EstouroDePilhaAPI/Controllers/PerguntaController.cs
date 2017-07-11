@@ -93,7 +93,7 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [HttpGet]
-        [Route("numeroDeResultadosDaBusca/{conteudo}/{tags}")]
+        [Route("numeroDeResultadosDaBusca")]
         public HttpResponseMessage NumeroDeResultadosDaPesquisa(string conteudo, string tags)
         {
             int NumeroDeResultadosDaPesquisa = perguntasRepositorio.NumeroDeResultadosDaPesquisa(conteudo, tags);
