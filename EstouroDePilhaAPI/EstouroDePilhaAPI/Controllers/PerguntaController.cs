@@ -90,13 +90,14 @@ namespace EstouroDePilhaAPI.Controllers
         [Route("editar")]
         public HttpResponseMessage Alterar([FromBody]PerguntaModel perguntaModel)
         {
-            var buscaPergunta = perguntasRepositorio.ObterPorId(perguntaModel.Id);
-            if (buscaPergunta== null)
+            var  usuarioLogado =  Thread.CurrentPrincipal.Identity.Name;
+            var perguntaBuscada = perguntasRepositorio.ObterPorId(perguntaModel.Id);
+            if (perguntaBuscada == null || (usuarioLogado != perguntaBuscada.Usuario.Email))
             {
                 throw new Exception();
             }
             var pergunta = SalvarPergunta(perguntaModel);
-            pergunta.DataPergunta = buscaPergunta.DataPergunta;
+            pergunta.DataPergunta = perguntaBuscada.DataPergunta;
             pergunta.Id = perguntaModel.Id;
             if (!pergunta.PodeEditar())
             {
