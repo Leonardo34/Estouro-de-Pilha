@@ -53,7 +53,7 @@
                 <input class="input"
                     type="url"
                     required
-                    ng-model="novoUsuario.Foto"
+                    ng-model="novoUsuario.UrlImagemPerfil"
                     placeholder="https://foto.png">
               </p>
               <label for="novoUsuario" class="label has-text-centered">Senha</label>
@@ -73,6 +73,7 @@
                   class="textarea"
                   type="text"
                   required
+                  ng-model="novoUsuario.Descricao"
                   minlength="3"
                   maxlength="100"
                   placeholder="Conta tuas indiada!"></textarea>

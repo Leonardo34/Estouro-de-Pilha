@@ -2,6 +2,7 @@ angular.module('EstouroPilhaApp')
   .controller('cadastrarPerguntaController', cadastrarPerguntaController);
 
 function cadastrarPerguntaController($scope, $routeParams, $location,authService, cadastroPerguntaService, tagService) {
+  $scope.logout = authService.logout;
   $scope.cadastrarPergunta = cadastrarPergunta;
   $scope.adicionarMarkdown = adicionarMarkdown;
   $scope.tagsSelecionadas = [];
@@ -9,9 +10,9 @@ function cadastrarPerguntaController($scope, $routeParams, $location,authService
   buscarTags();
 
   function adicionarMarkdown (tipo) {
-    $scope.novaPergunta.Descricao = 
+    $scope.novaPergunta.Descricao =
       window.adicionarMarkdown(tipo, $scope.novaPergunta.Descricao);
-  } 
+  }
 
   function cadastrarPergunta(novaPergunta) {
     novaPergunta.TagsIds = $scope.tagsSelecionadas.map(t => $scope.tags.find(x => x.Descricao == t).Id);
@@ -45,7 +46,7 @@ function cadastrarPerguntaController($scope, $routeParams, $location,authService
     if (!$scope.tagsSelecionadas.some(t => t === nomeTag)) {
       $scope.tagsSelecionadas.push(nomeTag);
       console.log($scope.tagsSelecionadas);
-    } 
+    }
   }
 
   $scope.removeTag = function(nomeTag) {

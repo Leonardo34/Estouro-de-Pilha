@@ -1,5 +1,5 @@
 angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', function ($scope, authService, pesquisarPerguntaService){
-
+  $scope.logout = authService.logout;
   $scope.pesquisar = pesquisar;
   $scope.anterior = anterior;
   $scope.proxima = proxima;
@@ -16,7 +16,7 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
   }
 
   function proxima(){
-    if ((10 * ($scope.pagina +1))/$scope.numeroDeResultadosDaPesquisa > 1) {
+    if ((10 * ($scope.pagina +1))/$scope.numeroDeResultadosDaPesquisa >= 1) {
       return;
     }
     $scope.pagina = $scope.pagina +1;

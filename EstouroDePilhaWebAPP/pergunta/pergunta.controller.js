@@ -1,10 +1,14 @@
 
-angular.module('EstouroPilhaApp').controller('perguntaController', 
+angular.module('EstouroPilhaApp').controller('perguntaController',
     function ($scope, $routeParams, authService, perguntaService, tagService) {
   var email;
   var idDaPergunta = $routeParams.id;
   var data;
+  var copiaPergunta; //utilizado para voltar ao estado original caso edição seja cancelada
   var temRespostaCorreta;
+  var edicaoAberta = false;
+  $scope.logout = authService.logout;
+  $scope.adicionarMarkdown = adicionarMarkdown;
   $scope.proxima = proxima;
   $scope.anterior = anterior;
   $scope.usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta = usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta;
@@ -13,7 +17,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   buscarQuantidadeDeRespostasPorIdDaPergunta();
   buscarPerguntaPorId(idDaPergunta);
   buscarRespostaPorIdDaPergunta(idDaPergunta);
-
+  $scope.editarPergunta = editarPergunta;
   $scope.upvoteResposta = upvoteResposta;
   $scope.downvoteResposta = downvoteResposta;
   $scope.usuarioVotouEmResposta = usuarioVotouEmResposta;
@@ -21,18 +25,21 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.usuarioDeuDownvoteResposta = usuarioDeuDownvoteResposta;
   $scope.usuario = authService.getUsuario();
   buscarRespostaPorIdDaPergunta();
-  $scope.editarPergunta = editarPergunta;
+  $scope.podeEditarPergunta = podeEditarPergunta;
+  $scope.abrirFecharEdicao = abrirFecharEdicao;
+  $scope.cancelarEdicao = cancelarEdicao;
 
   function buscarPerguntaPorId() {
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response) {
       $scope.pergunta = response.data.result;
+      copiaPergunta = angular.copy($scope.pergunta);
       data  = $scope.pergunta.DataPergunta;
       email =   $scope.pergunta.Usuario.Email;
     })
   }
 
-  function editarPergunta(){
-    if ((Date.parse(new Date()) - Date.parse(data))/(1000*3600*24)>=7 && email === authService.getUsuario().Email){
+  function podeEditarPergunta(){
+    if ((Date.parse(new Date()) - Date.parse(data))/(1000*3600*24) <= 7 && email === authService.getUsuario().Email){
       return true;
     }
   }
@@ -79,7 +86,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   }
 
   function proxima(){
-    if ((5 * ($scope.pagina +1))/$scope.totalDeRespostas >1)
+    if ((5 * ($scope.pagina +1))/$scope.totalDeRespostas >=1)
     {
       return;
     }
@@ -110,4 +117,38 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   function usuarioDeuUpvoteResposta(resposta) {
     return resposta.UpVotes.some(u => u.Id == authService.getUsuario().Id);
   }
+
+  function editarPergunta(pergunta) {
+    abrirFecharEdicao();
+    var perguntaModel = {Titulo:pergunta.Titulo, Descricao:pergunta.Descricao, TagsIds:pergunta.TagsIds, Id:pergunta.Id};
+    perguntaService.editarPergunta(perguntaModel).then(function (response){
+       buscarPerguntaPorId(idDaPergunta);
+    })
+  }
+
+  function abrirFecharEdicao ()  {
+    let div = document.getElementById("div-edicao");
+    let form = document.getElementById("form-edicao");
+    edicaoAberta = !edicaoAberta;
+
+    if(!edicaoAberta){
+      div.style.height = '0';
+      form.style.opacity = '0';
+    } else {
+      div.style.height = '65vh';
+      form.style.opacity = '1';
+    }
+  }
+
+  function cancelarEdicao(){
+    $scope.pergunta = angular.copy(copiaPergunta);
+    abrirFecharEdicao();
+  }
+
+  function adicionarMarkdown (tipo) {
+    $scope.pergunta.Descricao =
+      window.adicionarMarkdown(tipo, $scope.pergunta.Descricao);
+  }
+
+
 });
