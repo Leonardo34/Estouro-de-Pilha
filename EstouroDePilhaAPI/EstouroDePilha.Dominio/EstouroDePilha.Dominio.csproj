@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entidades\Badge.cs" />
     <Compile Include="Entidades\DownVotePergunta.cs" />
     <Compile Include="Entidades\DownVoteResposta.cs" />
     <Compile Include="Entidades\EntidadeBase.cs" />

@@ -13,7 +13,6 @@ namespace EstouroDePilha.Dominio.Entidades
         static readonly char[] _caracteresNovaSenha = "abcdefghijklmnopqrstuvzwyz1234567890*-_".ToCharArray();
         static readonly int _numeroCaracteresNovaSenha = 10;
 
-
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
@@ -24,6 +23,7 @@ namespace EstouroDePilha.Dominio.Entidades
         public string Senha { get; set; }
         public List<Pergunta> Perguntas { get; set; }
         public List<Resposta> Respostas { get; set; }
+        public List<Badge> Badges { get; set; }
 
         public Usuario(string nome, string endereco, string descricao, string urlFotoPerfil, string email, string senha)
         {

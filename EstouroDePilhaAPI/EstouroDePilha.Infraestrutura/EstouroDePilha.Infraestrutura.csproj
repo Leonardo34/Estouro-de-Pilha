@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexto.cs" />
+    <Compile Include="Mapeamento\BadgeMap.cs" />
     <Compile Include="Mapeamento\DownVotePerguntaMap.cs" />
     <Compile Include="Mapeamento\DownVoteRespostaMap.cs" />
     <Compile Include="Mapeamento\PerguntaMap.cs" />
@@ -79,6 +80,10 @@
     <Compile Include="Migrations\201707112013517_fixbuf.cs" />
     <Compile Include="Migrations\201707112013517_fixbuf.Designer.cs">
       <DependentUpon>201707112013517_fixbuf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707112132502_mapeamentoBadges.cs" />
+    <Compile Include="Migrations\201707112132502_mapeamentoBadges.Designer.cs">
+      <DependentUpon>201707112132502_mapeamentoBadges.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707112013517_fixbuf.resx">
       <DependentUpon>201707112013517_fixbuf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707112132502_mapeamentoBadges.resx">
+      <DependentUpon>201707112132502_mapeamentoBadges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
