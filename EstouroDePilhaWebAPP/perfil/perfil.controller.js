@@ -4,6 +4,7 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
     $scope.logado = authService.isAutenticado() && authService.getUsuario().Id === Number($routeParams.id);
     $scope.salvarEdicao = salvarEdicao;
     $scope.abrirFecharModalEdicao = abrirFecharModalEdicao;
+    $scope.estaLogado = authService.isAutenticado();
     $scope.usuario = [];
     $scope.alternarModal = false;
 

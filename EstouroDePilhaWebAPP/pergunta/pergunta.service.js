@@ -76,7 +76,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     editarPergunta : editarPergunta,
     editarResposta : editarResposta,
     buscarTotalPerguntasCadastradas : buscarTotalPerguntasCadastradas,
-    responderPergunta: responderPergunta
+    responderPergunta: responderPergunta,
     upvotePergunta : upvotePergunta,
     downvotePergunta : downvotePergunta
   }

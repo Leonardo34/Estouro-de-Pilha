@@ -3,6 +3,7 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
   $scope.pesquisar = pesquisar;
   $scope.anterior = anterior;
   $scope.proxima = proxima;
+  $scope.estaLogado = authService.isAutenticado();
   $scope.pagina = 0;
   var perguntaBuscada;
 

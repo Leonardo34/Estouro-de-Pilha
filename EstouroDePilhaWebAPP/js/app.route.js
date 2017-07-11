@@ -12,21 +12,37 @@ angular.module('EstouroPilhaApp').config(function ($routeProvider) {
       controller: 'homeController',
       templateUrl: 'home/home.html'
     })
-    .when('/tags', {
-      controller: 'tagsController',
-      templateUrl: 'tags/tags.html'
-    })
     .when('/cadastroPergunta', {
       controller: 'cadastrarPerguntaController',
-      templateUrl: 'cadastroPergunta/cadastroPergunta.html'
+      templateUrl: 'cadastroPergunta/cadastroPergunta.html',
+      resolve: {
+        autenticado: function (authService) {
+          new Noty({
+                type: 'error',
+                timeout: 2000,
+                text: 'Precisa te cadastrar, Tchê!'
+          }).show();
+          return authService.isAutenticadoPromise();
+        }
+      }
     })
     .when('/pergunta/:id', {
       controller: 'perguntaController',
-      templateUrl: 'pergunta/pergunta.html'
+      templateUrl: 'pergunta/pergunta.html' 
     })
     .when('/perfil/:id', {
       controller: 'perfilController',
-      templateUrl: 'perfil/perfil.html'
+      templateUrl: 'perfil/perfil.html',
+      resolve: {
+          autenticado: function (authService) {
+            new Noty({
+                type: 'error',
+                timeout: 2000,
+                text: 'Precisa te cadastrar, Tchê!'
+            }).show();
+            return authService.isAutenticadoPromise();
+          }
+      }
     })
     .when('/pesquisarPergunta', {
       controller: 'pesquisarPerguntaController',

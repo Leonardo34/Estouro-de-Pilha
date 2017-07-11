@@ -6,12 +6,12 @@
             </a>
             <a class="nav-item is-tab is-active" ng-href="#!/home">Estouro de Pilha</a>
             <a class="nav-item is-tab" ng-href="#!/cadastroPergunta">Perguntar</a>
-            <a class="nav-item is-tab">Tags</a>
+            <a class="nav-item is-tab" ng-href="#!/pesquisarPergunta">Pesquisar</a>
         </div>
         <div class="nav-right nav-menu">
-            <a class="nav-item is-tab" ng-href="#!/pesquisarPergunta">Pesquisar</a>
-            <a class="nav-item is-tab" ng-href="#!/cadastro">Cadastrar-se</a>
-            <a class="nav-item is-tab" ng-click="logout()" ng-href="#!/login">Log out</a>
+            <a class="nav-item is-tab" ng-if="!estaLogado" ng-href="#!/login">Logar</a>
+            <a class="nav-item is-tab" ng-if="!estaLogado" ng-href="#!/cadastro">Cadastrar-se</a>
+            <a class="nav-item is-tab" ng-if="estaLogado" ng-click="logout()" ng-href="#!/login">Log out</a>
         </div>
     </div>
 </nav>
