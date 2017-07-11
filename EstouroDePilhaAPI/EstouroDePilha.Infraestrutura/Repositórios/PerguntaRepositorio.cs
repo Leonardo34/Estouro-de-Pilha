@@ -66,27 +66,36 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 
         public List<Pergunta> ObterTodasAsPerguntasDaPesquisa(string conteudo, string tags)
         {
+            List<Pergunta> perguntasDaPesquisa;
             if (conteudo.Contains("undefined"))
             {
-                return BuscaPerguntasPorTags(tags);
+                perguntasDaPesquisa = BuscaPerguntasPorTags(tags);
+                return RetornarPerguntasOrdenadasPorMaiorNumeroDeUpVotes(perguntasDaPesquisa);
             }
             else if (tags.Contains("undefined"))
             {
-                return BuscaPerguntasPorTituloEDescricao(conteudo);
+                perguntasDaPesquisa = BuscaPerguntasPorTituloEDescricao(conteudo);
+                return RetornarPerguntasOrdenadasPorMaiorNumeroDeUpVotes(perguntasDaPesquisa);
             }
             else
             {
-                return BuscaPerguntasPorTags(tags).Intersect(BuscaPerguntasPorTituloEDescricao(conteudo)).ToList();
+                perguntasDaPesquisa = BuscaPerguntasPorTags(tags).Intersect(BuscaPerguntasPorTituloEDescricao(conteudo)).ToList();
+                return RetornarPerguntasOrdenadasPorMaiorNumeroDeUpVotes(perguntasDaPesquisa);
             }
         }
 
-        public List<Pergunta> BuscaPerguntasPorTags(string tags)
+        private List<Pergunta> BuscaPerguntasPorTags(string tags)
         {
             return contexto.Perguntas.Include("Tags")
-               .Include("Usuario").Where(p => p.Tags.Any(t => t.Descricao.Contains(tags))).ToList();
+               .Include("Usuario").Where(p => p.Tags.Any(t => t.Descricao.Contains(tags))).ToList();         
         }
 
-        public List<Pergunta> BuscaPerguntasPorTituloEDescricao(string conteudoDaBusca)
+        private  List<Pergunta> RetornarPerguntasOrdenadasPorMaiorNumeroDeUpVotes(List <Pergunta> perguntas)
+        {
+            return perguntas.OrderByDescending(p => p.UpVotes.Count() - p.DownVotes.Count()).ToList();
+        }
+
+        private List<Pergunta> BuscaPerguntasPorTituloEDescricao(string conteudoDaBusca)
         {
             var conteudo = conteudoDaBusca.ToLower();
             return contexto.Perguntas.Include("Tags")
