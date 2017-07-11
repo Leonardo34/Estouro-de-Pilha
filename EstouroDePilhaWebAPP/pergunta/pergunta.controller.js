@@ -4,7 +4,10 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   var email;
   var idDaPergunta = $routeParams.id;
   var data;
+  var copiaPergunta; //utilizado para voltar ao estado original caso edição seja cancelada
   var temRespostaCorreta;
+  var edicaoAberta = false;
+  $scope.adicionarMarkdown = adicionarMarkdown;
   $scope.proxima = proxima;
   $scope.anterior = anterior;
   $scope.usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta = usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta;
@@ -22,17 +25,20 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.usuario = authService.getUsuario();
   buscarRespostaPorIdDaPergunta();
   $scope.podeEditarPergunta = podeEditarPergunta;
+  $scope.abrirFecharEdicao = abrirFecharEdicao;
+  $scope.cancelarEdicao = cancelarEdicao;
 
   function buscarPerguntaPorId() {
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response) {
       $scope.pergunta = response.data.result;
+      copiaPergunta = angular.copy($scope.pergunta);
       data  = $scope.pergunta.DataPergunta;
       email =   $scope.pergunta.Usuario.Email;
     })
   }
 
   function podeEditarPergunta(){
-    if ((Date.parse(new Date()) - Date.parse(data))/(1000*3600*24)>=7 && email === authService.getUsuario().Email){
+    if ((Date.parse(new Date()) - Date.parse(data))/(1000*3600*24) <= 7 && email === authService.getUsuario().Email){
       return true;
     }
   }
@@ -112,8 +118,35 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   }
 
   function editarPergunta(pergunta) {
+      abrirFecharEdicao();
       perguntaService.editarPergunta(pergunta).then(function (response){
        buscarPerguntaPorId(idDaPergunta);
     })
   }
+
+  function abrirFecharEdicao ()  {
+    let div = document.getElementById("div-edicao");
+    let form = document.getElementById("form-edicao");
+    edicaoAberta = !edicaoAberta;
+
+    if(!edicaoAberta){
+      div.style.height = '0';
+      form.style.opacity = '0';    
+    } else {
+      div.style.height = '65vh';
+      form.style.opacity = '1';
+    }
+  }
+
+  function cancelarEdicao(){
+    $scope.pergunta = angular.copy(copiaPergunta);
+    abrirFecharEdicao();
+  }
+
+  function adicionarMarkdown (tipo) {
+    $scope.pergunta.Descricao = 
+      window.adicionarMarkdown(tipo, $scope.pergunta.Descricao);
+  } 
+
+  
 });

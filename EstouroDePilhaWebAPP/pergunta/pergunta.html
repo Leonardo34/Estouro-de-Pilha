@@ -42,7 +42,7 @@
                 <a class="level-item">
                   <span class="tag is-danger">4</span>
                 </a>
-              </div>
+              </div>              
             </nav>
           </div>
 
@@ -50,11 +50,11 @@
 
       </div>
 
-      <div class="column">
+      <div class="column is-flex">
         <small class="pull-right">{{pergunta.DataPergunta | date: 'dd/MM/yyyy'}}</small>
 
         <!--aqui irá a seção de upvote da pergunta-->
-        <a class="button is-primary pull-right" ng-if = "podeEditarPergunta()" >Editar</a>
+        <a class="button is-primary pull-right" ng-click="abrirFecharEdicao()" ng-if="podeEditarPergunta()">Editar</a>
       </div>
 
 
@@ -129,4 +129,86 @@
   <nav class="containerPerguntasERespostas nav-center" ng-if = "totalDeRespostas >0">
     <a class="pagination-link">{{totalDeRespostas}} respostas encontradas</a>
   </nav>
+</div>
+
+
+<!-- div de edição -->
+<div id="div-edicao">
+  <form id="form-edicao" name="formEdicao" novalidate>
+    <label for="tituloPergunta" class="label has-text-centered">Título da tua pergunta</label>
+    <input class="input"
+        type="text"
+        autofocus
+        required
+        name="perguntaTitulo"
+        minlength="3"
+        maxlength="50"
+        ng-model="pergunta.Titulo">
+    </input>
+    <p ng-show="formEdicao.perguntaTitulo.$invalid" class="help is-danger">Pô, tchê! Não se esquece do título.</p>
+
+    <div class="box descricao-box">
+
+      <nav class="botoes-desc">
+        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('B')">
+          <span class="icon">
+              <i class=" fa fa-bold"></i>
+          </span>
+        </a>
+        
+        <a class="button is-link sem-underline"  ng-click="adicionarMarkdown('I')">
+          <span class="icon">
+              <i class=" fa fa-italic"></i>
+          </span>
+        </a>
+        
+        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('OL')">
+          <span class="icon">
+              <i class=" fa fa-list-ol"></i>
+          </span>
+        </a>
+      
+        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('UL')">
+          <span class="icon">
+              <i class=" fa fa-list-ul"></i>
+          </span>
+        </a>
+      
+        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('C')">
+          <span class="icon">
+              <i class=" fa fa-code"></i>
+          </span>
+        </a>
+      
+        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('H')">
+          <span class="icon">
+              <i class=" fa fa-font"></i>
+          </span>
+        </a>
+        
+      </nav>
+        
+      <textarea
+          id="descricao"          
+          class="textarea"
+          type="textarea"
+          required
+          name="perguntaDescricao"
+          minlength="3"
+          maxlength="1000"
+          ng-model="pergunta.Descricao"
+          onselect="window.listenerMudanca(this)"
+          permitir-tab
+          ng-trim="false">
+      </textarea>    
+      <p ng-show="formEdicao.perguntaDescricao.$invalid" class="help is-danger">Me coloca aí a descrição guri</p>
+      
+      
+    </div>
+    <div class="level">
+      <a class="button is-success zero-radius level-item" ng-click"editarPergunta(pergunta)">Salvar</a>
+      <a class="button is-danger zero-radius level-item" ng-click="cancelarEdicao()">Cancelar</a>
+    </div>
+    
+  </form>
 </div>
