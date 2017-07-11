@@ -12,5 +12,6 @@ namespace EstouroDePilha.Dominio.Repositórios
         List<Pergunta> ListarPaginado(int skip, int take);
         List<Pergunta> BuscaPerguntasPorTags(string tags);
         List<Pergunta> BuscaPerguntasPorTituloEDescricao(string conteudo);
+        int TotalPerguntasCadastradas();
     }
 }
