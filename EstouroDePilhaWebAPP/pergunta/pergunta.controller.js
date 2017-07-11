@@ -7,6 +7,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   var copiaPergunta; //utilizado para voltar ao estado original caso edição seja cancelada
   var temRespostaCorreta;
   var edicaoAberta = false;
+  $scope.logout = authService.logout;
   $scope.adicionarMarkdown = adicionarMarkdown;
   $scope.proxima = proxima;
   $scope.anterior = anterior;

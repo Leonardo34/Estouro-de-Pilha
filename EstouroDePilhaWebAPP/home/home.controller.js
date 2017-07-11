@@ -1,6 +1,7 @@
 angular.module('EstouroPilhaApp').controller('homeController', function ($scope, authService, perguntaService){
   $scope.pagina = 0;
   $scope.itensPagina = 5;
+  $scope.logout = authService.logout;
   carregarPerguntas();
 
   $scope.proximaPagina = function() {
