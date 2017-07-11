@@ -28,6 +28,11 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.podeEditarPergunta = podeEditarPergunta;
   $scope.abrirFecharEdicao = abrirFecharEdicao;
   $scope.cancelarEdicao = cancelarEdicao;
+  $scope.upvotePergunta = upvotePergunta;
+  $scope.downvotePergunta = downvotePergunta;
+  $scope.usuarioVotouEmPergunta = usuarioVotouEmPergunta;
+  $scope.usuarioDeuUpvotePergunta = usuarioDeuUpvotePergunta;
+  $scope.usuarioDeuDownvotePergunta = usuarioDeuDownvotePergunta;
 
   function buscarPerguntaPorId() {
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response) {
@@ -39,6 +44,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   }
 
   function podeEditarPergunta() {
+    if (authService.getUsuario() !== undefined)
     if ((Date.parse(new Date()) - Date.parse(data))/(1000*3600*24) <= 7 && email === authService.getUsuario().Email) {
       return true;
     }
@@ -109,10 +115,12 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   }
 
   function usuarioDeuDownvoteResposta(resposta) {
+    if (authService.getUsuario() !== undefined)
     return resposta.DownVotes.some(u => u.Id == authService.getUsuario().Id);
   }
 
   function usuarioDeuUpvoteResposta(resposta) {
+    if (authService.getUsuario() !== undefined)
     return resposta.UpVotes.some(u => u.Id == authService.getUsuario().Id);
   }
 
@@ -146,5 +154,32 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   function adicionarMarkdown(tipo) {
     $scope.pergunta.Descricao =
       window.adicionarMarkdown(tipo, $scope.pergunta.Descricao);
+  }
+
+  function upvotePergunta(pergunta) {
+    perguntaService.upvotePergunta(pergunta.Id);
+    pergunta.QuantidadeUpVotes += 1;
+    pergunta.UpVotes.push($scope.usuario);
+  }
+
+  function downvotePergunta(pergunta) {
+    perguntaService.downvotePergunta(pergunta.Id);
+    pergunta.QuantidadeDownVotes += 1;
+    pergunta.DownVotes.push($scope.usuario);
+  }
+
+  function usuarioVotouEmPergunta(pergunta) {
+    if (pergunta  !== undefined)
+    return usuarioDeuDownvotePergunta(pergunta) || usuarioDeuUpvotePergunta(pergunta);
+  }
+
+  function usuarioDeuDownvotePergunta(pergunta) {
+    if (pergunta  !== undefined && authService.getUsuario() !== undefined)
+    return pergunta.DownVotes.some(u => u.Id == authService.getUsuario().Id);
+  }
+
+  function usuarioDeuUpvotePergunta(pergunta) {
+    if (pergunta  !== undefined && authService.getUsuario() !== undefined)
+    return pergunta.UpVotes.some(u => u.Id == authService.getUsuario().Id);
   }
 });
