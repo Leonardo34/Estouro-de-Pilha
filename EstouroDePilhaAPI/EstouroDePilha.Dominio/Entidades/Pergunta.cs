@@ -63,5 +63,10 @@ namespace EstouroDePilha.Dominio.Entidades
             return UpVotes.Any(u => u.Usuario.Id == usuario.Id)
                 || DownVotes.Any(d => d.Usuario.Id == usuario.Id);
         }
+
+        public bool DeveSerExcluida()
+        {
+            return (UpVotes.Count() - DownVotes.Count()) <= 4;
+        }
     }
 }

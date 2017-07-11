@@ -96,18 +96,18 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
             }
         }
 
-        private List<Pergunta> BuscaPerguntasPorTags(string tags)
+        public List<Pergunta> BuscaPerguntasPorTags(string tags)
         {
             return contexto.Perguntas.Include("Tags")
                .Include("Usuario").Where(p => p.Tags.Any(t => t.Descricao.Contains(tags))).ToList();         
         }
 
-        private  List<Pergunta> RetornarPerguntasOrdenadasPorMaiorNumeroDeUpVotes(List <Pergunta> perguntas)
+        public List<Pergunta> RetornarPerguntasOrdenadasPorMaiorNumeroDeUpVotes(List <Pergunta> perguntas)
         {
             return perguntas.OrderByDescending(p => p.UpVotes.Count() - p.DownVotes.Count()).ToList();
         }
 
-        private List<Pergunta> BuscaPerguntasPorTituloEDescricao(string conteudoDaBusca)
+        public List<Pergunta> BuscaPerguntasPorTituloEDescricao(string conteudoDaBusca)
         {
             var conteudo = conteudoDaBusca.ToLower();
             return contexto.Perguntas.Include("Tags")

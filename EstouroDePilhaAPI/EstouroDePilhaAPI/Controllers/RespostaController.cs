@@ -125,6 +125,8 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 return ResponderErro("Você não pode mais dar DownVote nesta resposta");
             }
+            respostasRepositorio.Deletar(resposta);
+            return ResponderOK(new {  });
             var downvote = new DownVoteResposta();
             downvote.Usuario = usuario;
             downvote.Resposta = resposta;
