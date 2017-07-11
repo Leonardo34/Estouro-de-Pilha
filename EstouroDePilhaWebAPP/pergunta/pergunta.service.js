@@ -6,13 +6,13 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
   function buscarPerguntaPorId(idDaPergunta) {
     return $http.get(urlPerguntas + idDaPergunta);
   };
+
   function  buscarRespostaPorIdDaPergunta(pagina, idDaPergunta){
-    return $http.get(`${urlResposta}pergunta/${pagina}/${idDaPergunta}`);
+    return $http.get(`${urlResposta}pergunta/${idDaPergunta}?skip=${pagina}`);
   };
 
   function  buscarQuantidadeDeRespostasPorIdDaPergunta(idDaPergunta){
     return $http.get(`${urlResposta}numeroDeRespostasDaPergunta/${idDaPergunta}`);
-
   };
 
   function pegarPerguntasDoUsuario(id) {
