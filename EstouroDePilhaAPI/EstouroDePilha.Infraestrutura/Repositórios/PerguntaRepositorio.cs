@@ -3,6 +3,7 @@ using EstouroDePilha.Dominio.Repositórios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,7 +20,8 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 
         public void Alterar(Pergunta pergunta)
         {
-            contexto.Entry(pergunta).State = System.Data.Entity.EntityState.Modified;
+            var perguntaBuscada = ObterPorId(pergunta.Id);
+            contexto.Entry(perguntaBuscada).CurrentValues.SetValues(pergunta);
             contexto.SaveChanges();
         }
 

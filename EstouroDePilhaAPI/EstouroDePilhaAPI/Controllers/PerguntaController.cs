@@ -55,7 +55,7 @@ namespace EstouroDePilhaAPI.Controllers
             var pergunta = new Pergunta();
             pergunta.Tags = new List<Tag>();
             pergunta.Usuario =
-                usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+               usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             pergunta.Titulo = perguntaModel.Titulo;
             pergunta.Descricao = perguntaModel.Descricao;
             if (perguntaModel.TagsIds != null)
@@ -87,12 +87,23 @@ namespace EstouroDePilhaAPI.Controllers
 
         [BasicAuthorization]
         [HttpPut]
-        [Route()]
+        [Route("editar")]
         public HttpResponseMessage Alterar([FromBody]PerguntaModel perguntaModel)
         {
+            var buscaPergunta = perguntasRepositorio.ObterPorId(perguntaModel.Id);
+            if (buscaPergunta== null)
+            {
+                throw new Exception();
+            }
             var pergunta = SalvarPergunta(perguntaModel);
+            pergunta.DataPergunta = buscaPergunta.DataPergunta;
+            pergunta.Id = perguntaModel.Id;
+            if (!pergunta.PodeEditar())
+            {
+                throw new Exception();
+            }
             perguntasRepositorio.Alterar(pergunta);
-            return ResponderOK(pergunta);
+            return ResponderOK();
         }
 
         [HttpGet]
