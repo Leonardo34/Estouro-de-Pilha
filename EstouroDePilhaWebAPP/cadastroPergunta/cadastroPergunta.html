@@ -22,23 +22,31 @@
                       placeholder="Título da tua pergunta, Tchê!">
                   </input>
                   <label for="tagsPergunta" class="label has-text-centered">Tags da tua pergunta</label>
-                  <angucomplete-alt ng-enter="adicionarTag(teste.title)"
-                      class="input"
-                      type="text"
-                      required
-                      minlength="1"
-                      maxlength="80"
-                      placeholder="Tags da tua pergunta, Tchê!"
-                      id="autocomplete-form"
-                      selected-object="teste"
-                      local-data="tags"
-                      local-search="autocompleteTag"
-                      title-field="Descricao"
-                      input-class="form-control form-control-small"
-                      match-class="highlight">
-                  </angucomplete-alt>
 
-                  <div class="card">
+                  <div class="tags-input">
+                    <span class="tag is-success" ng-repeat="tagSelecionada in tagsSelecionadas">
+                      {{tagSelecionada}}
+                      <button class="delete is-small" ng-click="removeTag(tagSelecionada)"></button>
+                    </span>
+
+                    <angucomplete-alt ng-enter="adicionarTag(teste.title)"
+                        class="input-tag"
+                        type="text"
+                        required
+                        minlength="1"
+                        maxlength="80"
+                        placeholder="Tags da tua pergunta, Tchê!"
+                        id="autocomplete-form"
+                        selected-object="teste"
+                        local-data="tags"
+                        local-search="autocompleteTag"
+                        title-field="Descricao"
+                        input-class="form-control form-control-small"
+                        match-class="highlight">
+                    </angucomplete-alt>
+                  </div>
+
+                  <!--<div class="card">
                     <div class="card-content">
                       <div class="content">
                         <span class="tag is-success" ng-repeat="tagSelecionada in tagsSelecionadas">
@@ -47,7 +55,8 @@
                         </span>
                       </div>
                     </div>
-                  </div>           
+                  </div>   -->
+
                   <label for="descricaoPergunta" class="label has-text-centered">Descrição da tua pergunta</label>
                   <div class="box descricao-box">
 
