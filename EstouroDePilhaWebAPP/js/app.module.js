@@ -28,3 +28,7 @@ angular.module('EstouroPilhaApp').directive('ngEnter', function () {
         });
     };
 });
+
+Noty.overrideDefaults({
+    theme    : 'metroui'
+});

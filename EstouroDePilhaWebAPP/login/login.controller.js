@@ -2,11 +2,17 @@ angular.module('EstouroPilhaApp').controller('loginController', function($scope,
 
   $scope.login = function() {
       authService.login($scope.usuario).then(response => {
-          alert('Ta logado Tchê!');
-      }, error => {
-          console.log(error);
-          alert('Desculpa tchê, mas alguma coisa ta errada!');
+          new Noty({
+              type: 'success',
+              timeout: 2000,
+              text: 'Login efetuado com sucesso!'
+          }).show();
+      }, fail => {
+          new Noty({
+                type: 'error',
+                timeout: 2000,
+                text: 'Usuário ou senha errado, Tchê!'                
+            }).show();          
       })
-      console.log($scope.usuario);
   } 
 });

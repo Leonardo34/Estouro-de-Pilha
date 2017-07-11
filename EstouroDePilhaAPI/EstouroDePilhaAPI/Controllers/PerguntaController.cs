@@ -63,6 +63,10 @@ namespace EstouroDePilhaAPI.Controllers
         public HttpResponseMessage Criar(PerguntaModel perguntaModel)
         {
             var pergunta = CriarEntidadePergunta(perguntaModel);
+            if (!pergunta.EhValida())
+            {
+                return ResponderErro(pergunta.Mensagens);
+            }
             pergunta.DataPergunta = DateTime.Now;
             perguntasRepositorio.Criar(pergunta);
             return ResponderOK(new { id = pergunta.Id });
@@ -228,10 +232,6 @@ namespace EstouroDePilhaAPI.Controllers
                             tagsRepositorio.ObterPorId(tag)
                         )
                     );
-            }
-            if (!pergunta.EhValida())
-            {
-                throw new Exception();
             }
             return pergunta;
         }

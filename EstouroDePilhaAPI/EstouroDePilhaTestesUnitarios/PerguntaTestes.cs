@@ -105,13 +105,13 @@ namespace EstouroDePilhaTestesUnitarios
         [TestMethod]
         public void SelecionarRespostaCorretaApenasUmaRespostaCadastradaComUsuarioCorreto()
         {
-            Usuario usuario = new Usuario("Leonardo", "teste@hotmail.com", "123");
+            Usuario usuario = new Usuario("Leonardo", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "123");
             usuario.Id = 1;
             Pergunta pergunta = new Pergunta();
             pergunta.Usuario = usuario;
             pergunta.Respostas = new List<Resposta>();
             Resposta resposta1 = new Resposta();
-            resposta1.Usuario = new Usuario("Leonardo", "teste@hotmail.com", "123"); 
+            resposta1.Usuario = new Usuario("Leonardo", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "123"); 
             resposta1.EhRespostaCorreta = false;
             pergunta.Respostas.Add(resposta1);
 
@@ -123,7 +123,7 @@ namespace EstouroDePilhaTestesUnitarios
         [TestMethod]
         public void SelecionarRespostaCorretaEntreTresRespostasCadastradasComUsuarioIgual()
         {
-            Usuario usuario = new Usuario("Leonardo", "teste@hotmail.com", "123");
+            Usuario usuario = new Usuario("Leonardo", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "123");
             usuario.Id = 1;
             Pergunta pergunta = new Pergunta();
             pergunta.Usuario = usuario;

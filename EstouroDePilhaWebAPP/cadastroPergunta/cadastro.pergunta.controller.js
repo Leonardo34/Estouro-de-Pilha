@@ -20,8 +20,19 @@ function cadastrarPerguntaController($scope, $routeParams, $location,authService
     cadastroPerguntaService.cadastrarPergunta(novaPergunta)
       .then(response => {
         $location.path('/pergunta/' + response.data.result.id)
-      }, error => {
-        alert('Alguma coisa deu errada, tenta de novo, Tchê!');
+        new Noty({
+            type: 'success',
+            timeout: 2000,
+            text: 'Pergunta cadastrada com sucesso!'
+        }).show();
+      }, fail => {
+        fail.data.errors.forEach(erro => {
+          new Noty({
+              type: 'error',
+              timeout: 2000,
+              text: erro         
+          }).show();
+        })
       })
   }
 
