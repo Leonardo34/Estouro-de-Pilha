@@ -187,7 +187,7 @@ namespace EstouroDePilhaAPI.Controllers
         {
             int numeroDeRespostasDaPergunta = respostasRepositorio.NumeroDeRespostasPorPergunta(idPergunta);
             bool temRespostaCorreta = respostasRepositorio.VerificaSeTemRespostaCorretaPorIdPergunta(idPergunta);
-            return ResponderOk(numeroDeRespostasDaPergunta, temRespostaCorreta);
+            return ResponderComOutrosDados(numeroDeRespostasDaPergunta, temRespostaCorreta);
         }
     }
 }
