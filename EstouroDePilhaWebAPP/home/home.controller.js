@@ -3,6 +3,7 @@ angular.module('EstouroPilhaApp').controller('homeController', function ($scope,
   $scope.itensPagina = 5;
   $scope.logout = authService.logout;
   carregarPerguntas();
+  carregarTotalPerguntas();
 
   $scope.proximaPagina = function() {
     $scope.pagina += 1;
@@ -18,6 +19,12 @@ angular.module('EstouroPilhaApp').controller('homeController', function ($scope,
     let skip = $scope.pagina * $scope.itensPagina;
     perguntaService.buscarPerguntasPaginadas(skip, $scope.itensPagina).then(res => {
       $scope.perguntas = res.data.result;
+    })
+  }
+
+  function carregarTotalPerguntas() {
+    perguntaService.buscarTotalPerguntasCadastradas().then(res => {
+      $scope.totalPerguntas = res.data.result;
     })
   }
 });

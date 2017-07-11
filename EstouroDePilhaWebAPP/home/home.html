@@ -5,7 +5,7 @@
   <div class="column is-two-thirds is-offset-2-desktop is-12-touch">
     <nav class="pagination">
         <a class="pagination-previous" ng-click="paginaAnterior()" ng-class="{'link-disabled' : pagina == 0}">Previous</a>
-        <a class="pagination-next" ng-click="proximaPagina()">Next page</a>
+        <a class="pagination-next" ng-click="proximaPagina()" ng-class="{'link-disabled' : (pagina + 1) * itensPagina >= totalPerguntas}">Next page</a>
         <ul class="pagination-list is-hidden-touch">
             <li>
               <a class="pagination-link">{{pagina + 1}}</a>
