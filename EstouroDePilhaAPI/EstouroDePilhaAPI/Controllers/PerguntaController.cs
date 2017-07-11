@@ -113,7 +113,7 @@ namespace EstouroDePilhaAPI.Controllers
         [Route("editar")]
         public HttpResponseMessage Alterar([FromBody]PerguntaModel perguntaModel)
         {
-            var  usuarioLogado =  Thread.CurrentPrincipal.Identity.Name;
+            var usuarioLogado =  Thread.CurrentPrincipal.Identity.Name;
             var perguntaBuscada = perguntasRepositorio.ObterPorId(perguntaModel.Id);
             if (perguntaBuscada == null || (usuarioLogado != perguntaBuscada.Usuario.Email))
             {
