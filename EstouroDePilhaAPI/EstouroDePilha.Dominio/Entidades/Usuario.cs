@@ -25,9 +25,12 @@ namespace EstouroDePilha.Dominio.Entidades
         public List<Pergunta> Perguntas { get; set; }
         public List<Resposta> Respostas { get; set; }
 
-        public Usuario(string nome, string email, string senha)
+        public Usuario(string nome, string endereco, string descricao, string urlFotoPerfil, string email, string senha)
         {
             Nome = nome;
+            Endereco = endereco;
+            Descricao = descricao;
+            UrlFotoPerfil = urlFotoPerfil;
             Email = email;            
             if (!string.IsNullOrWhiteSpace(senha))
                 Senha = CriptografarSenha(senha);
@@ -91,8 +94,17 @@ namespace EstouroDePilha.Dominio.Entidades
             if (string.IsNullOrWhiteSpace(Email))
                 Mensagens.Add("Email é inválido.");
 
+            if (string.IsNullOrEmpty(Endereco))
+                Mensagens.Add("Endereco é inválido.");
+
+            if (string.IsNullOrWhiteSpace(UrlFotoPerfil))
+                Mensagens.Add("UrlFoto é inválida.");
+
             if (string.IsNullOrWhiteSpace(Senha))
-                Mensagens.Add("Senha é inválido.");
+                Mensagens.Add("Senha é inválida.");
+
+            if (string.IsNullOrEmpty(Descricao))
+                Mensagens.Add("Descrição é inválida.");
 
             return Mensagens.Count == 0;
         }

@@ -31,7 +31,7 @@ namespace EstouroDePilhaAPI.Controllers
 
             if (usuario == null)
             {
-                usuario = new Usuario(model.Nome, model.Email, model.Senha);
+                usuario = new Usuario(model.Nome, model.Endereco, model.Descricao, model.UrlImagemPerfil, model.Email, model.Senha);
 
                 if (usuario.EhValida())
                 {
@@ -43,12 +43,12 @@ namespace EstouroDePilhaAPI.Controllers
                 }
                 else
                 {
-                    return ResponderErro();
+                    return ResponderErro(usuario.Mensagens);
                 }
             }
             else
             {
-                return ResponderErro("Usuário já existe.");
+                throw new ExcecaoUsuarioInvalido("Usuario já existe");
             }
 
             return ResponderOK(new { usuario.Id });

@@ -99,7 +99,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         public List<Pergunta> BuscaPerguntasPorTags(string tags)
         {
             return contexto.Perguntas.Include("Tags")
-               .Include("Usuario").Where(p => p.Tags.Any(t => t.Descricao.Contains(tags))).ToList();         
+               .Include("Usuario").Include("UpVotes").Include("DownVotes").Where(p => p.Tags.Any(t => t.Descricao.Contains(tags))).ToList();         
         }
 
         public List<Pergunta> RetornarPerguntasOrdenadasPorMaiorNumeroDeUpVotes(List <Pergunta> perguntas)
@@ -111,7 +111,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         {
             var conteudo = conteudoDaBusca.ToLower();
             return contexto.Perguntas.Include("Tags")
-              .Include("Usuario").Where(p => p.Titulo.ToLower().Contains(conteudo) || p.Descricao.ToLower().Contains(conteudo)).ToList();
+              .Include("Usuario").Include("UpVotes").Include("DownVotes").Where(p => p.Titulo.ToLower().Contains(conteudo) || p.Descricao.ToLower().Contains(conteudo)).ToList();
         }
 
         public List<Pergunta> ObterPerguntasUsuarioPorId(int id)

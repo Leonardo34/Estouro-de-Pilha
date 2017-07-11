@@ -10,28 +10,28 @@ namespace EstouroDePilhaTestesUnitarios
         [TestMethod]
         public void TestarMetodoEhValidaUsuarioSemNome()
         {
-            Usuario usuario = new Usuario("","mateus@gmail.com","123345");
+            Usuario usuario = new Usuario("", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "123");
             Assert.IsFalse(usuario.EhValida());
         }
 
         [TestMethod]
         public void TestarMetodoEhValidaUsuarioSemEmail()
         {
-            Usuario usuario = new Usuario("Mateus", "", "123345");
+            Usuario usuario = new Usuario("Leonardo", "", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "123");
             Assert.IsFalse(usuario.EhValida());
         }
 
         [TestMethod]
         public void TestarMetodoEhValidaUsuarioSemSenha()
         {
-            Usuario usuario = new Usuario("mateus", "mateus@gmail.com", "");
+            Usuario usuario = new Usuario("Leonardo", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "");
             Assert.IsFalse(usuario.EhValida());
         }
 
         [TestMethod]
         public void TestarMetodoEhValidaUsuarioComCamposObrigatoriosCertos()
         {
-            Usuario usuario = new Usuario("mateus", "mateus@gmail.com", "q1223");
+            Usuario usuario = new Usuario("Leonardo", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
             Assert.IsTrue(usuario.EhValida());
         }
     }
