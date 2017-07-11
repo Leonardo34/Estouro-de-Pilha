@@ -50,36 +50,12 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(pergunta);
         }
 
-        private Pergunta SalvarPergunta(PerguntaModel perguntaModel)
-        {
-            var pergunta = new Pergunta();
-            pergunta.Tags = new List<Tag>();
-            pergunta.Usuario =
-               usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
-            pergunta.Titulo = perguntaModel.Titulo;
-            pergunta.Descricao = perguntaModel.Descricao;
-            if (perguntaModel.TagsIds != null)
-            {
-
-                perguntaModel.TagsIds
-                    .ForEach(tag => pergunta.Tags.Add(
-                            tagsRepositorio.ObterPorId(tag)
-                        )
-                    );
-            }
-            if (!pergunta.EhValida())
-            {
-                throw new Exception();
-            }
-            return pergunta;
-        }
-
         [BasicAuthorization]
         [HttpPost]
         [Route("nova")]
         public HttpResponseMessage Criar(PerguntaModel perguntaModel)
         {
-            var pergunta =  SalvarPergunta(perguntaModel);
+            var pergunta = CriarEntidadePergunta(perguntaModel);
             pergunta.DataPergunta = DateTime.Now;
             perguntasRepositorio.Criar(pergunta);
             return ResponderOK(new { id = pergunta.Id });
@@ -96,7 +72,7 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 throw new Exception();
             }
-            var pergunta = SalvarPergunta(perguntaModel);
+            var pergunta = CriarEntidadePergunta(perguntaModel);
             pergunta.DataPergunta = perguntaBuscada.DataPergunta;
             pergunta.Id = perguntaModel.Id;
             if (!pergunta.PodeEditar())
@@ -117,21 +93,11 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [HttpGet]
-        [Route("numeroDeResultadosDaBusca/{conteudo}/{tags}")]
+        [Route("numeroDeResultadosDaBusca")]
         public HttpResponseMessage NumeroDeResultadosDaPesquisa(string conteudo, string tags)
         {
             int NumeroDeResultadosDaPesquisa = perguntasRepositorio.NumeroDeResultadosDaPesquisa(conteudo, tags);
             return ResponderOK(NumeroDeResultadosDaPesquisa);
-        }
-
-        private List<PerguntaModel> CriarPerguntasDto(List<Pergunta> perguntas)
-        {
-            List<PerguntaModel> perguntasDto = new List<PerguntaModel>();
-            foreach (var each in perguntas)
-            {
-                perguntasDto.Add(CriarModelPergunta(each));
-            }
-            return perguntasDto;
         }
 
         [HttpGet]
@@ -147,10 +113,10 @@ namespace EstouroDePilhaAPI.Controllers
         }
 
         [HttpGet]
-        [Route("pesquisa/{quantidadePular:int}/{conteudo}/{tags}")]
-        public HttpResponseMessage ObterResultadosDaBuscaPaginados(int quantidadePular, string conteudo, string tags)
+        [Route("pesquisa")]
+        public HttpResponseMessage ObterResultadosDaBuscaPaginados(int skip, string conteudo, string tags)
         {
-            var perguntasPaginadas = perguntasRepositorio.ObterResultadosDaBuscaPaginados(quantidadePular, conteudo, tags);
+            var perguntasPaginadas = perguntasRepositorio.ObterResultadosDaBuscaPaginados(skip, conteudo, tags);
             var perguntasDto = CriarPerguntasDto(perguntasPaginadas);
             return ResponderOK(perguntasDto);
         }
@@ -176,6 +142,40 @@ namespace EstouroDePilhaAPI.Controllers
                 }
             }
             return perguntaModel;
+        }
+
+        private List<PerguntaModel> CriarPerguntasDto(List<Pergunta> perguntas)
+        {
+            List<PerguntaModel> perguntasDto = new List<PerguntaModel>();
+            foreach (var each in perguntas)
+            {
+                perguntasDto.Add(CriarModelPergunta(each));
+            }
+            return perguntasDto;
+        }
+
+        private Pergunta CriarEntidadePergunta(PerguntaModel perguntaModel)
+        {
+            var pergunta = new Pergunta();
+            pergunta.Tags = new List<Tag>();
+            pergunta.Usuario =
+               usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            pergunta.Titulo = perguntaModel.Titulo;
+            pergunta.Descricao = perguntaModel.Descricao;
+            if (perguntaModel.TagsIds != null)
+            {
+
+                perguntaModel.TagsIds
+                    .ForEach(tag => pergunta.Tags.Add(
+                            tagsRepositorio.ObterPorId(tag)
+                        )
+                    );
+            }
+            if (!pergunta.EhValida())
+            {
+                throw new Exception();
+            }
+            return pergunta;
         }
     }
 }
