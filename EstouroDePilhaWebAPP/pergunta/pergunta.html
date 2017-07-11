@@ -54,7 +54,7 @@
         <small class="pull-right">{{pergunta.DataPergunta | date: 'dd/MM/yyyy'}}</small>
 
         <!--aqui irá a seção de upvote da pergunta-->
-        <a class="button is-primary pull-right" ng-click="abrirFecharEdicao()" ng-if="podeEditarPergunta()">Editar</a>
+        <a class="button is-primary pull-right" ng-click="abrirFecharModal('E')" ng-if="podeEditarPergunta()">Editar</a>
       </div>
 
 
@@ -72,9 +72,24 @@
   </div>
 
 </section>
-  <div class="box column is-8">
+  <div class="column is-8">
   <nav class="containerPerguntasERespostas nav-center">
     <a class="pagination-link">{{totalDeRespostas}} respostas encontradas</a>
+
+    <a class="pagination-link" ng-if="estaLogado" ng-click="abrirFecharModal('R')">
+      <span class="icon">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>      
+      </span>
+      <span>Responder</span>      
+    </a>
+
+    <a class="pagination-link" ng-if="estaLogado">
+      <span class="icon">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>      
+      </span>
+      <span>Comentar</span>      
+    </a>
+    
   </nav>
 </div>
   <div class="box column is-8" ng-repeat="resposta in respostas">
@@ -151,37 +166,37 @@
     <div class="box descricao-box">
 
       <nav class="botoes-desc">
-        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('B')">
+        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('B', 'pergunta')">
           <span class="icon">
               <i class=" fa fa-bold"></i>
           </span>
         </a>
 
-        <a class="button is-link sem-underline"  ng-click="adicionarMarkdown('I')">
+        <a class="button is-link sem-underline"  ng-click="adicionarMarkdown('I', 'pergunta')">
           <span class="icon">
               <i class=" fa fa-italic"></i>
           </span>
         </a>
 
-        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('OL')">
+        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('OL', 'pergunta')">
           <span class="icon">
               <i class=" fa fa-list-ol"></i>
           </span>
         </a>
 
-        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('UL')">
+        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('UL', 'pergunta')">
           <span class="icon">
               <i class=" fa fa-list-ul"></i>
           </span>
         </a>
 
-        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('C')">
+        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('C', 'pergunta')">
           <span class="icon">
               <i class=" fa fa-code"></i>
           </span>
         </a>
 
-        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('H')">
+        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('H', 'pergunta')">
           <span class="icon">
               <i class=" fa fa-font"></i>
           </span>
@@ -209,6 +224,79 @@
     <div class="level">
       <a class="button is-success zero-radius level-item" ng-click ="editarPergunta(pergunta)">Salvar</a>
       <a class="button is-danger zero-radius level-item" ng-click="cancelarEdicao()">Cancelar</a>
+    </div>
+
+  </form>
+</div>
+
+<!-- div de responder -->
+
+<div id="div-responder">
+  <form id="form-responder" name="formResponder" novalidate>
+    <p class="subtitle is-4">Descreve aí o que tu quer dizer:</p>
+    <div class="box descricao-box">
+
+      <nav class="botoes-desc">
+        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('B', 'responder')">
+          <span class="icon">
+              <i class=" fa fa-bold"></i>
+          </span>
+        </a>
+
+        <a class="button is-link sem-underline"  ng-click="adicionarMarkdown('I', 'responder')">
+          <span class="icon">
+              <i class=" fa fa-italic"></i>
+          </span>
+        </a>
+
+        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('OL', 'responder')">
+          <span class="icon">
+              <i class=" fa fa-list-ol"></i>
+          </span>
+        </a>
+
+        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('UL', 'responder')">
+          <span class="icon">
+              <i class=" fa fa-list-ul"></i>
+          </span>
+        </a>
+
+        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('C', 'responder')">
+          <span class="icon">
+              <i class=" fa fa-code"></i>
+          </span>
+        </a>
+
+        <a class="button is-link sem-underline" ng-click="adicionarMarkdown('H', 'responder')">
+          <span class="icon">
+              <i class=" fa fa-font"></i>
+          </span>
+        </a>
+
+      </nav>
+
+      <textarea
+          id="descricao"
+          class="textarea"
+          type="textarea"
+          required
+          name="responderDescricao"
+          minlength="3"
+          maxlength="1000"
+          ng-model="responder.Descricao"
+          onselect="window.listenerMudanca(this)"
+          permitir-tab
+          ng-trim="false">
+      </textarea>
+      <p ng-show="formResponder.responderDescricao.$invalid" class="help is-danger">Tu não podes responder dizendo nada com nada, tchê</p>
+
+
+    </div>
+    
+    <div class="box descricao-box" btf-markdown="responder.Descricao"></div>
+    <div class="level">
+      <a class="button is-success zero-radius level-item" ng-click ="responderPergunta()">Responder</a>
+      <a class="button is-danger zero-radius level-item" ng-click="abrirFecharModal('R')">Cancelar</a>
     </div>
 
   </form>

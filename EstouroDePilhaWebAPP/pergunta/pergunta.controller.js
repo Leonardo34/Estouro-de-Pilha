@@ -13,7 +13,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.anterior = anterior;
   $scope.usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta = usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta;
   $scope.marcarComoCorreta = marcarComoCorreta;
-  $scope.pagina = 0;
+  $scope.pagina = 0;  
   buscarQuantidadeDeRespostasPorIdDaPergunta();
   buscarPerguntaPorId(idDaPergunta);
   buscarRespostaPorIdDaPergunta(idDaPergunta);
@@ -24,11 +24,12 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.usuarioDeuUpvoteResposta = usuarioDeuUpvoteResposta;
   $scope.usuarioDeuDownvoteResposta = usuarioDeuDownvoteResposta;
   $scope.usuario = authService.getUsuario();
+  $scope.estaLogado = authService.isAutenticado();
   buscarRespostaPorIdDaPergunta();
   $scope.podeEditarPergunta = podeEditarPergunta;
-  $scope.abrirFecharEdicao = abrirFecharEdicao;
+  $scope.abrirFecharModal = abrirFecharModal;
   $scope.cancelarEdicao = cancelarEdicao;
-
+  $scope.responderPergunta = responderPergunta;
   function buscarPerguntaPorId() {
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response) {
       $scope.pergunta = response.data.result;
@@ -124,27 +125,75 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
     })
   }
 
-  function abrirFecharEdicao() {
-    let div = document.getElementById("div-edicao");
-    let form = document.getElementById("form-edicao");
+  function responderPergunta () {
+    perguntaService.responderPergunta($scope.responder, $scope.pergunta.Id)
+      .then(response => {
+        new Noty({
+                type: 'success',
+                timeout: 2000,
+                text:  'A resposta foi inserida!'                
+            }).show();
+         abrirFecharModal('R');
+      }, fail => {
+        new Noty({
+                type: 'error',
+                timeout: 2000,
+                text:  fail.data.ExceptionMessage                
+            }).show();
+      })
+  }
+
+  function modalEdicao(){
+    return {
+      div: document.getElementById("div-edicao"),
+      form: document.getElementById("form-edicao")
+    }
+  }
+
+  function modalResponder(){
+    return {
+      div: document.getElementById("div-responder"),
+      form: document.getElementById("form-responder")
+    }
+  }
+
+  function modalComentar(){
+    return {
+      div: document.getElementById("div-comentar"),
+      form: document.getElementById("form-comentar")
+    }
+  }
+
+  function abrirFecharModal(botao) {
+    let elemento;
     edicaoAberta = !edicaoAberta;
+    switch(botao) {
+      case 'E':
+        elemento = modalEdicao();
+        break;
+      case 'R':
+        elemento = modalResponder();
+        break;
+      case 'C':
+        elemento = modalComentar();
+        break;
+    }    
 
     if (!edicaoAberta) {
-      div.style.height = '0';
-      form.style.opacity = '0';
+      elemento.div.style.height = '0';
+      elemento.form.style.opacity = '0';
     } else {
-      div.style.height = '65vh';
-      form.style.opacity = '1';
+      elemento.div.style.height = '65vh';
+      elemento.form.style.opacity = '1';
     }
   }
 
   function cancelarEdicao() {
     $scope.pergunta = angular.copy(copiaPergunta);
-    abrirFecharEdicao();
+    abrirFecharModal('E');
   }
 
-  function adicionarMarkdown(tipo) {
-    $scope.pergunta.Descricao =
-      window.adicionarMarkdown(tipo, $scope.pergunta.Descricao);
+  function adicionarMarkdown(tipo, objeto) {
+    $scope[objeto].Descricao = window.adicionarMarkdown(tipo, $scope[objeto].Descricao);    
   }
 });
