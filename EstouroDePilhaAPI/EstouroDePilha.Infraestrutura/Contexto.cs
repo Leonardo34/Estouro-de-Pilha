@@ -27,6 +27,7 @@ namespace EstouroDePilha.Infraestrutura
         public DbSet<DownVoteResposta> DownVotesResposta { get; set; }
         public DbSet<DownVotePergunta> DownVotesPerguntas { get; set; }
         public DbSet<UpVotePergunta> UpVotesPerguntas { get; set; }
+        public DbSet<Badge> Badges { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -36,6 +37,7 @@ namespace EstouroDePilha.Infraestrutura
             modelBuilder.Configurations.Add(new TagMap());
             modelBuilder.Configurations.Add(new UpVoteRespostaMap());
             modelBuilder.Configurations.Add(new DownVoteRespostaMap());
+            modelBuilder.Configurations.Add(new BadgeMap());
         }
     }
 }
