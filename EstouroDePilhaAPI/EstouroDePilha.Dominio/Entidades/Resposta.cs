@@ -32,6 +32,11 @@ namespace EstouroDePilha.Dominio.Entidades
             return UpVotes.Any(u => u.Usuario.Id == usuario.Id)
                 || DownVotes.Any(d => d.Usuario.Id == usuario.Id);            
         }
+
+        public bool UsuarioPodeEditar(Usuario usuario)
+        {
+            return Usuario.Id == usuario.Id;
+        }
     }
 }
 
