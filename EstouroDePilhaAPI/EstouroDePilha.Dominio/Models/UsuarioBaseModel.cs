@@ -26,7 +26,7 @@ namespace EstouroDePilhaAPI.Models
             this.Descricao = descricao;
         }
 
-        public UsuarioBaseModel(int id, string nome, string email, string urlImagemPerfil, string endereco, string descricao)
+        public UsuarioBaseModel(int id, string nome,  string email, string urlImagemPerfil, string endereco, string descricao)
         {
             this.Id = id;
             this.Nome = nome;

@@ -63,6 +63,10 @@ namespace EstouroDePilhaAPI.Controllers
         public HttpResponseMessage Criar(PerguntaModel perguntaModel)
         {
             var pergunta = CriarEntidadePergunta(perguntaModel);
+            if (!pergunta.EhValida())
+            {
+                return ResponderErro(pergunta.Mensagens);
+            }
             pergunta.DataPergunta = DateTime.Now;
             perguntasRepositorio.Criar(pergunta);
             return ResponderOK(new { id = pergunta.Id });
@@ -109,7 +113,7 @@ namespace EstouroDePilhaAPI.Controllers
         [Route("editar")]
         public HttpResponseMessage Alterar([FromBody]PerguntaModel perguntaModel)
         {
-            var  usuarioLogado =  Thread.CurrentPrincipal.Identity.Name;
+            var usuarioLogado =  Thread.CurrentPrincipal.Identity.Name;
             var perguntaBuscada = perguntasRepositorio.ObterPorId(perguntaModel.Id);
             if (perguntaBuscada == null || (usuarioLogado != perguntaBuscada.Usuario.Email))
             {
@@ -228,10 +232,6 @@ namespace EstouroDePilhaAPI.Controllers
                             tagsRepositorio.ObterPorId(tag)
                         )
                     );
-            }
-            if (!pergunta.EhValida())
-            {
-                throw new Exception();
             }
             return pergunta;
         }

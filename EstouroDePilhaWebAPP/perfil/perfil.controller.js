@@ -64,6 +64,11 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
                     $location.path("/perfil/" + $scope.usuario.Id);
                     console.log(response.data);
                     abrirFecharModalEdicao();
+                    new Noty({
+                        type: 'success',
+                        timeout: 2000,
+                        text: 'Usuario editado com sucesso!'         
+                    }).show();
                 }, fail => {
                     console.log(fail.data);
                 });

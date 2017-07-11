@@ -76,11 +76,7 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 return ResponderErro("Pergunta não existe");
             }
-            if (!resposta.UsuarioPodeEditar(usuario))
-            {
-                return ResponderErro("Você não pode editar esta resposta");
-            }
-            resposta.Descricao = respostaModel.Descricao;
+            resposta.Editar(respostaModel.Descricao, usuario);
             respostasRepositorio.Alterar(resposta);
             return ResponderOK(CriarModelResposta(resposta));
         }

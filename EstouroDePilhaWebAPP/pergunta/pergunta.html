@@ -7,7 +7,20 @@
   <div class="box column is-8">
     <section class="columns is-mobile is-multiline">
       <div class="column is-10 is-12-mobile">
-
+        <div class="level-left upvote">
+          <a class="level-item" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmPergunta(pergunta)}" ng-click="upvotePergunta(pergunta)">
+            <span class="quantidade-reacoes">
+              {{pergunta.QuantidadeUpVotes}}
+            </span>
+            <span class="icon is-small"><i class="fa fa-thumbs-o-up fa-2x" ng-class="{'fa fa-thumbs-up fa-2x' : usuarioDeuUpvotePergunta(pergunta)}" aria-hidden="true"></i></span>
+          </a>
+          <a class="level-item" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmPergunta(pergunta)}" ng-click="downvotePergunta(pergunta)">
+            <span class="quantidade-reacoes">
+                {{pergunta.QuantidadeDownVotes}}
+            </span>
+            <span class="icon is-small"><i class="fa fa-thumbs-o-down fa-2x" ng-class="{'fa fa-thumbs-down fa-2x' : usuarioDeuDownvotePergunta(pergunta)}" aria-hidden="true"></i></span>
+          </a>
+        </div>
         <div class="tituloPergunta">
           <label class="label">Pergunta do bagual : "{{pergunta.Titulo}}"</label>
         </div>
