@@ -14,5 +14,7 @@ namespace EstouroDePilha.Dominio.Repositórios
         List<Pergunta> BuscaPerguntasPorTituloEDescricao(string conteudo);
         int TotalPerguntasCadastradas();
         List<Pergunta> RetornarPerguntasOrdenadasPorMaiorNumeroDeUpVotes(List<Pergunta> perguntas);
+        void AdicionarUpvote(UpVotePergunta upvote);
+        void AdicionarDownvote(DownVotePergunta downvote);
     }
 }

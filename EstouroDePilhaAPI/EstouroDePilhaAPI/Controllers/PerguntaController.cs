@@ -5,6 +5,7 @@ using EstouroDePilha.Dominio.Repositórios;
 using EstouroDePilha.Infraestrutura;
 using EstouroDePilha.Infraestrutura.Repositórios;
 using EstouroDePilhaAPI.App_Start;
+using EstouroDePilhaAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,6 +66,42 @@ namespace EstouroDePilhaAPI.Controllers
             pergunta.DataPergunta = DateTime.Now;
             perguntasRepositorio.Criar(pergunta);
             return ResponderOK(new { id = pergunta.Id });
+        }
+
+        [BasicAuthorization]
+        [HttpPost]
+        [Route("{idPergunta:int}/upvote")]
+        public HttpResponseMessage AdicionarUpvotePergunta(int idPergunta)
+        {
+            var usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            var pergunta = perguntasRepositorio.ObterPorId(idPergunta);
+            if (pergunta.UsuarioJaInteragiuComPergunta(usuario))
+            {
+                return ResponderErro("Você não pode mais dar UpVote nesta Pergunta");
+            }
+            var upvote = new UpVotePergunta();
+            upvote.Usuario = usuario;
+            upvote.Pergunta = pergunta;
+            perguntasRepositorio.AdicionarUpvote(upvote);
+            return ResponderOK(new { Id = upvote.Id });
+        }
+
+        [BasicAuthorization]
+        [HttpPost]
+        [Route("{idPergunta:int}/downvote")]
+        public HttpResponseMessage AdicionarDownVotePergunta(int idPergunta)
+        {
+            var usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            var pergunta = perguntasRepositorio.ObterPorId(idPergunta);
+            if (pergunta.UsuarioJaInteragiuComPergunta(usuario))
+            {
+                return ResponderErro("Você não pode mais dar DownVote nesta Pergunta");
+            }
+            var downvote = new DownVotePergunta();
+            downvote.Usuario = usuario;
+            downvote.Pergunta = pergunta;
+            perguntasRepositorio.AdicionarDownvote(downvote);
+            return ResponderOK(new { Id = downvote.Id });
         }
 
         [BasicAuthorization]
@@ -136,6 +173,8 @@ namespace EstouroDePilhaAPI.Controllers
             perguntaModel.Descricao = entidadePergunta.Descricao;
             perguntaModel.DataPergunta = entidadePergunta.DataPergunta;
             perguntaModel.Tags = new List<TagModel>();
+            perguntaModel.DownVotes = new List<UsuarioBaseModel>();
+            perguntaModel.UpVotes = new List<UsuarioBaseModel>();
             var tags = entidadePergunta.Tags;
             if (tags != null)
             {
@@ -145,6 +184,19 @@ namespace EstouroDePilhaAPI.Controllers
                     tagModel.Id = tag.Id;
                     tagModel.Descricao = tag.Descricao;
                     perguntaModel.Tags.Add(tagModel);
+                }
+            }
+            if (entidadePergunta.UpVotes != null && entidadePergunta.DownVotes != null)
+            {
+                perguntaModel.QuantidadeDownVotes = entidadePergunta.DownVotes.Count();
+                perguntaModel.QuantidadeUpVotes = entidadePergunta.UpVotes.Count();
+                foreach (var each in entidadePergunta.UpVotes)
+                {
+                    perguntaModel.UpVotes.Add(each.Usuario.converterUsuarioParaUsuarioModel());
+                }
+                foreach (var each in entidadePergunta.DownVotes)
+                {
+                    perguntaModel.DownVotes.Add(each.Usuario.converterUsuarioParaUsuarioModel());
                 }
             }
             return perguntaModel;

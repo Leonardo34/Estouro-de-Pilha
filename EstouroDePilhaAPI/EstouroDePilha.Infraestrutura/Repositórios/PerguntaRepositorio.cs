@@ -41,6 +41,10 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         {
             return contexto.Perguntas
                 .Include("Usuario")
+                .Include("DownVotes")
+                .Include("DownVotes.Usuario")
+                .Include("UpVotes")
+                .Include("UpVotes.Usuario")
                 .ToList();
         }
 
@@ -49,6 +53,10 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
             return contexto.Perguntas
                 .Include("Usuario")
                 .Include("Tags")
+                .Include("DownVotes")
+                .Include("DownVotes.Usuario")
+                .Include("UpVotes")
+                .Include("UpVotes.Usuario")
                 .OrderByDescending(p => p.DataPergunta)
                 .Skip(skip)
                 .Take(take)
@@ -61,6 +69,10 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .Include("Usuario")
                 .Include("Respostas")
                 .Include("Tags")
+                .Include("DownVotes")
+                .Include("DownVotes.Usuario")
+                .Include("UpVotes")
+                .Include("UpVotes.Usuario")
                 .FirstOrDefault(p => p.Id == id);
         }
 
@@ -122,6 +134,18 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         public int TotalPerguntasCadastradas()
         {
             return contexto.Perguntas.Count();
+        }
+
+        public void AdicionarUpvote(UpVotePergunta upvote)
+        {
+            contexto.UpVotesPerguntas.Add(upvote);
+            contexto.SaveChanges();
+        }
+
+        public void AdicionarDownvote(DownVotePergunta downvote)
+        {
+            contexto.DownVotesPerguntas.Add(downvote);
+            contexto.SaveChanges();
         }
     }
 }

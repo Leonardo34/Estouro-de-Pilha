@@ -16,5 +16,9 @@ namespace EstouroDePilha.Dominio.Models
         public List<int> TagsIds { get; set; }
         public List<TagModel> Tags { get; set; }
         public DateTime DataPergunta { get; set; }
+        public int QuantidadeUpVotes { get; set; }
+        public int QuantidadeDownVotes { get; set; }
+        public List<UsuarioBaseModel> UpVotes { get; set; }
+        public List<UsuarioBaseModel> DownVotes { get; set; }
     }
 }

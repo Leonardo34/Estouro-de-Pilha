@@ -57,5 +57,11 @@ namespace EstouroDePilha.Dominio.Entidades
         {
             return (DateTime.Now - this.DataPergunta).TotalDays <=7;
         }
+
+        public bool UsuarioJaInteragiuComPergunta(Usuario usuario)
+        {
+            return UpVotes.Any(u => u.Usuario.Id == usuario.Id)
+                || DownVotes.Any(d => d.Usuario.Id == usuario.Id);
+        }
     }
 }
