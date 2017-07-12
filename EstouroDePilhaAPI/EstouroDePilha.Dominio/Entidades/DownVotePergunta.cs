@@ -11,6 +11,7 @@ namespace EstouroDePilha.Dominio.Entidades
         public int Id { get; private set; }
         public Pergunta Pergunta { get; private set; }
         public Usuario Usuario { get; private set; }
+        public DateTime Data { get; private set; }
 
         protected DownVotePergunta()
         {
@@ -20,6 +21,7 @@ namespace EstouroDePilha.Dominio.Entidades
         {
             Pergunta = pergunta;
             Usuario = usuario;
+            Data = DateTime.Now;
         }
     }
 }
