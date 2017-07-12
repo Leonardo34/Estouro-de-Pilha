@@ -388,3 +388,41 @@ ol, ul {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+
+.upvote {
+  justify-content: flex-start;
+}
+
+.resposta-vote {
+  width: initial;
+}
+
+@media screen and (max-width: 1024px){
+  .upvote{
+    justify-content: center;
+    order: 2;
+  }
+  .resposta-vote {
+    width: 45%;
+   
+  }
+
+  .usuario-resposta-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .level-item {
+    order: 1;
+  }
+
+  .resposta-button-wrapper {
+    display: flex;
+    justify-content: center;
+    order: 3;
+  }
+
+  .resposta-button {
+    height: 1.8rem;
+  }
+} 
