@@ -135,8 +135,8 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var resposta = respostasRepositorio.ObterPorId(idResposta);
-            var comentario = new ComentarioResposta(resposta, usuario, comentarioModel.Descricao);
-            respostasRepositorio.AdicionarComentario(comentario);
+            resposta.Comentar(usuario, comentarioModel.Descricao);
+            respostasRepositorio.Alterar(resposta);
             return ResponderOK();
         }
 

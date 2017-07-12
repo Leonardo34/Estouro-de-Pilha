@@ -53,6 +53,8 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .Include("DownVotes")
                 .Include("DownVotes.Usuario")
                 .Include("Pergunta")
+                .Include("Comentarios")
+                .Include("Comentarios.Usuario")
                 .FirstOrDefault(r => r.Id == id);
         }
 
