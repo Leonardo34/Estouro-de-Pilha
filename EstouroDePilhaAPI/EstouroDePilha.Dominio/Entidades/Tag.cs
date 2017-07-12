@@ -10,7 +10,7 @@ namespace EstouroDePilha.Dominio.Entidades
     {
         public int Id { get; set; }
         public string Descricao { get; set; }
-        public List<Pergunta> Perguntas { get; set; }
+        public virtual List<Pergunta> Perguntas { get; set; }
 
         public override bool EhValida()
         {
