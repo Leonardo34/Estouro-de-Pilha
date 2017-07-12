@@ -84,6 +84,24 @@ ol, ul {
   margin-right: -6px;
  
 }
+.divisor-comentario {
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.image.is-24x24 {
+  min-width: 24px;
+}
+
+.comentarios {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.comentario-detalhes {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+}
 
 .control.inline-input {
   margin-left:0;
@@ -427,6 +445,12 @@ ol, ul {
 .resposta-vote {
   width: initial;
 }
+
+  .usuario-resposta-info {
+    display: flex;
+    justify-content: space-between;
+  }
+
 
 @media screen and (max-width: 1024px){
   .upvote{
