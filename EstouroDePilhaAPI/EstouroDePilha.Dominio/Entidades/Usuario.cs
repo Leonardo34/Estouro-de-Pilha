@@ -116,8 +116,8 @@ namespace EstouroDePilha.Dominio.Entidades
 
         public bool AdicionaBadgeGuri()
         {
-            int upVotesPergunta = this.Perguntas.Select(p => p.UpVotes).Count();
-            int upVotesResposta = this.Respostas.Select(r => r.UpVotes).Count();
+            int upVotesPergunta = this.Perguntas.Select(p => p.UpVotes.Count()).Count();
+            int upVotesResposta = this.Respostas.Select(r => r.UpVotes.Count).Count();
             if (upVotesPergunta + upVotesResposta == 1)
             {
                 this.Badges.Add(new Badge("Guri", "Usuário recebeu ao menos um upvote"));
