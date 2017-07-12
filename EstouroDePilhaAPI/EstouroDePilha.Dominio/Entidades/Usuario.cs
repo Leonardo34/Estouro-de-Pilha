@@ -200,5 +200,13 @@ namespace EstouroDePilha.Dominio.Entidades
             }
             return false;
         }
+
+        public bool AdicionaBadgeAmargo(Badge badge, int numeroDownVotes)
+        {
+            if (numeroDownVotes != 6) return false;
+
+            this.Badges.Add(badge);
+            return true;
+        }
     }
 }
