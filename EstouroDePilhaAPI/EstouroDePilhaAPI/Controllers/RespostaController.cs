@@ -104,9 +104,7 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 return ResponderErro("Você não pode mais dar UpVote nesta resposta");
             }
-            var upvote = new UpVoteResposta();
-            upvote.Usuario = usuario;
-            upvote.Resposta = resposta;
+            var upvote = new UpVoteResposta(resposta, usuario);
             respostasRepositorio.AdicionarUpvote(upvote);
             return ResponderOK(new { Id = upvote.Id });
         }
