@@ -115,39 +115,39 @@ namespace EstouroDePilha.Dominio.Entidades
         }
 
 
-        public bool AdicionaBadgeEntrevero()
+        public bool AdicionaBadgeEntrevero(Badge badge)
         {
             var entrevero = Perguntas.Any(p => p.
             Respostas.Count() > 10);
 
             if (entrevero)
             {
-                this.Badges.Add(new Badge("Entrevero", "Quando o usuário possui uma pergunta que tem mais de 10 respostas."));
+                this.Badges.Add(badge);
                 return true;
             }
             return false;
         }
 
-        public bool AdicionaBadgeDeVereda()
+        public bool AdicionaBadgeDeVereda(Badge badge)
         {
             var deVereda = Respostas.Any(r => r.
            Pergunta.Respostas[0].EhRespostaCorreta == true);
 
             if (deVereda)
             {
-                this.Badges.Add(new Badge("De vereda", "Quando a resposta escolhida como correta é a primeira que foi postada."));
+                this.Badges.Add(badge);
                 return true;
             }
             return false;
         }
 
-        public bool AdicionaBadgePapudo()
+        public bool AdicionaBadgePapudo(Badge badge)
         {
             var papudo = Respostas.Where(r => r.UpVotes.Count() == 0 && r.DownVotes.Count == 0);
             var badgePapudo = Badges.FirstOrDefault(b => b.Titulo.Contains("Papudo"));
             if (papudo.Count() > 10 && badgePapudo == null)
             {
-                this.Badges.Add(new Badge("Papudo", "Usuário que tem mais de 10 respostas sem downvotes nem upvotes."));
+                this.Badges.Add(badge);
                 return true;
             }
             return false;

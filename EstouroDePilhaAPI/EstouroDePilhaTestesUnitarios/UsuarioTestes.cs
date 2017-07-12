@@ -67,7 +67,9 @@ namespace EstouroDePilhaTestesUnitarios
             usuario1.Respostas.Add(resposta10);
             List<Badge> badges = new List<Badge>();
             usuario1.Badges = badges;
-            Assert.IsFalse(usuario1.AdicionaBadgePapudo());
+            Badge badgePapudo = new Badge("Papudo", "teste");
+
+            Assert.IsFalse(usuario1.AdicionaBadgePapudo(badgePapudo));
         }
 
         [TestMethod]
@@ -101,8 +103,10 @@ namespace EstouroDePilhaTestesUnitarios
             usuario1.Respostas.Add(resposta10);
             usuario1.Respostas.Add(resposta11);
             List<Badge> badges = new List<Badge>();
+            Badge badgePapudo = new Badge("Papudo", "teste");
             usuario1.Badges = badges;
-            Assert.IsTrue(usuario1.AdicionaBadgePapudo());
+
+            Assert.IsTrue(usuario1.AdicionaBadgePapudo(badgePapudo));
         }
 
         [TestMethod]
@@ -136,10 +140,12 @@ namespace EstouroDePilhaTestesUnitarios
             usuario1.Respostas.Add(resposta10);
             usuario1.Respostas.Add(resposta11);
             List<Badge> badges = new List<Badge>();
-            Badge badgePapudo = new Badge("Papudo", "teste");
-            badges.Add(badgePapudo);
+            Badge badge = new Badge("Papudo", "teste");
+            badges.Add(badge);
             usuario1.Badges = badges;
-            Assert.IsFalse(usuario1.AdicionaBadgePapudo());
+            Badge badgePapudo = new Badge("Papudo", "teste");
+
+            Assert.IsFalse(usuario1.AdicionaBadgePapudo(badgePapudo));
         }
     }
 }
