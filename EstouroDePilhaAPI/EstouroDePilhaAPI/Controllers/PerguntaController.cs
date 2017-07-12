@@ -60,14 +60,13 @@ namespace EstouroDePilhaAPI.Controllers
         [BasicAuthorization]
         [HttpPost]
         [Route("nova")]
-        public HttpResponseMessage Criar(PerguntaModel perguntaModel)
+        public HttpResponseMessage Criar([FromBody]PerguntaModel perguntaModel)
         {
             var pergunta = CriarEntidadePergunta(perguntaModel);
             if (!pergunta.EhValida())
             {
                 return ResponderErro(pergunta.Mensagens);
             }
-            pergunta.DataPergunta = DateTime.Now;
             perguntasRepositorio.Criar(pergunta);
             return ResponderOK(new { id = pergunta.Id });
         }
@@ -83,9 +82,7 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 return ResponderErro("Você não pode mais dar UpVote nesta Pergunta");
             }
-            var upvote = new UpVotePergunta();
-            upvote.Usuario = usuario;
-            upvote.Pergunta = pergunta;
+            var upvote = new UpVotePergunta(pergunta, usuario);
             perguntasRepositorio.AdicionarUpvote(upvote);
             return ResponderOK(new { Id = upvote.Id });
         }
@@ -101,9 +98,7 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 return ResponderErro("Você não pode mais dar DownVote nesta Pergunta");
             }
-            var downvote = new DownVotePergunta();
-            downvote.Usuario = usuario;
-            downvote.Pergunta = pergunta;
+            var downvote = new DownVotePergunta(pergunta, usuario);
             perguntasRepositorio.AdicionarDownvote(downvote);
             return ResponderOK(new { Id = downvote.Id });
         }
@@ -113,20 +108,10 @@ namespace EstouroDePilhaAPI.Controllers
         [Route("editar")]
         public HttpResponseMessage Alterar([FromBody]PerguntaModel perguntaModel)
         {
-            var usuarioLogado =  Thread.CurrentPrincipal.Identity.Name;
+            var usuarioLogado = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var perguntaBuscada = perguntasRepositorio.ObterPorId(perguntaModel.Id);
-            if (perguntaBuscada == null || (usuarioLogado != perguntaBuscada.Usuario.Email))
-            {
-                throw new Exception();
-            }
-            var pergunta = CriarEntidadePergunta(perguntaModel);
-            pergunta.DataPergunta = perguntaBuscada.DataPergunta;
-            pergunta.Id = perguntaModel.Id;
-            if (!pergunta.PodeEditar())
-            {
-                throw new Exception();
-            }
-            perguntasRepositorio.Alterar(pergunta);
+            perguntaBuscada.Editar(perguntaModel.Descricao, perguntaModel.Titulo, usuarioLogado);
+            perguntasRepositorio.Alterar(perguntaBuscada);
             return ResponderOK();
         }
 
@@ -218,20 +203,12 @@ namespace EstouroDePilhaAPI.Controllers
 
         private Pergunta CriarEntidadePergunta(PerguntaModel perguntaModel)
         {
-            var pergunta = new Pergunta();
-            pergunta.Tags = new List<Tag>();
-            pergunta.Usuario =
-               usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
-            pergunta.Titulo = perguntaModel.Titulo;
-            pergunta.Descricao = perguntaModel.Descricao;
+            var usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            var pergunta = new Pergunta(usuario, perguntaModel.Titulo, perguntaModel.Descricao);
             if (perguntaModel.TagsIds != null)
             {
-
                 perguntaModel.TagsIds
-                    .ForEach(tag => pergunta.Tags.Add(
-                            tagsRepositorio.ObterPorId(tag)
-                        )
-                    );
+                    .ForEach(tag => pergunta.AdicionarTag(tagsRepositorio.ObterPorId(tag)));
             }
             return pergunta;
         }
