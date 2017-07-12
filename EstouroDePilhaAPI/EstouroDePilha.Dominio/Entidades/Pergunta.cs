@@ -102,5 +102,24 @@ namespace EstouroDePilha.Dominio.Entidades
                 Titulo = titulo;
             }
         }
+
+        public void UpVote(Usuario usuario)
+        {
+            if (UsuarioJaInteragiuComPergunta(usuario))
+            {
+                throw new Exception("Você não pode mais dar UpVote nesta pergunta");
+            }
+            UpVotes.Add(new UpVotePergunta(this, usuario));
+        }
+
+        public void DownVote(Usuario usuario)
+        {
+            if (UsuarioJaInteragiuComPergunta(usuario))
+            {
+                throw new Exception("Você não pode mais dar DownVote nesta pergunta");
+            }
+            DownVotes.Add(new DownVotePergunta(this, usuario));
+        }
     }
+}
 }

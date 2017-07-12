@@ -99,13 +99,16 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var resposta = respostasRepositorio.ObterPorId(idResposta);
-            if (resposta.UsuarioJaInteragiuComResposta(usuario))
+            try
             {
-                return ResponderErro("Você não pode mais dar UpVote nesta resposta");
+                resposta.UpVote(usuario);
+                respostasRepositorio.Alterar(resposta);
+                return ResponderOK();
             }
-            var upvote = new UpVoteResposta(resposta, usuario);
-            respostasRepositorio.AdicionarUpvote(upvote);
-            return ResponderOK(new { Id = upvote.Id });
+            catch (Exception e)
+            {
+                return ResponderErro(e.Message);
+            }
         }
 
         [BasicAuthorization]
@@ -114,13 +117,16 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var resposta = respostasRepositorio.ObterPorId(idResposta);
-            if (resposta.UsuarioJaInteragiuComResposta(usuario))
+            try
             {
-                return ResponderErro("Você não pode mais dar DownVote nesta resposta");
+                resposta.DownVote(usuario);
+                respostasRepositorio.Alterar(resposta);
+                return ResponderOK();
             }
-            var downvote = new DownVoteResposta(resposta, usuario);
-            respostasRepositorio.AdicionarDownvote(downvote);
-            return ResponderOK(new { Id = downvote.Id });
+            catch (Exception e)
+            {
+                return ResponderErro(e.Message);
+            }
         }
 
         [BasicAuthorization]

@@ -68,6 +68,24 @@ namespace EstouroDePilha.Dominio.Entidades
         {
             EhRespostaCorreta = true;
         }
+
+        public void UpVote(Usuario usuario)
+        {
+            if (UsuarioJaInteragiuComResposta(usuario))
+            {
+                throw new Exception("Você não pode mais dar UpVote nesta resposta");
+            }
+            UpVotes.Add(new UpVoteResposta(this, usuario));
+        }
+
+        public void DownVote(Usuario usuario)
+        {
+            if (UsuarioJaInteragiuComResposta(usuario))
+            {
+                throw new Exception("Você não pode mais dar DownVote nesta resposta");
+            }
+            DownVotes.Add(new DownVoteResposta(this, usuario));
+        }
     }
 }
 
