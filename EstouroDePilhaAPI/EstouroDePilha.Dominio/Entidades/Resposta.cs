@@ -16,6 +16,7 @@ namespace EstouroDePilha.Dominio.Entidades
         public bool? EhRespostaCorreta { get; private set; }
         public List<UpVoteResposta> UpVotes { get; private set; }
         public List<DownVoteResposta> DownVotes { get; private set; }
+        public List<ComentarioResposta> Comentarios { get; private set; }
 
         protected Resposta()
         {
@@ -30,6 +31,7 @@ namespace EstouroDePilha.Dominio.Entidades
             DataResposta = DateTime.Now;
             UpVotes = new List<UpVoteResposta>();
             DownVotes = new List<DownVoteResposta>();
+            Comentarios = new List<ComentarioResposta>();
         }
 
         public override bool EhValida()
