@@ -168,7 +168,19 @@
       <article class="resposta-descricao">
         <pre><p btf-markdown="resposta.Descricao"></p></pre>
       </article>
+      <!-- form de comentario  -->
+      <form novalidate>
+        <div class="field has-addons"  ng-if="estaLogado">
+          <p class="control inline-input">
+            <input class="input borderless-right small" ng-model="comentarResposta" type="text">
+          </p>
+          <p class="control inline-button ">
+            <a class="button is-primary borderless-left small" ng-click="comentarResposta(resposta.Id)">Comentar</a>
+          </p>
+        </div>
+      </form>
 
+      <!-- form de edição -->
       <form novalidate class="form-resposta-fechado" ng-class="{'form-resposta-edicao': resposta.edicao}">
         <p class="title is-5">Editar resposta:</p>
         <textarea class="textarea" ng-model="resposta.Descricao"></textarea>

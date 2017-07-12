@@ -71,6 +71,37 @@ ol, ul {
   color: #95A5A6;
 }
 
+.small {
+  height: 25px;
+}
+
+.field.has-addons {
+  justify-content: center;
+}
+
+.field.control {
+  
+  margin-right: -6px;
+ 
+}
+
+.control.inline-input {
+  margin-left:0;
+  width: 82%
+}
+
+.inline-button {
+  margin-left: 0;
+}
+
+.borderless-right {
+  border-right: 0;
+}
+
+.borderless-left {
+  border-left: 0;
+}
+
 .icon.user,
 .icon.password {
   margin: 5px 10px 0 0;
