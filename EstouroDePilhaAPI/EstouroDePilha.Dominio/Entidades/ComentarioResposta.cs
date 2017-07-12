@@ -9,8 +9,8 @@ namespace EstouroDePilha.Dominio.Entidades
     public class ComentarioResposta
     {
         public int Id { get; private set; }
-        public Resposta Resposta { get; private set; }
-        public Usuario Usuario { get; private set; }
+        public virtual Resposta Resposta { get; private set; }
+        public virtual Usuario Usuario { get; private set; }
         public string Descricao { get; private set; }
         public DateTime DataComentario { get; private set; }
 

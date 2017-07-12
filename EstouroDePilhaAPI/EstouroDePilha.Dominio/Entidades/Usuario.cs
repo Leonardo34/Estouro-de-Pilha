@@ -21,9 +21,9 @@ namespace EstouroDePilha.Dominio.Entidades
         public DateTime DataCadastro { get; set; }
         public string UrlFotoPerfil { get; set; }
         public string Senha { get; set; }
-        public List<Pergunta> Perguntas { get; set; }
-        public List<Resposta> Respostas { get; set; }
-        public List<Badge> Badges { get; set; }
+        public virtual List<Pergunta> Perguntas { get; set; }
+        public virtual List<Resposta> Respostas { get; set; }
+        public virtual List<Badge> Badges { get; set; }
 
         public Usuario(string nome, string endereco, string descricao, string urlFotoPerfil, string email, string senha)
         {
@@ -116,8 +116,8 @@ namespace EstouroDePilha.Dominio.Entidades
 
         public bool AdicionaBadgeGuri(Badge badge)
         {
-            int upVotesPergunta = this.Perguntas.Select(p => p.UpVotes.Count()).Count();
-            int upVotesResposta = this.Respostas.Select(r => r.UpVotes.Count).Count();
+            int upVotesPergunta = this.Perguntas.Select(p => p.UpVotes.Count()).Sum();
+            int upVotesResposta = this.Respostas.Select(r => r.UpVotes.Count).Sum();
             var badgeGuri = Badges.FirstOrDefault(b => b.Titulo.Contains("Guri"));
             if ((upVotesPergunta + upVotesResposta == 1) && (badgeGuri == null))
             {
@@ -131,7 +131,7 @@ namespace EstouroDePilha.Dominio.Entidades
         {
             
             var ehTramposo = Perguntas.Any(p => p.
-            Respostas.Any(r => r.EhRespostaCorreta == true && (r.Usuario.Id == r.Pergunta.Usuario.Id)));
+                Respostas.Any(r => r.EhRespostaCorreta == true && (r.Usuario.Id == r.Pergunta.Usuario.Id)));
             var badgeTramposo =  Badges.FirstOrDefault(b => b.Titulo.Contains("Tramposo"));
             if (ehTramposo && badgeTramposo == null)
             {

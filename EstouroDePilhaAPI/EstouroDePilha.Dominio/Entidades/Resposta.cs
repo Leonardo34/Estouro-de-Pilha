@@ -9,14 +9,14 @@ namespace EstouroDePilha.Dominio.Entidades
     public class Resposta : EntidadeBase
     {
         public int Id { get; private set; }
-        public Usuario Usuario { get; private set; }
+        public virtual Usuario Usuario { get; private set; }
         public String Descricao { get; private set; }
         public DateTime DataResposta { get; private set; }
         public Pergunta Pergunta { get; private set; }
         public bool? EhRespostaCorreta { get; private set; }
-        public List<UpVoteResposta> UpVotes { get; private set; }
-        public List<DownVoteResposta> DownVotes { get; private set; }
-        public List<ComentarioResposta> Comentarios { get; private set; }
+        public virtual List<UpVoteResposta> UpVotes { get; private set; }
+        public virtual List<DownVoteResposta> DownVotes { get; private set; }
+        public virtual List<ComentarioResposta> Comentarios { get; private set; }
 
         protected Resposta()
         {
@@ -47,13 +47,13 @@ namespace EstouroDePilha.Dominio.Entidades
         public bool UsuarioJaInteragiuComResposta(Usuario usuario)
         {
             return UpVotes.Any(u => u.Usuario.Id == usuario.Id)
-                || DownVotes.Any(d => d.Usuario.Id == usuario.Id);            
+                || DownVotes.Any(d => d.Usuario.Id == usuario.Id);
         }
 
         private bool UsuarioPodeEditar(Usuario usuario)
         {
             //gauderio irá editar quando quiser
-            return Usuario.Id == usuario.Id && (EhRespostaCorreta == false || EhRespostaCorreta == null);
+            return Usuario.Id == usuario.Id && (EhRespostaCorreta ?? false);
         }
 
         public void Editar(string descricao, Usuario usuario)

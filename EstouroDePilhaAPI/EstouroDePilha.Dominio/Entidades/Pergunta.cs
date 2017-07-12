@@ -9,14 +9,14 @@ namespace EstouroDePilha.Dominio.Entidades
     public class Pergunta : EntidadeBase
     {
         public int Id { get; private set; }
-        public Usuario Usuario { get; private set; }
+        public virtual Usuario Usuario { get; private set; }
         public string Titulo { get; private set; }
         public string Descricao { get; private set; }
-        public List<Resposta> Respostas { get; private set; }
+        public virtual List<Resposta> Respostas { get; private set; }
         public DateTime DataPergunta { get; private set; }
-        public List<Tag> Tags { get; private set; }
-        public List<UpVotePergunta> UpVotes { get; private set; }
-        public List<DownVotePergunta> DownVotes { get; private set; }
+        public virtual List<Tag> Tags { get; private set; }
+        public virtual List<UpVotePergunta> UpVotes { get; private set; }
+        public virtual List<DownVotePergunta> DownVotes { get; private set; }
 
         protected Pergunta()
         {
@@ -52,11 +52,9 @@ namespace EstouroDePilha.Dominio.Entidades
             return Respostas.Any(r => r.EhRespostaCorreta == true);
         }
 
-        public bool SelecionarRespostaCorreta(Resposta resposta)
+        public bool SelecionarRespostaCorreta(Resposta resposta, Usuario usuario)
         {
-            if (ExisteRespostaCorreta()
-                    || !ExisteRespostaComId(resposta.Id)
-                    || Usuario.Id == resposta.Usuario.Id)
+            if (ExisteRespostaCorreta() || !ExisteRespostaComId(resposta.Id))
             {
                 return false;
             }

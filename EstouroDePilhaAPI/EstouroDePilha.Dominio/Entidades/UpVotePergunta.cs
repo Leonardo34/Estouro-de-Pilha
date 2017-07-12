@@ -9,8 +9,8 @@ namespace EstouroDePilha.Dominio.Entidades
     public class UpVotePergunta
     {
         public int Id { get; private set; }
-        public Pergunta Pergunta { get; private set; }
-        public Usuario Usuario { get; private set; }
+        public virtual Pergunta Pergunta { get; private set; }
+        public virtual Usuario Usuario { get; private set; }
         public DateTime Data { get; private set; }
 
         protected UpVotePergunta()
