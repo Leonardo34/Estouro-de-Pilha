@@ -21,9 +21,9 @@ namespace EstouroDePilha.Dominio.Entidades
         public DateTime DataCadastro { get; set; }
         public string UrlFotoPerfil { get; set; }
         public string Senha { get; set; }
-        public List<Pergunta> Perguntas { get; set; }
-        public List<Resposta> Respostas { get; set; }
-        public List<Badge> Badges { get; set; }
+        public virtual List<Pergunta> Perguntas { get; set; }
+        public virtual List<Resposta> Respostas { get; set; }
+        public virtual List<Badge> Badges { get; set; }
 
         public Usuario(string nome, string endereco, string descricao, string urlFotoPerfil, string email, string senha)
         {
@@ -114,10 +114,51 @@ namespace EstouroDePilha.Dominio.Entidades
             return new UsuarioBaseModel(this.Id, this.Nome, this.Email, this.UrlFotoPerfil, this.Endereco, this.DataCadastro, this.Descricao);
         }
 
+        public bool AdicionarBadgePeleador(Badge badge, int idPergunta)
+        {
+            var respostaCorreta = Respostas.FirstOrDefault
+                (r => r.Pergunta.Id == idPergunta).Pergunta.Respostas.
+                FirstOrDefault(r => r.EhRespostaCorreta == true);
+            var respostas = Respostas.Where(r => r.Pergunta.Id == idPergunta);
+            var respostasPeleadoras = respostas.Where
+                (r => r.UpVotes.Count() - respostaCorreta.UpVotes.Count() >10);
+            var numeroDeRespostasPeleadoras = respostasPeleadoras.Count();
+            var numeroDeBadgesPeleadoras = this.Badges.Where(b => b.Titulo.Contains("Peleador")).Count();
+            if (numeroDeRespostasPeleadoras > numeroDeBadgesPeleadoras)
+            {        
+                while (numeroDeRespostasPeleadoras > numeroDeBadgesPeleadoras)
+                {
+                    this.Badges.Add(badge);
+                    numeroDeBadgesPeleadoras++;
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public bool AdicionaBadgeEntrevero(Badge badge, int idPergunta)
+        {
+            Pergunta pergunta = Perguntas.FirstOrDefault(p => p.Id == idPergunta);
+            var entrevero = pergunta.Respostas.Count > 10;
+            if (entrevero)
+            {
+                this.Badges.Add(badge);
+                return true;
+            }
+            return false;
+        }
+
+        public bool AdicionaBadgeDeVereda(Badge badge, int idPergunta)
+        {
+            var resposta = Respostas.FirstOrDefault(r => r.Pergunta.Id == idPergunta);
+            var respostas = resposta.Pergunta.Respostas.OrderBy(r => r.DataResposta).ToList();
+            var primeiraResposta = Respostas[0].EhRespostaCorreta;
+            if (resposta.EhRespostaCorreta == true && primeiraResposta == true)
+
         public bool AdicionaBadgeGuri(Badge badge)
         {
-            int upVotesPergunta = this.Perguntas.Select(p => p.UpVotes.Count()).Count();
-            int upVotesResposta = this.Respostas.Select(r => r.UpVotes.Count).Count();
+            int upVotesPergunta = this.Perguntas.Select(p => p.UpVotes.Count()).Sum();
+            int upVotesResposta = this.Respostas.Select(r => r.UpVotes.Count).Sum();
             var badgeGuri = Badges.FirstOrDefault(b => b.Titulo.Contains("Guri"));
             if ((upVotesPergunta + upVotesResposta == 1) && (badgeGuri == null))
             {
@@ -127,11 +168,22 @@ namespace EstouroDePilha.Dominio.Entidades
             return false;
         }
 
+
+        public bool AdicionaBadgePapudo(Badge badge)
+        {
+            var badgePapudo = Badges.FirstOrDefault(b => b.Titulo.Contains("Papudo"));
+            if (badgePapudo != null)
+            {
+                return false;
+            }
+            var papudo = Respostas.Where(r => r.UpVotes.Count() == 0 && r.DownVotes.Count == 0);
+            if (papudo.Count() > 10)
+
         public bool AdicionaBadgeTramposo(Badge badge)
         {
             
             var ehTramposo = Perguntas.Any(p => p.
-            Respostas.Any(r => r.EhRespostaCorreta == true && (r.Usuario.Id == r.Pergunta.Usuario.Id)));
+                Respostas.Any(r => r.EhRespostaCorreta == true && (r.Usuario.Id == r.Pergunta.Usuario.Id)));
             var badgeTramposo =  Badges.FirstOrDefault(b => b.Titulo.Contains("Tramposo"));
             if (ehTramposo && badgeTramposo == null)
             {

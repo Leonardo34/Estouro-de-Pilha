@@ -149,7 +149,7 @@
               </small>
             </p>
           </div>
-          <div class="level-right resposta-button-wrapper">
+          <div class="level-right resposta-button-wrapper"  ng-if="estaLogado">
             <a class="button pagination-link is-primary resposta-button" ng-click="abrirFecharEdicaoResposta($index)" ng-if="usuario.Id === resposta.Usuario.Id">
               <span class="icon">
                   <i class=" fa fa-pencil"></i>
@@ -183,6 +183,31 @@
       <article class="resposta-descricao">
         <pre><p btf-markdown="resposta.Descricao"></p></pre>
       </article>
+
+      <div class="comentarios-resposta">
+        <hr class="divisor-comentario">
+        <div ng-repeat="comentario in resposta.Comentarios">
+          <div class="level content comentarios">
+            <span class="level-left comentario-detalhes">
+              <figure class="image is-24x24">
+                <img  ng-src="{{comentario.Usuario.UrlImagemPerfil}}">  
+              </figure>
+              <p>
+                <a ng-href="/#!/perfil/{{comentario.Usuario.Id}}">
+                  <strong>{{comentario.Usuario.Nome}}:</strong>
+                </a> 
+                <span>{{comentario.Descricao}}</span>
+              </p>
+            </span>
+            <span class="level-right">
+              <small>
+                {{comentario.DataComentario | date:'dd/MM/yyyy hh:mm'}}  
+              </small>
+            </span>          
+          </div>             
+        </div>
+      </div>
+
       <!-- form de comentario  -->
       <form novalidate>
         <div class="field has-addons"  ng-if="estaLogado">
@@ -190,7 +215,7 @@
             <input class="input borderless-right small" ng-model="comentario.Descricao" type="text">
           </p>
           <p class="control inline-button ">
-            <a class="button is-primary borderless-left small" ng-click="comentarResposta(comentario, resposta.Id)">Comentar</a>
+              <a class="button is-primary borderless-left small" ng-click="comentarResposta(comentario, resposta.Id)">Comentar</a>
           </p>
         </div>
       </form>

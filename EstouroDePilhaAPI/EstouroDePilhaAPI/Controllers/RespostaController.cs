@@ -13,6 +13,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Http;
 using EstouroDePilhaAPI.Models;
+using EstouroDePilha.Dominio.Servicos;
 
 namespace EstouroDePilhaAPI.Controllers
 {
@@ -22,13 +23,16 @@ namespace EstouroDePilhaAPI.Controllers
         private readonly IRespostaRepositorio respostasRepositorio;
         private readonly IPerguntaRepositorio perguntasRepositorio;
         private readonly IUsuarioRepositorio usuariosRepositorio;
+        private readonly IBadgeService badgeService;
 
         public RespostaController(IRespostaRepositorio respostasRepositorio,
-            IPerguntaRepositorio perguntasRepositorio, IUsuarioRepositorio usuariosRepositorio)
+            IPerguntaRepositorio perguntasRepositorio, IUsuarioRepositorio usuariosRepositorio,
+            IBadgeService badgeService)
         {
             this.perguntasRepositorio = perguntasRepositorio;
             this.respostasRepositorio = respostasRepositorio;
             this.usuariosRepositorio = usuariosRepositorio;
+            this.badgeService = badgeService;
         }
 
         [HttpGet, Route()]
@@ -103,6 +107,8 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 resposta.UpVote(usuario);
                 respostasRepositorio.Alterar(resposta);
+                badgeService.ChecarBadges(usuario);
+                badgeService.ChecarBadges(resposta.Usuario);
                 return ResponderOK();
             }
             catch (Exception e)
@@ -156,10 +162,12 @@ namespace EstouroDePilhaAPI.Controllers
         public HttpResponseMessage SelecionarRespostaCorreta(int idResposta)
         {
             var resposta = respostasRepositorio.ObterPorId(idResposta);
-            int idPergunta = resposta.Pergunta.Id;
-            var pergunta = perguntasRepositorio.ObterPorId(idPergunta);
-            if (pergunta.SelecionarRespostaCorreta(resposta))
+            var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            var pergunta = perguntasRepositorio.ObterPorId(resposta.Pergunta.Id);
+            if (pergunta.SelecionarRespostaCorreta(resposta, usuario))
             {
+                badgeService.ChecarBadges(usuario);
+                badgeService.ChecarBadges(resposta.Usuario);
                 respostasRepositorio.Alterar(resposta);
                 return ResponderOK();
             }
