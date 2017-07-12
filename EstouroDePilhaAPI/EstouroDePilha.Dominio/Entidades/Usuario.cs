@@ -31,13 +31,13 @@ namespace EstouroDePilha.Dominio.Entidades
             Endereco = endereco;
             Descricao = descricao;
             UrlFotoPerfil = urlFotoPerfil;
-            Email = email;            
+            Email = email;
             if (!string.IsNullOrWhiteSpace(senha))
                 Senha = CriptografarSenha(senha);
             Mensagens = new List<string>();
         }
 
-      
+
         public Usuario(int id, string nome, string senha, string endereco, string descricao, string urlImagemPerfil)
         {
             Nome = nome;
@@ -109,9 +109,33 @@ namespace EstouroDePilha.Dominio.Entidades
             return Mensagens.Count == 0;
         }
 
-        public UsuarioBaseModel converterUsuarioParaUsuarioModel ()
+        public UsuarioBaseModel converterUsuarioParaUsuarioModel()
         {
             return new UsuarioBaseModel(this.Id, this.Nome, this.Email, this.UrlFotoPerfil, this.Endereco, this.DataCadastro, this.Descricao);
+        }
+
+        public bool AdicionaBadgeGuri()
+        {
+            int upVotesPergunta = this.Perguntas.Select(p => p.UpVotes).Count();
+            int upVotesResposta = this.Respostas.Select(r => r.UpVotes).Count();
+            if (upVotesPergunta + upVotesResposta == 1)
+            {
+                this.Badges.Add(new Badge("Guri", "Usuário recebeu ao menos um upvote"));
+                return true;
+            }
+            return false;
+        }
+
+        public bool AdicionaBadgeTramposo()
+        {
+            var ehTramposo = Perguntas.Any(p => p.
+            Respostas.Any(r => r.EhRespostaCorreta == true && (r.Usuario.Id == r.Pergunta.Usuario.Id)));
+            if (ehTramposo)
+            {
+                this.Badges.Add(new Badge("Tramposo", " Criou a pergunta, respondeu, e marcou a própria resposta como correta."));
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -12,5 +12,16 @@ namespace EstouroDePilha.Dominio.Entidades
         public string Titulo { get; set; }
         public string Descricao { get; set; }
         public List<Usuario> Usuarios { get; set; }
+
+        public Badge(string titulo, string descricao)
+        {
+            this.Titulo = titulo;
+            this.Descricao = descricao;
+        }
+
+        protected Badge()
+        {
+        }
     }
 }
+
