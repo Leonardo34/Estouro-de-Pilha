@@ -6,7 +6,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   var data;
   var copiaPergunta; //utilizado para voltar ao estado original caso edição seja cancelada
   var temRespostaCorreta;
-  var edicaoAberta = false;
+  var edicaoAberta = false; 
   $scope.logout = authService.logout;
   $scope.adicionarMarkdown = adicionarMarkdown;
   $scope.proxima = proxima;
@@ -28,6 +28,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   buscarRespostaPorIdDaPergunta();
   $scope.podeEditarPergunta = podeEditarPergunta;
   $scope.abrirFecharModal = abrirFecharModal;
+  $scope.abrirFecharEdicaoResposta = abrirFecharEdicaoResposta;
   $scope.cancelarEdicao = cancelarEdicao;
   $scope.responderPergunta = responderPergunta;
   $scope.upvotePergunta = upvotePergunta;
@@ -35,7 +36,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.usuarioVotouEmPergunta = usuarioVotouEmPergunta;
   $scope.usuarioDeuUpvotePergunta = usuarioDeuUpvotePergunta;
   $scope.usuarioDeuDownvotePergunta = usuarioDeuDownvotePergunta;
-
+  $scope.editarResposta = editarResposta;
 
   function buscarPerguntaPorId() {
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response) {
@@ -135,6 +136,26 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
     })
   }
 
+  function editarResposta(resposta) {
+    let copia = {Descricao: resposta.Descricao, Id: resposta.Id}
+    
+    perguntaService.editarResposta(copia)
+      .then(response => {
+        new Noty({
+          type: 'success',
+          timeout: 2000,
+          text:  'Edições salvas!'
+        }).show();
+      abrirFecharEdicaoResposta(resposta.indice);                
+      }, fail => {
+        new Noty({
+          type: 'error',
+          timeout: 2000,
+          text:  fail.data.errors              
+        }).show();
+      })
+  }
+
   function responderPergunta () {
     perguntaService.responderPergunta($scope.responder, $scope.pergunta.Id)
       .then(response => {
@@ -172,6 +193,17 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
       div: document.getElementById("div-comentar"),
       form: document.getElementById("form-comentar")
     }
+  }
+
+  function abrirFecharEdicaoResposta (indice) {
+    if($scope.respostas[indice].edicao === undefined) {
+      //adicionado para aplicar o estilo
+      $scope.respostas[indice].edicao = true;
+      //adicionado para ter o controle do modal a ser fechado
+      $scope.respostas[indice].indice = indice;
+    }
+    else
+      $scope.respostas[indice].edicao = !$scope.respostas[indice].edicao;
   }
 
   function abrirFecharModal(botao) {
