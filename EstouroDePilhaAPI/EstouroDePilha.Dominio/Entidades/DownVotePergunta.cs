@@ -8,8 +8,18 @@ namespace EstouroDePilha.Dominio.Entidades
 {
     public class DownVotePergunta
     {
-        public int Id { get; set; }
-        public Pergunta Pergunta { get; set; }
-        public Usuario Usuario { get; set; }
+        public int Id { get; private set; }
+        public Pergunta Pergunta { get; private set; }
+        public Usuario Usuario { get; private set; }
+
+        protected DownVotePergunta()
+        {
+        }
+
+        public DownVotePergunta(Pergunta pergunta, Usuario usuario)
+        {
+            Pergunta = pergunta;
+            Usuario = usuario;
+        }
     }
 }

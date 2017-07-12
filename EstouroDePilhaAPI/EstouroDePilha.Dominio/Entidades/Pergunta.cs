@@ -8,15 +8,31 @@ namespace EstouroDePilha.Dominio.Entidades
 {
     public class Pergunta : EntidadeBase
     {
-        public int Id { get; set; }
-        public Usuario Usuario { get; set; }
-        public string Titulo { get; set; }
-        public string Descricao { get; set; }
-        public List<Resposta> Respostas { get; set; }
-        public DateTime DataPergunta { get; set; }
-        public List<Tag> Tags { get; set; }
-        public List<UpVotePergunta> UpVotes { get; set; }
-        public List<DownVotePergunta> DownVotes { get; set; }
+        public int Id { get; private set; }
+        public Usuario Usuario { get; private set; }
+        public string Titulo { get; private set; }
+        public string Descricao { get; private set; }
+        public List<Resposta> Respostas { get; private set; }
+        public DateTime DataPergunta { get; private set; }
+        public List<Tag> Tags { get; private set; }
+        public List<UpVotePergunta> UpVotes { get; private set; }
+        public List<DownVotePergunta> DownVotes { get; private set; }
+
+        protected Pergunta()
+        {
+        }
+
+        public Pergunta(Usuario usuario, string titulo, string descricao)
+        {
+            Usuario = usuario;
+            Titulo = titulo;
+            Descricao = descricao;
+            DataPergunta = DateTime.Now;
+            Respostas = new List<Resposta>();
+            Tags = new List<Tag>();
+            UpVotes = new List<UpVotePergunta>();
+            DownVotes = new List<DownVotePergunta>();
+        }
 
         public override bool EhValida()
         {
@@ -44,7 +60,7 @@ namespace EstouroDePilha.Dominio.Entidades
             {
                 return false;
             }
-            resposta.EhRespostaCorreta = true;
+            resposta.MarcarComoCorreta();
             return true;
         }
 
@@ -53,9 +69,10 @@ namespace EstouroDePilha.Dominio.Entidades
             return Respostas.Any(r => r.Id == id);
         }
 
-        public bool PodeEditar()
+        private bool PodeEditar(Usuario usuario)
         {
-            return (DateTime.Now - this.DataPergunta).TotalDays <=7;
+            return (DateTime.Now - this.DataPergunta).TotalDays <= 7 
+                && usuario.Id == Usuario.Id;
         }
 
         public bool UsuarioJaInteragiuComPergunta(Usuario usuario)
@@ -67,6 +84,23 @@ namespace EstouroDePilha.Dominio.Entidades
         public bool DeveSerExcluida()
         {
             return (UpVotes.Count() - DownVotes.Count()) <= 4;
+        }
+
+        public void AdicionarTag(Tag tag)
+        {
+            if (!Tags.Any(t => t.Id == tag.Id))
+            {
+                Tags.Add(tag);
+            }
+        }
+
+        public void Editar(string descricao, string titulo, Usuario usuario)
+        {
+            if (PodeEditar(usuario))
+            {
+                Descricao = descricao;
+                Titulo = titulo;
+            }
         }
     }
 }

@@ -8,14 +8,29 @@ namespace EstouroDePilha.Dominio.Entidades
 {
     public class Resposta : EntidadeBase
     {
-        public int Id { get; set; }
-        public Usuario Usuario { get; set; }
-        public String Descricao { get; set; }
-        public DateTime DataResposta { get; set; }
-        public Pergunta Pergunta { get; set; }
-        public bool? EhRespostaCorreta { get; set; }
-        public List<UpVoteResposta> UpVotes { get; set; }
-        public List<DownVoteResposta> DownVotes { get; set; }
+        public int Id { get; private set; }
+        public Usuario Usuario { get; private set; }
+        public String Descricao { get; private set; }
+        public DateTime DataResposta { get; private set; }
+        public Pergunta Pergunta { get; private set; }
+        public bool? EhRespostaCorreta { get; private set; }
+        public List<UpVoteResposta> UpVotes { get; private set; }
+        public List<DownVoteResposta> DownVotes { get; private set; }
+
+        protected Resposta()
+        {
+        }
+
+        public Resposta(Usuario usuario, Pergunta pergunta, string descricao)
+        {
+            Usuario = usuario;
+            Pergunta = pergunta;
+            Descricao = descricao;
+            EhRespostaCorreta = false;
+            DataResposta = DateTime.Now;
+            UpVotes = new List<UpVoteResposta>();
+            DownVotes = new List<DownVoteResposta>();
+        }
 
         public override bool EhValida()
         {
@@ -44,6 +59,11 @@ namespace EstouroDePilha.Dominio.Entidades
             {
                 Descricao = descricao;
             }
+        }
+
+        public void MarcarComoCorreta()
+        {
+            EhRespostaCorreta = true;
         }
     }
 }
