@@ -121,11 +121,11 @@ namespace EstouroDePilha.Dominio.Entidades
                 FirstOrDefault(r => r.EhRespostaCorreta == true);
             var respostas = Respostas.Where(r => r.Pergunta.Id == idPergunta);
             var respostasPeleadoras = respostas.Where
-                (r => r.UpVotes.Count() - respostaCorreta.UpVotes.Count() >10);
+                (r => r.UpVotes.Count() - respostaCorreta.UpVotes.Count() > 10);
             var numeroDeRespostasPeleadoras = respostasPeleadoras.Count();
             var numeroDeBadgesPeleadoras = this.Badges.Where(b => b.Titulo.Contains("Peleador")).Count();
             if (numeroDeRespostasPeleadoras > numeroDeBadgesPeleadoras)
-            {        
+            {
                 while (numeroDeRespostasPeleadoras > numeroDeBadgesPeleadoras)
                 {
                     this.Badges.Add(badge);
@@ -143,7 +143,6 @@ namespace EstouroDePilha.Dominio.Entidades
             if (entrevero)
             {
                 this.Badges.Add(badge);
-                return true;
             }
             return false;
         }
@@ -154,6 +153,13 @@ namespace EstouroDePilha.Dominio.Entidades
             var respostas = resposta.Pergunta.Respostas.OrderBy(r => r.DataResposta).ToList();
             var primeiraResposta = Respostas[0].EhRespostaCorreta;
             if (resposta.EhRespostaCorreta == true && primeiraResposta == true)
+            {
+                this.Badges.Add(badge);
+                return true;
+
+            }
+            return false;
+        }
 
         public bool AdicionaBadgeGuri(Badge badge)
         {
@@ -171,20 +177,21 @@ namespace EstouroDePilha.Dominio.Entidades
 
         public bool AdicionaBadgePapudo(Badge badge)
         {
-            var badgePapudo = Badges.FirstOrDefault(b => b.Titulo.Contains("Papudo"));
-            if (badgePapudo != null)
-            {
-                return false;
-            }
             var papudo = Respostas.Where(r => r.UpVotes.Count() == 0 && r.DownVotes.Count == 0);
-            if (papudo.Count() > 10)
-
+            var badgePapudo = Badges.FirstOrDefault(b => b.Titulo.Contains("Papudo"));
+            if (papudo.Count() > 10 && badgePapudo == null)
+            {
+                this.Badges.Add(badge);
+                return true;
+            }
+            return false;
+        }
         public bool AdicionaBadgeTramposo(Badge badge)
         {
-            
+
             var ehTramposo = Perguntas.Any(p => p.
                 Respostas.Any(r => r.EhRespostaCorreta == true && (r.Usuario.Id == r.Pergunta.Usuario.Id)));
-            var badgeTramposo =  Badges.FirstOrDefault(b => b.Titulo.Contains("Tramposo"));
+            var badgeTramposo = Badges.FirstOrDefault(b => b.Titulo.Contains("Tramposo"));
             if (ehTramposo && badgeTramposo == null)
             {
                 this.Badges.Add(badge);
