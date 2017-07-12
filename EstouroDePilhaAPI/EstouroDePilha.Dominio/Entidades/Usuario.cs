@@ -139,10 +139,11 @@ namespace EstouroDePilha.Dominio.Entidades
         public bool AdicionaBadgeEntrevero(Badge badge, int idPergunta)
         {
             Pergunta pergunta = Perguntas.FirstOrDefault(p => p.Id == idPergunta);
-            var entrevero = pergunta.Respostas.Count > 10;
+            var entrevero = pergunta.Respostas.Count() > 10;
             if (entrevero)
             {
                 this.Badges.Add(badge);
+                return true;
             }
             return false;
         }
