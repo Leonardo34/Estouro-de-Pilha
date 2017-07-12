@@ -187,10 +187,10 @@
       <form novalidate>
         <div class="field has-addons"  ng-if="estaLogado">
           <p class="control inline-input">
-            <input class="input borderless-right small" ng-model="comentarResposta" type="text">
+            <input class="input borderless-right small" ng-model="comentario.Descricao" type="text">
           </p>
           <p class="control inline-button ">
-            <a class="button is-primary borderless-left small" ng-click="comentarResposta(resposta.Id)">Comentar</a>
+            <a class="button is-primary borderless-left small" ng-click="comentarResposta(comentario, resposta.Id)">Comentar</a>
           </p>
         </div>
       </form>
