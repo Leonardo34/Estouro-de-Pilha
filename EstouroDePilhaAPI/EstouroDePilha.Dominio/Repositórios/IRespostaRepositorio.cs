@@ -12,5 +12,6 @@ namespace EstouroDePilha.Dominio.Repositórios
         List<Resposta> ObterRespostasPaginadas(int quantidadePular, int idPergunta);
         int NumeroDeRespostasPorPergunta(int idPergunta);
         bool VerificaSeTemRespostaCorretaPorIdPergunta(int idPergunta);
+        void AdicionarComentario(ComentarioResposta comentario);
     }
 }
