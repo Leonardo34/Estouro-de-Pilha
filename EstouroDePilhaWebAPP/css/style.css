@@ -446,10 +446,14 @@ ol, ul {
   width: initial;
 }
 
-  .usuario-resposta-info {
-    display: flex;
-    justify-content: space-between;
-  }
+.usuario-resposta-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.usuario-resposta-info-inner{
+  order: 2;
+}
 
 
 @media screen and (max-width: 1024px){

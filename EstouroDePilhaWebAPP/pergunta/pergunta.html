@@ -133,51 +133,58 @@
             <span class="icon is-small"><i class="fa fa-thumbs-o-down fa-2x" ng-class="{'fa fa-thumbs-down fa-2x' : usuarioDeuDownvoteResposta(resposta)}" aria-hidden="true"></i></span>
           </a>
         </div>
-        <a ng-href="/#!/perfil/{{resposta.Usuario.Id}}">
-          <div class="level-item">
-            <img ng-src="{{resposta.Usuario.UrlImagemPerfil}}" class="image is-24x24">
+        
+          <div class="level-item"></div>
 
-            <p class="resposta-usuario-nick is-inline">
-              <b>
-                  <!-- trocar para o nickname apos implementação -->
-                  {{resposta.Usuario.Nome}}
-                </b>
-            </p>
-            <p class="is-inline">
-              <small class="resposta-usuario-data">
-                às {{resposta.DataResposta | date:'dd/MM/yyyy HH:mm'}}
-              </small>
-            </p>
-          </div>
-          <div class="level-right resposta-button-wrapper"  ng-if="estaLogado">
-            <a class="button pagination-link is-primary resposta-button" ng-click="abrirFecharEdicaoResposta($index)" ng-if="usuario.Id === resposta.Usuario.Id">
-              <span class="icon">
-                  <i class=" fa fa-pencil"></i>
-              </span>
-              <span>Editar</span>
-            </a> 
+          <div class="level-right resposta-button-wrapper">
+            <a class="usuario-resposta-info-inner" ng-href="/#!/perfil/{{resposta.Usuario.Id}}">
+              <img ng-src="{{resposta.Usuario.UrlImagemPerfil}}" class="image is-24x24">
 
-            <a class="button pagination-link is-primary resposta-button" 
-              ng-if = "usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta()" 
-              ng-click = "marcarComoCorreta(resposta.Id)" name="button">             
-              <span>
-                Marcar como correta
-              </span>
-            </a>  
-              
-            <a class="button pagination-link is-static resposta-button" ng-if ="resposta.EhRespostaCorreta"  name="button">
-              <span class="icon">
-                <i class="fa fa-check is-pulled-right"  aria-hidden="true"></i>
-              </span>
-              <span>
-                Resposta correta
-              </span>               
+              <p class="resposta-usuario-nick is-inline">
+                <b>
+                    <!-- trocar para o nickname apos implementação -->
+                    {{resposta.Usuario.Nome}}
+                  </b>
+              </p>
+              <p class="is-inline">
+                <small class="resposta-usuario-data">
+                  às {{resposta.DataResposta | date:'dd/MM/yyyy HH:mm'}}
+                </small>
+              </p>
             </a>
+            <div class="details"  ng-if="estaLogado">
+
+              <a class="button pagination-link is-primary resposta-button" ng-click="abrirFecharEdicaoResposta($index)" ng-if="usuario.Id === resposta.Usuario.Id">
+                <span class="icon">
+                    <i class=" fa fa-pencil"></i>
+                </span>
+                <span>Editar</span>
+              </a> 
+
+              <a class="button pagination-link is-primary resposta-button" 
+                ng-if = "usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta()" 
+                ng-click = "marcarComoCorreta(resposta.Id)" name="button">             
+                <span>
+                  Marcar como correta
+                </span>
+              </a>  
+                
+              <a class="button pagination-link is-static resposta-button" ng-if ="resposta.EhRespostaCorreta"  name="button">
+                <span class="icon">
+                  <i class="fa fa-check is-pulled-right"  aria-hidden="true"></i>
+                </span>
+                <span>
+                  Resposta correta
+                </span>               
+              </a>
+
+            </div>
+            
           </div>
                       
            
           
-        </a>
+       
       </section>
 
       <article class="resposta-descricao">

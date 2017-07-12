@@ -1,4 +1,4 @@
-<nav class="nav has-shadow">
+<nav class="nav has-shadow"> 
     <div class="container">
         <div class="nav-left">
             <a class="nav-item">
@@ -9,9 +9,10 @@
             <a class="nav-item is-tab" ng-href="#!/pesquisarPergunta">Pesquisar</a>
         </div>
         <div class="nav-right nav-menu">
+            <a class="nav-item is-tab" ng-if="estaLogado" ng-href="#!/perfil/{{}}">Perfil</a>
             <a class="nav-item is-tab" ng-if="!estaLogado" ng-href="#!/login">Logar</a>
             <a class="nav-item is-tab" ng-if="!estaLogado" ng-href="#!/cadastro">Cadastrar-se</a>
-            <a class="nav-item is-tab" ng-if="estaLogado" ng-click="logout()" ng-href="#!/login">Log out</a>
+            <a class="nav-item is-tab" ng-if="estaLogado" ng-click="logout()" ng-href="#!/home">Log out</a>
         </div>
     </div>
 </nav>
