@@ -114,6 +114,27 @@ namespace EstouroDePilha.Dominio.Entidades
             return new UsuarioBaseModel(this.Id, this.Nome, this.Email, this.UrlFotoPerfil, this.Endereco, this.DataCadastro, this.Descricao);
         }
 
+        public bool AdicionarBadgePeleador(Badge badge, int idPergunta)
+        {
+            var respostaCorreta = Respostas.FirstOrDefault
+                (r => r.Pergunta.Id == idPergunta).Pergunta.Respostas.
+                FirstOrDefault(r => r.EhRespostaCorreta == true);
+            var respostas = Respostas.Where(r => r.Pergunta.Id == idPergunta);
+            var respostasPeleadoras = respostas.Where
+                (r => r.UpVotes.Count() - respostaCorreta.UpVotes.Count() >10);
+            var numeroDeRespostasPeleadoras = respostasPeleadoras.Count();
+            var numeroDeBadgesPeleadoras = this.Badges.Where(b => b.Titulo.Contains("Peleador")).Count();
+            if (numeroDeRespostasPeleadoras > numeroDeBadgesPeleadoras)
+            {        
+                while (numeroDeRespostasPeleadoras > numeroDeBadgesPeleadoras)
+                {
+                    this.Badges.Add(badge);
+                    numeroDeBadgesPeleadoras++;
+                }
+                return true;
+            }
+            return false;
+        }
 
         public bool AdicionaBadgeEntrevero(Badge badge, int idPergunta)
         {

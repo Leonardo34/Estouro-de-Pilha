@@ -197,7 +197,7 @@ namespace EstouroDePilhaTestesUnitarios
             Usuario usuario2 = new Usuario("teste 2", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
             Pergunta pergunta = new Pergunta(usuario2, "Java", "me ajuda");
             Resposta resposta1 = new Resposta(usuario1, pergunta, "java");
-            Resposta resposta2 = new Resposta(usuario2, pergunta, "java");        
+            Resposta resposta2 = new Resposta(usuario2, pergunta, "java");
             Resposta resposta3 = new Resposta(usuario2, pergunta, "java");
             Resposta resposta4 = new Resposta(usuario2, pergunta, "java");
             Resposta resposta5 = new Resposta(usuario2, pergunta, "java");
@@ -223,7 +223,7 @@ namespace EstouroDePilhaTestesUnitarios
             List<Pergunta> perguntas = new List<Pergunta>();
             usuario1.Perguntas = perguntas;
             usuario1.Perguntas.Add(pergunta);
-            Badge badgeEntrevero= new Badge("Entrevero", "teste");
+            Badge badgeEntrevero = new Badge("Entrevero", "teste");
 
             Assert.IsTrue(usuario1.AdicionaBadgeEntrevero(badgeEntrevero, pergunta.Id));
         }
@@ -262,6 +262,109 @@ namespace EstouroDePilhaTestesUnitarios
             Badge badgeEntrevero = new Badge("Entrevero", "teste");
 
             Assert.IsFalse(usuario1.AdicionaBadgeEntrevero(badgeEntrevero, pergunta.Id));
+        }
+
+        [TestMethod]
+        public void TestarMetodoAdicionaBadgeDePeleador()
+        {
+            Usuario usuario1 = new Usuario("teste 1", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Usuario usuario2 = new Usuario("teste 2", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Pergunta pergunta = new Pergunta(usuario2, "Java", "me ajuda");
+            Resposta resposta1 = new Resposta(usuario1, pergunta, "java");
+            Resposta resposta2 = new Resposta(usuario2, pergunta, "java");
+            resposta1.MarcarComoCorreta();
+            UpVoteResposta upVote = new UpVoteResposta(resposta2,usuario2);
+            var contador = 0;
+            while (contador <= 11)
+            {
+                resposta2.UpVotes.Add(upVote);
+                contador++;
+            }
+            pergunta.Respostas.Add(resposta1);
+            pergunta.Respostas.Add(resposta2);
+           
+            List<Badge> badges = new List<Badge>();
+            usuario1.Badges = badges;
+            List<Pergunta> perguntas = new List<Pergunta>();
+            usuario1.Perguntas = perguntas;
+            usuario1.Perguntas.Add(pergunta);
+            Badge badgeEntrevero = new Badge("Peleador", "teste");
+            List<Resposta> respostas = new List<Resposta>();
+            usuario1.Respostas = respostas;
+            usuario1.Respostas.Add(resposta2);
+            Badge badgeDeVereda = new Badge("De vereda", "teste");
+
+            Assert.IsTrue(usuario1.AdicionarBadgePeleador(badgeEntrevero, pergunta.Id));
+            Assert.IsNotNull(usuario1.Badges[0]);
+        }
+
+        [TestMethod]
+        public void TestarMetodoAdicionaDuasBadgeDePeleador()
+        {
+            Usuario usuario1 = new Usuario("teste 1", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Usuario usuario2 = new Usuario("teste 2", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Pergunta pergunta = new Pergunta(usuario2, "Java", "me ajuda");
+            Resposta resposta1 = new Resposta(usuario1, pergunta, "java");
+            Resposta resposta2 = new Resposta(usuario2, pergunta, "java");
+            Resposta resposta3 = new Resposta(usuario2, pergunta, "java");
+            resposta1.MarcarComoCorreta();
+            UpVoteResposta upVote = new UpVoteResposta(resposta2, usuario2);
+            var contador = 0;
+            while (contador <= 11)
+            {
+                resposta2.UpVotes.Add(upVote);
+                resposta3.UpVotes.Add(upVote);
+                contador++;
+            }
+            pergunta.Respostas.Add(resposta1);
+            pergunta.Respostas.Add(resposta2);
+            List<Badge> badges = new List<Badge>();
+            usuario1.Badges = badges;
+            List<Pergunta> perguntas = new List<Pergunta>();
+            usuario1.Perguntas = perguntas;
+            usuario1.Perguntas.Add(pergunta);
+            Badge badgeEntrevero = new Badge("Peleador", "teste");
+            List<Resposta> respostas = new List<Resposta>();
+            usuario1.Respostas = respostas;
+            usuario1.Respostas.Add(resposta2);
+            usuario1.Respostas.Add(resposta3);
+            Badge badgeDeVereda = new Badge("De vereda", "teste");
+
+            Assert.IsTrue(usuario1.AdicionarBadgePeleador(badgeEntrevero, pergunta.Id));
+            Assert.IsNotNull(usuario1.Badges[0]);
+            Assert.IsNotNull(usuario1.Badges[1]);
+        }
+
+        [TestMethod]
+        public void TestarMetodoAdicionaBadgeDePeleadorRetornaFalso()
+        {
+            Usuario usuario1 = new Usuario("teste 1", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Usuario usuario2 = new Usuario("teste 2", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Pergunta pergunta = new Pergunta(usuario2, "Java", "me ajuda");
+            Resposta resposta1 = new Resposta(usuario1, pergunta, "java");
+            Resposta resposta2 = new Resposta(usuario2, pergunta, "java");
+            resposta1.MarcarComoCorreta();
+            UpVoteResposta upVote = new UpVoteResposta(resposta2, usuario2);
+            var contador = 0;
+            while (contador < 10)
+            {
+                resposta2.UpVotes.Add(upVote);
+                contador++;
+            }
+            pergunta.Respostas.Add(resposta1);
+            pergunta.Respostas.Add(resposta2);
+            List<Badge> badges = new List<Badge>();
+            usuario1.Badges = badges;
+            List<Pergunta> perguntas = new List<Pergunta>();
+            usuario1.Perguntas = perguntas;
+            usuario1.Perguntas.Add(pergunta);
+            Badge badgeEntrevero = new Badge("Peleador", "teste");
+            List<Resposta> respostas = new List<Resposta>();
+            usuario1.Respostas = respostas;
+            usuario1.Respostas.Add(resposta2);
+            Badge badgeDeVereda = new Badge("De vereda", "teste");
+
+            Assert.IsFalse(usuario1.AdicionarBadgePeleador(badgeEntrevero, pergunta.Id));
         }
     }
 }
