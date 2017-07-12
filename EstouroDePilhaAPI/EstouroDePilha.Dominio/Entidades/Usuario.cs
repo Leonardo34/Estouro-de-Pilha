@@ -118,7 +118,8 @@ namespace EstouroDePilha.Dominio.Entidades
         {
             int upVotesPergunta = this.Perguntas.Select(p => p.UpVotes.Count()).Count();
             int upVotesResposta = this.Respostas.Select(r => r.UpVotes.Count).Count();
-            if (upVotesPergunta + upVotesResposta == 1)
+            var badgeGuri = Badges.FirstOrDefault(b => b.Titulo.Contains("Guri"));
+            if ((upVotesPergunta + upVotesResposta == 1) && (badgeGuri == null))
             {
                 this.Badges.Add(new Badge("Guri", "Usuário recebeu ao menos um upvote"));
                 return true;
@@ -128,9 +129,11 @@ namespace EstouroDePilha.Dominio.Entidades
 
         public bool AdicionaBadgeTramposo()
         {
+            
             var ehTramposo = Perguntas.Any(p => p.
             Respostas.Any(r => r.EhRespostaCorreta == true && (r.Usuario.Id == r.Pergunta.Usuario.Id)));
-            if (ehTramposo)
+            var badgeTramposo =  Badges.FirstOrDefault(b => b.Titulo.Contains("Guri"));
+            if (ehTramposo && badgeTramposo == null)
             {
                 this.Badges.Add(new Badge("Tramposo", " Criou a pergunta, respondeu, e marcou a própria resposta como correta."));
                 return true;
