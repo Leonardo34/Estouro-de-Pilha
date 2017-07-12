@@ -101,6 +101,8 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                .Include("Usuario")
                .Include("UpVotes")
                .Include("DownVotes")
+               .Include("DownVotes.Usuario")
+               .Include("UpVotes.Usuario")
                .Where(p => p.Tags.Any(t => t.Descricao.Contains(tags))).ToList();         
         }
 
@@ -117,6 +119,8 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .Include("Usuario")
                 .Include("UpVotes")
                 .Include("DownVotes")
+                .Include("DownVotes.Usuario")
+                .Include("UpVotes.Usuario")
                 .Where(p => p.Titulo.ToLower().Contains(conteudo) 
                         || p.Descricao.ToLower().Contains(conteudo))
                 .ToList();
