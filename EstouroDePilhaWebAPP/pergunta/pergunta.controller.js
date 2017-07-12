@@ -11,6 +11,8 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.adicionarMarkdown = adicionarMarkdown;
   $scope.proxima = proxima;
   $scope.anterior = anterior;
+  $scope.comentarResposta = comentarResposta;
+  $scope.comentarPergunta = comentarPergunta;
   $scope.usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta = usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta;
   $scope.marcarComoCorreta = marcarComoCorreta;
   $scope.pagina = 0;  
@@ -133,6 +135,40 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
     var perguntaModel = {Titulo:pergunta.Titulo, Descricao:pergunta.Descricao, TagsIds:pergunta.TagsIds, Id:pergunta.Id};
     perguntaService.editarPergunta(perguntaModel).then(function (response){
        buscarPerguntaPorId(idDaPergunta);
+    })
+  }
+
+  function comentarResposta(idDaResposta, comentario){
+    perguntaService.comentarResposta(idDaResposta, comentario)
+    .then(response => {
+      new Noty({
+          type: 'success',
+          timeout: 2000,
+          text:  'A resposta foi comentada!'                
+      }).show();
+    }, fail => {
+      new Noty({
+          type: 'error',
+          timeout: 2000,
+          text:  fail.data.ExceptionMessage                
+      }).show();
+    })
+  }
+
+  function comentarPergunta(idDaPergunta, comentario){
+    perguntaService.comentarPergunta(idDaPergunta, comentario)
+    .then(response => {
+      new Noty({
+          type: 'success',
+          timeout: 2000,
+          text:  'A pergunta foi comentada!'                
+      }).show();
+    }, fail => {
+      new Noty({
+          type: 'error',
+          timeout: 2000,
+          text:  fail.data.ExceptionMessage                
+      }).show();
     })
   }
 
