@@ -123,6 +123,17 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(new { Id = downvote.Id });
         }
 
+        [BasicAuthorization]
+        [HttpPost, Route("{idResposta:int}/comentar")]
+        public HttpResponseMessage AdicionarComentario(int idResposta, [FromBody]ComentarioRespostaModel comentarioModel)
+        {
+            var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            var resposta = respostasRepositorio.ObterPorId(idResposta);
+            var comentario = new ComentarioResposta(resposta, usuario, comentarioModel.Descricao);
+            respostasRepositorio.AdicionarComentario(comentario);
+            return ResponderOK();
+        }
+
         [HttpGet, Route("usuario/{id:int}")]
         public HttpResponseMessage ObterRespostasUsuarioPorId(int id)
         {
@@ -177,6 +188,16 @@ namespace EstouroDePilhaAPI.Controllers
             foreach (var upvote in entidadeResposta.UpVotes)
             {
                 respostaModel.UpVotes.Add(upvote.Usuario.converterUsuarioParaUsuarioModel());
+            }
+            respostaModel.Comentarios = new List<ComentarioRespostaModel>();
+            foreach (var each in entidadeResposta.Comentarios)
+            {
+                var comentario = new ComentarioRespostaModel();
+                comentario.Usuario = each.Usuario.converterUsuarioParaUsuarioModel();
+                comentario.Id = each.Id;
+                comentario.DataComentario = each.DataComentario;
+                comentario.Descricao = each.Descricao;
+                respostaModel.Comentarios.Add(comentario);
             }
             return respostaModel;
         }
