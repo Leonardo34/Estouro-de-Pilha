@@ -12,6 +12,10 @@ namespace EstouroDePilha.Dominio.Entidades
         public Pergunta Pergunta { get; private set; }
         public Usuario Usuario { get; private set; }
 
+        protected UpVotePergunta()
+        {
+        }
+
         public UpVotePergunta(Pergunta pergunta, Usuario usuario)
         {
             Pergunta = pergunta;

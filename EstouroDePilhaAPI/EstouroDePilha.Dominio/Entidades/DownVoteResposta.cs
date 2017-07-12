@@ -12,6 +12,10 @@ namespace EstouroDePilha.Dominio.Entidades
         public Resposta Resposta { get; private set; }
         public Usuario Usuario { get; private set; }
 
+        protected DownVoteResposta()
+        {
+        }
+
         public DownVoteResposta(Resposta resposta, Usuario usuario)
         {
             Resposta = resposta;
