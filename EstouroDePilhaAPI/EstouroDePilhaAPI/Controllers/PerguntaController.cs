@@ -83,9 +83,7 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 return ResponderErro("Você não pode mais dar UpVote nesta Pergunta");
             }
-            var upvote = new UpVotePergunta();
-            upvote.Usuario = usuario;
-            upvote.Pergunta = pergunta;
+            var upvote = new UpVotePergunta(pergunta, usuario);
             perguntasRepositorio.AdicionarUpvote(upvote);
             return ResponderOK(new { Id = upvote.Id });
         }
@@ -101,9 +99,7 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 return ResponderErro("Você não pode mais dar DownVote nesta Pergunta");
             }
-            var downvote = new DownVotePergunta();
-            downvote.Usuario = usuario;
-            downvote.Pergunta = pergunta;
+            var downvote = new DownVotePergunta(pergunta, usuario);
             perguntasRepositorio.AdicionarDownvote(downvote);
             return ResponderOK(new { Id = downvote.Id });
         }
