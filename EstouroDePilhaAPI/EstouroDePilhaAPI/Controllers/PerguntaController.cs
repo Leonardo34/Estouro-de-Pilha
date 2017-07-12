@@ -116,9 +116,16 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var usuarioLogado = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var perguntaBuscada = perguntasRepositorio.ObterPorId(perguntaModel.Id);
-            perguntaBuscada.Editar(perguntaModel.Descricao, perguntaModel.Titulo, usuarioLogado);
-            perguntasRepositorio.Alterar(perguntaBuscada);
-            return ResponderOK();
+            try
+            {
+                perguntaBuscada.Editar(perguntaModel.Descricao, perguntaModel.Titulo, usuarioLogado);
+                perguntasRepositorio.Alterar(perguntaBuscada);
+                return ResponderOK();
+            }
+            catch (Exception e)
+            {
+                return ResponderErro(e.Message);
+            }
         }
 
         [HttpGet]

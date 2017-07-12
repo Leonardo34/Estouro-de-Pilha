@@ -101,6 +101,10 @@ namespace EstouroDePilha.Dominio.Entidades
                 Descricao = descricao;
                 Titulo = titulo;
             }
+            else
+            {
+                throw new Exception("Voce não pode editar essa pergunta");
+            }
         }
 
         public void UpVote(Usuario usuario)
