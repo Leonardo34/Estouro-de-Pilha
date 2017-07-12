@@ -6,21 +6,9 @@
 
   <div class="box column is-8">
     <section class="columns is-mobile is-multiline">
-      <div class="column is-10 is-12-mobile">
-        <div class="level-left upvote">
-          <a class="level-item" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmPergunta(pergunta)}" ng-click="upvotePergunta(pergunta)">
-            <span class="quantidade-reacoes">
-              {{pergunta.QuantidadeUpVotes}}
-            </span>
-            <span class="icon is-small"><i class="fa fa-thumbs-o-up fa-2x" ng-class="{'fa fa-thumbs-up fa-2x' : usuarioDeuUpvotePergunta(pergunta)}" aria-hidden="true"></i></span>
-          </a>
-          <a class="level-item" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmPergunta(pergunta)}" ng-click="downvotePergunta(pergunta)">
-            <span class="quantidade-reacoes">
-                {{pergunta.QuantidadeDownVotes}}
-            </span>
-            <span class="icon is-small"><i class="fa fa-thumbs-o-down fa-2x" ng-class="{'fa fa-thumbs-down fa-2x' : usuarioDeuDownvotePergunta(pergunta)}" aria-hidden="true"></i></span>
-          </a>
-        </div>
+      <div class="column is-12">        
+        <small class="pull-right">{{pergunta.DataPergunta | date: 'dd/MM/yyyy'}}</small>
+        
         <div class="tituloPergunta">
           <label class="label">Pergunta do bagual : "{{pergunta.Titulo}}"</label>
         </div>
@@ -64,11 +52,40 @@
       </div>
 
       <div class="column is-flex">
-        <small class="pull-right">{{pergunta.DataPergunta | date: 'dd/MM/yyyy'}}</small>
-
         <!--aqui irá a seção de upvote da pergunta-->
-        <a class="button is-primary pull-right" ng-click="abrirFecharModal('E')" ng-if="podeEditarPergunta()">Editar</a>
+        <div class="level">
+          <div class="level-left">
+            <a class="tag is-primary" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmPergunta(pergunta)}" ng-click="upvotePergunta(pergunta)">
+              <span class="quantidade-reacoes">
+                {{pergunta.QuantidadeUpVotes}}
+              </span>
+              <span class="icon is-small"><i class="fa fa-thumbs-o-up fa-2x" ng-class="{'fa fa-thumbs-up fa-2x' : usuarioDeuUpvotePergunta(pergunta)}" aria-hidden="true"></i></span>
+            </a>
+            <a class="tag is-primary" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmPergunta(pergunta)}" ng-click="downvotePergunta(pergunta)">
+              <span class="quantidade-reacoes">
+                  {{pergunta.QuantidadeDownVotes}}
+              </span>
+              <span class="icon is-small"><i class="fa fa-thumbs-o-down fa-2x" ng-class="{'fa fa-thumbs-down fa-2x' : usuarioDeuDownvotePergunta(pergunta)}" aria-hidden="true"></i></span>
+            </a>
+          </div>
+
+          <div class="level-right">
+            <a class="button is-primary pull-right" ng-click="abrirFecharModal('E')" ng-if="podeEditarPergunta()">Editar</a>
+          
+            <a class="pagination-link" ng-if="estaLogado">
+              <span class="icon">
+                <i class="fa fa-comments-o" aria-hidden="true"></i>      
+              </span>
+              <span>Comentar</span>      
+            </a> 
+
+          </div>
+                   
+          
+        </div>
+        
       </div>
+
 
 
     </section>
@@ -94,29 +111,22 @@
         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>      
       </span>
       <span>Responder</span>      
-    </a>
-
-    <a class="pagination-link" ng-if="estaLogado">
-      <span class="icon">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>      
-      </span>
-      <span>Comentar</span>      
-    </a>
+    </a>    
     
   </nav>
 </div>
   <div class="box column is-8" ng-repeat="resposta in respostas">
     <div class="descricaoDaResposta">
       <section class="level usuario-resposta-info">
-        <div class="level-left upvote">
+        <div class="level-left upvote is-flex">
           <!-- aqui vai o upvote -->
-          <a class="level-item" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmResposta(resposta)}" ng-click="upvoteResposta(resposta)">
+          <a class="tag is-primary resposta-vote" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmResposta(resposta)}" ng-click="upvoteResposta(resposta)">
             <span class="quantidade-reacoes">
               {{resposta.QuantidadeUpVotes}}
             </span>
             <span class="icon is-small"><i class="fa fa-thumbs-o-up fa-2x" ng-class="{'fa fa-thumbs-up fa-2x' : usuarioDeuUpvoteResposta(resposta)}" aria-hidden="true"></i></span>
           </a>
-          <a class="level-item" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmResposta(resposta)}" ng-click="downvoteResposta(resposta)">
+          <a class="tag is-primary resposta-vote" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmResposta(resposta)}" ng-click="downvoteResposta(resposta)">
             <span class="quantidade-reacoes">
               {{resposta.QuantidadeDownVotes}}
             </span>
@@ -124,7 +134,7 @@
           </a>
         </div>
         <a ng-href="/#!/perfil/{{resposta.Usuario.Id}}">
-          <div class="level-right">
+          <div class="level-item">
             <img ng-src="{{resposta.Usuario.UrlImagemPerfil}}" class="image is-24x24">
 
             <p class="resposta-usuario-nick is-inline">
@@ -138,30 +148,35 @@
                 às {{resposta.DataResposta | date:'dd/MM/yyyy HH:mm'}}
               </small>
             </p>
-
-            <a class="button pagination-link is-primary" ng-click="abrirFecharEdicaoResposta($index)" ng-if="usuario.Id === resposta.Usuario.Id">
+          </div>
+          <div class="level-right resposta-button-wrapper">
+            <a class="button pagination-link is-primary resposta-button" ng-click="abrirFecharEdicaoResposta($index)" ng-if="usuario.Id === resposta.Usuario.Id">
               <span class="icon">
                   <i class=" fa fa-pencil"></i>
               </span>
               <span>Editar</span>
             </a> 
 
-            <a class="button is-primary" 
+            <a class="button pagination-link is-primary resposta-button" 
               ng-if = "usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta()" 
-              ng-click = "marcarComoCorreta(resposta.Id)" name="button">
+              ng-click = "marcarComoCorreta(resposta.Id)" name="button">             
+              <span>
                 Marcar como correta
+              </span>
             </a>  
               
-            <a class="button is-static" ng-if ="resposta.EhRespostaCorreta"  name="button">
+            <a class="button pagination-link is-static resposta-button" ng-if ="resposta.EhRespostaCorreta"  name="button">
               <span class="icon">
                 <i class="fa fa-check is-pulled-right"  aria-hidden="true"></i>
               </span>
               <span>
                 Resposta correta
               </span>               
-            </a>          
-           
+            </a>
           </div>
+                      
+           
+          
         </a>
       </section>
 
