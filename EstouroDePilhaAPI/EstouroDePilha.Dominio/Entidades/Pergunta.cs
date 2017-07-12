@@ -60,7 +60,7 @@ namespace EstouroDePilha.Dominio.Entidades
             {
                 return false;
             }
-            resposta.EhRespostaCorreta = true;
+            resposta.MarcarComoCorreta();
             return true;
         }
 

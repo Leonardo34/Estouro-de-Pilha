@@ -60,6 +60,11 @@ namespace EstouroDePilha.Dominio.Entidades
                 Descricao = descricao;
             }
         }
+
+        public void MarcarComoCorreta()
+        {
+            EhRespostaCorreta = true;
+        }
     }
 }
 
