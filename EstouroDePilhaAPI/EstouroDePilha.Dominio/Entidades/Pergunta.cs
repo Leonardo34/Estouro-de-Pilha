@@ -17,6 +17,7 @@ namespace EstouroDePilha.Dominio.Entidades
         public virtual List<Tag> Tags { get; private set; }
         public virtual List<UpVotePergunta> UpVotes { get; private set; }
         public virtual List<DownVotePergunta> DownVotes { get; private set; }
+        public virtual List<ComentarioPergunta> ComentariosPergunta { get; set; }
 
         protected Pergunta()
         {
