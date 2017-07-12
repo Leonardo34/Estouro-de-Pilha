@@ -5,7 +5,7 @@ namespace EstouroDePilha.Dominio.Repositórios
 {
     public interface ITagRepositorio : IRepositorioGenerico<Tag>
     {
-        HashSet<Tag> BuscarTagsUsuarioPorId(int id);
+        Dictionary<Tag, int> BuscarTagsUsuarioPorId(int id);
 
     }
 }

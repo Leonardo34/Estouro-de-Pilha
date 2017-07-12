@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Contexto.cs" />
     <Compile Include="Mapeamento\BadgeMap.cs" />
+    <Compile Include="Mapeamento\ComentarioRespostaMap.cs" />
     <Compile Include="Mapeamento\DownVotePerguntaMap.cs" />
     <Compile Include="Mapeamento\DownVoteRespostaMap.cs" />
     <Compile Include="Mapeamento\PerguntaMap.cs" />
@@ -84,6 +85,14 @@
     <Compile Include="Migrations\201707112132502_mapeamentoBadges.cs" />
     <Compile Include="Migrations\201707112132502_mapeamentoBadges.Designer.cs">
       <DependentUpon>201707112132502_mapeamentoBadges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707121154320_AdicaoComentariosResposta2.cs" />
+    <Compile Include="Migrations\201707121154320_AdicaoComentariosResposta2.Designer.cs">
+      <DependentUpon>201707121154320_AdicaoComentariosResposta2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707121247474_AdicaoDataNosUpvotes.cs" />
+    <Compile Include="Migrations\201707121247474_AdicaoDataNosUpvotes.Designer.cs">
+      <DependentUpon>201707121247474_AdicaoDataNosUpvotes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -123,6 +132,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707112132502_mapeamentoBadges.resx">
       <DependentUpon>201707112132502_mapeamentoBadges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707121154320_AdicaoComentariosResposta2.resx">
+      <DependentUpon>201707121154320_AdicaoComentariosResposta2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707121247474_AdicaoDataNosUpvotes.resx">
+      <DependentUpon>201707121247474_AdicaoDataNosUpvotes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

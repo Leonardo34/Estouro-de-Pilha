@@ -11,6 +11,7 @@ namespace EstouroDePilha.Dominio.Entidades
         public int Id { get; private set; }
         public Resposta Resposta { get; private set; }
         public Usuario Usuario { get; private set; }
+        public DateTime Data { get; private set; }
 
         protected DownVoteResposta()
         {
@@ -20,6 +21,7 @@ namespace EstouroDePilha.Dominio.Entidades
         {
             Resposta = resposta;
             Usuario = usuario;
+            Data = DateTime.Now;
         }
 
         public override bool EhValida()

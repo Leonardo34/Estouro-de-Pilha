@@ -26,7 +26,7 @@ namespace EstouroDePilhaAPI.Controllers
         public HttpResponseMessage pegarTagsUsuarioPorId(int id)
         {
             var tags = repositorio.BuscarTagsUsuarioPorId(id);
-            return ResponderOK(tags);
+            return ResponderOK(tags.ToList());
         }
 
         [BasicAuthorization]

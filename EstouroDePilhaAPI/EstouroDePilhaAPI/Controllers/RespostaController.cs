@@ -99,13 +99,16 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var resposta = respostasRepositorio.ObterPorId(idResposta);
-            if (resposta.UsuarioJaInteragiuComResposta(usuario))
+            try
             {
-                return ResponderErro("Você não pode mais dar UpVote nesta resposta");
+                resposta.UpVote(usuario);
+                respostasRepositorio.Alterar(resposta);
+                return ResponderOK();
             }
-            var upvote = new UpVoteResposta(resposta, usuario);
-            respostasRepositorio.AdicionarUpvote(upvote);
-            return ResponderOK(new { Id = upvote.Id });
+            catch (Exception e)
+            {
+                return ResponderErro(e.Message);
+            }
         }
 
         [BasicAuthorization]
@@ -114,13 +117,27 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var resposta = respostasRepositorio.ObterPorId(idResposta);
-            if (resposta.UsuarioJaInteragiuComResposta(usuario))
+            try
             {
-                return ResponderErro("Você não pode mais dar DownVote nesta resposta");
+                resposta.DownVote(usuario);
+                respostasRepositorio.Alterar(resposta);
+                return ResponderOK();
             }
-            var downvote = new DownVoteResposta(resposta, usuario);
-            respostasRepositorio.AdicionarDownvote(downvote);
-            return ResponderOK(new { Id = downvote.Id });
+            catch (Exception e)
+            {
+                return ResponderErro(e.Message);
+            }
+        }
+
+        [BasicAuthorization]
+        [HttpPost, Route("{idResposta:int}/comentar")]
+        public HttpResponseMessage AdicionarComentario(int idResposta, [FromBody]ComentarioRespostaModel comentarioModel)
+        {
+            var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            var resposta = respostasRepositorio.ObterPorId(idResposta);
+            resposta.Comentar(usuario, comentarioModel.Descricao);
+            respostasRepositorio.Alterar(resposta);
+            return ResponderOK();
         }
 
         [HttpGet, Route("usuario/{id:int}")]
@@ -177,6 +194,16 @@ namespace EstouroDePilhaAPI.Controllers
             foreach (var upvote in entidadeResposta.UpVotes)
             {
                 respostaModel.UpVotes.Add(upvote.Usuario.converterUsuarioParaUsuarioModel());
+            }
+            respostaModel.Comentarios = new List<ComentarioRespostaModel>();
+            foreach (var each in entidadeResposta.Comentarios)
+            {
+                var comentario = new ComentarioRespostaModel();
+                comentario.Usuario = each.Usuario.converterUsuarioParaUsuarioModel();
+                comentario.Id = each.Id;
+                comentario.DataComentario = each.DataComentario;
+                comentario.Descricao = each.Descricao;
+                respostaModel.Comentarios.Add(comentario);
             }
             return respostaModel;
         }

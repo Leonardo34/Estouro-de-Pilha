@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entidades\Badge.cs" />
+    <Compile Include="Entidades\ComentarioResposta.cs" />
     <Compile Include="Entidades\DownVotePergunta.cs" />
     <Compile Include="Entidades\DownVoteResposta.cs" />
     <Compile Include="Entidades\EntidadeBase.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Excecoes\ExcecaoCampoVazio.cs" />
     <Compile Include="Excecoes\ExcecaoUsuarioInvalido.cs" />
     <Compile Include="Excecoes\ExcecaoUsuarioNaoExistente.cs" />
+    <Compile Include="Models\ComentarioRespostaModel.cs" />
     <Compile Include="Models\PerguntaModel.cs" />
     <Compile Include="Models\RegistrarUsuarioModel.cs" />
     <Compile Include="Models\RespostaModel.cs" />

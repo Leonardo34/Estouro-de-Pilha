@@ -78,13 +78,16 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var pergunta = perguntasRepositorio.ObterPorId(idPergunta);
-            if (pergunta.UsuarioJaInteragiuComPergunta(usuario))
+            try
             {
-                return ResponderErro("Você não pode mais dar UpVote nesta Pergunta");
+                pergunta.UpVote(usuario);
+                perguntasRepositorio.Alterar(pergunta);
+                return ResponderOK();
             }
-            var upvote = new UpVotePergunta(pergunta, usuario);
-            perguntasRepositorio.AdicionarUpvote(upvote);
-            return ResponderOK(new { Id = upvote.Id });
+            catch (Exception e)
+            {
+                return ResponderErro(e.Message);
+            }
         }
 
         [BasicAuthorization]
@@ -94,13 +97,16 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var pergunta = perguntasRepositorio.ObterPorId(idPergunta);
-            if (pergunta.UsuarioJaInteragiuComPergunta(usuario))
+            try
             {
-                return ResponderErro("Você não pode mais dar DownVote nesta Pergunta");
+                pergunta.DownVote(usuario);
+                perguntasRepositorio.Alterar(pergunta);
+                return ResponderOK();
             }
-            var downvote = new DownVotePergunta(pergunta, usuario);
-            perguntasRepositorio.AdicionarDownvote(downvote);
-            return ResponderOK(new { Id = downvote.Id });
+            catch (Exception e)
+            {
+                return ResponderErro(e.Message);
+            }
         }
 
         [BasicAuthorization]
@@ -110,9 +116,16 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var usuarioLogado = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var perguntaBuscada = perguntasRepositorio.ObterPorId(perguntaModel.Id);
-            perguntaBuscada.Editar(perguntaModel.Descricao, perguntaModel.Titulo, usuarioLogado);
-            perguntasRepositorio.Alterar(perguntaBuscada);
-            return ResponderOK();
+            try
+            {
+                perguntaBuscada.Editar(perguntaModel.Descricao, perguntaModel.Titulo, usuarioLogado);
+                perguntasRepositorio.Alterar(perguntaBuscada);
+                return ResponderOK();
+            }
+            catch (Exception e)
+            {
+                return ResponderErro(e.Message);
+            }
         }
 
         [HttpGet]

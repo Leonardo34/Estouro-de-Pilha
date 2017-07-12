@@ -53,6 +53,8 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .Include("DownVotes")
                 .Include("DownVotes.Usuario")
                 .Include("Pergunta")
+                .Include("Comentarios")
+                .Include("Comentarios.Usuario")
                 .FirstOrDefault(r => r.Id == id);
         }
 
@@ -97,6 +99,8 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .Include("UpVotes.Usuario")
                 .Include("DownVotes")
                 .Include("DownVotes.Usuario")
+                .Include("Comentarios")
+                .Include("Comentarios.Usuario")
                 .Where(r => r.Pergunta.Id == id)
                 .ToList();
         }
@@ -107,11 +111,20 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
             contexto.SaveChanges();
         }
 
-        public List<Resposta> ObterRespostasPorUsuarioId(int id)        {            return contexto.Respostas.Where(p => p.Usuario.Id == id).ToList();        }
+        public List<Resposta> ObterRespostasPorUsuarioId(int id)
+        {
+            return contexto.Respostas.Where(p => p.Usuario.Id == id).ToList();
+        }
 
         public void AdicionarDownvote(DownVoteResposta downvote)
         {
             contexto.DownVotesResposta.Add(downvote);
+            contexto.SaveChanges();
+        }
+
+        public void AdicionarComentario(ComentarioResposta comentario)
+        {
+            contexto.ComentariosRespostas.Add(comentario);
             contexto.SaveChanges();
         }
     }
