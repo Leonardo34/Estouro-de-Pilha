@@ -48,6 +48,11 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         {
             return contexto.Respostas
                 .Include("Usuario")
+                .Include("Usuario.Perguntas")
+                .Include("Usuario.Respostas")
+                .Include("Usuario.Respostas.Usuario")
+                .Include("Usuario.Perguntas.Usuario")
+                .Include("Usuario.Badges")
                 .Include("UpVotes")
                 .Include("Upvotes.Usuario")
                 .Include("DownVotes")
@@ -93,7 +98,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 
         public List<Resposta> ObterRespostasPeloIdPergunta(int id)
         {
-            return contexto.Respostas
+          return contexto.Respostas
                 .Include("Usuario")
                 .Include("UpVotes")
                 .Include("UpVotes.Usuario")
