@@ -20,8 +20,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 
         public void Alterar(Pergunta pergunta)
         {
-            var perguntaBuscada = ObterPorId(pergunta.Id);
-            contexto.Entry(perguntaBuscada).CurrentValues.SetValues(pergunta);
+            contexto.Entry(pergunta).State = System.Data.Entity.EntityState.Modified;
             contexto.SaveChanges();
         }
 
@@ -99,7 +98,10 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         public List<Pergunta> BuscaPerguntasPorTags(string tags)
         {
             return contexto.Perguntas.Include("Tags")
-               .Include("Usuario").Include("UpVotes").Include("DownVotes").Where(p => p.Tags.Any(t => t.Descricao.Contains(tags))).ToList();         
+               .Include("Usuario")
+               .Include("UpVotes")
+               .Include("DownVotes")
+               .Where(p => p.Tags.Any(t => t.Descricao.Contains(tags))).ToList();         
         }
 
         public List<Pergunta> RetornarPerguntasOrdenadasPorMaiorNumeroDeUpVotes(List <Pergunta> perguntas)
@@ -110,8 +112,14 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         public List<Pergunta> BuscaPerguntasPorTituloEDescricao(string conteudoDaBusca)
         {
             var conteudo = conteudoDaBusca.ToLower();
-            return contexto.Perguntas.Include("Tags")
-              .Include("Usuario").Include("UpVotes").Include("DownVotes").Where(p => p.Titulo.ToLower().Contains(conteudo) || p.Descricao.ToLower().Contains(conteudo)).ToList();
+            return contexto.Perguntas
+                .Include("Tags")
+                .Include("Usuario")
+                .Include("UpVotes")
+                .Include("DownVotes")
+                .Where(p => p.Titulo.ToLower().Contains(conteudo) 
+                        || p.Descricao.ToLower().Contains(conteudo))
+                .ToList();
         }
 
         public List<Pergunta> ObterPerguntasUsuarioPorId(int id)

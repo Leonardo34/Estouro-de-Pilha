@@ -52,16 +52,15 @@ namespace EstouroDePilhaAPI.Controllers
 
         [BasicAuthorization]
         [HttpPost, Route("nova/{idPergunta:int}")]
-        public HttpResponseMessage AdicionarResposta([FromBody]Resposta resposta, int idPergunta)
+        public HttpResponseMessage AdicionarResposta([FromBody]RespostaModel respostaModel, int idPergunta)
         {
+            var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            var pergunta = perguntasRepositorio.ObterPorId(idPergunta);
+            var resposta = new Resposta(usuario, pergunta, respostaModel.Descricao);
             if (!resposta.EhValida())
             {
-                throw new Exception();
+                return ResponderErro(resposta.Mensagens);
             }
-            resposta.Usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
-            resposta.Pergunta = perguntasRepositorio.ObterPorId(idPergunta);
-            resposta.DataResposta = DateTime.Now;
-            resposta.EhRespostaCorreta = false;
             respostasRepositorio.Criar(resposta);
             return ResponderOK();
         }
@@ -100,15 +99,16 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var resposta = respostasRepositorio.ObterPorId(idResposta);
-            if (resposta.UsuarioJaInteragiuComResposta(usuario))
+            try
             {
-                return ResponderErro("Você não pode mais dar UpVote nesta resposta");
+                resposta.UpVote(usuario);
+                respostasRepositorio.Alterar(resposta);
+                return ResponderOK();
             }
-            var upvote = new UpVoteResposta();
-            upvote.Usuario = usuario;
-            upvote.Resposta = resposta;
-            respostasRepositorio.AdicionarUpvote(upvote);
-            return ResponderOK(new { Id = upvote.Id });
+            catch (Exception e)
+            {
+                return ResponderErro(e.Message);
+            }
         }
 
         [BasicAuthorization]
@@ -117,15 +117,27 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var resposta = respostasRepositorio.ObterPorId(idResposta);
-            if (resposta.UsuarioJaInteragiuComResposta(usuario))
+            try
             {
-                return ResponderErro("Você não pode mais dar DownVote nesta resposta");
+                resposta.DownVote(usuario);
+                respostasRepositorio.Alterar(resposta);
+                return ResponderOK();
             }
-            var downvote = new DownVoteResposta();
-            downvote.Usuario = usuario;
-            downvote.Resposta = resposta;
-            respostasRepositorio.AdicionarDownvote(downvote);
-            return ResponderOK(new { Id = downvote.Id });
+            catch (Exception e)
+            {
+                return ResponderErro(e.Message);
+            }
+        }
+
+        [BasicAuthorization]
+        [HttpPost, Route("{idResposta:int}/comentar")]
+        public HttpResponseMessage AdicionarComentario(int idResposta, [FromBody]ComentarioRespostaModel comentarioModel)
+        {
+            var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            var resposta = respostasRepositorio.ObterPorId(idResposta);
+            resposta.Comentar(usuario, comentarioModel.Descricao);
+            respostasRepositorio.Alterar(resposta);
+            return ResponderOK();
         }
 
         [HttpGet, Route("usuario/{id:int}")]
@@ -154,6 +166,15 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderErro("Você não pode marcar esta resposta como correta");
         }
 
+        [HttpGet]
+        [Route("numeroDeRespostasDaPergunta/{idPergunta:int}")]
+        public HttpResponseMessage NumeroDeResultadosDaPesquisa(int idPergunta)
+        {
+            int numeroDeRespostasDaPergunta = respostasRepositorio.NumeroDeRespostasPorPergunta(idPergunta);
+            bool temRespostaCorreta = respostasRepositorio.VerificaSeTemRespostaCorretaPorIdPergunta(idPergunta);
+            return ResponderComOutrosDados(numeroDeRespostasDaPergunta, temRespostaCorreta);
+        }
+
         public RespostaModel CriarModelResposta(Resposta entidadeResposta)
         {
             var respostaModel = new RespostaModel();
@@ -174,16 +195,17 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 respostaModel.UpVotes.Add(upvote.Usuario.converterUsuarioParaUsuarioModel());
             }
+            respostaModel.Comentarios = new List<ComentarioRespostaModel>();
+            foreach (var each in entidadeResposta.Comentarios)
+            {
+                var comentario = new ComentarioRespostaModel();
+                comentario.Usuario = each.Usuario.converterUsuarioParaUsuarioModel();
+                comentario.Id = each.Id;
+                comentario.DataComentario = each.DataComentario;
+                comentario.Descricao = each.Descricao;
+                respostaModel.Comentarios.Add(comentario);
+            }
             return respostaModel;
-        }
-
-        [HttpGet]
-        [Route("numeroDeRespostasDaPergunta/{idPergunta:int}")]
-        public HttpResponseMessage NumeroDeResultadosDaPesquisa(int idPergunta)
-        {
-            int numeroDeRespostasDaPergunta = respostasRepositorio.NumeroDeRespostasPorPergunta(idPergunta);
-            bool temRespostaCorreta = respostasRepositorio.VerificaSeTemRespostaCorretaPorIdPergunta(idPergunta);
-            return ResponderComOutrosDados(numeroDeRespostasDaPergunta, temRespostaCorreta);
         }
     }
 }

@@ -60,14 +60,13 @@ namespace EstouroDePilhaAPI.Controllers
         [BasicAuthorization]
         [HttpPost]
         [Route("nova")]
-        public HttpResponseMessage Criar(PerguntaModel perguntaModel)
+        public HttpResponseMessage Criar([FromBody]PerguntaModel perguntaModel)
         {
             var pergunta = CriarEntidadePergunta(perguntaModel);
             if (!pergunta.EhValida())
             {
                 return ResponderErro(pergunta.Mensagens);
             }
-            pergunta.DataPergunta = DateTime.Now;
             perguntasRepositorio.Criar(pergunta);
             return ResponderOK(new { id = pergunta.Id });
         }
@@ -79,15 +78,16 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var pergunta = perguntasRepositorio.ObterPorId(idPergunta);
-            if (pergunta.UsuarioJaInteragiuComPergunta(usuario))
+            try
             {
-                return ResponderErro("Você não pode mais dar UpVote nesta Pergunta");
+                pergunta.UpVote(usuario);
+                perguntasRepositorio.Alterar(pergunta);
+                return ResponderOK();
             }
-            var upvote = new UpVotePergunta();
-            upvote.Usuario = usuario;
-            upvote.Pergunta = pergunta;
-            perguntasRepositorio.AdicionarUpvote(upvote);
-            return ResponderOK(new { Id = upvote.Id });
+            catch (Exception e)
+            {
+                return ResponderErro(e.Message);
+            }
         }
 
         [BasicAuthorization]
@@ -97,15 +97,16 @@ namespace EstouroDePilhaAPI.Controllers
         {
             var usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var pergunta = perguntasRepositorio.ObterPorId(idPergunta);
-            if (pergunta.UsuarioJaInteragiuComPergunta(usuario))
+            try
             {
-                return ResponderErro("Você não pode mais dar DownVote nesta Pergunta");
+                pergunta.DownVote(usuario);
+                perguntasRepositorio.Alterar(pergunta);
+                return ResponderOK();
             }
-            var downvote = new DownVotePergunta();
-            downvote.Usuario = usuario;
-            downvote.Pergunta = pergunta;
-            perguntasRepositorio.AdicionarDownvote(downvote);
-            return ResponderOK(new { Id = downvote.Id });
+            catch (Exception e)
+            {
+                return ResponderErro(e.Message);
+            }
         }
 
         [BasicAuthorization]
@@ -113,21 +114,18 @@ namespace EstouroDePilhaAPI.Controllers
         [Route("editar")]
         public HttpResponseMessage Alterar([FromBody]PerguntaModel perguntaModel)
         {
-            var usuarioLogado =  Thread.CurrentPrincipal.Identity.Name;
+            var usuarioLogado = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var perguntaBuscada = perguntasRepositorio.ObterPorId(perguntaModel.Id);
-            if (perguntaBuscada == null || (usuarioLogado != perguntaBuscada.Usuario.Email))
+            try
             {
-                throw new Exception();
+                perguntaBuscada.Editar(perguntaModel.Descricao, perguntaModel.Titulo, usuarioLogado);
+                perguntasRepositorio.Alterar(perguntaBuscada);
+                return ResponderOK();
             }
-            var pergunta = CriarEntidadePergunta(perguntaModel);
-            pergunta.DataPergunta = perguntaBuscada.DataPergunta;
-            pergunta.Id = perguntaModel.Id;
-            if (!pergunta.PodeEditar())
+            catch (Exception e)
             {
-                throw new Exception();
+                return ResponderErro(e.Message);
             }
-            perguntasRepositorio.Alterar(pergunta);
-            return ResponderOK();
         }
 
         [HttpGet]
@@ -218,20 +216,12 @@ namespace EstouroDePilhaAPI.Controllers
 
         private Pergunta CriarEntidadePergunta(PerguntaModel perguntaModel)
         {
-            var pergunta = new Pergunta();
-            pergunta.Tags = new List<Tag>();
-            pergunta.Usuario =
-               usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
-            pergunta.Titulo = perguntaModel.Titulo;
-            pergunta.Descricao = perguntaModel.Descricao;
+            var usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            var pergunta = new Pergunta(usuario, perguntaModel.Titulo, perguntaModel.Descricao);
             if (perguntaModel.TagsIds != null)
             {
-
                 perguntaModel.TagsIds
-                    .ForEach(tag => pergunta.Tags.Add(
-                            tagsRepositorio.ObterPorId(tag)
-                        )
-                    );
+                    .ForEach(tag => pergunta.AdicionarTag(tagsRepositorio.ObterPorId(tag)));
             }
             return pergunta;
         }

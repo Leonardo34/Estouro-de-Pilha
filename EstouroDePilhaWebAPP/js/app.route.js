@@ -17,12 +17,14 @@ angular.module('EstouroPilhaApp').config(function ($routeProvider) {
       templateUrl: 'cadastroPergunta/cadastroPergunta.html',
       resolve: {
         autenticado: function (authService) {
-          new Noty({
+          if(!authService.isAutenticado()){
+            new Noty({
                 type: 'error',
                 timeout: 2000,
                 text: 'Precisa te cadastrar, Tchê!'
-          }).show();
-          return authService.isAutenticadoPromise();
+            }).show();
+            return authService.isAutenticadoPromise();
+          }
         }
       }
     })
@@ -32,17 +34,7 @@ angular.module('EstouroPilhaApp').config(function ($routeProvider) {
     })
     .when('/perfil/:id', {
       controller: 'perfilController',
-      templateUrl: 'perfil/perfil.html',
-      resolve: {
-          autenticado: function (authService) {
-            new Noty({
-                type: 'error',
-                timeout: 2000,
-                text: 'Precisa te cadastrar, Tchê!'
-            }).show();
-            return authService.isAutenticadoPromise();
-          }
-      }
+      templateUrl: 'perfil/perfil.html'      
     })
     .when('/pesquisarPergunta', {
       controller: 'pesquisarPerguntaController',
