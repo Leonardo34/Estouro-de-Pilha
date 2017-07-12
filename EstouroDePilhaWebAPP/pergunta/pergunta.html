@@ -87,7 +87,7 @@
 </section>
   <div class="column is-8">
   <nav class="containerPerguntasERespostas nav-center">
-    <a class="pagination-link">{{totalDeRespostas}} respostas encontradas</a>
+    <a class="pagination-link button is-static">{{totalDeRespostas}} respostas encontradas</a>
 
     <a class="pagination-link" ng-if="estaLogado" ng-click="abrirFecharModal('R')">
       <span class="icon">
@@ -135,15 +135,32 @@
             </p>
             <p class="is-inline">
               <small class="resposta-usuario-data">
-                  às {{resposta.DataResposta | date:'dd/MM/yyyy HH:mm'}}
+                às {{resposta.DataResposta | date:'dd/MM/yyyy HH:mm'}}
               </small>
             </p>
-            <span class="icon">
-              <a class="button is-primary" ng-if = "usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta()" ng-click = "marcarComoCorreta(resposta.Id)" name="button">Marcar como correta</a>
-              <a class="button is-primary"  ng-if ="resposta.EhRespostaCorreta"  name="button">Resposta correta
+
+            <a class="button pagination-link is-primary" ng-click="abrirFecharEdicaoResposta($index)" ng-if="usuario.Id === resposta.Usuario.Id">
+              <span class="icon">
+                  <i class=" fa fa-pencil"></i>
+              </span>
+              <span>Editar</span>
+            </a> 
+
+            <a class="button is-primary" 
+              ng-if = "usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta()" 
+              ng-click = "marcarComoCorreta(resposta.Id)" name="button">
+                Marcar como correta
+            </a>  
+              
+            <a class="button is-static" ng-if ="resposta.EhRespostaCorreta"  name="button">
+              <span class="icon">
                 <i class="fa fa-check is-pulled-right"  aria-hidden="true"></i>
-              </a>
-            </span>
+              </span>
+              <span>
+                Resposta correta
+              </span>               
+            </a>          
+           
           </div>
         </a>
       </section>
@@ -151,6 +168,16 @@
       <article class="resposta-descricao">
         <pre><p btf-markdown="resposta.Descricao"></p></pre>
       </article>
+
+      <form novalidate class="form-resposta-fechado" ng-class="{'form-resposta-edicao': resposta.edicao}">
+        <p class="title is-5">Editar resposta:</p>
+        <textarea class="textarea" ng-model="resposta.Descricao"></textarea>
+        <div class="level margin-top">
+          <a class="button is-success zero-radius level-item" ng-click ="editarResposta(resposta)">Salvar</a>
+          <a class="button is-danger zero-radius level-item" ng-click="abrirFecharEdicaoResposta($index)">Cancelar</a>
+        </div>
+
+      </form>
 
     </div>
   </div>
@@ -306,7 +333,7 @@
 
     </div>
     
-    <div class="box descricao-box" btf-markdown="responder.Descricao"></div>
+   <pre><div class="box descricao-box" btf-markdown="responder.Descricao"></div></pre>
     <div class="level">
       <a class="button is-success zero-radius level-item" ng-click ="responderPergunta()">Responder</a>
       <a class="button is-danger zero-radius level-item" ng-click="abrirFecharModal('R')">Cancelar</a>

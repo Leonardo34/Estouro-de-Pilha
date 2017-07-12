@@ -50,7 +50,8 @@ namespace EstouroDePilha.Dominio.Entidades
 
         private bool UsuarioPodeEditar(Usuario usuario)
         {
-            return Usuario.Id == usuario.Id && (EhRespostaCorreta == true || EhRespostaCorreta == null);
+            //gauderio irá editar quando quiser
+            return Usuario.Id == usuario.Id && (EhRespostaCorreta == false || EhRespostaCorreta == null);
         }
 
         public void Editar(string descricao, Usuario usuario)

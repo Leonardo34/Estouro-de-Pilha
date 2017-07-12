@@ -218,6 +218,10 @@ ol, ul {
    margin-top: .5rem;
 }
 
+.margin-top {
+  margin-top: 1rem;
+}
+
 .botoes-desc {
   display: flex;
   justify-content: space-between;
@@ -339,6 +343,7 @@ ol, ul {
 }
 
 #div-edicao, #div-responder, #div-comentar {
+  overflow: auto;
   position: fixed;
   bottom: 0;
   right: 10%;
@@ -349,6 +354,16 @@ ol, ul {
   border: gray solid 1px;
   padding-left: 3rem;
   padding-right: 3rem;
+}
+.form-resposta-fechado{
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 1s ease-in-out;
+}
+.form-resposta-edicao {
+  opacity: 1;  
+  max-height: 600px;  
 }
 
 #form-edicao, #form-responder, #form-comentar {
