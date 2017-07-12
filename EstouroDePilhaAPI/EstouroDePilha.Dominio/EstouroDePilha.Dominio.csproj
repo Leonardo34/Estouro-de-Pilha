@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entidades\Badge.cs" />
+    <Compile Include="Entidades\ComentarioPergunta.cs" />
     <Compile Include="Entidades\ComentarioResposta.cs" />
     <Compile Include="Entidades\DownVotePergunta.cs" />
     <Compile Include="Entidades\DownVoteResposta.cs" />
