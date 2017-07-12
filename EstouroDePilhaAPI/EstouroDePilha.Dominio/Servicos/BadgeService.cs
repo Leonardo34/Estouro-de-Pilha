@@ -33,6 +33,7 @@ namespace EstouroDePilha.Dominio.Servicos
         {
             Badge badgeGuri = badgeRepositorio.ObterPorId(1);
             Badge badgeTramposo = badgeRepositorio.ObterPorId(2);
+            Badge badgePeleador = badgeRepositorio.ObterPorId(3);
             usuario.AdicionaBadgeGuri(badgeGuri);
             usuario.AdicionaBadgeTramposo(badgeTramposo);
             usuarioRepositorio.Alterar(usuario);

@@ -175,7 +175,6 @@ namespace EstouroDePilha.Dominio.Entidades
             return false;
         }
 
-
         public bool AdicionaBadgePapudo(Badge badge)
         {
             var papudo = Respostas.Where(r => r.UpVotes.Count() == 0 && r.DownVotes.Count == 0);
@@ -187,6 +186,7 @@ namespace EstouroDePilha.Dominio.Entidades
             }
             return false;
         }
+
         public bool AdicionaBadgeTramposo(Badge badge)
         {
 

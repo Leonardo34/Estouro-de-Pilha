@@ -94,6 +94,10 @@
     <Compile Include="Migrations\201707121247474_AdicaoDataNosUpvotes.Designer.cs">
       <DependentUpon>201707121247474_AdicaoDataNosUpvotes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707122202493_fixBugbu.cs" />
+    <Compile Include="Migrations\201707122202493_fixBugbu.Designer.cs">
+      <DependentUpon>201707122202493_fixBugbu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositórios\BadgeRepositorio.cs" />
@@ -139,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707121247474_AdicaoDataNosUpvotes.resx">
       <DependentUpon>201707121247474_AdicaoDataNosUpvotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707122202493_fixBugbu.resx">
+      <DependentUpon>201707122202493_fixBugbu.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

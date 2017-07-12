@@ -21,7 +21,7 @@ namespace EstouroDePilha.Dominio.Entidades
 
         protected Badge()
         {
-          
+            
         }
     }
 }
