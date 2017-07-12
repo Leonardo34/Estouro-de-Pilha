@@ -115,11 +115,10 @@ namespace EstouroDePilha.Dominio.Entidades
         }
 
 
-        public bool AdicionaBadgeEntrevero(Badge badge)
+        public bool AdicionaBadgeEntrevero(Badge badge, int idPergunta)
         {
-            var entrevero = Perguntas.Any(p => p.
-            Respostas.Count() > 10);
-
+            Pergunta pergunta = Perguntas.FirstOrDefault(p => p.Id == idPergunta);
+            var entrevero = pergunta.Respostas.Count > 10;
             if (entrevero)
             {
                 this.Badges.Add(badge);
@@ -128,12 +127,12 @@ namespace EstouroDePilha.Dominio.Entidades
             return false;
         }
 
-        public bool AdicionaBadgeDeVereda(Badge badge)
+        public bool AdicionaBadgeDeVereda(Badge badge, int idPergunta)
         {
-            var deVereda = Respostas.Any(r => r.
-           Pergunta.Respostas[0].EhRespostaCorreta == true);
-
-            if (deVereda)
+            var resposta = Respostas.FirstOrDefault(r => r.Pergunta.Id == idPergunta);
+            var respostas = resposta.Pergunta.Respostas.OrderBy(r => r.DataResposta).ToList();
+            var primeiraResposta = Respostas[0].EhRespostaCorreta;
+            if (resposta.EhRespostaCorreta == true && primeiraResposta == true)
             {
                 this.Badges.Add(badge);
                 return true;
@@ -143,9 +142,13 @@ namespace EstouroDePilha.Dominio.Entidades
 
         public bool AdicionaBadgePapudo(Badge badge)
         {
-            var papudo = Respostas.Where(r => r.UpVotes.Count() == 0 && r.DownVotes.Count == 0);
             var badgePapudo = Badges.FirstOrDefault(b => b.Titulo.Contains("Papudo"));
-            if (papudo.Count() > 10 && badgePapudo == null)
+            if (badgePapudo != null)
+            {
+                return false;
+            }
+            var papudo = Respostas.Where(r => r.UpVotes.Count() == 0 && r.DownVotes.Count == 0);
+            if (papudo.Count() > 10)
             {
                 this.Badges.Add(badge);
                 return true;
