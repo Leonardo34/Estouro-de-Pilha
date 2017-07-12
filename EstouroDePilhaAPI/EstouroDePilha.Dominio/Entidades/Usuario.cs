@@ -122,7 +122,7 @@ namespace EstouroDePilha.Dominio.Entidades
 
             if (entrevero)
             {
-                this.Badges.Add(new Badge("Entrevero", "Quando o usuário possui uma pergunta tem mais de 10 respostas."));
+                this.Badges.Add(new Badge("Entrevero", "Quando o usuário possui uma pergunta que tem mais de 10 respostas."));
                 return true;
             }
             return false;
@@ -144,8 +144,8 @@ namespace EstouroDePilha.Dominio.Entidades
         public bool AdicionaBadgePapudo()
         {
             var papudo = Respostas.Where(r => r.UpVotes.Count() == 0 && r.DownVotes.Count == 0);
-
-            if (papudo.Count() > 10)
+            var badgePapudo = Badges.FirstOrDefault(b => b.Titulo.Contains("Papudo"));
+            if (papudo.Count() > 10 && badgePapudo == null)
             {
                 this.Badges.Add(new Badge("Papudo", "Usuário que tem mais de 10 respostas sem downvotes nem upvotes."));
                 return true;
