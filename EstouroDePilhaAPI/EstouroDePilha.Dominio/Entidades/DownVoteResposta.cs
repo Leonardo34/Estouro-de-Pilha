@@ -8,9 +8,15 @@ namespace EstouroDePilha.Dominio.Entidades
 {
     public class DownVoteResposta : EntidadeBase
     {
-        public int Id { get; set; }
-        public Resposta Resposta { get; set; }
-        public Usuario Usuario { get; set; }
+        public int Id { get; private set; }
+        public Resposta Resposta { get; private set; }
+        public Usuario Usuario { get; private set; }
+
+        public DownVoteResposta(Resposta resposta, Usuario usuario)
+        {
+            Resposta = resposta;
+            Usuario = usuario;
+        }
 
         public override bool EhValida()
         {
