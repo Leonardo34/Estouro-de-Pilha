@@ -5,6 +5,7 @@ function cadastrarPerguntaController($scope, $routeParams, $location,authService
   $scope.logout = authService.logout;
   $scope.cadastrarPergunta = cadastrarPergunta;
   $scope.adicionarMarkdown = adicionarMarkdown;
+  $scope.estaLogado = authService.isAutenticado();
   $scope.tagsSelecionadas = [];
 
   buscarTags();
