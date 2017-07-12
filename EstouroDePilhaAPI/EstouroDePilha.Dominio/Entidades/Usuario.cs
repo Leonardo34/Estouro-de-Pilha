@@ -113,5 +113,44 @@ namespace EstouroDePilha.Dominio.Entidades
         {
             return new UsuarioBaseModel(this.Id, this.Nome, this.Email, this.UrlFotoPerfil, this.Endereco, this.DataCadastro, this.Descricao);
         }
+
+
+        public bool AdicionaBadgeEntrevero()
+        {
+            var entrevero = Perguntas.Any(p => p.
+            Respostas.Count() > 10);
+
+            if (entrevero)
+            {
+                this.Badges.Add(new Badge("Entrevero", "Quando o usuário possui uma pergunta tem mais de 10 respostas."));
+                return true;
+            }
+            return false;
+        }
+
+        public bool AdicionaBadgeDeVereda()
+        {
+            var deVereda = Respostas.Any(r => r.
+           Pergunta.Respostas[0].EhRespostaCorreta == true);
+
+            if (deVereda)
+            {
+                this.Badges.Add(new Badge("De vereda", "Quando a resposta escolhida como correta é a primeira que foi postada."));
+                return true;
+            }
+            return false;
+        }
+
+        public bool AdicionaBadgePapudo()
+        {
+            var papudo = Respostas.Where(r => r.UpVotes.Count() == 0 && r.DownVotes.Count == 0);
+
+            if (papudo.Count() > 10)
+            {
+                this.Badges.Add(new Badge("Papudo", "Usuário que tem mais de 10 respostas sem downvotes nem upvotes."));
+                return true;
+            }
+            return false;
+        }
     }
 }
