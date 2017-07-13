@@ -66,6 +66,7 @@ namespace EstouroDePilhaAPI.Controllers
                 return ResponderErro(resposta.Mensagens);
             }
             respostasRepositorio.Criar(resposta);
+            badgeService.UsuarioRecebeuResposta(pergunta.Usuario, idPergunta);
             return ResponderOK();
         }
 
@@ -107,8 +108,8 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 resposta.UpVote(usuario);
                 respostasRepositorio.Alterar(resposta);
-                badgeService.ChecarBadges(usuario);
-                badgeService.ChecarBadges(resposta.Usuario);
+                badgeService.UsuarioRecebeuUpVoteResposta(resposta.Usuario, resposta.Pergunta.Id);
+                badgeService.UsuarioDeuUpVote(usuario);
                 return ResponderOK();
             }
             catch (Exception e)
@@ -166,9 +167,8 @@ namespace EstouroDePilhaAPI.Controllers
             var pergunta = perguntasRepositorio.ObterPorId(resposta.Pergunta.Id);
             if (pergunta.SelecionarRespostaCorreta(resposta, usuario))
             {
-                badgeService.ChecarBadges(usuario);
-                badgeService.ChecarBadges(resposta.Usuario);
                 respostasRepositorio.Alterar(resposta);
+                badgeService.UsuarioMarcouRespostaCorreta(usuario, pergunta.Id);
                 return ResponderOK();
             }
             return ResponderErro("Você não pode marcar esta resposta como correta");

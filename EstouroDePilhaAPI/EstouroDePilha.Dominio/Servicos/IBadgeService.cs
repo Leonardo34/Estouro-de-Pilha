@@ -9,6 +9,10 @@ namespace EstouroDePilha.Dominio.Servicos
 {
     public interface IBadgeService
     {
-        void ChecarBadges(Usuario usuario);
+        void UsuarioRecebeuUpVoteResposta(Usuario usuario, int idPergunta);
+        void UsuarioDeuUpVote(Usuario usuario);
+        void UsuarioMarcouRespostaCorreta(Usuario usuario, int idPergunta);
+        void UsuarioRecebeuResposta(Usuario usuario, int idPergunta);
+        void UsuarioFezPergunta(Usuario usuario);
     }
 }
