@@ -36,6 +36,10 @@ angular.module('EstouroPilhaApp').config(function ($routeProvider) {
       controller: 'perfilController',
       templateUrl: 'perfil/perfil.html'
     })
+    .when('/pesquisarPergunta', {
+      controller: 'pesquisarPerguntaController',
+      templateUrl: 'pesquisarPergunta/pesquisar.pergunta.html'
+    })
     .when('/pesquisarPergunta/:filter', {
       controller: 'pesquisarPerguntaController',
       templateUrl: 'pesquisarPergunta/pesquisar.pergunta.html'
