@@ -14,6 +14,7 @@ namespace EstouroDePilha.Dominio.Servicos
         private readonly IBadgeRepositorio badgeRepositorio;
 
         private static readonly int ID_BADGE_GURI = 7;
+        private static readonly int ID_BADGE_FACEIRO = 8;
         private static readonly int ID_BADGE_AMARGO = 9;
         private static readonly int ID_BADGE_TRAMPOSO = 12;
         private static readonly int ID_BADGE_ESGUALEPADO = 13;
@@ -59,15 +60,16 @@ namespace EstouroDePilha.Dominio.Servicos
 
         public void UsuarioRecebeuDownVote(Usuario usuario)
         {
-            //Badge badgeEsgualepado = badgeRepositorio.ObterPorId(ID_BADGE_ESGUALEPADO);
-            //usuario.AdicionarBadgeEsgualepado(badgeEsgualepado);
+            Badge badgeEsgualepado = badgeRepositorio.ObterPorId(ID_BADGE_ESGUALEPADO);
+            usuario.AdicionarBadgeEsgualepado(badgeEsgualepado);
 
-            //usuarioRepositorio.Alterar(usuario);
+            usuarioRepositorio.Alterar(usuario);
         }
 
         public void UsuarioDeuUpVote(Usuario usuario)
         {
-            
+            //Badge badgeFaceiro = badgeRepositorio.ObterPorId(ID_BADGE_FACEIRO);
+            //usuario.AdicionarBadgeFaceiro(badgeFaceiro);
         }
 
         public void UsuarioDeuDownVote(Usuario usuario)

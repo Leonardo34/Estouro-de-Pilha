@@ -60,18 +60,17 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
     pesquisarTrazerResultados(perguntaBuscada);
   }
 
-  function pesquisar (busca){
-    if (!$location.path() === '/pesquisarPergunta'){
-       $location.path("pesquisarPergunta")
+  function pesquisar (busca) {
+    if (!$location.path() === '/pesquisarPergunta') {
+      $location.path("pesquisarPergunta")
     }
-
     $scope.pagina = 0;
     perguntaBuscada = busca;
-    if (perguntaBuscada === ''){
-    perguntaBuscada = undefined;
+    if (perguntaBuscada === '') {
+      perguntaBuscada = undefined;
     }
     pesquisarTrazerResultados(perguntaBuscada);
-    numeroDeResultadosDaPesquisa (perguntaBuscada);
+    numeroDeResultadosDaPesquisa(perguntaBuscada);
     $scope.mostrarPaginacao = false;
   }
 
@@ -79,9 +78,8 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
     pesquisarPerguntaService.pesquisarTrazerResultados(
       $scope.pagina, perguntaBuscada, (tags || []).toString().replace(","," ")).then(function (response){
         $scope.perguntasPesquisadas = response.data.result;
-        console.log(  $scope.perguntasPesquisadas);
+        console.log($scope.perguntasPesquisadas);
         $scope.busca = undefined;
-        $scope.tags = []
     })
   }
 
