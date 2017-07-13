@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EstouroDePilha.Dominio.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,6 +15,7 @@ namespace EstouroDePilhaAPI.Models
         public string Endereco { get; private set; }
         public DateTime DataCadastro { get; private set; }
         public string Descricao { get; private set; }
+        public List<BadgeModel> Badges { get; set; }
 
         public UsuarioBaseModel(int id, string nome, string email, string urlImagemPerfil, string endereco, DateTime dataCadastro, string descricao)
         {
@@ -24,6 +26,7 @@ namespace EstouroDePilhaAPI.Models
             this.Endereco = endereco;
             this.DataCadastro = dataCadastro;
             this.Descricao = descricao;
+            this.Badges = new List<BadgeModel>();
         }
 
         public UsuarioBaseModel(int id, string nome,  string email, string urlImagemPerfil, string endereco, string descricao)

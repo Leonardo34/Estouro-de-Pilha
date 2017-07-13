@@ -1,4 +1,5 @@
-﻿using EstouroDePilhaAPI.Models;
+﻿using EstouroDePilha.Dominio.Models;
+using EstouroDePilhaAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -111,7 +112,16 @@ namespace EstouroDePilha.Dominio.Entidades
 
         public UsuarioBaseModel converterUsuarioParaUsuarioModel()
         {
-            return new UsuarioBaseModel(this.Id, this.Nome, this.Email, this.UrlFotoPerfil, this.Endereco, this.DataCadastro, this.Descricao);
+            var usuarioModel = new UsuarioBaseModel(this.Id, this.Nome, this.Email, this.UrlFotoPerfil, this.Endereco, this.DataCadastro, this.Descricao);
+            foreach (var badge in Badges)
+            {
+                var badgeModel = new BadgeModel();
+                badgeModel.Id = badge.Id;
+                badgeModel.Titulo = badge.Titulo;
+                badgeModel.Descricao = badge.Descricao;
+                usuarioModel.Badges.Add(badgeModel);
+            }
+            return usuarioModel;
         }
 
         public bool AdicionarBadgePeleador(Badge badge, int idPergunta)
@@ -189,7 +199,6 @@ namespace EstouroDePilha.Dominio.Entidades
 
         public bool AdicionaBadgeTramposo(Badge badge)
         {
-
             var ehTramposo = Perguntas.Any(p => p.
                 Respostas.Any(r => r.EhRespostaCorreta == true && (r.Usuario.Id == r.Pergunta.Usuario.Id)));
             var badgeTramposo = Badges.FirstOrDefault(b => b.Titulo.Contains("Tramposo"));
