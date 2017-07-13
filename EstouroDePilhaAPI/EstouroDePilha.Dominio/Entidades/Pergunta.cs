@@ -123,6 +123,11 @@ namespace EstouroDePilha.Dominio.Entidades
             }
             DownVotes.Add(new DownVotePergunta(this, usuario));
         }
+
+        public void Comentar(Usuario usuario, string descricao)
+        {
+            ComentariosPergunta.Add(new ComentarioPergunta(this, usuario, descricao));
+        }
     }
 }
 
