@@ -112,6 +112,10 @@ ol, ul {
   margin-left: 0;
 }
 
+.borderless {
+  border: 0;
+}
+
 .borderless-right {
   border-right: 0;
 }
@@ -276,6 +280,12 @@ ol, ul {
 
 .box{
   margin: 1.3rem;
+}
+
+.comentario-textarea-inner {
+  min-height: 27px;
+  height: 27px;
+  padding: 0;
 }
 
 .margin-top {
@@ -453,6 +463,9 @@ ol, ul {
   border: gray solid 1px;
   padding-left: 3rem;
   padding-right: 3rem;
+  border-radius: 20px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 .form-resposta-fechado{
   width: 100%;

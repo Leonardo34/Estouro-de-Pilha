@@ -148,6 +148,23 @@
             </span>
             <span class="icon is-small"><i class="fa fa-thumbs-o-down fa-2x" ng-class="{'fa fa-thumbs-down fa-2x' : usuarioDeuDownvoteResposta(resposta)}" aria-hidden="true"></i></span>
           </a>
+
+          <div class="details"  ng-if="estaLogado">              
+              
+            </div>
+            <a class="button pagination-link is-static resposta-button borderless" ng-if ="resposta.EhRespostaCorreta"  name="button">
+              <span class="icon">
+                <i class="fa fa-check is-pulled-right"  aria-hidden="true"></i>
+              </span>               
+            </a>
+
+            <a class="button pagination-link resposta-button borderless" 
+                  ng-click="abrirFecharEdicaoResposta($index)" 
+                  ng-if="(usuario.Id === resposta.Usuario.Id && dataDeEdicao(pergunta) || ehGauderio)">
+              <span class="icon">
+                  <i class=" fa fa-pencil"></i>
+              </span>
+            </a> 
         </div>
         
           <div class="level-item"></div>
@@ -161,36 +178,13 @@
                     <!-- trocar para o nickname apos implementação -->
                     {{resposta.Usuario.Nome}}
                   </b>
-              </p>
-              <a class="button pagination-link is-static resposta-button" ng-if ="resposta.EhRespostaCorreta"  name="button">
-                <span class="icon">
-                  <i class="fa fa-check is-pulled-right"  aria-hidden="true"></i>
-                </span>               
-              </a>
+              </p>              
               <p class="is-inline">
                 <small class="resposta-usuario-data">
                   às {{resposta.DataResposta | date:'dd/MM/yyyy HH:mm'}}
                 </small>
               </p>
-            </a>
-            <div class="details"  ng-if="estaLogado">
-
-              <a class="button pagination-link resposta-button" 
-                  ng-click="abrirFecharEdicaoResposta($index)" 
-                  ng-if="(usuario.Id === resposta.Usuario.Id && dataDeEdicao(pergunta) || ehGauderio)">
-                <span class="icon">
-                    <i class=" fa fa-pencil"></i>
-                </span>
-              </a> 
-
-              <a class="pagination-link resposta-button" 
-                ng-if = "usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta()" 
-                ng-click = "marcarComoCorreta(resposta.Id)" name="button">             
-                <spanclass="icon">
-                    <i class=" fa fa-check"></i>
-                </span>
-              </a>  
-            </div>
+            </a>           
             
           </div>
                       
@@ -204,10 +198,7 @@
         <hr class="divisor-comentario">
         <div ng-repeat="comentario in resposta.Comentarios">
           <div class="level content comentarios">
-            <span class="level-left comentario-detalhes">
-              <figure class="image is-24x24">
-                <img  ng-src="{{comentario.Usuario.UrlImagemPerfil}}">  
-              </figure>
+            <span class="level-left comentario-detalhes">             
               <p>
                 <a ng-href="/#!/perfil/{{comentario.Usuario.Id}}">
                   <strong>{{comentario.Usuario.Nome}}:</strong>
@@ -226,13 +217,15 @@
 
       <!-- form de comentario  -->
       <form novalidate>
-        <div class="field has-addons"  ng-if="estaLogado">
-          <p class="control inline-input">
-            <input class="input borderless-right small" ng-model="comentario.Descricao" type="text">
-          </p>
-          <p class="control inline-button ">
-              <a class="button is-primary borderless-left small" ng-click="comentarResposta(comentario, resposta.Id)">Comentar</a>
-          </p>
+        <div class="comentario-textarea"  ng-if="estaLogado">
+          <textarea class="textarea comentario-textarea-inner"
+                    type="textarea"
+                    ng-model="comentario.Descricao"
+                    rows="1"
+                    placeholder="Escreva um comentário. Enter para enviar."
+                    ng-enter="comentarResposta(resposta.Id, comentario)"
+                    permitir-tab>
+          </textarea>
         </div>
       </form>
 
@@ -341,7 +334,7 @@
 
 <div id="div-responder">
   <form id="form-responder" name="formResponder" novalidate>
-    <p class="subtitle is-4">Descreve aí o que tu quer dizer:</p>
+    <p class="title is-5 margin-top">Descreve aí o que tu quer dizer:</p>
     <div class="box descricao-box">
 
       <nav class="botoes-desc">
@@ -400,7 +393,7 @@
 
 
     </div>
-    
+   <p class="subtitle is-5">Vai ficar tipo assim:</p> 
    <pre><div class="box descricao-box" btf-markdown="responder.Descricao"></div></pre>
     <div class="level">
       <a class="button is-success zero-radius level-item" ng-click ="responderPergunta()">Responder</a>

@@ -6,9 +6,7 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
     $scope.abrirFecharModalEdicao = abrirFecharModalEdicao;
     $scope.estaLogado = authService.isAutenticado();
     $scope.usuario = [];
-    $scope.alternarModal = false;
-    $scope.hoverIn = hoverIn;
-    $scope.hoverOut = hoverOut;
+    $scope.alternarModal = false;    
     pegarUsuario();
     pegarRespostas();
     pegarPerguntas();
@@ -79,13 +77,5 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
 
     function abrirFecharModalEdicao() {
         $scope.alternarModal = !$scope.alternarModal;
-    }
-
-    function hoverIn() {
-        this.mostrarDescricaoBadge = true;
-    };
-
-     function hoverOut (){
-        this.mostrarDescricaoBadge = false;
-    };
+    }   
 });

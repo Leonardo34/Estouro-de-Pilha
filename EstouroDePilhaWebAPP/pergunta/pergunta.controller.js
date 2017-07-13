@@ -138,13 +138,19 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   function editarPergunta(pergunta) {
     abrirFecharModal('E');
     var perguntaModel = {Titulo:pergunta.Titulo, Descricao:pergunta.Descricao, TagsIds:pergunta.TagsIds, Id:pergunta.Id};
-    perguntaService.editarPergunta(perguntaModel).then(function (response){
-       buscarPerguntaPorId(idDaPergunta);
+    perguntaService.editarPergunta(perguntaModel)
+        .then(function (response){
+          buscarPerguntaPorId(idDaPergunta);
+          new Noty({
+              type: 'success',
+              timeout: 2000,
+              text:  'A pergunta foi editada!'                
+          }).show();
     })
   }
 
   function comentarResposta(idDaResposta, comentario){
-    perguntaService.comentarResposta(idDaResposta, comentario)
+    perguntaService.comentarResposta(comentario, idDaPergunta)
     .then(response => {
       new Noty({
           type: 'success',
