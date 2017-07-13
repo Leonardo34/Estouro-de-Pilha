@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace EstouroDePilha.Dominio.Entidades
 {
@@ -25,6 +26,7 @@ namespace EstouroDePilha.Dominio.Entidades
         public virtual List<Pergunta> Perguntas { get; set; }
         public virtual List<Resposta> Respostas { get; set; }
         public virtual List<Badge> Badges { get; set; }
+        public object Datetime { get; private set; }
 
         public Usuario(string nome, string endereco, string descricao, string urlFotoPerfil, string email, string senha)
         {
@@ -210,6 +212,78 @@ namespace EstouroDePilha.Dominio.Entidades
             return false;
         }
 
+
+        public bool AdicionaBadgeAmargo(Badge badge, int numeroDownVotes)
+        {
+            if (numeroDownVotes != 6) return false;
+
+            this.Badges.Add(badge);
+            return true;
+        }
+
+        public bool AdicionarBadgeFaceiro(Badge badge, List<UpVotePergunta> upVotePergunta, List<UpVoteResposta> upVoteResposta)
+        {
+            if  (this.Badges.FirstOrDefault(b => b.Titulo.Contains("Faceiro")) != null)
+            {
+                return false;
+            }
+            var upVoteRespostaDatas = upVoteResposta.Select(up => up.Data).ToList();
+            var upVotePerguntaDatas = upVotePergunta.Select(up => up.Data).ToList();
+            var datasDeUpVotes = upVotePerguntaDatas.Concat(upVoteRespostaDatas).OrderBy(x => x.TimeOfDay).ToList();
+
+            double diferencaDeTempo = 0;
+            foreach (DateTime data in datasDeUpVotes)
+            {
+                foreach (DateTime data1 in datasDeUpVotes)
+                {
+                    var contador = 1;
+                    diferencaDeTempo += (data - data1).TotalSeconds;
+                    contador++;
+                    if (diferencaDeTempo > 60 && contador == 5)
+                    {
+                        diferencaDeTempo = 0;
+                        break;
+                    }
+                    if (diferencaDeTempo < 60 && contador == 5)
+                    {
+                        this.Badges.Add(badge);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool AdicionarBadgeEsgualepado(Badge badge)
+        {
+            if (this.Badges.FirstOrDefault(b => b.Titulo.Contains("Esgualepado")) != null)
+            {
+                return false;
+            }
+            List<DateTime> datasDeUpVotes = new List<DateTime>();
+            this.Respostas.ForEach(r => r.UpVotes.ForEach(up => datasDeUpVotes.Add(up.Data)));
+            this.Perguntas.ForEach(p => p.UpVotes.ForEach(up => datasDeUpVotes.Add(up.Data)));
+            double diferencaDeTempo = 0;
+            var UpVotesOrdenadosPorData =  datasDeUpVotes.OrderBy(x => x.TimeOfDay).ToList();
+            foreach (DateTime data in datasDeUpVotes)
+            {
+                foreach ( DateTime data1 in UpVotesOrdenadosPorData)
+                {
+                    var contador = 1;
+                    diferencaDeTempo += (data - data1).TotalSeconds;
+                    contador++;
+                    if (diferencaDeTempo > 30 && contador == 3)
+                    {
+                        diferencaDeTempo = 0;
+                        break;
+                    }
+                    if (diferencaDeTempo < 30 && contador == 3)
+                    {
+                        this.Badges.Add(badge);
+                        return true;
+                    }
+                }
+
         public bool AdicionarBadgeBaitaPergunta(Badge badge, int idPergunta)
         {
             var upVotesPergunta = Perguntas.FirstOrDefault(p => p.Id == idPergunta).UpVotes.Count();
@@ -221,6 +295,21 @@ namespace EstouroDePilha.Dominio.Entidades
             return false;
         }
 
+    public bool adicionarbadgeEmbretado(Badge badge)
+        {
+            if (this.Badges.FirstOrDefault(b => b.Titulo.Contains("Embretado")) != null)
+            {
+                return false;
+            }
+            var temPerguntaIgnorada = this.Perguntas.FirstOrDefault(p => (DateTime.Now - p.DataPergunta).TotalDays == 7
+            && p.Respostas.Count() == 0);
+            if (temPerguntaIgnorada != null)
+            {
+                this.Badges.Add(badge);
+            }
+            return false;
+        }
+        
         public bool AdicionarBadgeGauderio(Badge badge)
         {
             var gauderio = Badges.FirstOrDefault(b => b.Titulo.Contains("Gaudério"));
@@ -234,6 +323,21 @@ namespace EstouroDePilha.Dominio.Entidades
             {
                 this.Badges.Add(badge);
                 return true;
+            }
+            return false;
+        }
+
+      public bool adicionarbadgeGuriDeApartamento(Badge badge, int numeroDeVotos)
+       {
+            if (this.Badges.FirstOrDefault(b => b.Titulo.Contains("Guri de apartamento")) != null)
+            {
+                return false;
+            }
+            var temContaAMaisDeUmAno = (DateTime.Today - this.DataCadastro).TotalDays == (DateTime.Now - DateTime.Now.AddYears(-1)).TotalDays;
+            var nuncaPerguntou = this.Perguntas.Count() == 0;          
+            if (temContaAMaisDeUmAno && nuncaPerguntou && (numeroDeVotos == 0))
+            {
+                this.Badges.Add(badge);
             }
             return false;
         }

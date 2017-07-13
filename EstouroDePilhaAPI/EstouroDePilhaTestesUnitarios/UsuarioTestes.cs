@@ -684,5 +684,44 @@ namespace EstouroDePilhaTestesUnitarios
           
             Assert.IsFalse(usuario1.AdicionarBadgeGauderio(badge));
         }
+
+        [TestMethod]
+        public void TestarMetodoAdicionaBadgeAmargoQuandoUsuarioTem6DownVotes()
+        {
+            Usuario usuario = new Usuario("a", "a", "a", "a", "a", "a");
+            usuario.Badges = new List<Badge>();
+            usuario.Respostas = new List<Resposta>();
+            usuario.Perguntas = new List<Pergunta>();
+            Badge amargo = new Badge("Amargo", "Usuário que já deu mais de 5 downvotes");
+            usuario.AdicionaBadgeAmargo(amargo, 6);
+
+            Assert.IsTrue(usuario.Badges.Contains(amargo));
+        }
+
+        [TestMethod]
+        public void TestarMetodoAdicionaBadgeAmargoQuandoUsuarioTemMenosDe5DownVotes()
+        {
+            Usuario usuario = new Usuario("a", "a", "a", "a", "a", "a");
+            usuario.Badges = new List<Badge>();
+            usuario.Respostas = new List<Resposta>();
+            usuario.Perguntas = new List<Pergunta>();
+            Badge amargo = new Badge("Amargo", "Usuário que já deu mais de 5 downvotes");
+            usuario.AdicionaBadgeAmargo(amargo, 4);
+
+            Assert.IsFalse(usuario.Badges.Contains(amargo));
+        }
+
+        [TestMethod]
+        public void TestarMetodoAdicionaBadgeAmargoNaoDuplicaABadge()
+        {
+            Usuario usuario = new Usuario("a", "a", "a", "a", "a", "a");
+            usuario.Badges = new List<Badge>();
+            usuario.Respostas = new List<Resposta>();
+            usuario.Perguntas = new List<Pergunta>();
+            Badge amargo = new Badge("Amargo", "Usuário que já deu mais de 5 downvotes");
+            usuario.AdicionaBadgeAmargo(amargo, 6);
+
+            Assert.IsFalse(usuario.AdicionaBadgeAmargo(amargo, 7));
+        }
     }
 }
