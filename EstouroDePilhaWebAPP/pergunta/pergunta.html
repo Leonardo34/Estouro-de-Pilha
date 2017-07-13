@@ -149,9 +149,6 @@
               <a class="button pagination-link is-static resposta-button" ng-if ="resposta.EhRespostaCorreta"  name="button">
                 <span class="icon">
                   <i class="fa fa-check is-pulled-right"  aria-hidden="true"></i>
-                </span>
-                <span>
-                  Resposta correta
                 </span>               
               </a>
               <p class="is-inline">
@@ -162,27 +159,23 @@
             </a>
             <div class="details"  ng-if="estaLogado">
 
-              <a class="button pagination-link is-primary resposta-button" ng-click="abrirFecharEdicaoResposta($index)" ng-if="usuario.Id === resposta.Usuario.Id">
+              <a class="button pagination-link resposta-button" ng-click="abrirFecharEdicaoResposta($index)" ng-if="usuario.Id === resposta.Usuario.Id">
                 <span class="icon">
                     <i class=" fa fa-pencil"></i>
                 </span>
-                <span>Editar</span>
               </a> 
 
-              <a class="button pagination-link is-primary resposta-button" 
+              <a class="pagination-link resposta-button" 
                 ng-if = "usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta()" 
                 ng-click = "marcarComoCorreta(resposta.Id)" name="button">             
-                <span>
-                  Marcar como correta
+                <spanclass="icon">
+                    <i class=" fa fa-check"></i>
                 </span>
               </a>  
             </div>
             
           </div>
                       
-           
-          
-       
       </section>
 
       <article class="resposta-descricao">
