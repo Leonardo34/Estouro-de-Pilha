@@ -194,7 +194,7 @@ namespace EstouroDePilha.Dominio.Entidades
                 return false;
             }
             var papudo = Respostas.Where(r => r.UpVotes.Count() == 0 && r.DownVotes.Count == 0);
-            if (papudo !=null)
+            if (papudo.Count() > 10)
             {
                 this.Badges.Add(badge);
                 return true;
