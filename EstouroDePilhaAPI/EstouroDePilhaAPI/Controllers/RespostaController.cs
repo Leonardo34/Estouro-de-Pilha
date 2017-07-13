@@ -128,6 +128,8 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 resposta.DownVote(usuario);
                 respostasRepositorio.Alterar(resposta);
+                badgeService.UsuarioDeuDownVote(usuario);
+                badgeService.UsuarioRecebeuDownVote(resposta.Usuario);
                 return ResponderOK();
             }
             catch (Exception e)

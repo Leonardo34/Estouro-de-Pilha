@@ -23,6 +23,9 @@ namespace EstouroDePilha.Dominio.Servicos
         private static readonly int ID_BADGE_DE_VEREDA = 16;
         private static readonly int ID_BADGE_PAPUDO = 17;
         private static readonly int ID_BADGE_AMARGO = 9;
+        private static readonly int ID_BADGE_ESGUALEPADO = 13;
+        private static readonly int ID_BADGE_BAITA_PERGUNTA = 19;
+        private static readonly int ID_BADGE_GAUDERIO = 20;
 
         public BadgeService(IPerguntaRepositorio perguntaRepositorio, 
                 IUsuarioRepositorio usuarioRepositorio, 
@@ -43,13 +46,33 @@ namespace EstouroDePilha.Dominio.Servicos
             usuario.AdicionaBadgeGuri(badgeGuri);
             Badge badgePeleador = badgeRepositorio.ObterPorId(ID_BADGE_PELEADOR);
             usuario.AdicionarBadgePeleador(badgePeleador, idPergunta);
+            Badge badgeGauderio = badgeRepositorio.ObterPorId(ID_BADGE_GAUDERIO);
+            usuario.AdicionarBadgeGauderio(badgeGauderio);
+
+            usuarioRepositorio.Alterar(usuario);
+        }
+
+        public void UsuarioRecebeuUpVotePergunta(Usuario usuario, int idPergunta)
+        {
+            Badge badgeBaitaPergunta = badgeRepositorio.ObterPorId(ID_BADGE_BAITA_PERGUNTA);
+            usuario.AdicionarBadgeBaitaPergunta(badgeBaitaPergunta, idPergunta);
+            Badge badgeGauderio = badgeRepositorio.ObterPorId(ID_BADGE_GAUDERIO);
+            usuario.AdicionarBadgeGauderio(badgeGauderio);
+
+            usuarioRepositorio.Alterar(usuario);
+        }
+
+        public void UsuarioRecebeuDownVote(Usuario usuario)
+        {
+            Badge badgeEsgualepado = badgeRepositorio.ObterPorId(ID_BADGE_ESGUALEPADO);
+            usuario.AdicionarBadgeEsgualepado(badgeEsgualepado);
 
             usuarioRepositorio.Alterar(usuario);
         }
 
         public void UsuarioDeuUpVote(Usuario usuario)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void UsuarioDeuDownVote(Usuario usuario)
@@ -57,6 +80,8 @@ namespace EstouroDePilha.Dominio.Servicos
             Badge badgeAmargo = badgeRepositorio.ObterPorId(ID_BADGE_AMARGO);
             int quantidadeDownVotes = usuarioRepositorio.QuantidadeDownVotesUsuario(usuario);
             usuario.AdicionaBadgeAmargo(badgeAmargo, quantidadeDownVotes);
+
+            usuarioRepositorio.Alterar(usuario);
         }
 
         public void UsuarioMarcouRespostaCorreta(Usuario usuario, int idPergunta)

@@ -88,6 +88,8 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 pergunta.UpVote(usuario);
                 perguntasRepositorio.Alterar(pergunta);
+                badgeService.UsuarioRecebeuUpVotePergunta(pergunta.Usuario, pergunta.Id);
+                badgeService.UsuarioDeuUpVote(usuario);
                 return ResponderOK();
             }
             catch (Exception e)
@@ -107,6 +109,8 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 pergunta.DownVote(usuario);
                 perguntasRepositorio.Alterar(pergunta);
+                badgeService.UsuarioDeuDownVote(usuario);
+                badgeService.UsuarioRecebeuDownVote(pergunta.Usuario);
                 return ResponderOK();
             }
             catch (Exception e)
