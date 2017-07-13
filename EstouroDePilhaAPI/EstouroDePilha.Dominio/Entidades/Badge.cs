@@ -11,12 +11,14 @@ namespace EstouroDePilha.Dominio.Entidades
         public int Id { get; private set; }
         public string Titulo { get; private set; }
         public string Descricao { get; private set; }
+        public string Tipo { get; private set; }
         public virtual List<Usuario> Usuarios { get; private set; }
 
-        public Badge(string titulo, string descricao)
+        public Badge(string titulo, string descricao, string tipo)
         {
             this.Titulo = titulo;
             this.Descricao = descricao;
+            this.Tipo = tipo;
         }
 
         protected Badge()
@@ -25,4 +27,3 @@ namespace EstouroDePilha.Dominio.Entidades
         }
     }
 }
-
