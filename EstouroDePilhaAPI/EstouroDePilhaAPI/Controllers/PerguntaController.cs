@@ -92,7 +92,7 @@ namespace EstouroDePilhaAPI.Controllers
                 badgeService.UsuarioDeuUpVote(usuario);
                 return ResponderOK();
             }
-            catch (Exception e)
+            catch (UsuarioJaDeuUpVoteException e)
             {
                 return ResponderErro(e.Message);
             }
@@ -113,7 +113,7 @@ namespace EstouroDePilhaAPI.Controllers
                 badgeService.UsuarioRecebeuDownVote(pergunta.Usuario);
                 return ResponderOK();
             }
-            catch (Exception e)
+            catch (UsuarioJaDeuDownVoteException e)
             {
                 return ResponderErro(e.Message);
             }
