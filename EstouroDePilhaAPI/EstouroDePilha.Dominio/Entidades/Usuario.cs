@@ -151,7 +151,7 @@ namespace EstouroDePilha.Dominio.Entidades
         public bool AdicionaBadgeEntrevero(Badge badge, int idPergunta)
         {
             Pergunta pergunta = Perguntas.FirstOrDefault(p => p.Id == idPergunta);
-            var entrevero = pergunta.Respostas.Count() > 10;
+            var entrevero = pergunta.Respostas.Count() == 11;
             if (entrevero)
             {
                 this.Badges.Add(badge);
@@ -189,9 +189,12 @@ namespace EstouroDePilha.Dominio.Entidades
 
         public bool AdicionaBadgePapudo(Badge badge)
         {
+            if (this.Badges.FirstOrDefault(b => b.Titulo.Contains("Papudo")) != null)
+            {
+                return false;
+            }
             var papudo = Respostas.Where(r => r.UpVotes.Count() == 0 && r.DownVotes.Count == 0);
-            var badgePapudo = Badges.FirstOrDefault(b => b.Titulo.Contains("Papudo"));
-            if (papudo.Count() > 10 && badgePapudo == null)
+            if (papudo !=null)
             {
                 this.Badges.Add(badge);
                 return true;
