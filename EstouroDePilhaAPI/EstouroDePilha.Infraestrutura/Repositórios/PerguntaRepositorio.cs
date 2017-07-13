@@ -83,7 +83,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 perguntasDaPesquisa = BuscaPerguntasPorTags(tags);
                 return RetornarPerguntasOrdenadasPorMaiorNumeroDeUpVotes(perguntasDaPesquisa);
             }
-            else if (tags.Contains("undefined"))
+            else if (tags == null)
             {
                 perguntasDaPesquisa = BuscaPerguntasPorTituloEDescricao(conteudo);
                 return RetornarPerguntasOrdenadasPorMaiorNumeroDeUpVotes(perguntasDaPesquisa);
