@@ -30,13 +30,13 @@ angular.module('EstouroPilhaApp').config(function ($routeProvider) {
     })
     .when('/pergunta/:id', {
       controller: 'perguntaController',
-      templateUrl: 'pergunta/pergunta.html' 
+      templateUrl: 'pergunta/pergunta.html'
     })
     .when('/perfil/:id', {
       controller: 'perfilController',
-      templateUrl: 'perfil/perfil.html'      
+      templateUrl: 'perfil/perfil.html'
     })
-    .when('/pesquisarPergunta', {
+    .when('/pesquisarPergunta/:filter', {
       controller: 'pesquisarPerguntaController',
       templateUrl: 'pesquisarPergunta/pesquisar.pergunta.html'
     })

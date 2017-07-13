@@ -1,15 +1,19 @@
-angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', function ($scope, authService, tagService, pesquisarPerguntaService){
+angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', function ($scope,  authService, $location, tagService, pesquisarPerguntaService, $routeParams){
   $scope.logout = authService.logout;
   $scope.pesquisar = pesquisar;
   $scope.anterior = anterior;
   $scope.proxima = proxima;
   $scope.estaLogado = authService.isAutenticado();
   $scope.pagina = 0;
-  var perguntaBuscada;
-
   $scope.tagsSelecionadas = [];
+  var perguntaBuscada;
   var tags =   $scope.tagsSelecionadas;
   buscarTags();
+
+  if($routeParams.filter) {
+    pesquisar($routeParams.filter);
+  }
+
   function buscarTags() {
     tagService.pegarTodasTags().then(res => {
       $scope.tags = res.data.result;
@@ -57,6 +61,10 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
   }
 
   function pesquisar (busca){
+    if (!$location.path() === '/pesquisarPergunta'){
+       $location.path("pesquisarPergunta")
+    }
+
     $scope.pagina = 0;
     perguntaBuscada = busca;
     if (perguntaBuscada === ''){
@@ -69,15 +77,16 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
 
   function pesquisarTrazerResultados(perguntaBuscada) {
     pesquisarPerguntaService.pesquisarTrazerResultados(
-      $scope.pagina, perguntaBuscada, tags.toString().replace(","," ")).then(function (response){
+      $scope.pagina, perguntaBuscada, (tags || []).toString().replace(","," ")).then(function (response){
         $scope.perguntasPesquisadas = response.data.result;
+        console.log(  $scope.perguntasPesquisadas);
         $scope.busca = undefined;
         $scope.tags = []
     })
   }
 
   function numeroDeResultadosDaPesquisa (perguntaBuscada){
-    pesquisarPerguntaService.numeroDeResultadosDaPesquisa(perguntaBuscada, tags.toString().replace(","," ")).then(function (response){
+    pesquisarPerguntaService.numeroDeResultadosDaPesquisa(perguntaBuscada, (tags || []).toString().replace(","," ")).then(function (response){
       $scope.numeroDeResultadosDaPesquisa = response.data.result;
       if ($scope.numeroDeResultadosDaPesquisa > 10){
           $scope.mostrarPaginacao = true;

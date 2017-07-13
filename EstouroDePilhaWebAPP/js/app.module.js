@@ -1,6 +1,10 @@
 angular.module("EstouroPilhaApp", ['ngRoute', 'auth', 'btford.markdown', 'permitirTab', 'angucomplete-alt']);
 
-angular.module('EstouroPilhaApp').constant('authConfig', {
+angular.module('EstouroPilhaApp')
+.config(function($sceProvider) {
+  $sceProvider.enabled(false);
+})
+.constant('authConfig', {
 
     // Obrigatória - URL da API que retorna o usuário
     urlUsuario: 'http://localhost:53986/api/usuarios/login',
