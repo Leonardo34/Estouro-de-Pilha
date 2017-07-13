@@ -70,8 +70,8 @@ namespace EstouroDePilha.Dominio.Entidades
 
         private bool PodeEditar(Usuario usuario)
         {
-            return (DateTime.Now - this.DataPergunta).TotalDays <= 7 
-                && usuario.Id == Usuario.Id;
+            return ((DateTime.Now - this.DataPergunta).TotalDays <= 7 
+                && usuario.Id == Usuario.Id ) || usuario.Badges.Any(b => b.Titulo.Contains("Gaudério"));
         }
 
         public bool UsuarioJaInteragiuComPergunta(Usuario usuario)

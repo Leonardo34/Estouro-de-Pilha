@@ -52,8 +52,8 @@ namespace EstouroDePilha.Dominio.Entidades
 
         private bool UsuarioPodeEditar(Usuario usuario)
         {
-            //gauderio irá editar quando quiser
-            return Usuario.Id == usuario.Id && (EhRespostaCorreta ?? false);
+            return (Usuario.Id == usuario.Id && (EhRespostaCorreta ?? false))
+                || usuario.Badges.Any(u => u.Titulo.Contains("Gaudério"));
         }
 
         public void Editar(string descricao, Usuario usuario)
