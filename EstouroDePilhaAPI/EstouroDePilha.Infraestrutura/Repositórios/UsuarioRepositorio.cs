@@ -58,5 +58,18 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .Include("Perguntas.Usuario")
                 .FirstOrDefault(u => u.Email.Equals(email));
         }
+
+        public int QuantidadeDownVotesUsuario(Usuario usuario)
+        {
+            int quantidadeDownVotesPergunta = contexto.DownVotesPerguntas
+                .Where(d => d.Usuario.Id == usuario.Id)
+                .Count();
+
+            int quantidadeDownVotesResposta = contexto.DownVotesResposta
+                .Where(d => d.Usuario.Id == usuario.Id)
+                .Count();
+
+            return quantidadeDownVotesPergunta + quantidadeDownVotesResposta;
+        }
     }
 }

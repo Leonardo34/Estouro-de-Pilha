@@ -55,7 +55,8 @@ namespace EstouroDePilha.Dominio.Servicos
         public void UsuarioDeuDownVote(Usuario usuario)
         {
             Badge badgeAmargo = badgeRepositorio.ObterPorId(ID_BADGE_AMARGO);
-            usuario.AdicionaBadgeAmargo(badgeAmargo);
+            int quantidadeDownVotes = usuarioRepositorio.QuantidadeDownVotesUsuario(usuario);
+            usuario.AdicionaBadgeAmargo(badgeAmargo, quantidadeDownVotes);
         }
 
         public void UsuarioMarcouRespostaCorreta(Usuario usuario, int idPergunta)
