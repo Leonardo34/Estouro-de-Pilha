@@ -2,6 +2,7 @@
 using EstouroDePilha.Dominio.Excecoes;
 using EstouroDePilha.Dominio.Models;
 using EstouroDePilha.Dominio.Repositórios;
+using EstouroDePilha.Dominio.Servicos;
 using EstouroDePilha.Infraestrutura;
 using EstouroDePilha.Infraestrutura.Repositórios;
 using EstouroDePilhaAPI.App_Start;
@@ -22,13 +23,16 @@ namespace EstouroDePilhaAPI.Controllers
         private readonly IPerguntaRepositorio perguntasRepositorio;
         private readonly IUsuarioRepositorio usuarioRepositorio;
         private readonly ITagRepositorio tagsRepositorio;
+        private readonly IBadgeService badgeService;
 
         public PerguntaController(IPerguntaRepositorio perguntasRepositorio,
-                IUsuarioRepositorio usuarioRepositorio, ITagRepositorio tagsRepositorio)
+                IUsuarioRepositorio usuarioRepositorio, ITagRepositorio tagsRepositorio,
+                IBadgeService badgeService)
         {
             this.perguntasRepositorio = perguntasRepositorio;
             this.usuarioRepositorio = usuarioRepositorio;
             this.tagsRepositorio = tagsRepositorio;
+            this.badgeService = badgeService;
         }
 
         [HttpGet, Route()]
@@ -62,12 +66,14 @@ namespace EstouroDePilhaAPI.Controllers
         [Route("nova")]
         public HttpResponseMessage Criar([FromBody]PerguntaModel perguntaModel)
         {
-            var pergunta = CriarEntidadePergunta(perguntaModel);
+            var usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            var pergunta = CriarEntidadePergunta(perguntaModel, usuario);
             if (!pergunta.EhValida())
             {
                 return ResponderErro(pergunta.Mensagens);
             }
             perguntasRepositorio.Criar(pergunta);
+            badgeService.UsuarioFezPergunta(usuario);
             return ResponderOK(new { id = pergunta.Id });
         }
 
@@ -214,9 +220,8 @@ namespace EstouroDePilhaAPI.Controllers
             return perguntasDto;
         }
 
-        private Pergunta CriarEntidadePergunta(PerguntaModel perguntaModel)
+        private Pergunta CriarEntidadePergunta(PerguntaModel perguntaModel, Usuario usuario)
         {
-            var usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             var pergunta = new Pergunta(usuario, perguntaModel.Titulo, perguntaModel.Descricao);
             if (perguntaModel.TagsIds != null)
             {

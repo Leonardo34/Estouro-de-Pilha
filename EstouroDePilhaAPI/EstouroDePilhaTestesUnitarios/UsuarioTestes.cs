@@ -528,7 +528,161 @@ namespace EstouroDePilhaTestesUnitarios
 
             Badge badgeTramposo = new Badge("Tramposo", "teste");
             Assert.IsFalse(usuario1.AdicionaBadgeTramposo(badgeTramposo));
+        }
 
+        [TestMethod]
+        public void TestarMetodoAdicionarBadgeBaitaPerguntaRetornoTrue()
+        {
+            Usuario usuario1 = new Usuario("teste 1", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Usuario usuario2 = new Usuario("teste 2", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Pergunta pergunta = new Pergunta(usuario1, "Java", "me ajuda");
+            List<Pergunta> perguntas = new List<Pergunta>();
+            UpVotePergunta upVote = new UpVotePergunta(pergunta, usuario2);
+            var contador = 1;
+            while (contador < 17)
+            {
+                pergunta.UpVotes.Add(upVote);
+                contador++;
+            }
+            perguntas.Add(pergunta);
+            List<Badge> badges = new List<Badge>();
+            usuario1.Perguntas = perguntas;
+            usuario1.Badges = badges;
+
+            Badge badge= new Badge("Baita pergunta", "teste");
+            Assert.IsTrue(usuario1.AdicionarBadgeBaitaPergunta(badge, pergunta.Id));
+        }
+
+        [TestMethod]
+        public void TestarMetodoAdicionarBadgeBaitaPerguntaRetornoFalse()
+        {
+            Usuario usuario1 = new Usuario("teste 1", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Usuario usuario2 = new Usuario("teste 2", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Pergunta pergunta = new Pergunta(usuario1, "Java", "me ajuda");
+            List<Pergunta> perguntas = new List<Pergunta>();
+            UpVotePergunta upVote = new UpVotePergunta(pergunta, usuario2);
+            var contador = 1;
+            while (contador < 20)
+            {
+                pergunta.UpVotes.Add(upVote);
+                contador++;
+            }
+            perguntas.Add(pergunta);
+            List<Badge> badges = new List<Badge>();
+            usuario1.Perguntas = perguntas;
+            usuario1.Badges = badges;
+
+            Badge badge = new Badge("Baita pergunta", "teste");
+            Assert.IsFalse(usuario1.AdicionarBadgeBaitaPergunta(badge, pergunta.Id));
+        }
+
+        [TestMethod]
+        public void TestarMetodoAdicionarBadgeBaitaPerguntaRetornoFalsePerguntaNaoTemVotosSuficiente()
+        {
+            Usuario usuario1 = new Usuario("teste 1", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Usuario usuario2 = new Usuario("teste 2", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Pergunta pergunta = new Pergunta(usuario1, "Java", "me ajuda");
+            List<Pergunta> perguntas = new List<Pergunta>();
+            UpVotePergunta upVote = new UpVotePergunta(pergunta, usuario2);
+            var contador = 1;
+            while (contador < 10)
+            {
+                pergunta.UpVotes.Add(upVote);
+                contador++;
+            }
+            perguntas.Add(pergunta);
+            List<Badge> badges = new List<Badge>();
+            usuario1.Perguntas = perguntas;
+            usuario1.Badges = badges;
+
+            Badge badge = new Badge("Baita pergunta", "teste");
+            Assert.IsFalse(usuario1.AdicionarBadgeBaitaPergunta(badge, pergunta.Id));
+        }
+
+        [TestMethod]
+        public void TestarMetodoAdicionarBadgeGauderiorRetornoFalso()
+        {
+            Usuario usuario1 = new Usuario("teste 1", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Usuario usuario2 = new Usuario("teste 2", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Pergunta pergunta = new Pergunta(usuario1, "Java", "me ajuda");
+            List<Pergunta> perguntas = new List<Pergunta>();
+            Resposta resposta = new Resposta(usuario1, pergunta, "me ajuda");
+            List<Resposta> respostas = new List<Resposta>();
+            UpVoteResposta upVoteResposta = new UpVoteResposta(resposta, usuario2);
+            UpVotePergunta upVotePergunta = new UpVotePergunta(pergunta, usuario2);
+            var contador = 0;
+            while (contador < 9)
+            {
+                pergunta.UpVotes.Add(upVotePergunta);
+                resposta.UpVotes.Add(upVoteResposta);
+                contador++;
+            }
+            perguntas.Add(pergunta);
+            respostas.Add(resposta);
+            List<Badge> badges = new List<Badge>();
+            usuario1.Perguntas = perguntas;
+            usuario1.Badges = badges;
+            usuario1.Respostas = respostas;
+            Badge badge = new Badge("Gaudério", "teste");
+            Assert.IsFalse(usuario1.AdicionarBadgeGauderio(badge));
+        }
+
+        [TestMethod]
+        public void TestarMetodoAdicionarBadgeGauderiorRetornoTrue()
+        {
+            Usuario usuario1 = new Usuario("teste 1", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Usuario usuario2 = new Usuario("teste 2", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Pergunta pergunta = new Pergunta(usuario1, "Java", "me ajuda");
+            List<Pergunta> perguntas = new List<Pergunta>();
+            Resposta resposta = new Resposta(usuario1, pergunta, "me ajuda");
+            List<Resposta> respostas = new List<Resposta>();
+            UpVoteResposta upVoteResposta = new UpVoteResposta(resposta, usuario2);
+            UpVotePergunta upVotePergunta = new UpVotePergunta(pergunta, usuario2);
+            var contador = 0;
+            while (contador <= 10)
+            {
+                pergunta.UpVotes.Add(upVotePergunta);
+                resposta.UpVotes.Add(upVoteResposta);
+                contador++;
+            }
+            perguntas.Add(pergunta);
+            respostas.Add(resposta);
+            List<Badge> badges = new List<Badge>();
+            usuario1.Perguntas = perguntas;
+            usuario1.Badges = badges;
+            usuario1.Respostas = respostas;
+            Badge badge = new Badge("Gaudério", "teste");
+            Assert.IsTrue(usuario1.AdicionarBadgeGauderio(badge));
+        }
+
+        [TestMethod]
+        public void TestarMetodoAdicionarBadgeGauderiorRetornoFalsoUsuarioJahtemABadge()
+        {
+            Usuario usuario1 = new Usuario("teste 1", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Usuario usuario2 = new Usuario("teste 2", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "q1223");
+            Pergunta pergunta = new Pergunta(usuario1, "Java", "me ajuda");
+            List<Pergunta> perguntas = new List<Pergunta>();
+            Resposta resposta = new Resposta(usuario1, pergunta, "me ajuda");
+            List<Resposta> respostas = new List<Resposta>();
+            UpVoteResposta upVoteResposta = new UpVoteResposta(resposta, usuario2);
+            UpVotePergunta upVotePergunta = new UpVotePergunta(pergunta, usuario2);
+            var contador = 0;
+            while (contador <= 10)
+            {
+                pergunta.UpVotes.Add(upVotePergunta);
+                resposta.UpVotes.Add(upVoteResposta);
+                contador++;
+            }
+            perguntas.Add(pergunta);
+            respostas.Add(resposta);
+            List<Badge> badges = new List<Badge>();
+            Badge badge = new Badge("Gaudério", "teste");
+            badges.Add(badge);
+            usuario1.Perguntas = perguntas;
+            usuario1.Badges = badges;
+            usuario1.Respostas = respostas;
+          
+            Assert.IsFalse(usuario1.AdicionarBadgeGauderio(badge));
         }
 
         [TestMethod]

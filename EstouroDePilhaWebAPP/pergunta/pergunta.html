@@ -146,6 +146,14 @@
                     {{resposta.Usuario.Nome}}
                   </b>
               </p>
+              <a class="button pagination-link is-static resposta-button" ng-if ="resposta.EhRespostaCorreta"  name="button">
+                <span class="icon">
+                  <i class="fa fa-check is-pulled-right"  aria-hidden="true"></i>
+                </span>
+                <span>
+                  Resposta correta
+                </span>               
+              </a>
               <p class="is-inline">
                 <small class="resposta-usuario-data">
                   às {{resposta.DataResposta | date:'dd/MM/yyyy HH:mm'}}
@@ -168,16 +176,6 @@
                   Marcar como correta
                 </span>
               </a>  
-                
-              <a class="button pagination-link is-static resposta-button" ng-if ="resposta.EhRespostaCorreta"  name="button">
-                <span class="icon">
-                  <i class="fa fa-check is-pulled-right"  aria-hidden="true"></i>
-                </span>
-                <span>
-                  Resposta correta
-                </span>               
-              </a>
-
             </div>
             
           </div>

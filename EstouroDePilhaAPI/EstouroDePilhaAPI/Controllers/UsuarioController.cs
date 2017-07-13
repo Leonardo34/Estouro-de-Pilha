@@ -109,9 +109,7 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 throw new ExcecaoUsuarioNaoExistente();
             }
-
             return ResponderOK(usuario.converterUsuarioParaUsuarioModel());
         }
     }
-
 }

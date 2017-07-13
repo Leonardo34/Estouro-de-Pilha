@@ -40,6 +40,10 @@ namespace EstouroDePilha.Infraestrutura.Mapeamento
             HasMany(x => x.DownVotes)
                 .WithRequired(x => x.Pergunta)
                 .Map(x => x.MapKey("IdPergunta"));
+
+            HasMany(x => x.ComentariosPergunta)
+                .WithRequired(x => x.Pergunta)
+                .Map(x => x.MapKey("IdPergunta"));
         }
     }
 }
