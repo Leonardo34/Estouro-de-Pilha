@@ -64,6 +64,34 @@
   </div>
 </section>
 
+<section class="hero">
+  <div class="hero-body hero-badges">
+    <div class="badges-wrapper level">
+
+      <section class="badges" ng-repeat="badge in usuario.Badges">
+        <div class="level-item">
+          <div class="wrapper">
+            <span   data-tooltip="{{badge.Descricao}}"  
+                    class="tag is-medium badge"                                   
+                    ng-class="{'badge-gold': badge.Tipo === 'Ouro', 
+                              'badge-silver': badge.Tipo === 'Prata', 
+                              'badge-bronze': badge.Tipo === 'Bronze'}">
+              {{badge.Titulo}}
+            </span>
+            <!-- <span ng-show="mostrarDescricaoBadge" class="badge-descricao">{{badg.Descricao}}</span> -->
+          </div>
+          
+        </div>     
+
+      </section>
+
+    </div>
+    
+  </div>
+  
+
+</section>
+
 <section class="section minhas-perguntas">
   <div class="container">
     <h3 class="subtitle">Tags em que participei</h3>

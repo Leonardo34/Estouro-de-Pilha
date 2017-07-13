@@ -121,6 +121,7 @@ namespace EstouroDePilha.Dominio.Entidades
                 badgeModel.Id = badge.Id;
                 badgeModel.Titulo = badge.Titulo;
                 badgeModel.Descricao = badge.Descricao;
+                badgeModel.Tipo = badge.Tipo;
                 usuarioModel.Badges.Add(badgeModel);
             }
             return usuarioModel;

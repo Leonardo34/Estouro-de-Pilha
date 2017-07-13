@@ -116,6 +116,56 @@ ol, ul {
   border-right: 0;
 }
 
+.hero-badges {  
+  padding: 1rem .5rem;
+}
+
+.badges-wrapper {
+  justify-content: center;
+}
+
+.badge-gold, .badge-silver, .badge-bronze {
+  color: white;
+  text-shadow: 1px 1px gray;
+  user-select: none;   
+  cursor: default;
+}
+.badge-gold {
+  background: gold;
+}
+
+.badge-silver {
+  background: silver;
+}
+
+.badge-bronze {
+  background: chocolate;
+}
+
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]:after {
+  content: attr(data-tooltip);
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 3px;
+  color: #fff;
+  font-size: 12px;
+  top: -100%;
+  left: -130%;
+  opacity: 0;
+  transform: scale(0);
+  transition-duration: .3s;
+}
+
+[data-tooltip]:hover:after {
+  opacity: 1;
+  transform: scale(1);
+}
+
 .borderless-left {
   border-left: 0;
 }

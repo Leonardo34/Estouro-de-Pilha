@@ -32,11 +32,11 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
   }
 
   function upvoteResposta (idResposta) {
-    return $http.post(`${urlResposta}/${idResposta}/upvote`, {});
+    return $http.post(`${urlResposta}${idResposta}/upvote`, {});
   }
 
   function downvoteResposta (idResposta) {
-    return $http.post(`${urlResposta}/${idResposta}/downvote`, {});
+    return $http.post(`${urlResposta}${idResposta}/downvote`, {});
   }
 
   function pegarRespostasDoUsuario(id) {
@@ -44,23 +44,23 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
   }
 
   function editarPergunta(perguntaModel) {
-    return $http.put(`${urlPerguntas}/editar`, perguntaModel);
+    return $http.put(`${urlPerguntas}editar`, perguntaModel);
   }
 
   function editarResposta(respostaModel) {
-    return $http.put(`${urlResposta}/editar/${respostaModel.Id}`, respostaModel);
+    return $http.put(`${urlResposta}editar/${respostaModel.Id}`, respostaModel);
   }
 
   function comentarResposta(comentarioRespostaModel, idResposta){
-    return $http.post(`${urlResposta}/${idResposta}/comentar`, comentarioRespostaModel);
+    return $http.post(`${urlResposta}${idResposta}/comentar`, comentarioRespostaModel);
   }
 
   function comentarPergunta(comentarioPerguntaModel, idPergunta){
-    return $http.post(`${urlPerguntas}/${idPergunta}/comentar`, comentarioPerguntaModel);
+    return $http.post(`${urlPerguntas}${idPergunta}/comentar`, comentarioPerguntaModel);
   }
 
   function responderPergunta(respostaModel, idPergunta) {
-    return $http.post(`${urlResposta}/nova/${idPergunta}`, respostaModel);
+    return $http.post(`${urlResposta}nova/${idPergunta}`, respostaModel);
   }
   
   function upvotePergunta (idPergunta) {
