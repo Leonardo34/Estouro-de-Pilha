@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EstouroDePilha.Dominio.Excecoes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -73,7 +74,7 @@ namespace EstouroDePilha.Dominio.Entidades
         {
             if (UsuarioJaInteragiuComResposta(usuario))
             {
-                throw new Exception("Você não pode mais dar UpVote nesta resposta");
+                throw new UsuarioJaDeuUpVoteException();
             }
             UpVotes.Add(new UpVoteResposta(this, usuario));
         }
@@ -82,7 +83,7 @@ namespace EstouroDePilha.Dominio.Entidades
         {
             if (UsuarioJaInteragiuComResposta(usuario))
             {
-                throw new Exception("Você não pode mais dar DownVote nesta resposta");
+                throw new UsuarioJaDeuDownVoteException();
             }
             DownVotes.Add(new DownVoteResposta(this, usuario));
         }
