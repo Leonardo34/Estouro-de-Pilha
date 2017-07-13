@@ -41,7 +41,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.editarResposta = editarResposta;
   $scope.dataDeEdicao = dataDeEdicao;
   $scope.ehGauderio = ehGauderio;
-  
+
   function buscarPerguntaPorId() {
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response) {
       $scope.pergunta = response.data.result;
@@ -52,10 +52,13 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   }
 
   function podeEditarPergunta() {
-    if (authService.getUsuario() !== undefined)
-    if ((Date.parse(new Date()) - Date.parse(data))/(1000*3600*24) <= 7 && email === authService.getUsuario().Email) {
-      return true;
+    if (authService.getUsuario() !== undefined) {
+      if ((Date.parse(new Date()) - Date.parse(data))/(1000*3600*24) <= 7 && email === authService.getUsuario().Email) {
+        return true;
+      }
+      if($scope.ehGauderio()) return true;
     }
+    return false;
   }
 
   function buscarRespostaPorIdDaPergunta() {
@@ -133,7 +136,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   }
 
   function editarPergunta(pergunta) {
-    abrirFecharEdicao();
+    abrirFecharModal('E');
     var perguntaModel = {Titulo:pergunta.Titulo, Descricao:pergunta.Descricao, TagsIds:pergunta.TagsIds, Id:pergunta.Id};
     perguntaService.editarPergunta(perguntaModel).then(function (response){
        buscarPerguntaPorId(idDaPergunta);
@@ -286,7 +289,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
 
   function ehGauderio() {
     let gauderio = false;
-    $scope.usuario.Badge.forEach(badge => {
+    $scope.usuario.Badges.forEach(badge => {
       if(badge.Titulo === 'Gaudério')
         gauderio = true;
     });

@@ -155,7 +155,7 @@ ol, ul {
   color: #fff;
   font-size: 12px;
   top: -100%;
-  left: -130%;
+  left: -50%;
   opacity: 0;
   transform: scale(0);
   transition-duration: .3s;
