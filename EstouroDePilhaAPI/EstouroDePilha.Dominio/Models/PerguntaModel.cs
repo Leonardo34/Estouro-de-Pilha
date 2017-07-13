@@ -20,5 +20,6 @@ namespace EstouroDePilha.Dominio.Models
         public int QuantidadeDownVotes { get; set; }
         public List<UsuarioBaseModel> UpVotes { get; set; }
         public List<UsuarioBaseModel> DownVotes { get; set; }
+        public List<ComentarioRespostaModel> Comentarios { get; set; }
     }
 }

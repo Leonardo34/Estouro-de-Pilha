@@ -88,6 +88,8 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 pergunta.UpVote(usuario);
                 perguntasRepositorio.Alterar(pergunta);
+                badgeService.UsuarioRecebeuUpVotePergunta(pergunta.Usuario, pergunta.Id);
+                badgeService.UsuarioDeuUpVote(usuario);
                 return ResponderOK();
             }
             catch (Exception e)
@@ -107,12 +109,25 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 pergunta.DownVote(usuario);
                 perguntasRepositorio.Alterar(pergunta);
+                badgeService.UsuarioDeuDownVote(usuario);
+                badgeService.UsuarioRecebeuDownVote(pergunta.Usuario);
                 return ResponderOK();
             }
             catch (Exception e)
             {
                 return ResponderErro(e.Message);
             }
+        }
+
+        [BasicAuthorization]
+        [HttpPost, Route("{idPergunta:int}/comentar")]
+        public HttpResponseMessage AdicionarComentario(int idPergunta, [FromBody]ComentarioRespostaModel comentarioModel)
+        {
+            var usuario = usuarioRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
+            var pergunta = perguntasRepositorio.ObterPorId(idPergunta);
+            pergunta.Comentar(usuario, comentarioModel.Descricao);
+            perguntasRepositorio.Alterar(pergunta);
+            return ResponderOK();
         }
 
         [BasicAuthorization]
@@ -186,28 +201,32 @@ namespace EstouroDePilhaAPI.Controllers
             perguntaModel.DownVotes = new List<UsuarioBaseModel>();
             perguntaModel.UpVotes = new List<UsuarioBaseModel>();
             var tags = entidadePergunta.Tags;
-            if (tags != null)
+            foreach (var tag in tags)
             {
-                foreach (var tag in tags)
-                {
-                    var tagModel = new TagModel();
-                    tagModel.Id = tag.Id;
-                    tagModel.Descricao = tag.Descricao;
-                    perguntaModel.Tags.Add(tagModel);
-                }
+                var tagModel = new TagModel();
+                tagModel.Id = tag.Id;
+                tagModel.Descricao = tag.Descricao;
+                perguntaModel.Tags.Add(tagModel);
             }
-            if (entidadePergunta.UpVotes != null && entidadePergunta.DownVotes != null)
+            perguntaModel.Comentarios = new List<ComentarioRespostaModel>();
+            foreach (var each in entidadePergunta.ComentariosPergunta)
             {
-                perguntaModel.QuantidadeDownVotes = entidadePergunta.DownVotes.Count();
-                perguntaModel.QuantidadeUpVotes = entidadePergunta.UpVotes.Count();
-                foreach (var each in entidadePergunta.UpVotes)
-                {
-                    perguntaModel.UpVotes.Add(each.Usuario.converterUsuarioParaUsuarioModel());
-                }
-                foreach (var each in entidadePergunta.DownVotes)
-                {
-                    perguntaModel.DownVotes.Add(each.Usuario.converterUsuarioParaUsuarioModel());
-                }
+                var comentario = new ComentarioRespostaModel();
+                comentario.Usuario = each.Usuario.converterUsuarioParaUsuarioModel();
+                comentario.Id = each.Id;
+                comentario.DataComentario = each.DataComentario;
+                comentario.Descricao = each.Descricao;
+                perguntaModel.Comentarios.Add(comentario);
+            }
+            perguntaModel.QuantidadeDownVotes = entidadePergunta.DownVotes.Count();
+            perguntaModel.QuantidadeUpVotes = entidadePergunta.UpVotes.Count();
+            foreach (var each in entidadePergunta.UpVotes)
+            {
+                perguntaModel.UpVotes.Add(each.Usuario.converterUsuarioParaUsuarioModel());
+            }
+            foreach (var each in entidadePergunta.DownVotes)
+            {
+                perguntaModel.DownVotes.Add(each.Usuario.converterUsuarioParaUsuarioModel());
             }
             return perguntaModel;
         }

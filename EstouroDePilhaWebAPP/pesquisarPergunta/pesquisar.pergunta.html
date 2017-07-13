@@ -7,15 +7,34 @@
            <div class="field">
              <label class="label">Busca Aí!</label>
                <p class="control">
-                 <input class="input" type="text" placeholder="conteúdo" ng-model = "busca.conteudo">
+                 <input class="input" type="text" placeholder="conteúdo" ng-model = "conteudo">
                </p>
              <label class="label">Digita as tags, guri!</label>
-               <p class="control">
-                 <input class="input" type="text" placeholder="tags" ng-model = "busca.tags">
-               </p>
+              <div class="tags-input">
+                <span class="tag is-success" ng-repeat="tagSelecionada in tagsSelecionadas">
+                  {{tagSelecionada}}
+                  <button class="delete is-small" ng-click="removeTag(tagSelecionada)"></button>
+                </span>
+
+                <angucomplete-alt ng-enter="adicionarTag(teste.title)"
+                    class="input-tag"
+                    type="text"
+                    required
+                    minlength="1"
+                    maxlength="80"
+                    placeholder="Tags"
+                    id="autocomplete-form"
+                    selected-object="teste"
+                    local-data="tags"
+                    local-search="autocompleteTag"
+                    title-field="Descricao"
+                    input-class="form-control form-control-small"
+                    match-class="highlight">
+                </angucomplete-alt>
+              </div>
            </div>
            <p class="control">
-             <button class="button is-primary" ng-click = "pesquisar(busca)">Buscar</button>
+             <button class="button is-primary" ng-click = "pesquisar(conteudo)">Buscar</button>
            </p>
          </div>
        </section>
@@ -86,7 +105,7 @@
     </section>
   </div>
   <nav class="containerPerguntasERespostas nav-center"  ng-if = "mostrarPaginacao">
-    <a class="pagination-previous is-centered" title="This is the first page"  ng-click = "anterior()" disabled>Anterior</a>
-    <a class="pagination-next is-centered" ng-click = "proxima()">Próxima</a>
+    <a class="pagination-previous is-centered" title="This is the first page"  ng-class="{'link-disabled' : pagina == 0}"  ng-click = "anterior()" >Anterior</a>
+    <a class="pagination-next is-centered" ng-class="{'link-disabled' : ultimaPagina== true}" ng-click = "proxima()">Próxima</a>
   </nav>
 </div>

@@ -311,7 +311,7 @@ namespace EstouroDePilha.Dominio.Entidades
                 return false;
             }
             var temPerguntaIgnorada = this?.Perguntas.FirstOrDefault(p => (DateTime.Now - p.DataPergunta).TotalDays == 7
-            && p.Respostas.Count() == 0);
+                    && p.Respostas.Count() == 0);
             if (temPerguntaIgnorada != null)
             {
                 this.Badges.Add(badge);

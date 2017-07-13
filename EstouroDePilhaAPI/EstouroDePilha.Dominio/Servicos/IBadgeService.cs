@@ -14,5 +14,8 @@ namespace EstouroDePilha.Dominio.Servicos
         void UsuarioMarcouRespostaCorreta(Usuario usuario, int idPergunta);
         void UsuarioRecebeuResposta(Usuario usuario, int idPergunta);
         void UsuarioFezPergunta(Usuario usuario);
+        void UsuarioDeuDownVote(Usuario usuario);
+        void UsuarioRecebeuDownVote(Usuario usuario);
+        void UsuarioRecebeuUpVotePergunta(Usuario usuario, int idPergunta);
     }
 }

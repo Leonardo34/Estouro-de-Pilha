@@ -3,22 +3,11 @@
 <br>
 <div class="columns">
   <div class="column is-two-thirds is-offset-2-desktop is-12-touch">
-    <nav class="pagination">
-        <a class="pagination-previous" ng-click="paginaAnterior()" ng-class="{'link-disabled' : pagina == 0}">Previous</a>
-        <a class="pagination-next" ng-click="proximaPagina()" ng-class="{'link-disabled' : (pagina + 1) * itensPagina >= totalPerguntas}">Next page</a>
-        <ul class="pagination-list is-hidden-touch">
-            <li>
-              <a class="pagination-link">{{pagina + 1}}</a>
-            </li>
-            <li>
-              <a class="pagination-link">{{pagina + 2}}</a>
-            </li>
-            <li>
-              <a class="pagination-link">{{pagina + 3}}</a>
-            </li>
-        </ul>
-    </nav>
-
+   <nav class="containerPerguntasERespostas nav-center">
+      <a class="pagination-previous" ng-click="paginaAnterior()" ng-class="{'link-disabled' : pagina == 0}">Anterior</a>
+      <a class="pagination-link">{{totalPerguntas}}  perguntas encontradas</a>
+      <a class="pagination-next" ng-click="proximaPagina()" ng-class="{'link-disabled' : (pagina + 1) * itensPagina >= totalPerguntas}">Próximo</a>
+   </nav>
     <div class="box column" ng-repeat="each in perguntas">
       <div class="columns">
         <div class="column is-8">
@@ -42,7 +31,7 @@
                   <b>{{each.Usuario.Nome}}</b>
                 </p>
               </a>
-                
+
               <nav class="level is-mobile">
                 <!--trocar os numeros pelos numeros de badges do usuario-->
                 <div class="level-left">
