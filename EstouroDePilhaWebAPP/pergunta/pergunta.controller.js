@@ -39,7 +39,9 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.usuarioDeuUpvotePergunta = usuarioDeuUpvotePergunta;
   $scope.usuarioDeuDownvotePergunta = usuarioDeuDownvotePergunta;
   $scope.editarResposta = editarResposta;
-
+  $scope.dataDeEdicao = dataDeEdicao;
+  $scope.ehGauderio = ehGauderio;
+  
   function buscarPerguntaPorId() {
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response) {
       $scope.pergunta = response.data.result;
@@ -274,6 +276,21 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
 
   function adicionarMarkdown(tipo, objeto) {
     $scope[objeto].Descricao = window.adicionarMarkdown(tipo, $scope[objeto].Descricao);    
+  }
+
+  function dataDeEdicao(pergunta) {    
+    if(((new Date() - pergunta.DataPergunta) * 1000 * 60 * 60 * 24) <= 7)
+      return true;
+    return false;
+  }
+
+  function ehGauderio() {
+    let gauderio = false;
+    $scope.usuario.Badge.forEach(badge => {
+      if(badge.Titulo === 'Gaudério')
+        gauderio = true;
+    });
+    return gauderio;
   }
 
   function upvotePergunta(pergunta) {
