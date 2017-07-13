@@ -10,33 +10,24 @@ namespace EstouroDePilha.Dominio.Servicos
 {
     public class BadgeService : IBadgeService
     {
-        private readonly IPerguntaRepositorio perguntaRepositorio;
         private readonly IUsuarioRepositorio usuarioRepositorio;
-        private readonly ITagRepositorio tagRepositorio;
-        private readonly IRespostaRepositorio respostaRepositorio;
         private readonly IBadgeRepositorio badgeRepositorio;
 
         private static readonly int ID_BADGE_GURI = 7;
+        private static readonly int ID_BADGE_AMARGO = 9;
         private static readonly int ID_BADGE_TRAMPOSO = 12;
+        private static readonly int ID_BADGE_ESGUALEPADO = 13;
         private static readonly int ID_BADGE_PELEADOR = 14;
         private static readonly int ID_BADGE_ENTREVERO = 15;
         private static readonly int ID_BADGE_DE_VEREDA = 16;
         private static readonly int ID_BADGE_PAPUDO = 17;
-        private static readonly int ID_BADGE_AMARGO = 9;
-        private static readonly int ID_BADGE_ESGUALEPADO = 13;
         private static readonly int ID_BADGE_BAITA_PERGUNTA = 19;
         private static readonly int ID_BADGE_GAUDERIO = 20;
 
-        public BadgeService(IPerguntaRepositorio perguntaRepositorio, 
-                IUsuarioRepositorio usuarioRepositorio, 
-                ITagRepositorio tagRepositorio, 
-                IRespostaRepositorio respostaRepositorio,
+        public BadgeService(IUsuarioRepositorio usuarioRepositorio, 
                 IBadgeRepositorio badgeRepositorio)
         {
-            this.perguntaRepositorio = perguntaRepositorio;
             this.usuarioRepositorio = usuarioRepositorio;
-            this.tagRepositorio = tagRepositorio;
-            this.respostaRepositorio = respostaRepositorio;
             this.badgeRepositorio = badgeRepositorio;
         }
 
@@ -48,6 +39,8 @@ namespace EstouroDePilha.Dominio.Servicos
             usuario.AdicionarBadgePeleador(badgePeleador, idPergunta);
             Badge badgeGauderio = badgeRepositorio.ObterPorId(ID_BADGE_GAUDERIO);
             usuario.AdicionarBadgeGauderio(badgeGauderio);
+            Badge badgeEsgualepado = badgeRepositorio.ObterPorId(ID_BADGE_ESGUALEPADO);
+            usuario.AdicionarBadgeEsgualepado(badgeEsgualepado);
 
             usuarioRepositorio.Alterar(usuario);
         }
@@ -58,16 +51,18 @@ namespace EstouroDePilha.Dominio.Servicos
             usuario.AdicionarBadgeBaitaPergunta(badgeBaitaPergunta, idPergunta);
             Badge badgeGauderio = badgeRepositorio.ObterPorId(ID_BADGE_GAUDERIO);
             usuario.AdicionarBadgeGauderio(badgeGauderio);
+            Badge badgeEsgualepado = badgeRepositorio.ObterPorId(ID_BADGE_ESGUALEPADO);
+            usuario.AdicionarBadgeEsgualepado(badgeEsgualepado);
 
             usuarioRepositorio.Alterar(usuario);
         }
 
         public void UsuarioRecebeuDownVote(Usuario usuario)
         {
-            Badge badgeEsgualepado = badgeRepositorio.ObterPorId(ID_BADGE_ESGUALEPADO);
-            usuario.AdicionarBadgeEsgualepado(badgeEsgualepado);
+            //Badge badgeEsgualepado = badgeRepositorio.ObterPorId(ID_BADGE_ESGUALEPADO);
+            //usuario.AdicionarBadgeEsgualepado(badgeEsgualepado);
 
-            usuarioRepositorio.Alterar(usuario);
+            //usuarioRepositorio.Alterar(usuario);
         }
 
         public void UsuarioDeuUpVote(Usuario usuario)
