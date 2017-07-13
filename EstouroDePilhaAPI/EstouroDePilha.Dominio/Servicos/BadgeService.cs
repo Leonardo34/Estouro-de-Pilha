@@ -16,13 +16,13 @@ namespace EstouroDePilha.Dominio.Servicos
         private readonly IRespostaRepositorio respostaRepositorio;
         private readonly IBadgeRepositorio badgeRepositorio;
 
-        private static readonly int ID_BADGE_GURI = 1;
-        private static readonly int ID_BADGE_TRAMPOSO = 2;
-        private static readonly int ID_BADGE_PELEADOR = 3;
-        private static readonly int ID_BADGE_ENTREVERO = 4;
-        private static readonly int ID_BADGE_DE_VEREDA = 5;
-        private static readonly int ID_BADGE_PAPUDO = 6;
-
+        private static readonly int ID_BADGE_GURI = 7;
+        private static readonly int ID_BADGE_TRAMPOSO = 12;
+        private static readonly int ID_BADGE_PELEADOR = 14;
+        private static readonly int ID_BADGE_ENTREVERO = 15;
+        private static readonly int ID_BADGE_DE_VEREDA = 16;
+        private static readonly int ID_BADGE_PAPUDO = 17;
+        private static readonly int ID_BADGE_AMARGO = 9;
 
         public BadgeService(IPerguntaRepositorio perguntaRepositorio, 
                 IUsuarioRepositorio usuarioRepositorio, 
@@ -50,6 +50,12 @@ namespace EstouroDePilha.Dominio.Servicos
         public void UsuarioDeuUpVote(Usuario usuario)
         {
             throw new NotImplementedException();
+        }
+
+        public void UsuarioDeuDownVote(Usuario usuario)
+        {
+            Badge badgeAmargo = badgeRepositorio.ObterPorId(ID_BADGE_AMARGO);
+            usuario.AdicionaBadgeAmargo(badgeAmargo);
         }
 
         public void UsuarioMarcouRespostaCorreta(Usuario usuario, int idPergunta)
