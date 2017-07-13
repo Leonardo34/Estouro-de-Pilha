@@ -235,12 +235,12 @@ namespace EstouroDePilha.Dominio.Entidades
             var upVotePerguntaDatas = upVotePergunta?.Select(up => up.Data).ToList();
             var datasDeUpVotes = upVotePerguntaDatas.Concat(upVoteRespostaDatas).OrderBy(x => x.TimeOfDay).ToList();
 
-            double diferencaDeTempo = 0;
             foreach (DateTime data in datasDeUpVotes)
             {
+                double diferencaDeTempo = 0;
+                var contador = 1;
                 foreach (DateTime data1 in datasDeUpVotes)
-                {
-                    var contador = 1;
+                {           
                     diferencaDeTempo += (data - data1).TotalSeconds;
                     contador++;
                     if (diferencaDeTempo > 60 && contador == 5)
@@ -267,26 +267,29 @@ namespace EstouroDePilha.Dominio.Entidades
             List<DateTime> datasDeUpVotes = new List<DateTime>();
             this?.Respostas.ForEach(r => r?.UpVotes.ForEach(up => datasDeUpVotes.Add(up.Data)));
             this?.Perguntas.ForEach(p => p?.UpVotes.ForEach(up => datasDeUpVotes.Add(up.Data)));
-            double diferencaDeTempo = 0;
             var UpVotesOrdenadosPorData = datasDeUpVotes.OrderBy(x => x.TimeOfDay).ToList();
+            double diferencaDeTempo = 0;
             foreach (DateTime data in datasDeUpVotes)
             {
-                foreach (DateTime data1 in UpVotesOrdenadosPorData)
+                var contador = 1;
+                foreach (DateTime data1 in datasDeUpVotes)
                 {
-                    var contador = 1;
-                    diferencaDeTempo += (data - data1).TotalSeconds;
-                    contador++;
-                    if (diferencaDeTempo > 30 && contador == 3)
+                    if (data != data1)
                     {
-                        diferencaDeTempo = 0;
-                        break;
+                        diferencaDeTempo += (data - data1).TotalSeconds;
+                        contador++;
+                        if (diferencaDeTempo > 30 && contador == 3)
+                        {
+                            diferencaDeTempo = 0;
+                            break;
+                        }
+                        if (diferencaDeTempo < 30 && contador == 3)
+                        {
+                            this.Badges.Add(badge);
+                            return true;
+                        }
                     }
-                    if (diferencaDeTempo < 30 && contador == 3)
-                    {
-                        this.Badges.Add(badge);
-                        return true;
-                    }
-
+                   
                 }
             }
             return false;
