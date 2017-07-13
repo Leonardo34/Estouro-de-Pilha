@@ -201,9 +201,9 @@ namespace EstouroDePilha.Dominio.Entidades
             return false;
         }
 
-        public bool AdicionarBadgeBaitaPergunta(Badge badge, int  idPergunta)
+        public bool AdicionarBadgeBaitaPergunta(Badge badge, int idPergunta)
         {
-            var upVotesPergunta =  Perguntas.FirstOrDefault(p => p.Id == idPergunta).UpVotes.Count();
+            var upVotesPergunta = Perguntas.FirstOrDefault(p => p.Id == idPergunta).UpVotes.Count();
             if (upVotesPergunta == 16)
             {
                 this.Badges.Add(badge);
@@ -211,7 +211,7 @@ namespace EstouroDePilha.Dominio.Entidades
             }
             return false;
         }
-    
+
         public bool AdicionarBadgeGauderio(Badge badge)
         {
             var gauderio = Badges.FirstOrDefault(b => b.Titulo.Contains("Gaudério"));
@@ -230,21 +230,21 @@ namespace EstouroDePilha.Dominio.Entidades
         }
 
         public bool AdicionarBadgeGaloVeio(Badge badge)
-        { 
-            var ehGuriDeApartamento =  Badges.FirstOrDefault(b => b.Titulo.Contains("Guri de apartamento")) != null;
+        {
+            var ehGuriDeApartamento = this.Badges.FirstOrDefault(b => b.Titulo.Contains("Guri de apartamento")) != null;
             var ehGauderio = Badges.FirstOrDefault(b => b.Titulo.Contains("Gauderio")) != null;
             if (ehGuriDeApartamento || !ehGauderio)
             {
                 return false;
             }
             var passouTresAnos = (DateTime.Now - this.DataCadastro).TotalDays == (DateTime.Now - DateTime.Now.AddYears(-3)).TotalDays;
-            var respondeuMaisDe30Vezes = Respostas.Count() > 30;
+            var respondeuMaisDe30Vezes = this.Respostas.Count() > 30;
             if (passouTresAnos && respondeuMaisDe30Vezes)
             {
                 this.Badges.Add(badge);
                 return true;
             }
             return false;
-
         }
+    }
 }
