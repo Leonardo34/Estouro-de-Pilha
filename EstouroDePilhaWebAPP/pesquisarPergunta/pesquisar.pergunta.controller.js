@@ -41,12 +41,15 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
     if ($scope.pagina == 0){
       return;
     }
+    $scope.ultimaPagina = false;
     $scope.pagina = $scope.pagina -1;
     pesquisarTrazerResultados(perguntaBuscada);
   }
 
   function proxima(){
+    $scope.ultimaPagina = false;
     if ((10 * ($scope.pagina +1))/$scope.numeroDeResultadosDaPesquisa >= 1) {
+      $scope.ultimaPagina = true;
       return;
     }
     $scope.pagina = $scope.pagina +1;
