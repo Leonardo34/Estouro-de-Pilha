@@ -24,24 +24,32 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 
         public Dictionary<Tag, int> BuscarTagsUsuarioPorId(int id)
         {
+            
             var tags = new Dictionary<Tag, int>();
-          
-            var listaDeTagsEmPergunta = contexto.Respostas
-                .Where(resposta => resposta.Usuario.Id == id)                
-                .Select(resposta => resposta.Pergunta) //seleciona a pergunta da resposta  
-                .Distinct() //distinct pra não duplicar           
-                .Select(p => p.Tags)
-                .ToList();
 
-            foreach(var listaTag in listaDeTagsEmPergunta){
-                foreach(var tag in listaTag)
+            var listaPerguntaQueUsuarioRespondeu = contexto.Respostas
+                .Where(resposta => resposta.Usuario.Id == id)
+                .Select(resposta => new
                 {
-                    if (!tags.ContainsKey(tag))                     
-                        tags.Add(tag, 1);                   
-                    else                   
-                        tags[tag] += 1;                    
-                }
+                    resposta.Pergunta.Id,
+                    resposta.Pergunta.Tags,
+                    resposta.UpVotes
+                }).ToList();                
+
+            foreach(var pergunta in listaPerguntaQueUsuarioRespondeu)
+            {
+                var upvotes = pergunta.UpVotes.Count; 
+
+                pergunta.Tags.ForEach(tag =>
+                {
+                    if (tags.ContainsKey(tag))
+                        tags[tag] += upvotes;
+                    else
+                        tags.Add(tag, upvotes);
+                });
             }
+                 
+
             return tags;
         }
 
