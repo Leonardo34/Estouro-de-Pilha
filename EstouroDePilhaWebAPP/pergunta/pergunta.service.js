@@ -20,7 +20,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
   };
 
   function pegarPerguntasDoUsuario(id) {
-    return $http.get(`${urlPerguntas}/usuario/${id}`);
+    return $http.get(`${urlPerguntas}usuario/${id}`);
   }
 
   function marcarComoCorreta(id) {
@@ -40,7 +40,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
   }
 
   function pegarRespostasDoUsuario(id) {
-    return $http.get(`${urlResposta}/usuario/${id}`);
+    return $http.get(`${urlResposta}usuario/${id}`);
   }
 
   function editarPergunta(perguntaModel) {
