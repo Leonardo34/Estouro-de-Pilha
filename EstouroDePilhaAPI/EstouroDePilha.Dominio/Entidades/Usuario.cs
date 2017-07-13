@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace EstouroDePilha.Dominio.Entidades
 {
@@ -207,6 +208,64 @@ namespace EstouroDePilha.Dominio.Entidades
 
             this.Badges.Add(badge);
             return true;
+        }
+
+        public bool AdicionarBadgeFaceiro(Badge badge, List<UpVotePergunta> upVotePergunta, List<UpVoteResposta> upVoteResposta)
+        {
+            var upVoteRespostaDatas = upVoteResposta.Select(up => up.Data).ToList();
+            var upVotePerguntaDatas = upVotePergunta.Select(up => up.Data).ToList();
+            var datasDeUpVotes = upVotePerguntaDatas.Concat(upVoteRespostaDatas).OrderBy(x => x.TimeOfDay).ToList();
+
+            double diferencaDeTempo = 0;
+            foreach (DateTime data in datasDeUpVotes)
+            {
+                foreach (DateTime data1 in datasDeUpVotes)
+                {
+                    var contador = 1;
+                    diferencaDeTempo += (data - data1).TotalSeconds;
+                    contador++;
+                    if (diferencaDeTempo > 60 && contador == 5)
+                    {
+                        diferencaDeTempo = 0;
+                        break;
+                    }
+                    if (diferencaDeTempo < 60 && contador == 5)
+                    {
+                        this.Badges.Add(badge);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool AdicionarBadgeEsgualepado(Badge badge)
+        {
+            List<DateTime> datasDeUpVotes = new List<DateTime>();
+            this.Respostas.ForEach(r => r.UpVotes.ForEach(up => datasDeUpVotes.Add(up.Data)));
+            this.Perguntas.ForEach(p => p.UpVotes.ForEach(up => datasDeUpVotes.Add(up.Data)));
+            double diferencaDeTempo = 0;
+            var UpVotesOrdenadosPorData =  datasDeUpVotes.OrderBy(x => x.TimeOfDay).ToList();
+            foreach (DateTime data in datasDeUpVotes)
+            {
+                foreach ( DateTime data1 in UpVotesOrdenadosPorData)
+                {
+                    var contador = 1;
+                    diferencaDeTempo += (data - data1).TotalSeconds;
+                    contador++;
+                    if (diferencaDeTempo > 30 && contador == 3)
+                    {
+                        diferencaDeTempo = 0;
+                        break;
+                    }
+                    if (diferencaDeTempo < 30 && contador == 3)
+                    {
+                        this.Badges.Add(badge);
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }
