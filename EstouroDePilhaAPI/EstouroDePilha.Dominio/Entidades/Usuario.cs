@@ -228,5 +228,23 @@ namespace EstouroDePilha.Dominio.Entidades
             }
             return false;
         }
-    }
+
+        public bool AdicionarBadgeGaloVeio(Badge badge)
+        { 
+            var ehGuriDeApartamento =  Badges.FirstOrDefault(b => b.Titulo.Contains("Guri de apartamento")) != null;
+            var ehGauderio = Badges.FirstOrDefault(b => b.Titulo.Contains("Gauderio")) != null;
+            if (ehGuriDeApartamento || !ehGauderio)
+            {
+                return false;
+            }
+            var passouTresAnos = (DateTime.Now - this.DataCadastro).TotalDays == (DateTime.Now - DateTime.Now.AddYears(-3)).TotalDays;
+            var respondeuMaisDe30Vezes = Respostas.Count() > 30;
+            if (passouTresAnos && respondeuMaisDe30Vezes)
+            {
+                this.Badges.Add(badge);
+                return true;
+            }
+            return false;
+
+        }
 }
