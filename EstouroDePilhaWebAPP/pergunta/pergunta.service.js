@@ -52,11 +52,11 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
   }
 
   function comentarResposta(comentarioRespostaModel, idResposta){
-    return $http.post(`${urlResposta}/${idResposta}/comentar`, comentarioRespostaModel);
+    return $http.post(`${urlResposta}${idResposta}/comentar`, comentarioRespostaModel);
   }
 
   function comentarPergunta(comentarioPerguntaModel, idPergunta){
-    return $http.post(`${urlPerguntas}/${idPergunta}/comentar`, comentarioPerguntaModel);
+    return $http.post(`${urlPerguntas}${idPergunta}/comentar`, comentarioPerguntaModel);
   }
 
   function responderPergunta(respostaModel, idPergunta) {

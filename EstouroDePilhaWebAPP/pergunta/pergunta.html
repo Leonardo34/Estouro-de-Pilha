@@ -55,13 +55,13 @@
         <!--aqui irá a seção de upvote da pergunta-->
         <div class="level">
           <div class="level-left">
-            <a class="tag is-primary" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmPergunta(pergunta)}" ng-click="upvotePergunta(pergunta)">
+            <a class="tag" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmPergunta(pergunta)}" ng-click="upvotePergunta(pergunta)">
               <span class="quantidade-reacoes">
                 {{pergunta.QuantidadeUpVotes}}
               </span>
               <span class="icon is-small"><i class="fa fa-thumbs-o-up fa-2x" ng-class="{'fa fa-thumbs-up fa-2x' : usuarioDeuUpvotePergunta(pergunta)}" aria-hidden="true"></i></span>
             </a>
-            <a class="tag is-primary" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmPergunta(pergunta)}" ng-click="downvotePergunta(pergunta)">
+            <a class="tag" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmPergunta(pergunta)}" ng-click="downvotePergunta(pergunta)">
               <span class="quantidade-reacoes">
                   {{pergunta.QuantidadeDownVotes}}
               </span>
@@ -72,22 +72,38 @@
           <div class="level-right">
             <a class="button is-primary pull-right" ng-click="abrirFecharModal('E')" ng-if="podeEditarPergunta()">Editar</a>
           
-            <a class="pagination-link" ng-if="estaLogado">
+            <a class="pagination-link" ng-if="estaLogado" ng-click="abrirFecharModal('C')">
               <span class="icon">
                 <i class="fa fa-comments-o" aria-hidden="true"></i>      
               </span>
-              <span>Comentar</span>      
-            </a> 
-
-          </div>
-                   
-          
+              <span>Comentar</span>   
+            </a>
+          </div>          
         </div>
-        
+        <div class="comentarios-pergunta">
+          <hr class="divisor-comentario">
+          <div ng-repeat="comentario in pergunta.Comentarios">
+            <div class="level content comentarios">
+              <span class="level-left comentario-detalhes">
+                <figure class="image is-24x24">
+                  <img  ng-src="{{comentario.Usuario.UrlImagemPerfil}}">  
+                </figure>
+                <p>
+                  <a ng-href="/#!/perfil/{{comentario.Usuario.Id}}">
+                    <strong>{{comentario.Usuario.Nome}}:</strong>
+                  </a> 
+                  <span>{{comentario.Descricao}}</span>
+                </p>
+              </span>
+              <span class="level-right">
+                <small>
+                  {{comentario.DataComentario | date:'dd/MM/yyyy hh:mm'}}  
+                </small>
+              </span>          
+            </div>             
+          </div>
+        </div>
       </div>
-
-
-
     </section>
 
   </div>
@@ -120,13 +136,13 @@
       <section class="level usuario-resposta-info">
         <div class="level-left upvote is-flex">
           <!-- aqui vai o upvote -->
-          <a class="tag is-primary resposta-vote" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmResposta(resposta)}" ng-click="upvoteResposta(resposta)">
+          <a class="tag resposta-vote" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmResposta(resposta)}" ng-click="upvoteResposta(resposta)">
             <span class="quantidade-reacoes">
               {{resposta.QuantidadeUpVotes}}
             </span>
             <span class="icon is-small"><i class="fa fa-thumbs-o-up fa-2x" ng-class="{'fa fa-thumbs-up fa-2x' : usuarioDeuUpvoteResposta(resposta)}" aria-hidden="true"></i></span>
           </a>
-          <a class="tag is-primary resposta-vote" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmResposta(resposta)}" ng-click="downvoteResposta(resposta)">
+          <a class="tag resposta-vote" ng-class="{'link-disabled' : usuario == null || usuarioVotouEmResposta(resposta)}" ng-click="downvoteResposta(resposta)">
             <span class="quantidade-reacoes">
               {{resposta.QuantidadeDownVotes}}
             </span>
@@ -387,6 +403,34 @@
     <div class="level">
       <a class="button is-success zero-radius level-item" ng-click ="responderPergunta()">Responder</a>
       <a class="button is-danger zero-radius level-item" ng-click="abrirFecharModal('R')">Cancelar</a>
+    </div>
+
+  </form>
+</div>
+
+<!-- div de comentar Resposta -->
+
+<div id="div-comentar">
+  <form id="form-comentar" name="formComentar" novalidate>
+    <p class="subtitle is-4">Descreve aí o teu comentario:</p>
+    <div class="box descricao-box">
+      <textarea
+          id="comentario"
+          class="textarea"
+          type="textarea"
+          required
+          name="comentarPergunta"
+          minlength="3"
+          maxlength="1000"
+          ng-model="comentario.Descricao"
+          onselect="window.listenerMudanca(this)"
+          permitir-tab
+          ng-trim="false">
+      </textarea>
+      <p ng-show="formComentar.comentarPergunta.$invalid" class="help is-danger">Comenta ai, tchê</p>
+    </div>
+      <a class="button is-success zero-radius level-item" ng-click ="comentarPergunta(comentario, pergunta.Id)">Comentar</a>
+      <a class="button is-danger zero-radius level-item" ng-click="abrirFecharModal('C')">Cancelar</a>
     </div>
 
   </form>

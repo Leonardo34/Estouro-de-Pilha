@@ -161,8 +161,9 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
       new Noty({
           type: 'success',
           timeout: 2000,
-          text:  'A pergunta foi comentada!'                
+          text:  'A pergunta foi comentada!'
       }).show();
+    abrirFecharModal('C');
     }, fail => {
       new Noty({
           type: 'error',
@@ -265,7 +266,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
       elemento.form.style.opacity = '1';
     }
   }
-
+  
   function cancelarEdicao() {
     $scope.pergunta = angular.copy(copiaPergunta);
     abrirFecharModal('E');
