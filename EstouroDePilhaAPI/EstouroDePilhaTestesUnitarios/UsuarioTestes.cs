@@ -49,7 +49,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario.Respostas = respostas;
             usuario.Perguntas = perguntas;
             usuario.Badges = badges;
-            Badge badgeGuri = new Badge("Guri", "teste");
+            Badge badgeGuri = new Badge("Guri", "teste", "Bronze");
             Assert.IsFalse(usuario.AdicionaBadgeGuri(badgeGuri));
         }
 
@@ -69,7 +69,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario1.Perguntas = perguntas;
             usuario1.Respostas = respostas;
             usuario1.Badges = badges;
-            Badge badgeGuri = new Badge("Guri", "teste");
+            Badge badgeGuri = new Badge("Guri", "teste", "Bronze");
             Assert.IsTrue(usuario1.AdicionaBadgeGuri(badgeGuri));
         }
 
@@ -87,12 +87,12 @@ namespace EstouroDePilhaTestesUnitarios
             List<Resposta> respostas = new List<Resposta>();
             perguntas.Add(pergunta);
             List<Badge> badges = new List<Badge>();
-            Badge badge = new Badge("Guri", "teste");
+            Badge badge = new Badge("Guri", "teste", "Bronze");
             badges.Add(badge);
             usuario1.Perguntas = perguntas;
             usuario1.Respostas = respostas;
             usuario1.Badges = badges;
-            Badge badgeGuri = new Badge("Guri", "teste");
+            Badge badgeGuri = new Badge("Guri", "teste", "Bronze");
 
             Assert.IsFalse(usuario1.AdicionaBadgeGuri(badgeGuri));
         }
@@ -129,7 +129,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario1.Respostas.Add(resposta10);
             List<Badge> badges = new List<Badge>();
             usuario1.Badges = badges;
-            Badge badgePapudo = new Badge("Papudo", "teste");
+            Badge badgePapudo = new Badge("Papudo", "teste", "Prata");
 
             Assert.IsFalse(usuario1.AdicionaBadgePapudo(badgePapudo));
         }
@@ -166,7 +166,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario1.Respostas.Add(resposta10);
             usuario1.Respostas.Add(resposta11);
             List<Badge> badges = new List<Badge>();
-            Badge badgePapudo = new Badge("Papudo", "teste");
+            Badge badgePapudo = new Badge("Papudo", "teste", "Prata");
             usuario1.Badges = badges;
 
             Assert.IsTrue(usuario1.AdicionaBadgePapudo(badgePapudo));
@@ -190,7 +190,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario.Perguntas = perguntas;
             usuario.Respostas = respostas;
             usuario.Badges = badges;
-            Badge badgeGuri = new Badge("Guri", "teste");
+            Badge badgeGuri = new Badge("Guri", "teste", "Bronze");
 
 
             Assert.IsFalse(usuario.AdicionaBadgeGuri(badgeGuri));
@@ -229,11 +229,10 @@ namespace EstouroDePilhaTestesUnitarios
             usuario1.Respostas.Add(resposta9);
             usuario1.Respostas.Add(resposta10);
             usuario1.Respostas.Add(resposta11);
+            Badge badgePapudo = new Badge("Papudo", "teste", "Prata");
             List<Badge> badges = new List<Badge>();
-            Badge badge = new Badge("Papudo", "teste");
-            badges.Add(badge);
+            badges.Add(badgePapudo);
             usuario1.Badges = badges;
-            Badge badgePapudo = new Badge("Papudo", "teste");
 
             Assert.IsFalse(usuario1.AdicionaBadgePapudo(badgePapudo));
         }
@@ -254,7 +253,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario1.Badges = badges;
             usuario1.Respostas = respostas;
             usuario1.Respostas.Add(resposta1);
-            Badge badgeDeVereda = new Badge("De vereda", "teste");
+            Badge badgeDeVereda = new Badge("De vereda", "teste", "Prata");
 
             Assert.IsTrue(usuario1.AdicionaBadgeDeVereda(badgeDeVereda, pergunta.Id));
         }
@@ -275,7 +274,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario1.Badges = badges;
             usuario1.Respostas = respostas;
             usuario1.Respostas.Add(resposta1);
-            Badge badgeDeVereda = new Badge("De vereda", "teste");
+            Badge badgeDeVereda = new Badge("De vereda", "teste", "Prata");
 
             Assert.IsFalse(usuario1.AdicionaBadgeDeVereda(badgeDeVereda, pergunta.Id));
         }
@@ -313,7 +312,7 @@ namespace EstouroDePilhaTestesUnitarios
             List<Pergunta> perguntas = new List<Pergunta>();
             usuario1.Perguntas = perguntas;
             usuario1.Perguntas.Add(pergunta);
-            Badge badgeEntrevero = new Badge("Entrevero", "teste");
+            Badge badgeEntrevero = new Badge("Entrevero", "teste", "Prata");
 
             Assert.IsTrue(usuario1.AdicionaBadgeEntrevero(badgeEntrevero, pergunta.Id));
         }
@@ -349,7 +348,7 @@ namespace EstouroDePilhaTestesUnitarios
             List<Pergunta> perguntas = new List<Pergunta>();
             usuario1.Perguntas = perguntas;
             usuario1.Perguntas.Add(pergunta);
-            Badge badgeEntrevero = new Badge("Entrevero", "teste");
+            Badge badgeEntrevero = new Badge("Entrevero", "teste", "Prata");
 
             Assert.IsFalse(usuario1.AdicionaBadgeEntrevero(badgeEntrevero, pergunta.Id));
         }
@@ -378,13 +377,12 @@ namespace EstouroDePilhaTestesUnitarios
             List<Pergunta> perguntas = new List<Pergunta>();
             usuario1.Perguntas = perguntas;
             usuario1.Perguntas.Add(pergunta);
-            Badge badgeEntrevero = new Badge("Peleador", "teste");
             List<Resposta> respostas = new List<Resposta>();
             usuario1.Respostas = respostas;
             usuario1.Respostas.Add(resposta2);
-            Badge badgeDeVereda = new Badge("De vereda", "teste");
+            Badge badgePeleador = new Badge("Peleador", "teste", "Prata");
 
-            Assert.IsTrue(usuario1.AdicionarBadgePeleador(badgeEntrevero, pergunta.Id));
+            Assert.IsTrue(usuario1.AdicionarBadgePeleador(badgePeleador, pergunta.Id));
             Assert.IsNotNull(usuario1.Badges[0]);
         }
 
@@ -413,14 +411,13 @@ namespace EstouroDePilhaTestesUnitarios
             List<Pergunta> perguntas = new List<Pergunta>();
             usuario1.Perguntas = perguntas;
             usuario1.Perguntas.Add(pergunta);
-            Badge badgeEntrevero = new Badge("Peleador", "teste");
             List<Resposta> respostas = new List<Resposta>();
             usuario1.Respostas = respostas;
             usuario1.Respostas.Add(resposta2);
             usuario1.Respostas.Add(resposta3);
-            Badge badgeDeVereda = new Badge("De vereda", "teste");
+            Badge badgePeleador = new Badge("Peleador", "teste", "Prata");
 
-            Assert.IsTrue(usuario1.AdicionarBadgePeleador(badgeEntrevero, pergunta.Id));
+            Assert.IsTrue(usuario1.AdicionarBadgePeleador(badgePeleador, pergunta.Id));
             Assert.IsNotNull(usuario1.Badges[0]);
             Assert.IsNotNull(usuario1.Badges[1]);
         }
@@ -448,13 +445,12 @@ namespace EstouroDePilhaTestesUnitarios
             List<Pergunta> perguntas = new List<Pergunta>();
             usuario1.Perguntas = perguntas;
             usuario1.Perguntas.Add(pergunta);
-            Badge badgeEntrevero = new Badge("Peleador", "teste");
             List<Resposta> respostas = new List<Resposta>();
             usuario1.Respostas = respostas;
             usuario1.Respostas.Add(resposta2);
-            Badge badgeDeVereda = new Badge("De vereda", "teste");
+            Badge badgePeleador = new Badge("Peleador", "teste", "Prata");
 
-            Assert.IsFalse(usuario1.AdicionarBadgePeleador(badgeEntrevero, pergunta.Id));
+            Assert.IsFalse(usuario1.AdicionarBadgePeleador(badgePeleador, pergunta.Id));
         }
 
         [TestMethod]
@@ -473,7 +469,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario.Perguntas = perguntas;
             usuario.Respostas = respostas;
             usuario.Badges = badges;
-            Badge badgeTramposo = new Badge("Tramposo", "teste");
+            Badge badgeTramposo = new Badge("Tramposo", "teste", "Bronze");
 
             Assert.IsTrue(usuario.AdicionaBadgeTramposo(badgeTramposo));
         }
@@ -498,7 +494,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario1.Perguntas = perguntas;
             usuario1.Respostas = respostas;
             usuario1.Badges = badges;
-            Badge badgeTramposo = new Badge("Tramposo", "teste");
+            Badge badgeTramposo = new Badge("Tramposo", "teste", "Bronze");
 
             Assert.IsTrue(usuario1.AdicionaBadgeTramposo(badgeTramposo));
         }
@@ -520,13 +516,13 @@ namespace EstouroDePilhaTestesUnitarios
             pergunta.Respostas.Add(resposta2);
             perguntas.Add(pergunta);
             List<Badge> badges = new List<Badge>();
-            Badge badge = new Badge("Tramposo", "teste");
+            Badge badge = new Badge("Tramposo", "teste", "Bronze");
             badges.Add(badge);
             usuario1.Perguntas = perguntas;
             usuario1.Respostas = respostas;
             usuario1.Badges = badges;
 
-            Badge badgeTramposo = new Badge("Tramposo", "teste");
+            Badge badgeTramposo = new Badge("Tramposo", "teste", "Bronze");
             Assert.IsFalse(usuario1.AdicionaBadgeTramposo(badgeTramposo));
         }
 
@@ -549,7 +545,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario1.Perguntas = perguntas;
             usuario1.Badges = badges;
 
-            Badge badge= new Badge("Baita pergunta", "teste");
+            Badge badge = new Badge("Baita pergunta", "teste", "Gold");
             Assert.IsTrue(usuario1.AdicionarBadgeBaitaPergunta(badge, pergunta.Id));
         }
 
@@ -572,7 +568,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario1.Perguntas = perguntas;
             usuario1.Badges = badges;
 
-            Badge badge = new Badge("Baita pergunta", "teste");
+            Badge badge = new Badge("Baita pergunta", "teste", "Gold");
             Assert.IsFalse(usuario1.AdicionarBadgeBaitaPergunta(badge, pergunta.Id));
         }
 
@@ -595,7 +591,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario1.Perguntas = perguntas;
             usuario1.Badges = badges;
 
-            Badge badge = new Badge("Baita pergunta", "teste");
+            Badge badge = new Badge("Baita pergunta", "teste", "Gold");
             Assert.IsFalse(usuario1.AdicionarBadgeBaitaPergunta(badge, pergunta.Id));
         }
 
@@ -623,7 +619,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario1.Perguntas = perguntas;
             usuario1.Badges = badges;
             usuario1.Respostas = respostas;
-            Badge badge = new Badge("Gaudério", "teste");
+            Badge badge = new Badge("Gaudério", "teste", "Gold");
             Assert.IsFalse(usuario1.AdicionarBadgeGauderio(badge));
         }
 
@@ -651,7 +647,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario1.Perguntas = perguntas;
             usuario1.Badges = badges;
             usuario1.Respostas = respostas;
-            Badge badge = new Badge("Gaudério", "teste");
+            Badge badge = new Badge("Gaudério", "teste", "Gold");
             Assert.IsTrue(usuario1.AdicionarBadgeGauderio(badge));
         }
 
@@ -676,12 +672,12 @@ namespace EstouroDePilhaTestesUnitarios
             perguntas.Add(pergunta);
             respostas.Add(resposta);
             List<Badge> badges = new List<Badge>();
-            Badge badge = new Badge("Gaudério", "teste");
+            Badge badge = new Badge("Gaudério", "teste", "Gold");
             badges.Add(badge);
             usuario1.Perguntas = perguntas;
             usuario1.Badges = badges;
             usuario1.Respostas = respostas;
-          
+
             Assert.IsFalse(usuario1.AdicionarBadgeGauderio(badge));
         }
 
@@ -692,7 +688,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario.Badges = new List<Badge>();
             usuario.Respostas = new List<Resposta>();
             usuario.Perguntas = new List<Pergunta>();
-            Badge amargo = new Badge("Amargo", "Usuário que já deu mais de 5 downvotes");
+            Badge amargo = new Badge("Amargo", "Usuário que já deu mais de 5 downvotes", "Bronze");
             usuario.AdicionaBadgeAmargo(amargo, 6);
 
             Assert.IsTrue(usuario.Badges.Contains(amargo));
@@ -705,7 +701,7 @@ namespace EstouroDePilhaTestesUnitarios
             usuario.Badges = new List<Badge>();
             usuario.Respostas = new List<Resposta>();
             usuario.Perguntas = new List<Pergunta>();
-            Badge amargo = new Badge("Amargo", "Usuário que já deu mais de 5 downvotes");
+            Badge amargo = new Badge("Amargo", "Usuário que já deu mais de 5 downvotes", "Bronze");
             usuario.AdicionaBadgeAmargo(amargo, 4);
 
             Assert.IsFalse(usuario.Badges.Contains(amargo));
@@ -718,10 +714,141 @@ namespace EstouroDePilhaTestesUnitarios
             usuario.Badges = new List<Badge>();
             usuario.Respostas = new List<Resposta>();
             usuario.Perguntas = new List<Pergunta>();
-            Badge amargo = new Badge("Amargo", "Usuário que já deu mais de 5 downvotes");
+            Badge amargo = new Badge("Amargo", "Usuário que já deu mais de 5 downvotes", "Bronze");
             usuario.AdicionaBadgeAmargo(amargo, 6);
 
             Assert.IsFalse(usuario.AdicionaBadgeAmargo(amargo, 7));
         }
+        //[TestMethod]
+        //public void TestarMedodoAdicionarBadgeEsgualepadoRetornoTrue()
+        //{
+        //    Usuario usuario1 = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+        //    Usuario usuario2 = new Usuario("Mateus Forgiarini", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "mateus@hotmail.com", "q1223");
+        //    Usuario usuario3 = new Usuario("Mateus Forgiarini da Silva", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "mateus@hotmail.com", "q1223");
+        //    Pergunta pergunta = new Pergunta(usuario1, "Java", "me ajuda");
+        //    List<Pergunta> perguntas = new List<Pergunta>();
+        //    UpVotePergunta upVotePergunta1 = new UpVotePergunta(pergunta, usuario1);
+        //    UpVotePergunta upVotePergunta2 = new UpVotePergunta(pergunta, usuario2);
+        //    UpVotePergunta upVotePergunta3 = new UpVotePergunta(pergunta, usuario3);      
+        //    upVotePergunta1.Data = upVotePergunta1.Data.AddSeconds(20);
+        //    upVotePergunta2.Data = upVotePergunta2.Data.AddSeconds(0);
+        //    upVotePergunta3.Data = upVotePergunta3.Data.AddSeconds(29);
+        //    pergunta.UpVotes.Add(upVotePergunta1);
+        //    pergunta.UpVotes.Add(upVotePergunta2);
+        //    pergunta.UpVotes.Add(upVotePergunta3);
+        //    perguntas.Add(pergunta);
+        //    List<Badge> badges = new List<Badge>();
+        //    Badge badge = new Badge("Esgualepado", "teste", "Bronze");
+        //    usuario1.Perguntas = perguntas;
+        //    usuario1.Badges = badges;
+
+        //    Assert.IsTrue(usuario1.AdicionarBadgeEsgualepado(badge));
+        //}
+
+        //[TestMethod]
+        //public void TestarMedodoAdicionarBadgeEsgualepadoRetornoFalse()
+        //{
+        //    Usuario usuario1 = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+        //    Usuario usuario2 = new Usuario("Mateus Forgiarini", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "mateus@hotmail.com", "q1223");
+        //    Usuario usuario3 = new Usuario("Mateus Forgiarini da Silva", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "mateus@hotmail.com", "q1223");
+        //    Pergunta pergunta = new Pergunta(usuario1, "Java", "me ajuda");
+        //    List<Pergunta> perguntas = new List<Pergunta>();
+        //    UpVotePergunta upVotePergunta1 = new UpVotePergunta(pergunta, usuario1);
+        //    UpVotePergunta upVotePergunta2 = new UpVotePergunta(pergunta, usuario2);
+        //    UpVotePergunta upVotePergunta3 = new UpVotePergunta(pergunta, usuario3);
+        //    upVotePergunta1.Data = upVotePergunta1.Data.AddSeconds(20);
+        //    upVotePergunta2.Data = upVotePergunta2.Data.AddSeconds(0);
+        //    upVotePergunta3.Data = upVotePergunta3.Data.AddSeconds(30);
+        //    pergunta.UpVotes.Add(upVotePergunta1);
+        //    pergunta.UpVotes.Add(upVotePergunta2);
+        //    pergunta.UpVotes.Add(upVotePergunta3);
+        //    perguntas.Add(pergunta);
+        //    List<Badge> badges = new List<Badge>();
+        //    Badge badge = new Badge("Esgualepado", "teste", "Bronze");
+        //    usuario1.Perguntas = perguntas;
+        //    usuario1.Badges = badges;
+
+        //    Assert.IsFalse(usuario1.AdicionarBadgeEsgualepado(badge));
+        //}
+
+        //[TestMethod]
+        //public void TestarMedodoAdicionarBadgeFaceiroRetornoTrue()
+        //{
+        //    Usuario usuario1 = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+        //    Pergunta pergunta1 = new Pergunta(usuario1, "Java", "me ajuda");
+        //    Pergunta pergunta2 = new Pergunta(usuario1, "Java", "me ajuda");
+        //    Pergunta pergunta3 = new Pergunta(usuario1, "Java", "me ajuda");
+        //    Pergunta pergunta4 = new Pergunta(usuario1, "Java", "me ajuda");
+        //    Pergunta pergunta5 = new Pergunta(usuario1, "Java", "me ajuda");
+        //    List<Pergunta> perguntas = new List<Pergunta>();
+        //    UpVotePergunta upVotePergunta1 = new UpVotePergunta(pergunta1, usuario1);
+        //    UpVotePergunta upVotePergunta2 = new UpVotePergunta(pergunta2, usuario1);
+        //    UpVotePergunta upVotePergunta3 = new UpVotePergunta(pergunta3, usuario1);
+        //    UpVotePergunta upVotePergunta4 = new UpVotePergunta(pergunta4, usuario1);
+        //    UpVotePergunta upVotePergunta5 = new UpVotePergunta(pergunta5, usuario1);
+        //    upVotePergunta1.Data = upVotePergunta1.Data.AddSeconds(20);
+        //    upVotePergunta2.Data = upVotePergunta2.Data.AddSeconds(0);
+        //    upVotePergunta3.Data = upVotePergunta3.Data.AddSeconds(30);
+        //    upVotePergunta4.Data = upVotePergunta1.Data.AddSeconds(20);
+        //    upVotePergunta5.Data = upVotePergunta2.Data.AddSeconds(59);
+        //    pergunta1.UpVotes.Add(upVotePergunta1);
+        //    pergunta2.UpVotes.Add(upVotePergunta2);
+        //    pergunta3.UpVotes.Add(upVotePergunta3);
+        //    pergunta4.UpVotes.Add(upVotePergunta4);
+        //    pergunta5.UpVotes.Add(upVotePergunta5);
+        //    List<UpVotePergunta> upVotePergunta = new List<UpVotePergunta>();
+        //    List<UpVoteResposta> upVoteResposta = new List<UpVoteResposta>();
+        //    upVotePergunta.Add(upVotePergunta1);
+        //    upVotePergunta.Add(upVotePergunta2);
+        //    upVotePergunta.Add(upVotePergunta3);
+        //    upVotePergunta.Add(upVotePergunta4);
+        //    upVotePergunta.Add(upVotePergunta5);
+        //    List<Badge> badges = new List<Badge>();
+        //    Badge badge = new Badge("Faceiro", "teste", "Bronze");
+        //    usuario1.Perguntas = perguntas;
+        //    usuario1.Badges = badges;
+
+        //    Assert.IsTrue(usuario1.AdicionarBadgeFaceiro(badge, upVotePergunta, upVoteResposta));
+        //}
+
+        //[TestMethod]
+        //public void TestarMedodoAdicionarBadgeFaceiroRetornoFalse()
+        //{
+        //    Usuario usuario1 = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+        //    Pergunta pergunta1 = new Pergunta(usuario1, "Java", "me ajuda");
+        //    Pergunta pergunta2 = new Pergunta(usuario1, "Java", "me ajuda");
+        //    Pergunta pergunta3 = new Pergunta(usuario1, "Java", "me ajuda");
+        //    Pergunta pergunta4 = new Pergunta(usuario1, "Java", "me ajuda");
+        //    Pergunta pergunta5 = new Pergunta(usuario1, "Java", "me ajuda");
+        //    List<Pergunta> perguntas = new List<Pergunta>();
+        //    UpVotePergunta upVotePergunta1 = new UpVotePergunta(pergunta1, usuario1);
+        //    UpVotePergunta upVotePergunta2 = new UpVotePergunta(pergunta2, usuario1);
+        //    UpVotePergunta upVotePergunta3 = new UpVotePergunta(pergunta3, usuario1);
+        //    UpVotePergunta upVotePergunta4 = new UpVotePergunta(pergunta4, usuario1);
+        //    UpVotePergunta upVotePergunta5 = new UpVotePergunta(pergunta5, usuario1);
+        //    upVotePergunta1.Data = upVotePergunta1.Data.AddSeconds(20);
+        //    upVotePergunta2.Data = upVotePergunta2.Data.AddSeconds(0);
+        //    upVotePergunta3.Data = upVotePergunta3.Data.AddSeconds(30);
+        //    upVotePergunta4.Data = upVotePergunta1.Data.AddSeconds(20);
+        //    upVotePergunta5.Data = upVotePergunta2.Data.AddSeconds(61);
+        //    pergunta1.UpVotes.Add(upVotePergunta1);
+        //    pergunta2.UpVotes.Add(upVotePergunta2);
+        //    pergunta3.UpVotes.Add(upVotePergunta3);
+        //    pergunta4.UpVotes.Add(upVotePergunta4);
+        //    pergunta5.UpVotes.Add(upVotePergunta5);
+        //    List<UpVotePergunta> upVotePergunta = new List<UpVotePergunta>();
+        //    List<UpVoteResposta> upVoteResposta = new List<UpVoteResposta>();
+        //    upVotePergunta.Add(upVotePergunta1);
+        //    upVotePergunta.Add(upVotePergunta2);
+        //    upVotePergunta.Add(upVotePergunta3);
+        //    upVotePergunta.Add(upVotePergunta4);
+        //    upVotePergunta.Add(upVotePergunta5);
+        //    List<Badge> badges = new List<Badge>();
+        //    Badge badge = new Badge("Faceiro", "teste", "Bronze");
+        //    usuario1.Perguntas = perguntas;
+        //    usuario1.Badges = badges;
+
+        //    Assert.IsFalse(usuario1.AdicionarBadgeFaceiro(badge, upVotePergunta, upVoteResposta));
+        //}
     }
 }

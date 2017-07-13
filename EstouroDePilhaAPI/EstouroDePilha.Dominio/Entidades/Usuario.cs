@@ -194,7 +194,7 @@ namespace EstouroDePilha.Dominio.Entidades
             {
                 return false;
             }
-            var papudo = Respostas?.Where(r => r?.UpVotes.Count == 0 && r?.DownVotes.Count == 0);
+            var papudo = Respostas?.Where(r => r?.UpVotes.Count == 0 && r?.DownVotes.Count == 0).ToList();
             if (papudo?.Count() > 10)
             {
                 this.Badges.Add(badge);
@@ -233,27 +233,17 @@ namespace EstouroDePilha.Dominio.Entidades
             }
             var upVoteRespostaDatas = upVoteResposta?.Select(up => up.Data).ToList();
             var upVotePerguntaDatas = upVotePergunta?.Select(up => up.Data).ToList();
-            var datasDeUpVotes = upVotePerguntaDatas.Concat(upVoteRespostaDatas).OrderBy(x => x.TimeOfDay).ToList();
-
-            foreach (DateTime data in datasDeUpVotes)
+            var datasDeUpVotes = upVotePerguntaDatas?.Concat(upVoteRespostaDatas)?.OrderByDescending(x => x.TimeOfDay).ToList();
+            if  (datasDeUpVotes.Count < 5)
             {
-                double diferencaDeTempo = 0;
-                var contador = 1;
-                foreach (DateTime data1 in datasDeUpVotes)
-                {           
-                    diferencaDeTempo += (data - data1).TotalSeconds;
-                    contador++;
-                    if (diferencaDeTempo > 60 && contador == 5)
-                    {
-                        diferencaDeTempo = 0;
-                        break;
-                    }
-                    if (diferencaDeTempo < 60 && contador == 5)
-                    {
-                        this.Badges.Add(badge);
-                        return true;
-                    }
-                }
+                return false;
+            }
+            var dataDosUltimos5UpVotes = datasDeUpVotes.Skip(0).Take(5).ToList();
+            var diferencaEntreOPrimeiroEOQuintoUpVote = (dataDosUltimos5UpVotes[0] - dataDosUltimos5UpVotes[4]).TotalSeconds;
+            if (diferencaEntreOPrimeiroEOQuintoUpVote < 60)
+            {
+                this.Badges.Add(badge);
+                return true;
             }
             return false;
         }
@@ -265,36 +255,22 @@ namespace EstouroDePilha.Dominio.Entidades
                 return false;
             }
             List<DateTime> datasDeUpVotes = new List<DateTime>();
-            this?.Respostas.ForEach(r => r?.UpVotes.ForEach(up => datasDeUpVotes.Add(up.Data)));
-            this?.Perguntas.ForEach(p => p?.UpVotes.ForEach(up => datasDeUpVotes.Add(up.Data)));
-            var UpVotesOrdenadosPorData = datasDeUpVotes.OrderBy(x => x.TimeOfDay).ToList();
-            double diferencaDeTempo = 0;
-            foreach (DateTime data in datasDeUpVotes)
+            this.Respostas?.ForEach(r => r?.UpVotes.ForEach(up => datasDeUpVotes.Add(up.Data)));
+            this.Perguntas?.ForEach(p => p?.UpVotes.ForEach(up => datasDeUpVotes.Add(up.Data)));
+            var upVotesOrdenadosPorData = datasDeUpVotes.OrderByDescending(x => x.TimeOfDay).ToList();
+            if (upVotesOrdenadosPorData.Count < 3)
             {
-                var contador = 1;
-                foreach (DateTime data1 in datasDeUpVotes)
-                {
-                    if (data != data1)
-                    {
-                        diferencaDeTempo += (data - data1).TotalSeconds;
-                        contador++;
-                        if (diferencaDeTempo > 30 && contador == 3)
-                        {
-                            diferencaDeTempo = 0;
-                            break;
-                        }
-                        if (diferencaDeTempo < 30 && contador == 3)
-                        {
-                            this.Badges.Add(badge);
-                            return true;
-                        }
-                    }
-                   
-                }
+                return false;
+            }
+            var dataDosUltimos3UpVotes = upVotesOrdenadosPorData.Skip(0).Take(3).ToList();
+            var diferencaEntreOPrimeiroEOTerceiroUpVote = (dataDosUltimos3UpVotes[0] - dataDosUltimos3UpVotes[2]).TotalSeconds;
+            if (diferencaEntreOPrimeiroEOTerceiroUpVote < 30)
+            {
+                this.Badges.Add(badge);
+                return true;
             }
             return false;
         }
-
 
         public bool AdicionarBadgeBaitaPergunta(Badge badge, int idPergunta)
         {
@@ -313,7 +289,7 @@ namespace EstouroDePilha.Dominio.Entidades
             {
                 return false;
             }
-            var temPerguntaIgnorada = this?.Perguntas.FirstOrDefault(p => (DateTime.Now - p.DataPergunta).TotalDays == 7
+            var temPerguntaIgnorada = this.Perguntas?.FirstOrDefault(p => (DateTime.Now - p.DataPergunta).TotalDays == 7
                     && p.Respostas.Count() == 0);
             if (temPerguntaIgnorada != null)
             {
@@ -329,8 +305,8 @@ namespace EstouroDePilha.Dominio.Entidades
             {
                 return false;
             }
-            var upVotesPerguntas = this?.Perguntas.Sum(p => p?.UpVotes.Count);
-            var upVotesRespostas = this?.Respostas.Sum(r => r?.UpVotes.Count);
+            var upVotesPerguntas = this.Perguntas?.Sum(p => p?.UpVotes.Count);
+            var upVotesRespostas = this.Respostas?.Sum(r => r?.UpVotes.Count);
             if ((upVotesPerguntas + upVotesRespostas) > 20)
             {
                 this.Badges.Add(badge);
