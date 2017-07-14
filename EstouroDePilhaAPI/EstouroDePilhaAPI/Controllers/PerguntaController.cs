@@ -170,14 +170,13 @@ namespace EstouroDePilhaAPI.Controllers
         [Route("usuario/{id:int}")]
         public HttpResponseMessage ObterPerguntasPorUsuarioId(int id)
         {
-            var perguntasUsuario = perguntasRepositorio.ObterPerguntasUsuarioPorId(id);
-            var perguntasModel = new List<PerguntaModel>();
-            perguntasUsuario.ForEach(p => perguntasModel.Add(CriarModelPergunta(p)));
+            var perguntasUsuario = perguntasRepositorio.ObterTop5PerguntasUsuarioPorId(id);
+            
             if (perguntasUsuario == null)
             {
                 throw new ExcecaoUsuarioNaoExistente();
             }
-            return ResponderOK(perguntasModel);
+            return ResponderOK(perguntasUsuario);
         }
 
         [HttpGet]
