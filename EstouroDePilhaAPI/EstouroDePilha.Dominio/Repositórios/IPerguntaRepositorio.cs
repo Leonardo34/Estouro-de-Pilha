@@ -17,5 +17,6 @@ namespace EstouroDePilha.Dominio.Repositórios
         List<Pergunta> RetornarPerguntasOrdenadasPorMaiorNumeroDeUpVotes(List<Pergunta> perguntas);
         void AdicionarUpvote(UpVotePergunta upvote);
         void AdicionarDownvote(DownVotePergunta downvote);
+        List<Pergunta> ObterTop5PerguntasMaiorNumUpvotes();
     }
 }

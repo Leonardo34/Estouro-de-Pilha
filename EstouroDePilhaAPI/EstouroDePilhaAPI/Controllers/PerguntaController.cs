@@ -188,6 +188,15 @@ namespace EstouroDePilhaAPI.Controllers
             return ResponderOK(perguntasDto);
         }
 
+        [HttpGet]
+        [Route("top")]
+        public HttpResponseMessage ObterTop5PerguntasNumUpvote()
+        {
+            var topPerguntas = perguntasRepositorio.ObterTop5PerguntasMaiorNumUpvotes();
+            var topPerguntasDto = CriarPerguntaTop5Dto(topPerguntas);
+            return ResponderOK(topPerguntasDto);
+        }
+
         private PerguntaModel CriarModelPergunta(Pergunta entidadePergunta)
         {
             var perguntaModel = new PerguntaModel();
@@ -228,6 +237,13 @@ namespace EstouroDePilhaAPI.Controllers
                 perguntaModel.DownVotes.Add(each.Usuario.converterUsuarioParaUsuarioModel());
             }
             return perguntaModel;
+        }
+
+        private List<PerguntaTop5UpvoteModel> CriarPerguntaTop5Dto(List<Pergunta> perguntas)
+        {
+            List<PerguntaTop5UpvoteModel> perguntasDto = new List<PerguntaTop5UpvoteModel>();
+            perguntas.ForEach(p => perguntasDto.Add(new PerguntaTop5UpvoteModel(p.Id, p.Titulo)));
+            return perguntasDto;
         }
 
         private List<PerguntaModel> CriarPerguntasDto(List<Pergunta> perguntas)

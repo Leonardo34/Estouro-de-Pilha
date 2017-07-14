@@ -69,6 +69,7 @@
     <Compile Include="Models\ComentarioRespostaModel.cs" />
     <Compile Include="Models\PerguntaHomeModel.cs" />
     <Compile Include="Models\PerguntaModel.cs" />
+    <Compile Include="Models\PerguntaTop5UpvoteModel.cs" />
     <Compile Include="Models\PerguntaPerfilModel.cs" />
     <Compile Include="Models\RegistrarUsuarioModel.cs" />
     <Compile Include="Models\RespostaModel.cs" />
