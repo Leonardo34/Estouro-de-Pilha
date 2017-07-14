@@ -171,7 +171,7 @@
 
             <a class="button pagination-link resposta-button borderless"
                   ng-click="abrirFecharEdicaoResposta($index)"
-                  ng-if="(usuario.Id === resposta.Usuario.Id && dataDeEdicao(pergunta) || ehGauderio)">
+                  ng-if="(usuario.Id === resposta.Usuario.Id && dataDeEdicao(pergunta) || ehGauderio())">
               <span class="icon">
                   <i class=" fa fa-pencil"></i>
               </span>

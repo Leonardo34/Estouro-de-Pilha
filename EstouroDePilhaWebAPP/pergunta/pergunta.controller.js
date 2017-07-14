@@ -304,10 +304,13 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
 
   function ehGauderio() {
     let gauderio = false;
-    $scope.usuario.Badges.forEach(badge => {
-      if(badge.Titulo === 'Gaudério')
-        gauderio = true;
-    });
+    if($scope.usuario !== undefined) {
+      $scope.usuario.Badges.forEach(badge => {
+        if(badge.Titulo === 'Gaudério')
+          gauderio = true;
+      });
+    }
+    
     return gauderio;
   }
 
