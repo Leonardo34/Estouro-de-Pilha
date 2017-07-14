@@ -71,5 +71,25 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 
             return quantidadeDownVotesPergunta + quantidadeDownVotesResposta;
         }
+
+        public int QuantidadeUpVotesUsuario(Usuario usuario)
+        {
+            int quantidadeUpVotesPergunta = contexto.DownVotesPerguntas
+                .Where(u => u.Usuario.Id == usuario.Id)
+                .Count();
+
+            int quantidadeUpVotesResposta = contexto.DownVotesResposta
+                .Where(u => u.Usuario.Id == usuario.Id)
+                .Count();
+
+            return quantidadeUpVotesPergunta + quantidadeUpVotesResposta;
+        }
+
+        public List<Usuario> ObterUsuariosCadastraosHa(int dias)
+        {
+            return contexto.Usuarios
+                .Where(u => (DateTime.Now - u.DataCadastro).Days == dias)
+                .ToList();
+        }
     }
 }
