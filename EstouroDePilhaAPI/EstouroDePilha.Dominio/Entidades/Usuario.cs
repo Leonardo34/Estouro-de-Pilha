@@ -130,9 +130,9 @@ namespace EstouroDePilha.Dominio.Entidades
         public bool AdicionarBadgePeleador(Badge badge, int idPergunta)
         {
             var respostaCorreta = Respostas?
-                .FirstOrDefault(r => r.Pergunta.Id == idPergunta).Pergunta
+                .FirstOrDefault(r => r?.Pergunta.Id == idPergunta).Pergunta
                 .Respostas.FirstOrDefault(r => r.EhRespostaCorreta == true);
-            var respostas = Respostas?.Where(r => r.Pergunta.Id == idPergunta);
+            var respostas = Respostas?.Where(r => r?.Pergunta.Id == idPergunta);
             var respostasPeleadoras = respostas
                 ?.Where(r => r?.UpVotes.Count - respostaCorreta?.UpVotes.Count > 10 && r.Usuario.Id == Id);
             var numeroDeRespostasPeleadoras = respostasPeleadoras?.Count();
