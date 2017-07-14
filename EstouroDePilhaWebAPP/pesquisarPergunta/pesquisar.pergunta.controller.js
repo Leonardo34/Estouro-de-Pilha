@@ -1,4 +1,4 @@
-angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', function ($scope,  authService, $location, tagService, pesquisarPerguntaService, $routeParams){
+angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', function ($scope,  authService, $location, tagService, pesquisarPerguntaService, perguntaService, $routeParams){
   $scope.logout = authService.logout;
   $scope.pesquisar = pesquisar;
   $scope.anterior = anterior;
@@ -78,6 +78,8 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
     pesquisarPerguntaService.pesquisarTrazerResultados(
       $scope.pagina, perguntaBuscada, (tags || []).toString().replace(","," ")).then(function (response){
         $scope.perguntasPesquisadas = response.data.result;
+        $scope.perguntasPesquisadas.forEach(pergunta => 
+          perguntaService.definirNumeroBadgesDoUsuario(pergunta));
         console.log($scope.perguntasPesquisadas);
         $scope.busca = undefined;
     })

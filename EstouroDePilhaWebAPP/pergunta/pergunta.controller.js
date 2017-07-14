@@ -45,6 +45,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   function buscarPerguntaPorId() {
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response) {
       $scope.pergunta = response.data.result;
+      perguntaService.definirNumeroBadgesDoUsuario($scope.pergunta);
       copiaPergunta = angular.copy($scope.pergunta);
       data  = $scope.pergunta.DataPergunta;
       email =   $scope.pergunta.Usuario.Email;
