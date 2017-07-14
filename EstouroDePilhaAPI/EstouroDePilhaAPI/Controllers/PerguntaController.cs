@@ -39,7 +39,7 @@ namespace EstouroDePilhaAPI.Controllers
         public HttpResponseMessage ListarPerguntas(int skip, int take)
         {
             var perguntas = perguntasRepositorio.ListarPaginado(skip, take);
-            var perguntasDto = CriarPerguntasDto(perguntas);
+            var perguntasDto = CriarPerguntasDtoHome(perguntas);
             return ResponderOK(perguntasDto);
         }
 
@@ -237,6 +237,16 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 perguntasDto.Add(CriarModelPergunta(each));
             }
+            return perguntasDto;
+        }
+
+        private List<PerguntaHomeModel> CriarPerguntasDtoHome(List<Pergunta> pergunta)
+        {
+            List<PerguntaHomeModel> perguntasDto = new List<PerguntaHomeModel>();
+            pergunta.ForEach(p => perguntasDto.Add(
+                new PerguntaHomeModel
+                (p.Id, p.Titulo, p.Usuario.Id, 
+                p.Usuario.UrlFotoPerfil, p.Usuario.Nome, p.Usuario.Badges)));
             return perguntasDto;
         }
 

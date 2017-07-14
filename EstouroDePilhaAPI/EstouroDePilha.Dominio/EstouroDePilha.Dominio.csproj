@@ -65,7 +65,9 @@
     <Compile Include="Excecoes\UsuarioJaDeuDownVoteException.cs" />
     <Compile Include="Excecoes\UsuarioJaDeuUpVoteException.cs" />
     <Compile Include="Models\BadgeModel.cs" />
+    <Compile Include="Models\BadgeUsuarioHomeModel.cs" />
     <Compile Include="Models\ComentarioRespostaModel.cs" />
+    <Compile Include="Models\PerguntaHomeModel.cs" />
     <Compile Include="Models\PerguntaModel.cs" />
     <Compile Include="Models\PerguntaPerfilModel.cs" />
     <Compile Include="Models\RegistrarUsuarioModel.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="Models\RespostaPerfilModel.cs" />
     <Compile Include="Models\TagModel.cs" />
     <Compile Include="Models\UsuarioBaseModel.cs" />
+    <Compile Include="Models\UsuarioPerguntaHomeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositórios\IBadgeRepositorio.cs" />
     <Compile Include="Repositórios\IPerguntaRepositorio.cs" />
