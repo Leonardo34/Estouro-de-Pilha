@@ -71,7 +71,21 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     return $http.post(`${urlPerguntas}${idPergunta}/downvote`, {});
   }
 
+  function definirNumeroBadgesDoUsuario(pergunta) {
+    pergunta.Usuario.numeroBadges = { gold: 0, silver: 0, bronze: 0 };
+    pergunta.Usuario.Badges.forEach(badge => {
+      if(badge.Tipo === 'Gold')
+        pergunta.Usuario.numeroBadges.gold++;
+      if(badge.Tipo === 'Silver')
+        pergunta.Usuario.numeroBadges.silver++;
+      if(badge.Tipo === 'Bronze')
+        pergunta.Usuario.numeroBadges.bronze++;        
+    });
+    return;
+  }
+
   return {
+    definirNumeroBadgesDoUsuario: definirNumeroBadgesDoUsuario,
     buscarPerguntaPorId : buscarPerguntaPorId,
     buscarRespostaPorIdDaPergunta : buscarRespostaPorIdDaPergunta,
     pegarPerguntasDoUsuario : pegarPerguntasDoUsuario,
