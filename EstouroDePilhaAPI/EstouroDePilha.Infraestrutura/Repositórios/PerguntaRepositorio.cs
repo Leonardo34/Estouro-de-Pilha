@@ -132,6 +132,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
             List<PerguntaPerfilModel> perguntasPerfil = new List<PerguntaPerfilModel>();
             var perguntasUsuario = contexto.Perguntas
                 .Where(p => p.Usuario.Id == id)
+                .OrderByDescending(p => p.DataPergunta)
                 .Take(5)
                 .Select(p => new { p.Titulo, p.Id })
                 .ToList();

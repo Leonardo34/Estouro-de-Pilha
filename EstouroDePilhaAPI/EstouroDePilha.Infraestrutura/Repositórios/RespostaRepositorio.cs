@@ -120,10 +120,11 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
         public List<RespostaPerfilModel> ObterTop5RespostasPorUsuarioId(int id)
         {
             List<RespostaPerfilModel> respostasModel = new List<RespostaPerfilModel>();
-            var respostas = contexto.Respostas                
+            var respostas = contexto.Respostas
+                .Where(r => r.Usuario.Id == id)
+                .OrderByDescending(r => r.DataResposta)
                 .Take(5)
-                .Where(p => p.Usuario.Id == id)
-                .Select(p => new { p.Descricao, p.Pergunta.Id, p.Pergunta.Titulo })
+                .Select(r => new { r.Descricao, r.Pergunta.Id, r.Pergunta.Titulo })
                 .ToList();
             respostas.ForEach(r => respostasModel.Add(new RespostaPerfilModel(r.Id, r.Titulo, r.Descricao)));
             return respostasModel;
