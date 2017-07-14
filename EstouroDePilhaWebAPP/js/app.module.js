@@ -1,4 +1,4 @@
-angular.module("EstouroPilhaApp", ['ngRoute', 'auth', 'btford.markdown', 'permitirTab', 'angucomplete-alt']);
+angular.module("EstouroPilhaApp", ['ngRoute', 'auth', 'btford.markdown', 'permitirTab', 'angucomplete-alt', 'angular-loading-bar']);
 
 angular.module('EstouroPilhaApp')
 .config(function($sceProvider) {
