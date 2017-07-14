@@ -80,9 +80,9 @@ ol, ul {
 }
 
 .field.control {
-  
+
   margin-right: -6px;
- 
+
 }
 .divisor-comentario {
   margin-top: 0.2rem;
@@ -120,7 +120,7 @@ ol, ul {
   border-right: 0;
 }
 
-.hero-badges {  
+.hero-badges {
   padding: 1rem .5rem;
 }
 
@@ -131,7 +131,7 @@ ol, ul {
 .badge-gold, .badge-silver, .badge-bronze {
   color: white;
   text-shadow: 1px 1px gray;
-  user-select: none;   
+  user-select: none;
   cursor: default;
 }
 .badge-gold {
@@ -478,8 +478,8 @@ ol, ul {
   transition: all 1s ease-in-out;
 }
 .form-resposta-edicao {
-  opacity: 1;  
-  max-height: 600px;  
+  opacity: 1;
+  max-height: 600px;
 }
 
 #form-edicao, #form-responder, #form-comentar {
@@ -530,7 +530,7 @@ ol, ul {
   }
   .resposta-vote {
     width: 45%;
-   
+
   }
 
   .usuario-resposta-info {
@@ -551,4 +551,16 @@ ol, ul {
   .resposta-button {
     height: 1.8rem;
   }
-} 
+
+  .comentario-detalhes p{
+    padding: 0%;
+    margin: 0%;
+    font-size: 11px;
+  }
+
+  .data-comentario small{
+    padding: 0%;
+    margin: 0%;
+    font-size: 11px;
+  }
+}
