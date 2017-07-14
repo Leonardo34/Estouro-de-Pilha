@@ -4,9 +4,7 @@
 <div class="columns">
   <div class="column is-two-thirds is-offset-2-desktop is-12-touch">
    <nav class="containerPerguntasERespostas nav-center">
-      <a class="pagination-previous" ng-click="paginaAnterior()" ng-class="{'link-disabled' : pagina == 0}">Anterior</a>
       <a class="pagination-link">{{totalPerguntas}}  perguntas encontradas</a>
-      <a class="pagination-next" ng-click="proximaPagina()" ng-class="{'link-disabled' : (pagina + 1) * itensPagina >= totalPerguntas}">Próximo</a>
    </nav>
     <div class="box column" ng-repeat="each in perguntas">
       <div class="columns">
@@ -55,5 +53,9 @@
         </div>
       </div>
     </div>
+    <nav class="containerPerguntasERespostas nav-center">
+      <a class="pagination-previous" ng-click="paginaAnterior()" ng-class="{'link-disabled' : pagina == 0}">Anterior</a>
+      <a class="pagination-next" ng-click="proximaPagina()" ng-class="{'link-disabled' : (pagina + 1) * itensPagina >= totalPerguntas}">Próximo</a>
+   </nav>
   </div>
 </div>
