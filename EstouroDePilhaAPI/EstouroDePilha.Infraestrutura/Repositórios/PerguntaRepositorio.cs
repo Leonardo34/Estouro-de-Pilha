@@ -6,6 +6,7 @@ using System.Linq;
 using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
+using EstouroDePilha.Dominio.Models;
 
 namespace EstouroDePilha.Infraestrutura.Repositórios
 {
@@ -126,9 +127,17 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .ToList();
         }
 
-        public List<Pergunta> ObterPerguntasUsuarioPorId(int id)
+        public List<PerguntaPerfilModel> ObterTop5PerguntasUsuarioPorId(int id)
         {
-            return contexto.Perguntas.Where(p => p.Usuario.Id == id).ToList();
+            List<PerguntaPerfilModel> perguntasPerfil = new List<PerguntaPerfilModel>();
+            var perguntasUsuario = contexto.Perguntas
+                .Where(p => p.Usuario.Id == id)
+                .Take(5)
+                .Select(p => new { p.Titulo, p.Id })
+                .ToList();
+
+            perguntasUsuario.ForEach(p => perguntasPerfil.Add(new PerguntaPerfilModel(p.Id, p.Titulo)));
+            return perguntasPerfil;          
         }
 
         public List<Pergunta> ObterResultadosDaBuscaPaginados(int quantidadePular, string conteudoDaBusca, string tags)

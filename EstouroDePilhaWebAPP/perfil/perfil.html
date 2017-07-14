@@ -103,7 +103,7 @@
 
 <section class="section minhas-perguntas">
   <div class="container">
-    <h3 class="subtitle">Minhas perguntas</h3>
+    <h3 class="subtitle">Minhas últimas perguntas</h3>
     <hr>
     <p ng-hide="existePerguntas">Opa! parece que {{usuario.Nome}} não perguntou nada ainda.</p>
     <div class="card" ng-repeat="pergunta in usuario.perguntas">
@@ -120,7 +120,7 @@
 
 <section class="section minhas-respostas">
   <div class="container">
-    <h3 class="subtitle">Minhas respostas</h3>
+    <h3 class="subtitle">Minhas últimas respostas</h3>
     <hr>
     <p ng-hide="existeRespostas">Opa! parece que {{usuario.Nome}} não respondeu nada ainda.</p>
     <div class="card" ng-repeat="resposta in usuario.respostas">
@@ -132,8 +132,7 @@
       </header>
       <div class="card-content">
         <div class="content">
-          <p>"{{resposta.Descricao}}"</p>
-          <small>{{resposta.DataResposta | date:'dd/MM/yyyy'}}</small>
+          <p>"{{resposta.Descricao}}"</p>         
         </div>
       </div>
     </div>

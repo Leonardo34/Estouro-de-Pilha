@@ -8,14 +8,16 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
     $scope.usuario = [];
     $scope.alternarModal = false;    
     pegarUsuario();
-    pegarRespostas();
-    pegarPerguntas();
-    pegarTags();
+    
+    
 
     function pegarUsuario(){
         perfilService.pegarUsuario(id)
             .then(response => {
                 $scope.usuario = response.data.result;
+                pegarRespostas();
+                pegarPerguntas();
+                pegarTags();
         },  fail => {
             $location.path("/home");
             new Noty({

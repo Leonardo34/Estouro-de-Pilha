@@ -39,7 +39,7 @@ namespace EstouroDePilhaAPI.Controllers
         public HttpResponseMessage ListarPerguntas(int skip, int take)
         {
             var perguntas = perguntasRepositorio.ListarPaginado(skip, take);
-            var perguntasDto = CriarPerguntasDto(perguntas);
+            var perguntasDto = CriarPerguntasDtoHome(perguntas);
             return ResponderOK(perguntasDto);
         }
 
@@ -170,14 +170,13 @@ namespace EstouroDePilhaAPI.Controllers
         [Route("usuario/{id:int}")]
         public HttpResponseMessage ObterPerguntasPorUsuarioId(int id)
         {
-            var perguntasUsuario = perguntasRepositorio.ObterPerguntasUsuarioPorId(id);
-            var perguntasModel = new List<PerguntaModel>();
-            perguntasUsuario.ForEach(p => perguntasModel.Add(CriarModelPergunta(p)));
+            var perguntasUsuario = perguntasRepositorio.ObterTop5PerguntasUsuarioPorId(id);
+            
             if (perguntasUsuario == null)
             {
                 throw new ExcecaoUsuarioNaoExistente();
             }
-            return ResponderOK(perguntasModel);
+            return ResponderOK(perguntasUsuario);
         }
 
         [HttpGet]
@@ -254,6 +253,16 @@ namespace EstouroDePilhaAPI.Controllers
             {
                 perguntasDto.Add(CriarModelPergunta(each));
             }
+            return perguntasDto;
+        }
+
+        private List<PerguntaHomeModel> CriarPerguntasDtoHome(List<Pergunta> pergunta)
+        {
+            List<PerguntaHomeModel> perguntasDto = new List<PerguntaHomeModel>();
+            pergunta.ForEach(p => perguntasDto.Add(
+                new PerguntaHomeModel
+                (p.Id, p.Titulo, p.Usuario.Id, 
+                p.Usuario.UrlFotoPerfil, p.Usuario.Nome, p.Usuario.Badges)));
             return perguntasDto;
         }
 

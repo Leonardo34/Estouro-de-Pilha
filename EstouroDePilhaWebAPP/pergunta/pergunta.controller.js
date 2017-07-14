@@ -17,8 +17,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.marcarComoCorreta = marcarComoCorreta;
   $scope.pagina = 0;  
   buscarQuantidadeDeRespostasPorIdDaPergunta();
-  buscarPerguntaPorId(idDaPergunta);
-  buscarRespostaPorIdDaPergunta(idDaPergunta);
+  buscarPerguntaPorId(idDaPergunta);  
   $scope.editarPergunta = editarPergunta;
   $scope.upvoteResposta = upvoteResposta;
   $scope.downvoteResposta = downvoteResposta;
@@ -26,8 +25,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.usuarioDeuUpvoteResposta = usuarioDeuUpvoteResposta;
   $scope.usuarioDeuDownvoteResposta = usuarioDeuDownvoteResposta;
   $scope.usuario = authService.getUsuario();
-  $scope.estaLogado = authService.isAutenticado();
-  buscarRespostaPorIdDaPergunta();
+  $scope.estaLogado = authService.isAutenticado();  
   $scope.podeEditarPergunta = podeEditarPergunta;
   $scope.abrirFecharModal = abrirFecharModal;
   $scope.abrirFecharEdicaoResposta = abrirFecharEdicaoResposta;
@@ -47,6 +45,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response) {
       $scope.pergunta = response.data.result;
       perguntaService.definirNumeroBadgesDoUsuario($scope.pergunta);
+      buscarRespostaPorIdDaPergunta();
       copiaPergunta = angular.copy($scope.pergunta);
       data  = $scope.pergunta.DataPergunta;
       email =   $scope.pergunta.Usuario.Email;
@@ -297,7 +296,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   }
 
   function dataDeEdicao(pergunta) {    
-    if(((new Date() - pergunta.DataPergunta) * 1000 * 60 * 60 * 24) <= 7)
+    if((Date.parse(new Date()) - Date.parse(data))/(1000*3600*24)  <= 7)
       return true;
     return false;
   }

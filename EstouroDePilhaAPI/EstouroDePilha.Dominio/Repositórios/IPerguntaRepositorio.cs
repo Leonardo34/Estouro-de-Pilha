@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using EstouroDePilha.Dominio.Entidades;
+using EstouroDePilha.Dominio.Models;
 
 namespace EstouroDePilha.Dominio.Repositórios
 {
@@ -8,7 +9,7 @@ namespace EstouroDePilha.Dominio.Repositórios
         List<Pergunta> ObterTodasAsPerguntasDaPesquisa(string conteudoDaBusca, string tags);
         List<Pergunta> ObterResultadosDaBuscaPaginados(int quantidadePular, string conteudoDaBusca, string tags);
         int  NumeroDeResultadosDaPesquisa(string conteudoDaBusca, string tags);
-        List<Pergunta> ObterPerguntasUsuarioPorId(int id);
+        List<PerguntaPerfilModel> ObterTop5PerguntasUsuarioPorId(int id);
         List<Pergunta> ListarPaginado(int skip, int take);
         List<Pergunta> BuscaPerguntasPorTags(string tags);
         List<Pergunta> BuscaPerguntasPorTituloEDescricao(string conteudo);

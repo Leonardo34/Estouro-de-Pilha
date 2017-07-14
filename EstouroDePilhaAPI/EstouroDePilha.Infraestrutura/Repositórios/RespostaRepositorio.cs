@@ -1,4 +1,5 @@
 ﻿using EstouroDePilha.Dominio.Entidades;
+using EstouroDePilha.Dominio.Models;
 using EstouroDePilha.Dominio.Repositórios;
 using System;
 using System.Collections.Generic;
@@ -116,9 +117,16 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
             contexto.SaveChanges();
         }
 
-        public List<Resposta> ObterRespostasPorUsuarioId(int id)
+        public List<RespostaPerfilModel> ObterTop5RespostasPorUsuarioId(int id)
         {
-            return contexto.Respostas.Where(p => p.Usuario.Id == id).ToList();
+            List<RespostaPerfilModel> respostasModel = new List<RespostaPerfilModel>();
+            var respostas = contexto.Respostas                
+                .Take(5)
+                .Where(p => p.Usuario.Id == id)
+                .Select(p => new { p.Descricao, p.Pergunta.Id, p.Pergunta.Titulo })
+                .ToList();
+            respostas.ForEach(r => respostasModel.Add(new RespostaPerfilModel(r.Id, r.Titulo, r.Descricao)));
+            return respostasModel;
         }
 
         public void AdicionarDownvote(DownVoteResposta downvote)
