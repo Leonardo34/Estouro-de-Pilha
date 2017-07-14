@@ -125,10 +125,11 @@
     <p ng-hide="existeRespostas">Opa! parece que {{usuario.Nome}} não respondeu nada ainda.</p>
     <div class="card" ng-repeat="resposta in usuario.respostas">
       <header class="card-header">
-        <p class="card-header-title">
-          Pergunta:
-          <!-- adicionar aqui o nome da pergunta -->
-        </p>
+        <a ng-href="/#!/pergunta/{{resposta.IdPergunta}}">
+          <p class="card-header-title">
+            Pergunta: {{resposta.TituloPergunta}}          
+          </p>
+        </a>
       </header>
       <div class="card-content">
         <div class="content">
