@@ -1,12 +1,12 @@
 
 angular.module('EstouroPilhaApp').controller('perguntaController',
-    function ($scope, $routeParams, authService, perguntaService, tagService) {
+    function ($scope, $routeParams, authService, perguntaService, tagService, perfilService) {
   var email;
   var idDaPergunta = $routeParams.id;
   var data;
   var copiaPergunta; //utilizado para voltar ao estado original caso edição seja cancelada
   var temRespostaCorreta;
-  var edicaoAberta = false; 
+  var edicaoAberta = false;
   $scope.logout = authService.logout;
   $scope.adicionarMarkdown = adicionarMarkdown;
   $scope.proxima = proxima;
@@ -15,9 +15,9 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.comentarPergunta = comentarPergunta;
   $scope.usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta = usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta;
   $scope.marcarComoCorreta = marcarComoCorreta;
-  $scope.pagina = 0;  
+  $scope.pagina = 0;
   buscarQuantidadeDeRespostasPorIdDaPergunta();
-  buscarPerguntaPorId(idDaPergunta);  
+  buscarPerguntaPorId(idDaPergunta);
   $scope.editarPergunta = editarPergunta;
   $scope.upvoteResposta = upvoteResposta;
   $scope.downvoteResposta = downvoteResposta;
@@ -25,7 +25,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.usuarioDeuUpvoteResposta = usuarioDeuUpvoteResposta;
   $scope.usuarioDeuDownvoteResposta = usuarioDeuDownvoteResposta;
   $scope.usuario = authService.getUsuario();
-  $scope.estaLogado = authService.isAutenticado();  
+  $scope.estaLogado = authService.isAutenticado();
   $scope.podeEditarPergunta = podeEditarPergunta;
   $scope.abrirFecharModal = abrirFecharModal;
   $scope.abrirFecharEdicaoResposta = abrirFecharEdicaoResposta;
@@ -39,8 +39,9 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.editarResposta = editarResposta;
   $scope.dataDeEdicao = dataDeEdicao;
   $scope.ehGauderio = ehGauderio;
+  $scope.idUsuarioAtivo = perfilService.pegarIdUsuarioAtivo();
   buscarTopPerguntas();
-  
+
   function buscarPerguntaPorId() {
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response) {
       $scope.pergunta = response.data.result;
@@ -152,7 +153,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
           new Noty({
               type: 'success',
               timeout: 2000,
-              text:  'A pergunta foi editada!'                
+              text:  'A pergunta foi editada!'
           }).show();
     })
   }
@@ -163,13 +164,13 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
       new Noty({
           type: 'success',
           timeout: 2000,
-          text:  'A resposta foi comentada!'                
+          text:  'A resposta foi comentada!'
       }).show();
     }, fail => {
       new Noty({
           type: 'error',
           timeout: 2000,
-          text:  fail.data.ExceptionMessage                
+          text:  fail.data.ExceptionMessage
       }).show();
     })
   }
@@ -187,14 +188,14 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
       new Noty({
           type: 'error',
           timeout: 2000,
-          text:  fail.data.ExceptionMessage                
+          text:  fail.data.ExceptionMessage
       }).show();
     })
   }
 
   function editarResposta(resposta) {
     let copia = {Descricao: resposta.Descricao, Id: resposta.Id}
-    
+
     perguntaService.editarResposta(copia)
       .then(response => {
         new Noty({
@@ -202,12 +203,12 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
           timeout: 2000,
           text:  'Edições salvas!'
         }).show();
-      abrirFecharEdicaoResposta(resposta.indice);                
+      abrirFecharEdicaoResposta(resposta.indice);
       }, fail => {
         new Noty({
           type: 'error',
           timeout: 2000,
-          text:  fail.data.errors              
+          text:  fail.data.errors
         }).show();
       })
   }
@@ -218,14 +219,14 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
         new Noty({
                 type: 'success',
                 timeout: 2000,
-                text:  'A resposta foi inserida!'                
+                text:  'A resposta foi inserida!'
             }).show();
          abrirFecharModal('R');
       }, fail => {
         new Noty({
                 type: 'error',
                 timeout: 2000,
-                text:  fail.data.ExceptionMessage                
+                text:  fail.data.ExceptionMessage
             }).show();
       })
   }
@@ -275,7 +276,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
       case 'C':
         elemento = modalComentar();
         break;
-    }    
+    }
 
     if (!edicaoAberta) {
       elemento.div.style.height = '0';
@@ -285,17 +286,17 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
       elemento.form.style.opacity = '1';
     }
   }
-  
+
   function cancelarEdicao() {
     $scope.pergunta = angular.copy(copiaPergunta);
     abrirFecharModal('E');
   }
 
   function adicionarMarkdown(tipo, objeto) {
-    $scope[objeto].Descricao = window.adicionarMarkdown(tipo, $scope[objeto].Descricao);    
+    $scope[objeto].Descricao = window.adicionarMarkdown(tipo, $scope[objeto].Descricao);
   }
 
-  function dataDeEdicao(pergunta) {    
+  function dataDeEdicao(pergunta) {
     if((Date.parse(new Date()) - Date.parse(data))/(1000*3600*24)  <= 7)
       return true;
     return false;

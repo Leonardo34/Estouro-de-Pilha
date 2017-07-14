@@ -1,13 +1,13 @@
 angular.module('EstouroPilhaApp')
   .controller('cadastrarPerguntaController', cadastrarPerguntaController);
 
-function cadastrarPerguntaController($scope, $routeParams, $location,authService, cadastroPerguntaService, tagService) {
+function cadastrarPerguntaController($scope, $routeParams, $location,authService, perfilService, cadastroPerguntaService, tagService) {
   $scope.logout = authService.logout;
   $scope.cadastrarPergunta = cadastrarPergunta;
   $scope.adicionarMarkdown = adicionarMarkdown;
   $scope.estaLogado = authService.isAutenticado();
   $scope.tagsSelecionadas = [];
-
+  $scope.idUsuarioAtivo = perfilService.pegarIdUsuarioAtivo();
   buscarTags();
 
   function adicionarMarkdown (tipo) {
@@ -31,7 +31,7 @@ function cadastrarPerguntaController($scope, $routeParams, $location,authService
           new Noty({
               type: 'error',
               timeout: 2000,
-              text: erro         
+              text: erro
           }).show();
         })
       })

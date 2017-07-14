@@ -6,10 +6,11 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
     $scope.abrirFecharModalEdicao = abrirFecharModalEdicao;
     $scope.estaLogado = authService.isAutenticado();
     $scope.usuario = [];
-    $scope.alternarModal = false;    
+    $scope.alternarModal = false;
+    $scope.idUsuarioAtivo = perfilService.pegarIdUsuarioAtivo();
     pegarUsuario();
-    
-    
+
+
 
     function pegarUsuario(){
         perfilService.pegarUsuario(id)
@@ -23,9 +24,9 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
             new Noty({
                 type: 'error',
                 timeout: 2000,
-                text:  fail.data.ExceptionMessage                
+                text:  fail.data.ExceptionMessage
             }).show();
-             
+
         });
     }
 
@@ -70,7 +71,7 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
                     new Noty({
                         type: 'success',
                         timeout: 2000,
-                        text: 'Usuario editado com sucesso!'         
+                        text: 'Usuario editado com sucesso!'
                     }).show();
                 }, fail => {
                     console.log(fail.data);
@@ -80,5 +81,5 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
 
     function abrirFecharModalEdicao() {
         $scope.alternarModal = !$scope.alternarModal;
-    }   
+    }
 });

@@ -1,4 +1,4 @@
-angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', function ($scope,  authService, $location, tagService, pesquisarPerguntaService, perguntaService, $routeParams){
+angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', function ($scope,  perfilService, authService, $location, tagService, pesquisarPerguntaService, perguntaService, $routeParams){
   $scope.logout = authService.logout;
   $scope.pesquisar = pesquisar;
   $scope.anterior = anterior;
@@ -6,6 +6,7 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
   $scope.estaLogado = authService.isAutenticado();
   $scope.pagina = 0;
   $scope.tagsSelecionadas = [];
+  $scope.idUsuarioAtivo = perfilService.pegarIdUsuarioAtivo();
   var perguntaBuscada;
   var tags =   $scope.tagsSelecionadas;
   buscarTags();
@@ -82,7 +83,7 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
           perguntaService.definirNumeroBadgesDoUsuario(pergunta);
           perguntaService.removerMarkdown(pergunta);
         });
-        
+
         $scope.busca = undefined;
     })
   }

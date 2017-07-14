@@ -23,7 +23,7 @@
            </form>
          </div>
         <div class="nav-right nav-menu">
-            <a class="nav-item is-tab" ng-if="estaLogado" ng-href="#!/perfil/{{}}">Perfil</a>
+            <a class="nav-item is-tab" ng-if="estaLogado" ng-href="#!/perfil/{{idUsuarioAtivo}}">Perfil</a>
             <a class="nav-item is-tab" ng-if="!estaLogado" ng-href="#!/login">Logar</a>
             <a class="nav-item is-tab" ng-if="!estaLogado" ng-href="#!/cadastro">Cadastrar-se</a>
             <a class="nav-item is-tab" ng-if="estaLogado" ng-click="logout()" ng-href="#!/home">Log out</a>
