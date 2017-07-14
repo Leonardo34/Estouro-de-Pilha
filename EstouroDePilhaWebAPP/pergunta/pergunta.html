@@ -153,14 +153,21 @@
             <span class="icon is-small"><i class="fa fa-thumbs-o-down fa-2x" ng-class="{'fa fa-thumbs-down fa-2x' : usuarioDeuDownvoteResposta(resposta)}" aria-hidden="true"></i></span>
           </a>
 
-          <div class="details"  ng-if="estaLogado">
-
-            </div>
-            <a class="button pagination-link is-static resposta-button borderless" ng-if ="resposta.EhRespostaCorreta"  name="button">
+          <a class="button pagination-link is-static resposta-button borderless" ng-if ="resposta.EhRespostaCorreta"  name="button">
               <span class="icon">
                 <i class="fa fa-check is-pulled-right"  aria-hidden="true"></i>
               </span>
             </a>
+          <div class="details"  ng-if="estaLogado">
+             <a class="pagination-link resposta-button" 
+                 ng-if = "usuarioQueFezAPerguntaNaoMarcouNenhumaRespostaComoCorreta()" 
+                 ng-click = "marcarComoCorreta(resposta.Id)" name="button">             
+                 <spanclass="icon">
+                     <i class=" fa fa-check"></i>
+                 </span>
+              </a>  
+
+            </div>            
 
             <a class="button pagination-link resposta-button borderless"
                   ng-click="abrirFecharEdicaoResposta($index)"
