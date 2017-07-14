@@ -41,7 +41,8 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   $scope.editarResposta = editarResposta;
   $scope.dataDeEdicao = dataDeEdicao;
   $scope.ehGauderio = ehGauderio;
-
+  buscarTopPerguntas();
+  
   function buscarPerguntaPorId() {
     perguntaService.buscarPerguntaPorId(idDaPergunta).then(function (response) {
       $scope.pergunta = response.data.result;
@@ -66,6 +67,13 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
     perguntaService.buscarRespostaPorIdDaPergunta($scope.pagina, idDaPergunta).then(function (response) {
       $scope.respostas = response.data.result;
     })
+  }
+
+  function buscarTopPerguntas() {
+    perguntaService.buscarTop5PerguntasUpvotes()
+      .then(response => {
+        $scope.topPerguntas = response.data.result;
+      });
   }
 
   function buscarQuantidadeDeRespostasPorIdDaPergunta() {

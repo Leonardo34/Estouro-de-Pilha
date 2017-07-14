@@ -15,6 +15,10 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     return $http.get(`${urlResposta}numeroDeRespostasDaPergunta/${idDaPergunta}`);
   };
 
+  function buscarTop5PerguntasUpvotes() {
+    return $http.get(`${urlPergunta}top`);
+  }
+
   function buscarTotalPerguntasCadastradas() {
     return $http.get(`${urlPerguntas}total`);
   };
@@ -88,6 +92,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     definirNumeroBadgesDoUsuario: definirNumeroBadgesDoUsuario,
     buscarPerguntaPorId : buscarPerguntaPorId,
     buscarRespostaPorIdDaPergunta : buscarRespostaPorIdDaPergunta,
+    buscarTop5PerguntasUpvotes: buscarTop5PerguntasUpvotes,
     pegarPerguntasDoUsuario : pegarPerguntasDoUsuario,
     pegarRespostasDoUsuario : pegarRespostasDoUsuario,
     buscarPerguntasPaginadas : buscarPerguntasPaginadas,

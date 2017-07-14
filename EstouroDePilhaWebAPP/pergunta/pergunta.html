@@ -108,12 +108,16 @@
 
   </div>
 
-  <div class="box column">
+  <div class="box column top-perguntas">
     <div class="descricaoDaResposta">
-      <p><strong>Perguntas Frequentes</strong></p>
-      <p>Como eu resolvo um favicon.error??</p>
-      <p>Como eu faço um target 0?</p>
-      <p>O que vocêm acham do Entity Framework?</p>
+      <p><strong>Perguntas com mais upvotes</strong></p>
+
+      <p ng-repeat="pergunta in topPerguntas">
+        <a ng-href="/#!/pergunta/{{pergunta.Id}}">
+          {{pergunta.Titulo}}
+        </a>
+      </p>
+      
     </div>
   </div>
 
