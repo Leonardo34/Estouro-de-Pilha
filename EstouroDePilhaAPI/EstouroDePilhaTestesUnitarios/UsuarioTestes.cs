@@ -4,6 +4,7 @@ using EstouroDePilha.Dominio.Entidades;
 using System.Collections.Generic;
 using System.Collections;
 using EstouroDePilha.Dominio.Models;
+using System.Reflection;
 
 namespace EstouroDePilhaTestesUnitarios
 {
@@ -828,145 +829,171 @@ namespace EstouroDePilhaTestesUnitarios
             Assert.IsFalse(usuario1.AdicionarBadgeEsgualepado(badge));
         }
 
-        //[TestMethod ]
-        //public void TestarMedodoAdicionarBadgeEsgualepadoRetornoTrue()
-        //{
-        //    Usuario usuario1 = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
-        //    Usuario usuario2 = new Usuario("Mateus Forgiarini", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "mateus@hotmail.com", "q1223");
-        //    Usuario usuario3 = new Usuario("Mateus Forgiarini da Silva", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "mateus@hotmail.com", "q1223");
-        //    Pergunta pergunta = new Pergunta(usuario1, "Java", "me ajuda");
-        //    List<Pergunta> perguntas = new List<Pergunta>();
-        //    UpVotePergunta upVotePergunta1 = new UpVotePergunta(pergunta, usuario1);
+        [TestMethod]
+        public void TestarMedodoAdicionarBadgeEsgualepadoRetornoTrue()
+        {
+            Usuario usuario1 = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+            Usuario usuario2 = new Usuario("Mateus Forgiarini", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "mateus@hotmail.com", "q1223");
+            Usuario usuario3 = new Usuario("Mateus Forgiarini da Silva", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "mateus@hotmail.com", "q1223");
+            Pergunta pergunta = new Pergunta(usuario1, "Java", "me ajuda");
+            List<Pergunta> perguntas = new List<Pergunta>();
 
-        //    UpVotePergunta upVotePergunta2 = new UpVotePergunta(pergunta, usuario2);
-        //    var today = SystemTime.Now().Date;
 
-        //    SystemTime.SetDateTime(today.AddYears(5));
 
-        //    UpVotePergunta upVotePergunta3 = new UpVotePergunta(pergunta, usuario3);
-        //    upVotePergunta1.Data.AddSeconds(20);
-        //    upVotePergunta2.Data.AddSeconds(0);
-        //    upVotePergunta3.Data.AddSeconds(29);
-        //    pergunta.UpVotes.Add(upVotePergunta1);
-        //    pergunta.UpVotes.Add(upVotePergunta2);
-        //    pergunta.UpVotes.Add(upVotePergunta3);
-        //    perguntas.Add(pergunta);
-        //    List<Badge> badges = new List<Badge>();
-        //    Badge badge = new Badge("Esgualepado", "teste", "Bronze");
-        //    usuario1.Perguntas = perguntas;
-        //    usuario1.Badges = badges;
+            UpVotePergunta upVotePergunta1 = new UpVotePergunta(pergunta, usuario1);
+            PropertyInfo prop = upVotePergunta1.GetType().GetProperty("Data", BindingFlags.Public | BindingFlags.Instance);
+            if (null != prop && prop.CanWrite)
+            {
+                prop.SetValue(upVotePergunta1, upVotePergunta1.Data.AddSeconds(20), null);
+            }
+            UpVotePergunta upVotePergunta2 = new UpVotePergunta(pergunta, usuario1);
+            UpVotePergunta upVotePergunta3 = new UpVotePergunta(pergunta, usuario1);
+            PropertyInfo prop2 = upVotePergunta1.GetType().GetProperty("Data", BindingFlags.Public | BindingFlags.Instance);
+            if (null != prop && prop.CanWrite)
+            {
+                prop.SetValue(upVotePergunta2, upVotePergunta2.Data.AddSeconds(29), null);
+            };
+            pergunta.UpVotes.Add(upVotePergunta1);
+            pergunta.UpVotes.Add(upVotePergunta2);
+            pergunta.UpVotes.Add(upVotePergunta3);
+            perguntas.Add(pergunta);
+            List<Badge> badges = new List<Badge>();
+            Badge badge = new Badge("Esgualepado", "teste", "Bronze");
+            usuario1.Perguntas = perguntas;
+            usuario1.Badges = badges;
 
-        //    Assert.IsTrue(usuario1.AdicionarBadgeEsgualepado(badge));
-        //}
+            Assert.IsTrue(usuario1.AdicionarBadgeEsgualepado(badge));
+        }
 
-        //[TestMethod]
-        //public void TestarMedodoAdicionarBadgeEsgualepadoRetornoFalse()
-        //{
-        //    Usuario usuario1 = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
-        //    Usuario usuario2 = new Usuario("Mateus Forgiarini", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "mateus@hotmail.com", "q1223");
-        //    Usuario usuario3 = new Usuario("Mateus Forgiarini da Silva", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "mateus@hotmail.com", "q1223");
-        //    Pergunta pergunta = new Pergunta(usuario1, "Java", "me ajuda");
-        //    List<Pergunta> perguntas = new List<Pergunta>();
-        //    UpVotePergunta upVotePergunta1 = new UpVotePergunta(pergunta, usuario1);
-        //    UpVotePergunta upVotePergunta2 = new UpVotePergunta(pergunta, usuario2);
-        //    UpVotePergunta upVotePergunta3 = new UpVotePergunta(pergunta, usuario3);
-        //    upVotePergunta1.Data = upVotePergunta1.Data.AddSeconds(20);
-        //    upVotePergunta2.Data = upVotePergunta2.Data.AddSeconds(0);
-        //    upVotePergunta3.Data = upVotePergunta3.Data.AddSeconds(30);
-        //    pergunta.UpVotes.Add(upVotePergunta1);
-        //    pergunta.UpVotes.Add(upVotePergunta2);
-        //    pergunta.UpVotes.Add(upVotePergunta3);
-        //    perguntas.Add(pergunta);
-        //    List<Badge> badges = new List<Badge>();
-        //    Badge badge = new Badge("Esgualepado", "teste", "Bronze");
-        //    usuario1.Perguntas = perguntas;
-        //    usuario1.Badges = badges;
 
-        //    Assert.IsFalse(usuario1.AdicionarBadgeEsgualepado(badge));
-        //}
+        [TestMethod]
+        public void TestarMedodoAdicionarBadgeEsgualepadoRetornoFalse()
+        {
+            Usuario usuario1 = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+            Usuario usuario2 = new Usuario("Mateus Forgiarini", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "mateus@hotmail.com", "q1223");
+            Usuario usuario3 = new Usuario("Mateus Forgiarini da Silva", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "mateus@hotmail.com", "q1223");
+            Pergunta pergunta = new Pergunta(usuario1, "Java", "me ajuda");
+            List<Pergunta> perguntas = new List<Pergunta>();
 
-        //[TestMethod]
-        //public void TestarMedodoAdicionarBadgeFaceiroRetornoTrue()
-        //{
-        //    Usuario usuario1 = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
-        //    Pergunta pergunta1 = new Pergunta(usuario1, "Java", "me ajuda");
-        //    Pergunta pergunta2 = new Pergunta(usuario1, "Java", "me ajuda");
-        //    Pergunta pergunta3 = new Pergunta(usuario1, "Java", "me ajuda");
-        //    Pergunta pergunta4 = new Pergunta(usuario1, "Java", "me ajuda");
-        //    Pergunta pergunta5 = new Pergunta(usuario1, "Java", "me ajuda");
-        //    List<Pergunta> perguntas = new List<Pergunta>();
-        //    UpVotePergunta upVotePergunta1 = new UpVotePergunta(pergunta1, usuario1);
-        //    UpVotePergunta upVotePergunta2 = new UpVotePergunta(pergunta2, usuario1);
-        //    UpVotePergunta upVotePergunta3 = new UpVotePergunta(pergunta3, usuario1);
-        //    UpVotePergunta upVotePergunta4 = new UpVotePergunta(pergunta4, usuario1);
-        //    UpVotePergunta upVotePergunta5 = new UpVotePergunta(pergunta5, usuario1);
-        //    upVotePergunta1.Data = upVotePergunta1.Data.AddSeconds(20);
-        //    upVotePergunta2.Data = upVotePergunta2.Data.AddSeconds(0);
-        //    upVotePergunta3.Data = upVotePergunta3.Data.AddSeconds(30);
-        //    upVotePergunta4.Data = upVotePergunta1.Data.AddSeconds(20);
-        //    upVotePergunta5.Data = upVotePergunta2.Data.AddSeconds(59);
-        //    pergunta1.UpVotes.Add(upVotePergunta1);
-        //    pergunta2.UpVotes.Add(upVotePergunta2);
-        //    pergunta3.UpVotes.Add(upVotePergunta3);
-        //    pergunta4.UpVotes.Add(upVotePergunta4);
-        //    pergunta5.UpVotes.Add(upVotePergunta5);
-        //    List<UpVotePergunta> upVotePergunta = new List<UpVotePergunta>();
-        //    List<UpVoteResposta> upVoteResposta = new List<UpVoteResposta>();
-        //    upVotePergunta.Add(upVotePergunta1);
-        //    upVotePergunta.Add(upVotePergunta2);
-        //    upVotePergunta.Add(upVotePergunta3);
-        //    upVotePergunta.Add(upVotePergunta4);
-        //    upVotePergunta.Add(upVotePergunta5);
-        //    List<Badge> badges = new List<Badge>();
-        //    Badge badge = new Badge("Faceiro", "teste", "Bronze");
-        //    usuario1.Perguntas = perguntas;
-        //    usuario1.Badges = badges;
 
-        //    Assert.IsTrue(usuario1.AdicionarBadgeFaceiro(badge, upVotePergunta, upVoteResposta));
-        //}
 
-        //[TestMethod]
-        //public void TestarMedodoAdicionarBadgeFaceiroRetornoFalse()
-        //{
-        //    Usuario usuario1 = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
-        //    Pergunta pergunta1 = new Pergunta(usuario1, "Java", "me ajuda");
-        //    Pergunta pergunta2 = new Pergunta(usuario1, "Java", "me ajuda");
-        //    Pergunta pergunta3 = new Pergunta(usuario1, "Java", "me ajuda");
-        //    Pergunta pergunta4 = new Pergunta(usuario1, "Java", "me ajuda");
-        //    Pergunta pergunta5 = new Pergunta(usuario1, "Java", "me ajuda");
-        //    List<Pergunta> perguntas = new List<Pergunta>();
-        //    UpVotePergunta upVotePergunta1 = new UpVotePergunta(pergunta1, usuario1);
-        //    UpVotePergunta upVotePergunta2 = new UpVotePergunta(pergunta2, usuario1);
-        //    UpVotePergunta upVotePergunta3 = new UpVotePergunta(pergunta3, usuario1);
-        //    UpVotePergunta upVotePergunta4 = new UpVotePergunta(pergunta4, usuario1);
-        //    UpVotePergunta upVotePergunta5 = new UpVotePergunta(pergunta5, usuario1);
-        //    upVotePergunta1.Data = upVotePergunta1.Data.AddSeconds(20);
-        //    upVotePergunta2.Data = upVotePergunta2.Data.AddSeconds(0);
-        //    upVotePergunta3.Data = upVotePergunta3.Data.AddSeconds(30);
-        //    upVotePergunta4.Data = upVotePergunta1.Data.AddSeconds(20);
-        //    upVotePergunta5.Data = upVotePergunta2.Data.AddSeconds(61);
-        //    pergunta1.UpVotes.Add(upVotePergunta1);
-        //    pergunta2.UpVotes.Add(upVotePergunta2);
-        //    pergunta3.UpVotes.Add(upVotePergunta3);
-        //    pergunta4.UpVotes.Add(upVotePergunta4);
-        //    pergunta5.UpVotes.Add(upVotePergunta5);
-        //    List<UpVotePergunta> upVotePergunta = new List<UpVotePergunta>();
-        //    List<UpVoteResposta> upVoteResposta = new List<UpVoteResposta>();
-        //    upVotePergunta.Add(upVotePergunta1);
-        //    upVotePergunta.Add(upVotePergunta2);
-        //    upVotePergunta.Add(upVotePergunta3);
-        //    upVotePergunta.Add(upVotePergunta4);
-        //    upVotePergunta.Add(upVotePergunta5);
-        //    List<Badge> badges = new List<Badge>();
-        //    Badge badge = new Badge("Faceiro", "teste", "Bronze");
-        //    usuario1.Perguntas = perguntas;
-        //    usuario1.Badges = badges;
+            UpVotePergunta upVotePergunta1 = new UpVotePergunta(pergunta, usuario1);
+            PropertyInfo prop = upVotePergunta1.GetType().GetProperty("Data", BindingFlags.Public | BindingFlags.Instance);
+            if (null != prop && prop.CanWrite)
+            {
+                prop.SetValue(upVotePergunta1, upVotePergunta1.Data.AddSeconds(20), null);
+            }
+            UpVotePergunta upVotePergunta2 = new UpVotePergunta(pergunta, usuario1);
+            UpVotePergunta upVotePergunta3 = new UpVotePergunta(pergunta, usuario1);
+            PropertyInfo prop2 = upVotePergunta1.GetType().GetProperty("Data", BindingFlags.Public | BindingFlags.Instance);
+            if (null != prop && prop.CanWrite)
+            {
+                prop.SetValue(upVotePergunta2, upVotePergunta2.Data.AddSeconds(30), null);
+            };
+            pergunta.UpVotes.Add(upVotePergunta1);
+            pergunta.UpVotes.Add(upVotePergunta2);
+            pergunta.UpVotes.Add(upVotePergunta3);
+            perguntas.Add(pergunta);
+            List<Badge> badges = new List<Badge>();
+            Badge badge = new Badge("Esgualepado", "teste", "Bronze");
+            usuario1.Perguntas = perguntas;
+            usuario1.Badges = badges;
 
-        //    Assert.IsFalse(usuario1.AdicionarBadgeFaceiro(badge, upVotePergunta, upVoteResposta));
-        //}
+            Assert.IsFalse(usuario1.AdicionarBadgeEsgualepado(badge));
+        }
+
+        [TestMethod]
+        public void TestarMedodoAdicionarBadgeFaceiroRetornoTrue()
+        {
+            Usuario usuario1 = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+            Pergunta pergunta1 = new Pergunta(usuario1, "Java", "me ajuda");
+            Pergunta pergunta2 = new Pergunta(usuario1, "Java", "me ajuda");
+            Pergunta pergunta3 = new Pergunta(usuario1, "Java", "me ajuda");
+            Pergunta pergunta4 = new Pergunta(usuario1, "Java", "me ajuda");
+            Pergunta pergunta5 = new Pergunta(usuario1, "Java", "me ajuda");
+            List<Pergunta> perguntas = new List<Pergunta>();
+            UpVotePergunta upVotePergunta1 = new UpVotePergunta(pergunta1, usuario1);
+            PropertyInfo prop = upVotePergunta1.GetType().GetProperty("Data", BindingFlags.Public | BindingFlags.Instance);
+            if (null != prop && prop.CanWrite)
+            {
+                prop.SetValue(upVotePergunta1, upVotePergunta1.Data.AddSeconds(20), null);
+            }
+            UpVotePergunta upVotePergunta2 = new UpVotePergunta(pergunta2, usuario1);
+            UpVotePergunta upVotePergunta3 = new UpVotePergunta(pergunta3, usuario1);
+            PropertyInfo prop2 = upVotePergunta1.GetType().GetProperty("Data", BindingFlags.Public | BindingFlags.Instance);
+            if (null != prop && prop.CanWrite)
+            {
+                prop.SetValue(upVotePergunta2, upVotePergunta2.Data.AddSeconds(59), null);
+            };
+            UpVotePergunta upVotePergunta4 = new UpVotePergunta(pergunta4, usuario1);
+            UpVotePergunta upVotePergunta5 = new UpVotePergunta(pergunta5, usuario1);
+            pergunta1.UpVotes.Add(upVotePergunta1);
+            pergunta2.UpVotes.Add(upVotePergunta2);
+            pergunta3.UpVotes.Add(upVotePergunta3);
+            pergunta4.UpVotes.Add(upVotePergunta4);
+            pergunta5.UpVotes.Add(upVotePergunta5);
+            List<UpVotePergunta> upVotePergunta = new List<UpVotePergunta>();
+            List<UpVoteResposta> upVoteResposta = new List<UpVoteResposta>();
+            upVotePergunta.Add(upVotePergunta1);
+            upVotePergunta.Add(upVotePergunta2);
+            upVotePergunta.Add(upVotePergunta3);
+            upVotePergunta.Add(upVotePergunta4);
+            upVotePergunta.Add(upVotePergunta5);
+            List<Badge> badges = new List<Badge>();
+            Badge badge = new Badge("Faceiro", "teste", "Bronze");
+            usuario1.Perguntas = perguntas;
+            usuario1.Badges = badges;
+
+            Assert.IsTrue(usuario1.AdicionarBadgeFaceiro(badge, upVotePergunta, upVoteResposta));
+        }
 
         [TestMethod]
         public void TestarMedodoAdicionarBadgeFaceiroRetornoFalse()
+        {
+            Usuario usuario1 = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+            Pergunta pergunta1 = new Pergunta(usuario1, "Java", "me ajuda");
+            Pergunta pergunta2 = new Pergunta(usuario1, "Java", "me ajuda");
+            Pergunta pergunta3 = new Pergunta(usuario1, "Java", "me ajuda");
+            Pergunta pergunta4 = new Pergunta(usuario1, "Java", "me ajuda");
+            Pergunta pergunta5 = new Pergunta(usuario1, "Java", "me ajuda");
+            List<Pergunta> perguntas = new List<Pergunta>();
+            UpVotePergunta upVotePergunta1 = new UpVotePergunta(pergunta1, usuario1);
+            PropertyInfo prop = upVotePergunta1.GetType().GetProperty("Data", BindingFlags.Public | BindingFlags.Instance);
+            if (null != prop && prop.CanWrite)
+            {
+                prop.SetValue(upVotePergunta1, upVotePergunta1.Data.AddSeconds(20), null);
+            }
+            UpVotePergunta upVotePergunta2 = new UpVotePergunta(pergunta2, usuario1);
+            UpVotePergunta upVotePergunta3 = new UpVotePergunta(pergunta3, usuario1);
+            PropertyInfo prop2 = upVotePergunta1.GetType().GetProperty("Data", BindingFlags.Public | BindingFlags.Instance);
+            if (null != prop && prop.CanWrite)
+            {
+                prop.SetValue(upVotePergunta2, upVotePergunta2.Data.AddSeconds(61), null);
+            };
+            UpVotePergunta upVotePergunta4 = new UpVotePergunta(pergunta4, usuario1);
+            UpVotePergunta upVotePergunta5 = new UpVotePergunta(pergunta5, usuario1);
+            pergunta1.UpVotes.Add(upVotePergunta1);
+            pergunta2.UpVotes.Add(upVotePergunta2);
+            pergunta3.UpVotes.Add(upVotePergunta3);
+            pergunta4.UpVotes.Add(upVotePergunta4);
+            pergunta5.UpVotes.Add(upVotePergunta5);
+            List<UpVotePergunta> upVotePergunta = new List<UpVotePergunta>();
+            List<UpVoteResposta> upVoteResposta = new List<UpVoteResposta>();
+            upVotePergunta.Add(upVotePergunta1);
+            upVotePergunta.Add(upVotePergunta2);
+            upVotePergunta.Add(upVotePergunta3);
+            upVotePergunta.Add(upVotePergunta4);
+            upVotePergunta.Add(upVotePergunta5);
+            List<Badge> badges = new List<Badge>();
+            Badge badge = new Badge("Faceiro", "teste", "Bronze");
+            usuario1.Perguntas = perguntas;
+            usuario1.Badges = badges;
+
+            Assert.IsFalse(usuario1.AdicionarBadgeFaceiro(badge, upVotePergunta, upVoteResposta));
+        }
+
+        [TestMethod]
+        public void TestarMedodoAdicionarBadgeFaceiroSemListaDePerguntaRespostasEBadges()
         {
             Usuario usuario1 = new Usuario("Bernardo", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
             Pergunta pergunta5 = new Pergunta(usuario1, "Java", "me ajuda");
