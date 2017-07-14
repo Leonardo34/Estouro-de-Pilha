@@ -283,7 +283,7 @@ namespace EstouroDePilha.Dominio.Entidades
             return false;
         }
 
-        public bool adicionarbadgeEmbretado(Badge badge)
+        public bool AdicionarBadgeEmbretado(Badge badge)
         {
             if (this.Badges.FirstOrDefault(b => b.Titulo.Contains("Embretado")) != null)
             {
