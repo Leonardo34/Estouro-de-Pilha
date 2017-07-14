@@ -67,6 +67,7 @@
     <Compile Include="Models\BadgeModel.cs" />
     <Compile Include="Models\ComentarioRespostaModel.cs" />
     <Compile Include="Models\PerguntaModel.cs" />
+    <Compile Include="Models\PerguntaTop5UpvoteModel.cs" />
     <Compile Include="Models\RegistrarUsuarioModel.cs" />
     <Compile Include="Models\RespostaModel.cs" />
     <Compile Include="Models\TagModel.cs" />
