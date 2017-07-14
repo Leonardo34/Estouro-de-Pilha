@@ -138,6 +138,14 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                .ToList();
         }
 
+        public List<Pergunta> ObterTop5PerguntasMaiorNumUpvotes()
+        {
+            return contexto.Perguntas
+                .OrderByDescending(p => p.UpVotes.Count)
+                .Take(5)
+                .ToList();
+        }
+
         public int NumeroDeResultadosDaPesquisa(string conteudoDaBusca, string tags)
         {
             return ObterTodasAsPerguntasDaPesquisa(conteudoDaBusca, tags).Count();
