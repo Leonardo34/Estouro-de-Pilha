@@ -67,8 +67,10 @@
     <Compile Include="Models\BadgeModel.cs" />
     <Compile Include="Models\ComentarioRespostaModel.cs" />
     <Compile Include="Models\PerguntaModel.cs" />
+    <Compile Include="Models\PerguntaPerfilModel.cs" />
     <Compile Include="Models\RegistrarUsuarioModel.cs" />
     <Compile Include="Models\RespostaModel.cs" />
+    <Compile Include="Models\RespostaPerfilModel.cs" />
     <Compile Include="Models\TagModel.cs" />
     <Compile Include="Models\UsuarioBaseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
