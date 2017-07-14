@@ -78,9 +78,11 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
     pesquisarPerguntaService.pesquisarTrazerResultados(
       $scope.pagina, perguntaBuscada, (tags || []).toString().replace(","," ")).then(function (response){
         $scope.perguntasPesquisadas = response.data.result;
-        $scope.perguntasPesquisadas.forEach(pergunta => 
-          perguntaService.definirNumeroBadgesDoUsuario(pergunta));
-        console.log($scope.perguntasPesquisadas);
+        $scope.perguntasPesquisadas.forEach(pergunta => {
+          perguntaService.definirNumeroBadgesDoUsuario(pergunta);
+          perguntaService.removerMarkdown(pergunta);
+        });
+        
         $scope.busca = undefined;
     })
   }

@@ -33,6 +33,7 @@ angular.module('EstouroPilhaApp').controller('perfilController', function ($scop
         perguntaService.pegarRespostasDoUsuario(id)
             .then(response => {
                 $scope.usuario.respostas = response.data.result;
+                $scope.usuario.respostas.forEach(r => perguntaService.removerMarkdown(r));
                 $scope.existeRespostas = $scope.usuario.respostas.length > 0;
         }, fail =>{
                 console.log(fail.data);
