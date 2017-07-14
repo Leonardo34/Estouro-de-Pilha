@@ -6,9 +6,9 @@
 
   <div class="box column is-8">
     <section class="columns is-mobile is-multiline">
-      <div class="column is-12">        
+      <div class="column is-12">
         <small class="pull-right">{{pergunta.DataPergunta | date: 'dd/MM/yyyy'}}</small>
-        
+
         <div class="tituloPergunta">
           <label class="label">Pergunta do bagual : "{{pergunta.Titulo}}"</label>
         </div>
@@ -71,36 +71,36 @@
 
           <div class="level-right">
             <a class="button is-primary pull-right" ng-click="abrirFecharModal('E')" ng-if="podeEditarPergunta()">Editar</a>
-          
+
             <a class="pagination-link" ng-if="estaLogado" ng-click="abrirFecharModal('C')">
               <span class="icon">
-                <i class="fa fa-comments-o" aria-hidden="true"></i>      
+                <i class="fa fa-comments-o" aria-hidden="true"></i>
               </span>
-              <span>Comentar</span>   
+              <span>Comentar</span>
             </a>
-          </div>          
+          </div>
         </div>
         <div class="comentarios-pergunta">
           <hr class="divisor-comentario">
           <div ng-repeat="comentario in pergunta.Comentarios">
             <div class="level content comentarios">
               <span class="level-left comentario-detalhes">
-                <figure class="image is-24x24">
-                  <img  ng-src="{{comentario.Usuario.UrlImagemPerfil}}">  
-                </figure>
+                <!-- <figure class="image is-24x24">
+                  <img  ng-src="{{comentario.Usuario.UrlImagemPerfil}}">
+                </figure> -->
                 <p>
                   <a ng-href="/#!/perfil/{{comentario.Usuario.Id}}">
                     <strong>{{comentario.Usuario.Nome}}:</strong>
-                  </a> 
+                  </a>
                   <span>{{comentario.Descricao}}</span>
                 </p>
               </span>
-              <span class="level-right">
+              <span class="level-right data-comentario">
                 <small>
-                  {{comentario.DataComentario | date:'dd/MM/yyyy HH:mm'}}  
+                  {{comentario.DataComentario | date:'dd/MM/yyyy HH:mm'}}
                 </small>
-              </span>          
-            </div>             
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -117,7 +117,7 @@
           {{pergunta.Titulo}}
         </a>
       </p>
-      
+
     </div>
   </div>
 
@@ -128,11 +128,11 @@
 
     <a class="pagination-link" ng-if="estaLogado" ng-click="abrirFecharModal('R')">
       <span class="icon">
-        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>      
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
       </span>
-      <span>Responder</span>      
-    </a>    
-    
+      <span>Responder</span>
+    </a>
+
   </nav>
 </div>
   <div class="box column is-8" ng-repeat="resposta in respostas">
@@ -153,24 +153,24 @@
             <span class="icon is-small"><i class="fa fa-thumbs-o-down fa-2x" ng-class="{'fa fa-thumbs-down fa-2x' : usuarioDeuDownvoteResposta(resposta)}" aria-hidden="true"></i></span>
           </a>
 
-          <div class="details"  ng-if="estaLogado">              
-              
+          <div class="details"  ng-if="estaLogado">
+
             </div>
             <a class="button pagination-link is-static resposta-button borderless" ng-if ="resposta.EhRespostaCorreta"  name="button">
               <span class="icon">
                 <i class="fa fa-check is-pulled-right"  aria-hidden="true"></i>
-              </span>               
+              </span>
             </a>
 
-            <a class="button pagination-link resposta-button borderless" 
-                  ng-click="abrirFecharEdicaoResposta($index)" 
+            <a class="button pagination-link resposta-button borderless"
+                  ng-click="abrirFecharEdicaoResposta($index)"
                   ng-if="(usuario.Id === resposta.Usuario.Id && dataDeEdicao(pergunta) || ehGauderio)">
               <span class="icon">
                   <i class=" fa fa-pencil"></i>
               </span>
-            </a> 
+            </a>
         </div>
-        
+
           <div class="level-item"></div>
 
           <div class="level-right resposta-button-wrapper">
@@ -182,16 +182,16 @@
                     <!-- trocar para o nickname apos implementação -->
                     {{resposta.Usuario.Nome}}
                   </b>
-              </p>              
+              </p>
               <p class="is-inline">
                 <small class="resposta-usuario-data">
                   às {{resposta.DataResposta | date:'dd/MM/yyyy HH:mm'}}
                 </small>
               </p>
-            </a>           
-            
+            </a>
+
           </div>
-                      
+
       </section>
 
       <article class="resposta-descricao">
@@ -202,20 +202,20 @@
         <hr class="divisor-comentario">
         <div ng-repeat="comentario in resposta.Comentarios">
           <div class="level content comentarios">
-            <span class="level-left comentario-detalhes">             
+            <span class="level-left comentario-detalhes">
               <p>
                 <a ng-href="/#!/perfil/{{comentario.Usuario.Id}}">
                   <strong>{{comentario.Usuario.Nome}}:</strong>
-                </a> 
+                </a>
                 <span>{{comentario.Descricao}}</span>
               </p>
             </span>
             <span class="level-right">
               <small>
-                {{comentario.DataComentario | date:'dd/MM/yyyy HH:mm'}}  
+                {{comentario.DataComentario | date:'dd/MM/yyyy HH:mm'}}
               </small>
-            </span>          
-          </div>             
+            </span>
+          </div>
         </div>
       </div>
 
@@ -397,7 +397,7 @@
 
 
     </div>
-   <p class="subtitle is-5">Vai ficar tipo assim:</p> 
+   <p class="subtitle is-5">Vai ficar tipo assim:</p>
    <pre><div class="box descricao-box" btf-markdown="responder.Descricao"></div></pre>
     <div class="level">
       <a class="button is-success zero-radius level-item" ng-click ="responderPergunta()">Responder</a>
