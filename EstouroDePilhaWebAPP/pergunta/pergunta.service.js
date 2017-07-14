@@ -16,7 +16,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
   };
 
   function buscarTop5PerguntasUpvotes() {
-    return $http.get(`${urlPergunta}top`);
+    return $http.get(`${urlPerguntas}top`);
   }
 
   function buscarTotalPerguntasCadastradas() {
@@ -88,6 +88,11 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     return;
   }
 
+  function removerMarkdown(pergunta) {
+    pergunta.Descricao = pergunta.Descricao.replace(/[\s\t\W][^\w\dçãáàâé",]/gim, ' ');
+    return;
+  }
+
   return {
     definirNumeroBadgesDoUsuario: definirNumeroBadgesDoUsuario,
     buscarPerguntaPorId : buscarPerguntaPorId,
@@ -107,6 +112,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     buscarTotalPerguntasCadastradas : buscarTotalPerguntasCadastradas,
     responderPergunta: responderPergunta,
     upvotePergunta : upvotePergunta,
-    downvotePergunta : downvotePergunta
+    downvotePergunta : downvotePergunta,
+    removerMarkdown: removerMarkdown
   }
 });
