@@ -17,7 +17,6 @@ function cadastrarPerguntaController($scope, $routeParams, $location,authService
 
   function cadastrarPergunta(novaPergunta) {
     novaPergunta.TagsIds = $scope.tagsSelecionadas.map(t => $scope.tags.find(x => x.Descricao == t).Id);
-    console.log(novaPergunta);
     cadastroPerguntaService.cadastrarPergunta(novaPergunta)
       .then(response => {
         $location.path('/pergunta/' + response.data.result.id)
@@ -40,7 +39,6 @@ function cadastrarPerguntaController($scope, $routeParams, $location,authService
   function buscarTags() {
     tagService.pegarTodasTags().then(res => {
       $scope.tags = res.data.result;
-      console.log($scope.tags);
     })
   }
 
@@ -57,7 +55,7 @@ function cadastrarPerguntaController($scope, $routeParams, $location,authService
   $scope.adicionarTag = function(nomeTag) {
     if (!$scope.tagsSelecionadas.some(t => t === nomeTag)) {
       $scope.tagsSelecionadas.push(nomeTag);
-      console.log($scope.tagsSelecionadas);
+      $scope.$broadcast('angucomplete-alt:clearInput');
     }
   }
 

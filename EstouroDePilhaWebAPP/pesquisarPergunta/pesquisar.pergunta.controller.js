@@ -34,6 +34,7 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
   $scope.adicionarTag = function(nomeTag) {
     if (!$scope.tagsSelecionadas.some(t => t === nomeTag)) {
       $scope.tagsSelecionadas.push(nomeTag);
+      $scope.$broadcast('angucomplete-alt:clearInput');
     }
   }
 
