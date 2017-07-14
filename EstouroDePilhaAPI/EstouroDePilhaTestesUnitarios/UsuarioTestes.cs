@@ -968,7 +968,7 @@ namespace EstouroDePilhaTestesUnitarios
         [TestMethod]
         public void TestarMedodoAdicionarBadgeFaceiroRetornoFalse()
         {
-            Usuario usuario1 = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+            Usuario usuario1 = new Usuario("Bernardo", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
             Pergunta pergunta5 = new Pergunta(usuario1, "Java", "me ajuda");
             List<UpVoteResposta> upVoteResposta = new List<UpVoteResposta>();
             List<UpVotePergunta> upVotePergunta = new List<UpVotePergunta>();
@@ -977,6 +977,23 @@ namespace EstouroDePilhaTestesUnitarios
             Assert.IsFalse(usuario1.AdicionarBadgeFaceiro(badge, upVotePergunta, upVoteResposta));
         }
 
+        [TestMethod]
+        public void TestarMedodoAdicionarBadgeGaloVeioUsuarioSemListaDeBadgesPerguntasERespostas()
+        {
+            Usuario usuario1 = new Usuario("Nunes", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+            Badge badge = new Badge("Galo véio", "teste", "Bronze");
+
+            Assert.IsFalse(usuario1.AdicionarBadgeGaloVeio(badge));
+        }
+
+        [TestMethod]
+        public void TestarMedodoAdicionarBadgeEmbretadoUsuarioSemListaDeBadgesPerguntasERespostas()
+        {
+            Usuario usuario1 = new Usuario("Josias", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+            Badge badge = new Badge("Embretado", "teste", "Bronze");
+
+            Assert.IsFalse(usuario1.AdicionarBadgeEmbretado(badge));
+        }
 
     }
 }

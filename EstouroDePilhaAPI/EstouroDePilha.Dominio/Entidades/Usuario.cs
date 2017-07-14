@@ -301,7 +301,7 @@ namespace EstouroDePilha.Dominio.Entidades
 
         public bool AdicionarBadgeEmbretado(Badge badge)
         {
-            if (this.Badges.FirstOrDefault(b => b.Titulo.Contains("Embretado")) != null)
+            if (this.Badges?.FirstOrDefault(b => b.Titulo.Contains("Embretado")) != null)
             {
                 return false;
             }
@@ -348,8 +348,8 @@ namespace EstouroDePilha.Dominio.Entidades
 
         public bool AdicionarBadgeGaloVeio(Badge badge)
         {
-            var ehGuriDeApartamento = this.Badges.FirstOrDefault(b => b.Titulo.Contains("Guri de apartamento")) != null;
-            var ehGauderio = this.Badges.FirstOrDefault(b => b.Titulo.Contains("Gauderio")) != null;
+            var ehGuriDeApartamento = this.Badges?.FirstOrDefault(b => b.Titulo.Contains("Guri de apartamento")) != null;
+            var ehGauderio = this.Badges?.FirstOrDefault(b => b.Titulo.Contains("Gauderio")) != null;
             if (ehGuriDeApartamento || !ehGauderio)
             {
                 return false;
