@@ -17,5 +17,7 @@ namespace EstouroDePilha.Dominio.Servicos
         void UsuarioDeuDownVote(Usuario usuario);
         void UsuarioRecebeuDownVote(Usuario usuario);
         void UsuarioRecebeuUpVotePergunta(Usuario usuario, int idPergunta);
+        void UsuarioSeCadastrouHaUmAno(Usuario usuario);
+        void UsuarioSeCadastrouHaTresAnos(Usuario usuario);
     }
 }

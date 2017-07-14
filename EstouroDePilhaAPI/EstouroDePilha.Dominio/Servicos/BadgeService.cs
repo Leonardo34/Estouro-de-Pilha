@@ -24,6 +24,9 @@ namespace EstouroDePilha.Dominio.Servicos
         private static readonly int ID_BADGE_PAPUDO = 17;
         private static readonly int ID_BADGE_BAITA_PERGUNTA = 19;
         private static readonly int ID_BADGE_GAUDERIO = 20;
+        private static readonly int ID_BADGE_EMBRETADO = 0;
+        private static readonly int ID_BADGE_GURI_APARTAMENTO = 0;
+        private static readonly int ID_BADGE_GALO_VEIO = 0;
 
         public BadgeService(IUsuarioRepositorio usuarioRepositorio, 
                 IBadgeRepositorio badgeRepositorio)
@@ -103,6 +106,24 @@ namespace EstouroDePilha.Dominio.Servicos
         {
             Badge badgePapudo = badgeRepositorio.ObterPorId(ID_BADGE_PAPUDO);
             usuario.AdicionaBadgePapudo(badgePapudo);
+
+            usuarioRepositorio.Alterar(usuario);
+        }
+
+        public void UsuarioSeCadastrouHaUmAno(Usuario usuario)
+        {
+            var totalVotos = usuarioRepositorio.QuantidadeUpVotesUsuario(usuario)
+                    + usuarioRepositorio.QuantidadeDownVotesUsuario(usuario);
+            Badge badgeGuriApartamento = badgeRepositorio.ObterPorId(ID_BADGE_GURI_APARTAMENTO);
+            usuario.adicionarbadgeGuriDeApartamento(badgeGuriApartamento, totalVotos);
+
+            usuarioRepositorio.Alterar(usuario);
+        }
+
+        public void UsuarioSeCadastrouHaTresAnos(Usuario usuario)
+        {
+            Badge badgeGaloVeio = badgeRepositorio.ObterPorId(ID_BADGE_GALO_VEIO);
+            usuario.AdicionarBadgeGaloVeio(badgeGaloVeio);
 
             usuarioRepositorio.Alterar(usuario);
         }
