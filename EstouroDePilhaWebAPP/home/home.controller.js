@@ -19,6 +19,7 @@ angular.module('EstouroPilhaApp').controller('homeController', function ($scope,
     let skip = $scope.pagina * $scope.itensPagina;
     perguntaService.buscarPerguntasPaginadas(skip, $scope.itensPagina).then(res => {
       $scope.perguntas = res.data.result;
+      $scope.perguntas.forEach(p => perguntaService.definirNumeroBadgesDoUsuario(p));
     })
   }
 
