@@ -80,7 +80,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     pergunta.Usuario.Badges.forEach(badge => {
       if(badge.Tipo === 'Gold')
         pergunta.Usuario.numeroBadges.gold++;
-      if(badge.Tipo === 'Silver')
+      if(badge.Tipo === 'Prata')
         pergunta.Usuario.numeroBadges.silver++;
       if(badge.Tipo === 'Bronze')
         pergunta.Usuario.numeroBadges.bronze++;
