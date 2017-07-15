@@ -73,7 +73,6 @@ namespace EstouroDePilhaAPI.Controllers
                 return ResponderErro(pergunta.Mensagens);
             }
             perguntasRepositorio.Criar(pergunta);
-            badgeService.UsuarioFezPergunta(usuario);
             return ResponderOK(new { id = pergunta.Id });
         }
 
