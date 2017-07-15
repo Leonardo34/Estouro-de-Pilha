@@ -104,7 +104,7 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                .Include("DownVotes")
                .Include("DownVotes.Usuario")
                .Include("UpVotes.Usuario")
-               .Where(p => p.Tags.Any(t => t.Descricao.Contains(tags))).ToList();         
+               .Where(p => p.Tags.Any(t => t.Descricao.Equals(tags))).ToList();         
         }
 
         public List<Pergunta> RetornarPerguntasOrdenadasPorMaiorNumeroDeUpVotes(List <Pergunta> perguntas)
