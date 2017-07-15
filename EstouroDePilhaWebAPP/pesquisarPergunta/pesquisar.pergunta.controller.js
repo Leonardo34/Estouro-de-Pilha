@@ -48,7 +48,7 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
       return;
     }
     $scope.ultimaPagina = false;
-    $scope.pagina = $scope.pagina -1;
+    $scope.pagina -= 1;
     pesquisarTrazerResultados(perguntaBuscada);
   }
 
@@ -58,7 +58,7 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
       $scope.ultimaPagina = true;
       return;
     }
-    $scope.pagina = $scope.pagina +1;
+    $scope.pagina += 1;
     pesquisarTrazerResultados(perguntaBuscada);
   }
 

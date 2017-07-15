@@ -106,15 +106,17 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
     if ($scope.pagina == 0) {
       return;
     }
-    $scope.pagina = $scope.pagina- 1;
+    $scope.ultimaPagina = false;
+    $scope.pagina -= 1;
     buscarRespostaPorIdDaPergunta()
   }
 
   function proxima() {
     if ((5 * ($scope.pagina +1)) / $scope.totalDeRespostas >= 1) {
+      $scope.ultimaPagina = true;
       return;
     }
-    $scope.pagina =$scope.pagina + 1;
+    $scope.pagina += 1;
     buscarRespostaPorIdDaPergunta();
   }
 
@@ -310,7 +312,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
           gauderio = true;
       });
     }
-    
+
     return gauderio;
   }
 
