@@ -132,7 +132,7 @@ namespace EstouroDePilha.Dominio.Entidades
             var respostaCorreta = Respostas?
                 .FirstOrDefault(r => r?.Pergunta.Id == idPergunta).Pergunta?
                 .Respostas.FirstOrDefault(r => r.EhRespostaCorreta == true);
-            var respostas = Respostas?.Where(r => r?.Pergunta.Id == idPergunta);
+            var respostas = Respostas?.Where(r => r.Pergunta.Id == idPergunta);
             var respostasPeleadoras = respostas
                 ?.Where(r => r?.UpVotes.Count - respostaCorreta?.UpVotes.Count > 10 && r.Usuario.Id == Id);
             var numeroDeRespostasPeleadoras = respostasPeleadoras?.Count();
@@ -338,7 +338,7 @@ namespace EstouroDePilha.Dominio.Entidades
             {
                 return false;
             }
-            var temContaAMaisDeUmAno = (DateTime.Today - this.DataCadastro).TotalDays == (DateTime.Now - DateTime.Now.AddYears(-1)).TotalDays;
+            var temContaAMaisDeUmAno = (DateTime.Now - this.DataCadastro).TotalDays >= 365;
             var nuncaPerguntou = this?.Perguntas.Count() == 0;
             if (temContaAMaisDeUmAno && nuncaPerguntou && (numeroDeVotos == 0))
             {
