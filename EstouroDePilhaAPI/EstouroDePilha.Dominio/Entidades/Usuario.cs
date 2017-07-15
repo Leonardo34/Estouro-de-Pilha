@@ -133,7 +133,7 @@ namespace EstouroDePilha.Dominio.Entidades
             var respostaCorreta = Respostas?
                 .FirstOrDefault(r => r?.Pergunta.Id == idPergunta).Pergunta?
                 .Respostas.FirstOrDefault(r => r.EhRespostaCorreta == true);
-            var respostas = Respostas?.Where(r => r.Pergunta.Id == idPergunta);
+            var respostas = Respostas?.Where(r => r.Pergunta?.Id == idPergunta).ToList();
             var respostasPeleadoras = respostas
                 ?.Where(r => r?.UpVotes.Count - respostaCorreta?.UpVotes.Count > 10 && r.Usuario.Id == Id);
             var numeroDeRespostasPeleadoras = respostasPeleadoras?.Count();
@@ -356,8 +356,8 @@ namespace EstouroDePilha.Dominio.Entidades
             {
                 return false;
             }
-            var passouTresAnos = (DateTime.Now - this.DataCadastro).TotalDays < (DateTime.Now - DateTime.Now.AddYears(-3)).TotalDays;
-            var respondeuMaisDe30Vezes = this?.Respostas.Count > 30;
+            var passouTresAnos = (DateTime.Now - this.DataCadastro).TotalDays >= 1095;
+            var respondeuMaisDe30Vezes = this.Respostas?.Count > 30;
             if (passouTresAnos && respondeuMaisDe30Vezes)
             {
                 this.Badges.Add(badge);

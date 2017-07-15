@@ -26,7 +26,7 @@ namespace EstouroDePilha.Dominio.Servicos
         private static readonly int ID_BADGE_GAUDERIO = 20;
         //private static readonly int ID_BADGE_EMBRETADO = 0;
         private static readonly int ID_BADGE_GURI_APARTAMENTO = 11;
-        private static readonly int ID_BADGE_GALO_VEIO = 0;
+        private static readonly int ID_BADGE_GALO_VEIO = 21;
 
         public BadgeService(IUsuarioRepositorio usuarioRepositorio, 
                 IBadgeRepositorio badgeRepositorio)
