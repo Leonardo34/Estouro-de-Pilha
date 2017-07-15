@@ -19,6 +19,7 @@ namespace EstouroDePilhaAPI.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioRepositorio repositorio;
+
         public UsuarioController (IUsuarioRepositorio repositorio)
         {
             this.repositorio = repositorio;

@@ -91,5 +91,19 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
                 .Where(u => DbFunctions.DiffDays(u.DataCadastro, DateTime.Now) >= dias)
                 .ToList();            
         }
+
+        public List<UpVotePergunta> ObterUpVotesPerguntaPorUsuario(Usuario usuario)
+        {
+            return contexto.UpVotesPerguntas
+                .Where(u => u.Usuario.Id == usuario.Id)
+                .ToList();
+        }
+
+        public List<UpVoteResposta> ObterUpVotesRespostaPorUsuario(Usuario usuario)
+        {
+            return contexto.UpVotesResposta
+                .Where(u => u.Usuario.Id == usuario.Id)
+                .ToList();
+        }
     }
 }
