@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -159,34 +160,55 @@ namespace EstouroDePilhaTestesUnitarios
         //    Assert.IsTrue(pergunta.PodeEditar());
         //}
 
-        //[TestMethod]
-        //public void EditarPerguntaEmMenosDeUmSegundooAntesDeCompletarSeteDias()
-        //{
-        //    Usuario usuario = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
-        //    Pergunta pergunta = new Pergunta(usuario, "Java", "me ajuda");
-        //    pergunta.DataPergunta = DateTime.Now.AddDays(-6).AddHours(-23).AddMinutes(-59).AddSeconds(-59);
+        [TestMethod]
+        public void EditarPerguntaEmMenosDeUmSegundooAntesDeCompletarSeteDias()
+        {
+            Usuario usuario = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+            Pergunta pergunta = new Pergunta(usuario, "Java", "me ajuda");
 
-        //    Assert.IsTrue(pergunta.PodeEditar());
-        //}
+            PropertyInfo prop = pergunta.GetType().GetProperty("DataPergunta", BindingFlags.Public | BindingFlags.Instance);
+            if (prop != null && prop.CanWrite)
+            {
+                prop.SetValue(pergunta, DateTime.Now.AddDays(-6).AddHours(-23).AddMinutes(-59).AddSeconds(-59), null);
+            }
 
-        //[TestMethod]
-        //public void EditarPerguntaEmExatos7Dias()
-        //{
-        //    Usuario usuario = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
-        //    Pergunta pergunta = new Pergunta(usuario, "Java", "me ajuda");
-        //    pergunta.DataPergunta = DateTime.Now.AddDays(-6).AddHours(-23).AddMinutes(-59).AddSeconds(-60);
+            pergunta.Editar("teste", "teste titulo", usuario);
+            Assert.AreEqual("teste titulo", pergunta.Titulo);
+            Assert.AreEqual("teste", pergunta.Descricao);
+        }
 
-        //    Assert.IsTrue(pergunta.PodeEditar());
-        //}
+        [TestMethod]
+        public void EditarPerguntaEmExatosMenos7Dias()
+        {
+            Usuario usuario = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+            Pergunta pergunta = new Pergunta(usuario, "Java", "me ajuda");
 
-        //[TestMethod]
-        //public void EditarPerguntaDepoisDeUmSegundoPassado7Dias()
-        //{
-        //    Usuario usuario = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
-        //    Pergunta pergunta = new Pergunta(usuario, "Java", "me ajuda");
-        //    pergunta.DataPergunta = DateTime.Now.AddDays(-7).AddSeconds(-1);
+            PropertyInfo prop = pergunta.GetType().GetProperty("DataPergunta", BindingFlags.Public | BindingFlags.Instance);
+            if (prop != null && prop.CanWrite)
+            {
+                prop.SetValue(pergunta, DateTime.Now.AddDays(-6).AddHours(-22), null);
+            }
 
-        //    Assert.IsFalse(pergunta.PodeEditar());
-        //}
+            pergunta.Editar("teste", "teste titulo", usuario);
+            Assert.AreEqual("teste titulo", pergunta.Titulo);
+            Assert.AreEqual("teste", pergunta.Descricao);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void EditarPerguntaDepoisDeUmSegundoPassado7Dias()
+        {
+            Usuario usuario = new Usuario("Mateus", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+            Pergunta pergunta = new Pergunta(usuario, "Java", "me ajuda");
+            //pergunta.DataPergunta = DateTime.Now.AddDays(-7).AddSeconds(-1);
+
+            PropertyInfo prop = pergunta.GetType().GetProperty("DataPergunta", BindingFlags.Public | BindingFlags.Instance);
+            if (prop != null && prop.CanWrite)
+            {
+                prop.SetValue(pergunta, pergunta.DataPergunta.AddDays(-7).AddSeconds(-1), null);
+            }
+
+            pergunta.Editar("teste", "teste", usuario);
+        }
     }
 }
