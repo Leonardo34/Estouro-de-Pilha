@@ -52,7 +52,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
   }
 
   function editarResposta(respostaModel) {
-    return $http.put(`${urlResposta}editar/${respostaModel.Id}`, respostaModel);
+    return $http.put(`${urlResposta}editar`, respostaModel);
   }
 
   function comentarResposta(idResposta, comentarioRespostaModel){
