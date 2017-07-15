@@ -38,6 +38,7 @@ namespace EstouroDePilha.Dominio.Entidades
             if (!string.IsNullOrWhiteSpace(senha))
                 Senha = CriptografarSenha(senha);
             Mensagens = new List<string>();
+            Badges = new List<Badge>();
         }
 
 
