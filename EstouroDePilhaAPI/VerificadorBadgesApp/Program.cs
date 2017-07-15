@@ -23,16 +23,18 @@ namespace VerificadorBadgesApp
 
         public static void Main(string[] args)
         {
-            List<Usuario> usuariosCadastradosAUmAno = 
+            List<Usuario> usuariosCadastradosAMaisDeUmAno =
                 usuarioRepositorio.ObterUsuariosCadastraosHa(TOTAL_DIAS_ANO);
-            List<Usuario> usuariosCadastradosATresAnos =
+               
+
+            List<Usuario> usuariosCadastradosAMaisDeTresAnos =
                 usuarioRepositorio.ObterUsuariosCadastraosHa(3 * TOTAL_DIAS_ANO);
 
-            foreach (var each in usuariosCadastradosAUmAno)
+            foreach (var each in usuariosCadastradosAMaisDeUmAno)
             {
                 badgeService.UsuarioSeCadastrouHaUmAno(each);
             }
-            foreach (var each in usuariosCadastradosATresAnos)
+            foreach (var each in usuariosCadastradosAMaisDeTresAnos)
             {
                 badgeService.UsuarioSeCadastrouHaTresAnos(each);
             }

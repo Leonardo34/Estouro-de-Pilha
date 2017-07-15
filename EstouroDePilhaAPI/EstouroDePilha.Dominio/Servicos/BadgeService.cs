@@ -14,7 +14,7 @@ namespace EstouroDePilha.Dominio.Servicos
         private readonly IBadgeRepositorio badgeRepositorio;
 
         private static readonly int ID_BADGE_GURI = 7;
-        private static readonly int ID_BADGE_FACEIRO = 8;
+        //private static readonly int ID_BADGE_FACEIRO = 8;
         private static readonly int ID_BADGE_AMARGO = 9;
         private static readonly int ID_BADGE_TRAMPOSO = 12;
         private static readonly int ID_BADGE_ESGUALEPADO = 13;
@@ -24,8 +24,8 @@ namespace EstouroDePilha.Dominio.Servicos
         private static readonly int ID_BADGE_PAPUDO = 17;
         private static readonly int ID_BADGE_BAITA_PERGUNTA = 19;
         private static readonly int ID_BADGE_GAUDERIO = 20;
-        private static readonly int ID_BADGE_EMBRETADO = 0;
-        private static readonly int ID_BADGE_GURI_APARTAMENTO = 0;
+        //private static readonly int ID_BADGE_EMBRETADO = 0;
+        private static readonly int ID_BADGE_GURI_APARTAMENTO = 11;
         private static readonly int ID_BADGE_GALO_VEIO = 0;
 
         public BadgeService(IUsuarioRepositorio usuarioRepositorio, 
@@ -111,7 +111,7 @@ namespace EstouroDePilha.Dominio.Servicos
         }
 
         public void UsuarioSeCadastrouHaUmAno(Usuario usuario)
-        {
+        {            
             var totalVotos = usuarioRepositorio.QuantidadeUpVotesUsuario(usuario)
                     + usuarioRepositorio.QuantidadeDownVotesUsuario(usuario);
             Badge badgeGuriApartamento = badgeRepositorio.ObterPorId(ID_BADGE_GURI_APARTAMENTO);

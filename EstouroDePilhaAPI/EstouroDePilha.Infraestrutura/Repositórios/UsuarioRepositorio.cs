@@ -87,9 +87,9 @@ namespace EstouroDePilha.Infraestrutura.Repositórios
 
         public List<Usuario> ObterUsuariosCadastraosHa(int dias)
         {
-            return contexto.Usuarios
-                .Where(u => (DateTime.Now - u.DataCadastro).Days == dias)
-                .ToList();
+           return contexto.Usuarios
+                .Where(u => DbFunctions.DiffDays(u.DataCadastro, DateTime.Now) >= dias)
+                .ToList();            
         }
     }
 }
