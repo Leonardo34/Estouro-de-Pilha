@@ -162,8 +162,9 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
 
   function comentarResposta(idDaResposta, comentario){
     perguntaService.comentarResposta(idDaResposta, comentario,)
-    .then(response => {
-      new Noty({
+    .then(response =>  {
+          buscarRespostaPorIdDaPergunta();
+          new Noty({
           type: 'success',
           timeout: 2000,
           text:  'A resposta foi comentada!'
@@ -179,8 +180,9 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
 
   function comentarPergunta(idDaPergunta, comentario){
     perguntaService.comentarPergunta(idDaPergunta, comentario)
-    .then(response => {
-      new Noty({
+    .then(response =>  {
+          buscarPerguntaPorId()
+          new Noty({
           type: 'success',
           timeout: 2000,
           text:  'A pergunta foi comentada!'
