@@ -161,7 +161,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   }
 
   function comentarResposta(idDaResposta, comentario){
-    perguntaService.comentarResposta(comentario, idDaPergunta)
+    perguntaService.comentarResposta(idDaResposta, comentario,)
     .then(response => {
       new Noty({
           type: 'success',

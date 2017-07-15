@@ -55,7 +55,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
     return $http.put(`${urlResposta}editar/${respostaModel.Id}`, respostaModel);
   }
 
-  function comentarResposta(comentarioRespostaModel, idResposta){
+  function comentarResposta(idResposta, comentarioRespostaModel){
     return $http.post(`${urlResposta}${idResposta}/comentar`, comentarioRespostaModel);
   }
 
@@ -66,7 +66,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
   function responderPergunta(respostaModel, idPergunta) {
     return $http.post(`${urlResposta}nova/${idPergunta}`, respostaModel);
   }
-  
+
   function upvotePergunta (idPergunta) {
     return $http.post(`${urlPerguntas}${idPergunta}/upvote`, {});
   }
@@ -83,7 +83,7 @@ angular.module('EstouroPilhaApp').service("perguntaService", function ($http){
       if(badge.Tipo === 'Silver')
         pergunta.Usuario.numeroBadges.silver++;
       if(badge.Tipo === 'Bronze')
-        pergunta.Usuario.numeroBadges.bronze++;        
+        pergunta.Usuario.numeroBadges.bronze++;
     });
     return;
   }
