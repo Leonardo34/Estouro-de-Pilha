@@ -169,7 +169,7 @@ namespace EstouroDePilha.Dominio.Entidades
             {
                 return false;
             }
-            var primeiraResposta = respostas[0].EhRespostaCorreta;
+            var primeiraResposta =  respostas[0].EhRespostaCorreta;
             if (resposta.EhRespostaCorreta == true && primeiraResposta == true)
             {
                 this.Badges?.Add(badge);
@@ -186,10 +186,10 @@ namespace EstouroDePilha.Dominio.Entidades
             if (this.Perguntas != null)
             {
                 upVotesPergunta = this.Perguntas.Select(p => p.UpVotes.Count()).Sum();
-            }
-            if (this.Respostas != null)
+            }         
+            if (this.Respostas!= null)
             {
-                upVotesResposta = this.Respostas.Select(r => r.UpVotes.Count).Sum();
+                 upVotesResposta = this.Respostas.Select(r => r.UpVotes.Count).Sum();
             }
             var badgeGuri = Badges?.FirstOrDefault(b => b.Titulo.Contains("Guri"));
             if ((upVotesPergunta + upVotesResposta == 1) && (badgeGuri == null))
