@@ -95,41 +95,37 @@ namespace EstouroDePilhaTestesUnitarios
             Assert.IsTrue(pergunta.ExisteRespostaCorreta());
         }
 
-        //[TestMethod]
-        //public void SelecionarRespostaCorretaApenasUmaRespostaCadastradaComUsuarioCorreto()
-        //{
-        //    Usuario usuario = new Usuario("Leonardo", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "123");
-        //    usuario.Id = 1;
-        //    Pergunta pergunta = new Pergunta();
-        //    pergunta.Usuario = usuario;
-        //    pergunta.Respostas = new List<Resposta>();
-        //    Resposta resposta1 = new Resposta();
-        //    resposta1.Usuario = new Usuario("Leonardo", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "123"); 
-        //    resposta1.EhRespostaCorreta = false;
-        //    pergunta.Respostas.Add(resposta1);
+        [TestMethod]
+        public void SelecionarRespostaCorretaApenasUmaRespostaCadastradaComUsuarioCorreto()
+        {
+            Usuario usuario = new Usuario("Leonardo", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "123");
+            usuario.Id = 1;
+            Pergunta pergunta = new Pergunta(usuario, "Java", "Java");
+            Resposta resposta1 = new Resposta(usuario, pergunta, "Java");
+            pergunta.Respostas.Add(resposta1);
 
-        //    Assert.IsTrue(pergunta.SelecionarRespostaCorreta(resposta1));
-        //    Assert.IsTrue((bool)resposta1.EhRespostaCorreta);
-        //    Assert.IsTrue(pergunta.ExisteRespostaCorreta());
-        //}
+            Assert.IsTrue(pergunta.SelecionarRespostaCorreta(resposta1, usuario));
+            Assert.IsTrue((bool)resposta1.EhRespostaCorreta);
+            Assert.IsTrue(pergunta.ExisteRespostaCorreta());
+        }
 
-        //[TestMethod]
-        //public void SelecionarRespostaCorretaEntreTresRespostasCadastradasComUsuarioIgual()
-        //{
-        //    Usuario usuario = new Usuario("Leonardo", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "123");
-        //    usuario.Id = 1;
-        //    Pergunta pergunta = new Pergunta();
-        //    pergunta.Usuario = usuario;
-        //    pergunta.Respostas = new List<Resposta>();
-        //    Resposta resposta1 = new Resposta();
-        //    resposta1.EhRespostaCorreta = false;
-        //    resposta1.Usuario = usuario;
-        //    pergunta.Respostas.Add(resposta1);
+        [TestMethod]
+        public void SelecionarRespostaCorretaEntreTresRespostasCadastradasComUsuarioIgual()
+        {
+            Usuario usuario = new Usuario("Leonardo", "Rua Sei La", "Qualquer descrição", "https/foto.png", "teste@hotmail.com", "123");
+            usuario.Id = 1;
+            Pergunta pergunta = new Pergunta(usuario, "Java", "Java");
+            Resposta resposta1 = new Resposta(usuario,pergunta, "java");
+            Resposta resposta2 = new Resposta(usuario, pergunta, "java");
+            Resposta resposta3 = new Resposta(usuario, pergunta, "java");
+            pergunta.Respostas.Add(resposta1);
+            pergunta.Respostas.Add(resposta2);
+            pergunta.Respostas.Add(resposta3);
 
-        //    Assert.IsFalse(pergunta.SelecionarRespostaCorreta(resposta1));
-        //    Assert.IsFalse((bool)resposta1.EhRespostaCorreta);
-        //    Assert.IsFalse(pergunta.ExisteRespostaCorreta());
-        //}
+            Assert.IsTrue(pergunta.SelecionarRespostaCorreta(resposta3, usuario));
+            Assert.IsFalse((bool)resposta1.EhRespostaCorreta);
+            Assert.IsTrue(pergunta.ExisteRespostaCorreta());
+        }
 
         [TestMethod]
         public void EditarPerguntaEmMenosDeSeteDias()
