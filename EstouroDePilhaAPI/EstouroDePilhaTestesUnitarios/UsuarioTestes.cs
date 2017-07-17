@@ -1013,59 +1013,59 @@ namespace EstouroDePilhaTestesUnitarios
             Assert.IsFalse(usuario1.AdicionarBadgeGaloVeio(badge));
         }
 
-        //[TestMethod]
-        //public void TestarMedodoAdicionarBadgeGaloVeioRetornoTrue()
-        //{
-        //    Usuario usuario = new Usuario("Nunes", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
-        //    Badge badge = new Badge("Galo véio", "teste", "Gold");
-        //    Badge badgeGauderio = new Badge("Gaudério", "teste", "Gold");
-        //    PropertyInfo prop = usuario.GetType().GetProperty("DataCadastro", BindingFlags.Public | BindingFlags.Instance);
-        //    if (null != prop && prop.CanWrite)
-        //    {
-        //        prop.SetValue(usuario, usuario.DataCadastro.AddYears(-5), null);
-        //    }
-        //    Pergunta pergunta = new Pergunta(usuario, "SQL", "Chave composta");
-        //    Resposta resposta = new Resposta(usuario, pergunta, "java");
-        //    var contador = 0;
-        //    List<Resposta> respostas = new List<Resposta>();
-        //    usuario.Respostas = respostas;
-        //    List<Badge> badges = new List<Badge>();
-        //    usuario.Badges = badges;
-        //    usuario.Badges.Add(badgeGauderio);
-        //    while (contador <= 37)
-        //    {
-        //        usuario.Respostas.Add(resposta);
-        //        contador++;
-        //    }
-        //    Assert.IsTrue(usuario.AdicionarBadgeGaloVeio(badge));
-        //}
+        [TestMethod]
+        public void TestarMedodoAdicionarBadgeGaloVeioRetornoTrue()
+        {
+            Usuario usuario = new Usuario("Nunes", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+            Badge badge = new Badge("Galo véio", "teste", "Gold");
+            Badge badgeGauderio = new Badge("Gaudério", "teste", "Gold");
+            PropertyInfo prop = usuario.GetType().GetProperty("DataCadastro", BindingFlags.Public | BindingFlags.Instance);
+            if (null != prop && prop.CanWrite)
+            {
+                prop.SetValue(usuario, usuario.DataCadastro =  DateTime.Now.AddYears(-3).AddMinutes(-1), null);
+            }
+            Pergunta pergunta = new Pergunta(usuario, "SQL", "Chave composta");
+            Resposta resposta = new Resposta(usuario, pergunta, "java");
+            var contador = 0;
+            List<Resposta> respostas = new List<Resposta>();
+            usuario.Respostas = respostas;
+            List<Badge> badges = new List<Badge>();
+            usuario.Badges = badges;
+            usuario.Badges.Add(badgeGauderio);
+            while (contador <= 37)
+            {
+                usuario.Respostas.Add(resposta);
+                contador++;
+            }
+            Assert.IsTrue(usuario.AdicionarBadgeGaloVeio(badge));
+        }
 
-        //[TestMethod]
-        //public void TestarMedodoAdicionarBadgeGaloVeioNaoTem3anosDeConta()
-        //{
-        //    Usuario usuario = new Usuario("Nunes", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
-        //    Badge badge = new Badge("Galo véio", "teste", "Gold");
-        //    Badge badgeGauderio = new Badge("Gaudério", "teste", "Gold");
-        //    PropertyInfo prop = usuario.GetType().GetProperty("DataCadastro", BindingFlags.Public | BindingFlags.Instance);
-        //    if (null != prop && prop.CanWrite)
-        //    {
-        //        prop.SetValue(usuario, usuario.DataCadastro.AddYears(-3), null);
-        //    }
-        //    Pergunta pergunta = new Pergunta(usuario, "SQL", "Chave composta");
-        //    Resposta resposta = new Resposta(usuario, pergunta, "java");
-        //    var contador = 0;
-        //    List<Resposta> respostas = new List<Resposta>();
-        //    usuario.Respostas = respostas;
-        //    List<Badge> badges = new List<Badge>();
-        //    usuario.Badges = badges;
-        //    usuario.Badges.Add(badgeGauderio);
-        //    while (contador <= 37)
-        //    {
-        //        usuario.Respostas.Add(resposta);
-        //        contador++;
-        //    }
-        //    Assert.IsFalse(usuario.AdicionarBadgeGaloVeio(badge));
-        //}
+        [TestMethod]
+        public void TestarMedodoAdicionarBadgeGaloVeioNaoTem3anosDeConta()
+        {
+            Usuario usuario = new Usuario("Nunes", "Rua Mario Bandeira", "Costs aren't losses ", "https/foto.png", "teste@hotmail.com", "q1223");
+            Badge badge = new Badge("Galo véio", "teste", "Gold");
+            Badge badgeGauderio = new Badge("Gaudério", "teste", "Gold");
+            PropertyInfo prop = usuario.GetType().GetProperty("DataCadastro", BindingFlags.Public | BindingFlags.Instance);
+            if (null != prop && prop.CanWrite)
+            {
+                prop.SetValue(usuario, usuario.DataCadastro = DateTime.Now.AddYears(-3).AddMinutes(1), null);
+            }
+            Pergunta pergunta = new Pergunta(usuario, "SQL", "Chave composta");
+            Resposta resposta = new Resposta(usuario, pergunta, "java");
+            var contador = 0;
+            List<Resposta> respostas = new List<Resposta>();
+            usuario.Respostas = respostas;
+            List<Badge> badges = new List<Badge>();
+            usuario.Badges = badges;
+            usuario.Badges.Add(badgeGauderio);
+            while (contador <= 37)
+            {
+                usuario.Respostas.Add(resposta);
+                contador++;
+            }
+            Assert.IsFalse(usuario.AdicionarBadgeGaloVeio(badge));
+        }
 
         [TestMethod]
         public void TestarMedodoAdicionarBadgeEmbretadoUsuarioSemListaDeBadgesPerguntasERespostas()

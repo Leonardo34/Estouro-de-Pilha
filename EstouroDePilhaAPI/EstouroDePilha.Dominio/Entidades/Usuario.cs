@@ -355,8 +355,8 @@ namespace EstouroDePilha.Dominio.Entidades
             if (ehGuriDeApartamento || !ehGauderio)
             {
                 return false;
-            }
-            var passouTresAnos = (DateTime.Now - this.DataCadastro).TotalDays >= 1095;
+            }         
+            var passouTresAnos = (DateTime.Now - this.DataCadastro).TotalDays > (DateTime.Now -  DateTime.Now.AddYears(-3)).TotalDays;
             var respondeuMaisDe30Vezes = this.Respostas?.Count > 30;
             if (passouTresAnos && respondeuMaisDe30Vezes)
             {
