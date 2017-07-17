@@ -12,11 +12,16 @@ namespace EstouroDePilha.Dominio.Models
         public int Id { get; set; }
         public string Titulo { get; set; }
         public UsuarioPerguntaHomeModel Usuario { get; set; }
-        public PerguntaHomeModel(int id, string titulo, int idUsuario, string url, string nomeUsuario, List<Badge> badges)
+        public List<string> Tags { get; set; }
+
+        public PerguntaHomeModel(int id, string titulo, int idUsuario, 
+            string url, string nomeUsuario, List<Badge> badges, List<Tag> tags)
         {
             Usuario = new UsuarioPerguntaHomeModel(idUsuario, url, nomeUsuario, badges);
             Id = id;
             Titulo = titulo;
+            Tags = new List<string>();
+            tags.ForEach(t => Tags.Add(t.Descricao));
         }
     }
 }

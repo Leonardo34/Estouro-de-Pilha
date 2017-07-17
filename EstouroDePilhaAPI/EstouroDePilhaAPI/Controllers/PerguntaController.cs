@@ -73,7 +73,6 @@ namespace EstouroDePilhaAPI.Controllers
                 return ResponderErro(pergunta.Mensagens);
             }
             perguntasRepositorio.Criar(pergunta);
-            badgeService.UsuarioFezPergunta(usuario);
             return ResponderOK(new { id = pergunta.Id });
         }
 
@@ -260,9 +259,8 @@ namespace EstouroDePilhaAPI.Controllers
         {
             List<PerguntaHomeModel> perguntasDto = new List<PerguntaHomeModel>();
             pergunta.ForEach(p => perguntasDto.Add(
-                new PerguntaHomeModel
-                (p.Id, p.Titulo, p.Usuario.Id, 
-                p.Usuario.UrlFotoPerfil, p.Usuario.Nome, p.Usuario.Badges)));
+                    new PerguntaHomeModel(p.Id, p.Titulo, p.Usuario.Id, 
+                            p.Usuario.UrlFotoPerfil, p.Usuario.Nome, p.Usuario.Badges, p.Tags)));
             return perguntasDto;
         }
 

@@ -24,9 +24,9 @@ namespace EstouroDePilha.Dominio.Servicos
         private static readonly int ID_BADGE_PAPUDO = 17;
         private static readonly int ID_BADGE_BAITA_PERGUNTA = 19;
         private static readonly int ID_BADGE_GAUDERIO = 20;
-        private static readonly int ID_BADGE_EMBRETADO = 0;
-        private static readonly int ID_BADGE_GURI_APARTAMENTO = 0;
-        private static readonly int ID_BADGE_GALO_VEIO = 0;
+        //private static readonly int ID_BADGE_EMBRETADO = 0;
+        private static readonly int ID_BADGE_GURI_APARTAMENTO = 11;
+        private static readonly int ID_BADGE_GALO_VEIO = 21;
 
         public BadgeService(IUsuarioRepositorio usuarioRepositorio, 
                 IBadgeRepositorio badgeRepositorio)
@@ -38,7 +38,7 @@ namespace EstouroDePilha.Dominio.Servicos
         public void UsuarioRecebeuUpVoteResposta(Usuario usuario, int idPergunta)
         {
             Badge badgeGuri = badgeRepositorio.ObterPorId(ID_BADGE_GURI);
-            usuario.AdicionaBadgeGuri(badgeGuri);
+            usuario.AdicionarBadgeGuri(badgeGuri);
             Badge badgePeleador = badgeRepositorio.ObterPorId(ID_BADGE_PELEADOR);
             usuario.AdicionarBadgePeleador(badgePeleador, idPergunta);
             Badge badgeGauderio = badgeRepositorio.ObterPorId(ID_BADGE_GAUDERIO);
@@ -71,15 +71,21 @@ namespace EstouroDePilha.Dominio.Servicos
 
         public void UsuarioDeuUpVote(Usuario usuario)
         {
-            //Badge badgeFaceiro = badgeRepositorio.ObterPorId(ID_BADGE_FACEIRO);
-            //usuario.AdicionarBadgeFaceiro(badgeFaceiro);
+            Badge badgeFaceiro = badgeRepositorio.ObterPorId(ID_BADGE_FACEIRO);
+            List<UpVotePergunta> upVotesPergunta = 
+                usuarioRepositorio.ObterUpVotesPerguntaPorUsuario(usuario);
+            List<UpVoteResposta> upVotesResposta =
+                usuarioRepositorio.ObterUpVotesRespostaPorUsuario(usuario);
+            usuario.AdicionarBadgeFaceiro(badgeFaceiro, upVotesPergunta, upVotesResposta);
+
+            usuarioRepositorio.Alterar(usuario);
         }
 
         public void UsuarioDeuDownVote(Usuario usuario)
         {
             Badge badgeAmargo = badgeRepositorio.ObterPorId(ID_BADGE_AMARGO);
             int quantidadeDownVotes = usuarioRepositorio.QuantidadeDownVotesUsuario(usuario);
-            usuario.AdicionaBadgeAmargo(badgeAmargo, quantidadeDownVotes);
+            usuario.AdicionarBadgeAmargo(badgeAmargo, quantidadeDownVotes);
 
             usuarioRepositorio.Alterar(usuario);
         }
@@ -88,8 +94,8 @@ namespace EstouroDePilha.Dominio.Servicos
         {
             Badge badgeTramposo = badgeRepositorio.ObterPorId(ID_BADGE_TRAMPOSO);
             Badge badgeDeVereda = badgeRepositorio.ObterPorId(ID_BADGE_DE_VEREDA);
-            usuario.AdicionaBadgeDeVereda(badgeDeVereda, idPergunta);
-            usuario.AdicionaBadgeTramposo(badgeTramposo);
+            usuario.AdicionarBadgeDeVereda(badgeDeVereda, idPergunta);
+            usuario.AdicionarBadgeTramposo(badgeTramposo);
 
             usuarioRepositorio.Alterar(usuario);
         }
@@ -97,7 +103,7 @@ namespace EstouroDePilha.Dominio.Servicos
         public void UsuarioRecebeuResposta(Usuario usuario, int idPergunta)
         {
             Badge badgeEntrevero = badgeRepositorio.ObterPorId(ID_BADGE_ENTREVERO);
-            usuario.AdicionaBadgeEntrevero(badgeEntrevero, idPergunta);
+            usuario.AdicionarBadgeEntrevero(badgeEntrevero, idPergunta);
 
             usuarioRepositorio.Alterar(usuario);
         }
@@ -105,17 +111,17 @@ namespace EstouroDePilha.Dominio.Servicos
         public void UsuarioFezPergunta(Usuario usuario)
         {
             Badge badgePapudo = badgeRepositorio.ObterPorId(ID_BADGE_PAPUDO);
-            usuario.AdicionaBadgePapudo(badgePapudo);
+            usuario.AdicionarBadgePapudo(badgePapudo);
 
             usuarioRepositorio.Alterar(usuario);
         }
 
         public void UsuarioSeCadastrouHaUmAno(Usuario usuario)
-        {
+        {            
             var totalVotos = usuarioRepositorio.QuantidadeUpVotesUsuario(usuario)
                     + usuarioRepositorio.QuantidadeDownVotesUsuario(usuario);
             Badge badgeGuriApartamento = badgeRepositorio.ObterPorId(ID_BADGE_GURI_APARTAMENTO);
-            usuario.adicionarbadgeGuriDeApartamento(badgeGuriApartamento, totalVotos);
+            usuario.AdicionarbadgeGuriDeApartamento(badgeGuriApartamento, totalVotos);
 
             usuarioRepositorio.Alterar(usuario);
         }

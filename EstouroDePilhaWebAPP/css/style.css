@@ -159,15 +159,15 @@ ol, ul {
   color: #fff;
   font-size: 12px;
   top: -100%;
-  left: -50%;
+  left: 50%;
   opacity: 0;
-  transform: scale(0);
+  transform: scale(0) translateX(50%);
   transition-duration: .3s;
 }
 
 [data-tooltip]:hover:after {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1) translate(-50%);
 }
 
 .borderless-left {

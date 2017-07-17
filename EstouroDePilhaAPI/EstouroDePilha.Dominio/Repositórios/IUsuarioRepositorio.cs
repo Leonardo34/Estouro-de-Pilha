@@ -9,5 +9,7 @@ namespace EstouroDePilha.Dominio.Repositórios
         int QuantidadeDownVotesUsuario(Usuario usuario);
         int QuantidadeUpVotesUsuario(Usuario usuario);
         List<Usuario> ObterUsuariosCadastraosHa(int dias);
+        List<UpVoteResposta> ObterUpVotesRespostaPorUsuario(Usuario usuario);
+        List<UpVotePergunta> ObterUpVotesPerguntaPorUsuario(Usuario usuario);
     }
 }

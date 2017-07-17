@@ -254,8 +254,8 @@
     </div>
   </div>
   <nav class="containerPerguntasERespostas nav-center" ng-if = "totalDeRespostas > 5 ">
-    <a class="pagination-previous is-centered" title="This is the first page"  ng-click = "anterior()" disabled>Anterior</a>
-    <a class="pagination-next is-centered" ng-click = "proxima()">Próxima</a>
+    <a class="pagination-previous is-centered" ng-class=  "{'link-disabled' : pagina == 0}"  ng-click = "anterior()" >Anterior</a>
+    <a class="pagination-next is-centered" ng-class = "{'link-disabled' : ultimaPagina == true}" ng-click = "proxima()">Próxima</a>
   </nav>
 </div>
 

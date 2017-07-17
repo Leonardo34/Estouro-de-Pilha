@@ -106,15 +106,17 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
     if ($scope.pagina == 0) {
       return;
     }
-    $scope.pagina = $scope.pagina- 1;
+    $scope.ultimaPagina = false;
+    $scope.pagina -= 1;
     buscarRespostaPorIdDaPergunta()
   }
 
   function proxima() {
     if ((5 * ($scope.pagina +1)) / $scope.totalDeRespostas >= 1) {
+      $scope.ultimaPagina = true;
       return;
     }
-    $scope.pagina =$scope.pagina + 1;
+    $scope.pagina += 1;
     buscarRespostaPorIdDaPergunta();
   }
 
@@ -159,9 +161,10 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
   }
 
   function comentarResposta(idDaResposta, comentario){
-    perguntaService.comentarResposta(comentario, idDaPergunta)
-    .then(response => {
-      new Noty({
+    perguntaService.comentarResposta(idDaResposta, comentario,)
+    .then(response =>  {
+          buscarRespostaPorIdDaPergunta();
+          new Noty({
           type: 'success',
           timeout: 2000,
           text:  'A resposta foi comentada!'
@@ -177,8 +180,9 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
 
   function comentarPergunta(idDaPergunta, comentario){
     perguntaService.comentarPergunta(idDaPergunta, comentario)
-    .then(response => {
-      new Noty({
+    .then(response =>  {
+          buscarPerguntaPorId()
+          new Noty({
           type: 'success',
           timeout: 2000,
           text:  'A pergunta foi comentada!'
@@ -310,7 +314,7 @@ angular.module('EstouroPilhaApp').controller('perguntaController',
           gauderio = true;
       });
     }
-    
+
     return gauderio;
   }
 

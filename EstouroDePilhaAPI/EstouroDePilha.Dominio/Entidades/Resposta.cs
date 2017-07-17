@@ -53,7 +53,7 @@ namespace EstouroDePilha.Dominio.Entidades
 
         private bool UsuarioPodeEditar(Usuario usuario)
         {
-            return (Usuario.Id == usuario.Id && (EhRespostaCorreta ?? false))
+            return (Usuario.Id == usuario.Id && (EhRespostaCorreta == false))
                 || usuario.Badges.Any(u => u.Titulo.Contains("Gaudério"));
         }
 

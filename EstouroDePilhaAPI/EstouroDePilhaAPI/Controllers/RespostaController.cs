@@ -66,15 +66,16 @@ namespace EstouroDePilhaAPI.Controllers
                 return ResponderErro(resposta.Mensagens);
             }
             respostasRepositorio.Criar(resposta);
+            badgeService.UsuarioFezPergunta(usuario); //papudo
             badgeService.UsuarioRecebeuResposta(pergunta.Usuario, idPergunta);
             return ResponderOK();
         }
 
         [BasicAuthorization]
-        [HttpPut, Route("editar/{idResposta:int}")]
-        public HttpResponseMessage Alterar([FromBody]RespostaModel respostaModel, int idResposta)
+        [HttpPut, Route("editar")]
+        public HttpResponseMessage Alterar([FromBody]RespostaModel respostaModel)
         {
-            var resposta = respostasRepositorio.ObterPorId(idResposta);
+            var resposta = respostasRepositorio.ObterPorId(respostaModel.Id);
             var usuario = usuariosRepositorio.ObterPorEmail(Thread.CurrentPrincipal.Identity.Name);
             if (resposta == null)
             {

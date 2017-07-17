@@ -4,7 +4,7 @@ angular.module('EstouroPilhaApp').factory('pesquisarPerguntaService', function (
   var urlNumeroderesultados = "http://localhost:53986/api/perguntas/numeroDeResultadosDaBusca";
 
   function buscarPerguntaPorTitulo(paginaAtual, conteudo, tags) {
-    return $http.get(`${urlPerguntas}?skip=${encodeURIComponent(paginaAtual)}&conteudo=${encodeURIComponent(conteudo)}&tags=${tags}`);
+    return $http.get(`${urlPerguntas}?skip=${encodeURIComponent(paginaAtual)}&conteudo=${encodeURIComponent(conteudo)}&tags=${encodeURIComponent(tags)}`);
   };
 
   function numeroDeResultadosDaPesquisa(conteudo, tags) {

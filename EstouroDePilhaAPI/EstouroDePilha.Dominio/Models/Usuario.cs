@@ -38,7 +38,6 @@ namespace EstouroDePilha.Dominio.Entidades
             if (!string.IsNullOrWhiteSpace(senha))
                 Senha = CriptografarSenha(senha);
             Mensagens = new List<string>();
-            Badges = new List<Badge>();
         }
 
 
@@ -133,7 +132,7 @@ namespace EstouroDePilha.Dominio.Entidades
             var respostaCorreta = Respostas?
                 .FirstOrDefault(r => r?.Pergunta.Id == idPergunta).Pergunta?
                 .Respostas.FirstOrDefault(r => r.EhRespostaCorreta == true);
-            var respostas = Respostas?.Where(r => r.Pergunta?.Id == idPergunta).ToList();
+            var respostas = Respostas?.Where(r => r?.Pergunta.Id == idPergunta);
             var respostasPeleadoras = respostas
                 ?.Where(r => r?.UpVotes.Count - respostaCorreta?.UpVotes.Count > 10 && r.Usuario.Id == Id);
             var numeroDeRespostasPeleadoras = respostasPeleadoras?.Count();
@@ -170,7 +169,7 @@ namespace EstouroDePilha.Dominio.Entidades
             {
                 return false;
             }
-            var primeiraResposta = respostas[0].EhRespostaCorreta;
+            var primeiraResposta =  respostas[0].EhRespostaCorreta;
             if (resposta.EhRespostaCorreta == true && primeiraResposta == true)
             {
                 this.Badges?.Add(badge);
@@ -187,10 +186,10 @@ namespace EstouroDePilha.Dominio.Entidades
             if (this.Perguntas != null)
             {
                 upVotesPergunta = this.Perguntas.Select(p => p.UpVotes.Count()).Sum();
-            }
-            if (this.Respostas != null)
+            }         
+            if (this.Respostas!= null)
             {
-                upVotesResposta = this.Respostas.Select(r => r.UpVotes.Count).Sum();
+                 upVotesResposta = this.Respostas.Select(r => r.UpVotes.Count).Sum();
             }
             var badgeGuri = Badges?.FirstOrDefault(b => b.Titulo.Contains("Guri"));
             if ((upVotesPergunta + upVotesResposta == 1) && (badgeGuri == null))
@@ -339,7 +338,7 @@ namespace EstouroDePilha.Dominio.Entidades
             {
                 return false;
             }
-            var temContaAMaisDeUmAno = (DateTime.Now - this.DataCadastro).TotalDays >= 365;
+            var temContaAMaisDeUmAno = (DateTime.Today - this.DataCadastro).TotalDays == (DateTime.Now - DateTime.Now.AddYears(-1)).TotalDays;
             var nuncaPerguntou = this?.Perguntas.Count() == 0;
             if (temContaAMaisDeUmAno && nuncaPerguntou && (numeroDeVotos == 0))
             {
@@ -355,9 +354,9 @@ namespace EstouroDePilha.Dominio.Entidades
             if (ehGuriDeApartamento || !ehGauderio)
             {
                 return false;
-            }         
-            var passouTresAnos = (DateTime.Now - this.DataCadastro).TotalDays > (DateTime.Now -  DateTime.Now.AddYears(-3)).TotalDays;
-            var respondeuMaisDe30Vezes = this.Respostas?.Count > 30;
+            }
+            var passouTresAnos = (DateTime.Now - this.DataCadastro).TotalDays < (DateTime.Now - DateTime.Now.AddYears(-3)).TotalDays;
+            var respondeuMaisDe30Vezes = this?.Respostas.Count > 30;
             if (passouTresAnos && respondeuMaisDe30Vezes)
             {
                 this.Badges.Add(badge);

@@ -34,6 +34,7 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
   $scope.adicionarTag = function(nomeTag) {
     if (!$scope.tagsSelecionadas.some(t => t === nomeTag)) {
       $scope.tagsSelecionadas.push(nomeTag);
+      $scope.$broadcast('angucomplete-alt:clearInput');
     }
   }
 
@@ -47,7 +48,7 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
       return;
     }
     $scope.ultimaPagina = false;
-    $scope.pagina = $scope.pagina -1;
+    $scope.pagina -= 1;
     pesquisarTrazerResultados(perguntaBuscada);
   }
 
@@ -57,7 +58,7 @@ angular.module('EstouroPilhaApp').controller('pesquisarPerguntaController', func
       $scope.ultimaPagina = true;
       return;
     }
-    $scope.pagina = $scope.pagina +1;
+    $scope.pagina += 1;
     pesquisarTrazerResultados(perguntaBuscada);
   }
 
